@@ -74,7 +74,7 @@ public class Usuario {
     @Column(name="biografia", length = 160)
     private String biografia;
 
-    @Column(name="reportado", length = 1)
+    @Column (name="reportado", length = 1)
     private int reportado;
 
     public Usuario() {
