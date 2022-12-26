@@ -1,5 +1,6 @@
 package es.geeko.model;
 
+import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -9,28 +10,72 @@ import java.sql.Date;
 public class Usuario {
 
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name="nombre", length = 60)
     private String nombre;
+
+    @Column(name="apellidos", length = 60)
     private String apellidos;
+
+    @Column(name="usuario", length = 30)
+    @NotNull
     private String usuario;
+
+    @Column(name="emilio", length = 100)
+    @NotNull
     private String emilio;
+
+    @Column(name="clave", length = 255)
+    @NotNull
     private String clave;
+
+    @Column(name="avatar", length = 255)
     private String avatar;
+
+    @Column(name="direccion1", length = 50)
     private String direccion1;
+
+    @Column(name="direccion2", length = 70)
     private String direccion2;
+
+    @Column(name="cp", length = 5)
     private String cp;
+
+    @Column(name="poblacion", length = 60)
     private String poblacion;
+
+    @Column(name="provincia", length = 45)
     private String provincia;
+
+    @Column(name="tlf", length = 15)
     private String tlf;
-    private boolean verificacion2pasos;
+
+    @Column(name="verificacion2pasos", length = 1)
+    private int verificacion2pasos;
+
+    @Column(name="fecha_alta")
     private Date fecha_alta;
+
+    @Column(name="valoracion_media")
     private double valoracion_media;
-    private boolean admin;
-    private boolean activo;
+
+    @Column(name="admin", length = 1)
+    private int admin;
+
+    @Column(name="activo", length = 1)
+    private int activo;
+
+    @Column(name="idSiguiendo")
     private int idSiguiendo;
+
+    @Column(name="biografia", length = 160)
     private String biografia;
-    private boolean reportado;
+
+    @Column(name="reportado", length = 1)
+    private int reportado;
 
     public Usuario() {
     }
@@ -146,11 +191,11 @@ public class Usuario {
         this.tlf = tlf;
     }
 
-    public boolean isVerificacion2pasos() {
+    public int getVerificacion2pasos() {
         return verificacion2pasos;
     }
 
-    public void setVerificacion2pasos(boolean verificacion2pasos) {
+    public void setVerificacion2pasos(int verificacion2pasos) {
         this.verificacion2pasos = verificacion2pasos;
     }
 
@@ -170,19 +215,19 @@ public class Usuario {
         this.valoracion_media = valoracion_media;
     }
 
-    public boolean isAdmin() {
+    public int getAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(int admin) {
         this.admin = admin;
     }
 
-    public boolean isActivo() {
+    public int getActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(int activo) {
         this.activo = activo;
     }
 
@@ -202,11 +247,11 @@ public class Usuario {
         this.biografia = biografia;
     }
 
-    public boolean isReportado() {
+    public int getReportado() {
         return reportado;
     }
 
-    public void setReportado(boolean reportado) {
+    public void setReportado(int reportado) {
         this.reportado = reportado;
     }
 
