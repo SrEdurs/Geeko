@@ -209,6 +209,33 @@ public class Usuario {
     public void setReportado(boolean reportado) {
         this.reportado = reportado;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", emilio='" + emilio + '\'' +
+                ", clave='" + clave + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", direccion1='" + direccion1 + '\'' +
+                ", direccion2='" + direccion2 + '\'' +
+                ", cp='" + cp + '\'' +
+                ", poblacion='" + poblacion + '\'' +
+                ", provincia='" + provincia + '\'' +
+                ", tlf='" + tlf + '\'' +
+                ", verificacion2pasos=" + verificacion2pasos +
+                ", fecha_alta=" + fecha_alta +
+                ", valoracion_media=" + valoracion_media +
+                ", admin=" + admin +
+                ", activo=" + activo +
+                ", idSiguiendo=" + idSiguiendo +
+                ", biografia='" + biografia + '\'' +
+                ", reportado=" + reportado +
+                '}';
+    }
 }
 
 
