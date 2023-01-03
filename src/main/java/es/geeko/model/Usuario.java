@@ -68,9 +68,6 @@ public class Usuario {
     @Column(name="activo", length = 1)
     private int activo;
 
-    @Column(name="idSiguiendo")
-    private int idSiguiendo;
-
     @Column(name="biografia", length = 160)
     private String biografia;
 
@@ -231,14 +228,6 @@ public class Usuario {
         this.activo = activo;
     }
 
-    public int getIdSiguiendo() {
-        return idSiguiendo;
-    }
-
-    public void setIdSiguiendo(int idSiguiendo) {
-        this.idSiguiendo = idSiguiendo;
-    }
-
     public String getBiografia() {
         return biografia;
     }
@@ -276,7 +265,6 @@ public class Usuario {
                 ", valoracion_media=" + valoracion_media +
                 ", admin=" + admin +
                 ", activo=" + activo +
-                ", idSiguiendo=" + idSiguiendo +
                 ", biografia='" + biografia + '\'' +
                 ", reportado=" + reportado +
                 '}';
