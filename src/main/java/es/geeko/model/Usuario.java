@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -73,6 +74,9 @@ public class Usuario {
 
     @Column (name="reportado", length = 1)
     private int reportado;
+
+    @OneToMany(mappedBy = "usuarios")
+    List<Mensaje> mensajes;
 
     public Usuario() {
     }
