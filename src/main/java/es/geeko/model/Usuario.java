@@ -89,6 +89,18 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "idSeguido"))
     private List<Usuario> seguimientos = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(name = "usuarios_has_transacciones",
+            joinColumns = @JoinColumn(name = "Usuarios_id"),
+            inverseJoinColumns = @JoinColumn(name = "Transacciones_id"))
+    private List<Transaccion> transacciones = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "preferencias",
+            joinColumns = @JoinColumn(name = "idUsuario"),
+            inverseJoinColumns = @JoinColumn(name = "idTematica"))
+    private List<Tematica> tematicas = new ArrayList<>();
+
     public Usuario() {
     }
 

@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,11 +35,11 @@ public class Transaccion {
     @NotNull
     private Date Fecha;
 
-    @OneToMany(mappedBy = "Usuarios")
-    List<Usuario> usuarios;
-
     @OneToOne(mappedBy = "producto")
     private Producto producto;
+
+    @ManyToMany(mappedBy = "transacciones")
+    private List<Usuario> usuarios = new ArrayList<>();
 
     public Transaccion() {
     }
