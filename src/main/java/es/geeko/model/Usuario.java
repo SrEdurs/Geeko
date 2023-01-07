@@ -259,6 +259,30 @@ public class Usuario {
         this.reportado = reportado;
     }
 
+    public List<Mensaje> getMensajes() {
+        return mensajes;
+    }
+
+    public void setMensajes(List<Mensaje> mensajes) {
+        this.mensajes = mensajes;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public List<Usuario> getSeguimientos() {
+        return seguimientos;
+    }
+
+    public void setSeguimientos(List<Usuario> seguimientos) {
+        this.seguimientos = seguimientos;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -282,6 +306,9 @@ public class Usuario {
                 ", activo=" + activo +
                 ", biografia='" + biografia + '\'' +
                 ", reportado=" + reportado +
+                ", mensajes=" + mensajes +
+                ", producto=" + producto +
+                ", seguimientos=" + seguimientos +
                 '}';
     }
 }
