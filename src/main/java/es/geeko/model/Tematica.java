@@ -2,6 +2,9 @@ package es.geeko.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tematicas")
 public class Tematica {
@@ -14,6 +17,15 @@ public class Tematica {
     @Column(name = "nombre", length = 45)
     private String nombre;
     //Falta idRelacionada (se devuelve a su misma tabla y npi) HELP
+
+    @ManyToMany(mappedBy = "tematicas")
+    private List<Usuario> usuarios = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "tematica_productos",
+            joinColumns = @JoinColumn(name = "Tematica_id"),
+            inverseJoinColumns = @JoinColumn(name = "Productos_id"))
+    private List<Producto> productos = new ArrayList<>();
 
     public Tematica() {
     }

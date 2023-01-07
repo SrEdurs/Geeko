@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -58,6 +59,9 @@ public class Producto {
 
     @OneToMany(mappedBy = "idProducto")
     List<Producto> producto;
+
+    @ManyToMany(mappedBy = "productos")
+    private List<Tematica> tematicas = new ArrayList<>();
 
     public Producto() {
     }
