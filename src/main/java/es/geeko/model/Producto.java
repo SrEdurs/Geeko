@@ -3,7 +3,8 @@ package es.geeko.model;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "productos")
@@ -54,6 +55,9 @@ public class Producto {
 
     @Column(name="fechaSubida")
     private Date fechaSubida;
+
+    @OneToMany(mappedBy = "idProducto")
+    List<Producto> producto;
 
     public Producto() {
     }

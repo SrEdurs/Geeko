@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -75,8 +76,18 @@ public class Usuario {
     @Column (name="reportado", length = 1)
     private int reportado;
 
-    @OneToMany(mappedBy = "usuarios")
+    @OneToMany(mappedBy = "idRemitente")
     List<Mensaje> mensajes;
+
+    @ManyToOne
+    @JoinColumn(name = "idPropietario")
+    Producto producto;
+
+    @ManyToMany
+    @JoinTable(name = "seguimientos",
+            joinColumns = @JoinColumn(name = "idSeguidor"),
+            inverseJoinColumns = @JoinColumn(name = "idSeguido"))
+    private List<Usuario> seguimientos = new ArrayList<>();
 
     public Usuario() {
     }
