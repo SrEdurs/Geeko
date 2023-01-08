@@ -54,6 +54,10 @@ public class Comentario {
     @JoinColumn(name = "id")
     Producto producto;
 
+    @ManyToOne
+    @JoinColumn(name = "id")
+    Usuario usuarios;
+
     @ManyToMany
     @JoinTable(name = "comentarios_reportados",
             joinColumns = @JoinColumn(name = "idComentarioReportado"),

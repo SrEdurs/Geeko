@@ -63,6 +63,12 @@ public class Producto {
     @ManyToMany(mappedBy = "productos")
     private List<Tematica> tematicas = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(name = "productos_reportados",
+            joinColumns = @JoinColumn(name = "idProductoReportado"),
+            inverseJoinColumns = @JoinColumn(name = "idReporte"))
+    private List<Reporte> reportesProductos = new ArrayList<>();
+
     public Producto() {
     }
 

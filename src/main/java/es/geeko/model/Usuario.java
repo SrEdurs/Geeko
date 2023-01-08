@@ -79,9 +79,15 @@ public class Usuario {
     @OneToMany(mappedBy = "idRemitente")
     List<Mensaje> mensajes;
 
+    @OneToMany(mappedBy = "idPropietario")
+    List<Comentario> comentarios;
+
     @ManyToOne
     @JoinColumn(name = "idPropietario")
     Producto producto;
+
+    @OneToMany(mappedBy = "idUsuarioReporta")
+    List<Reporte> reportes;
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Chat> chats = new ArrayList<>();
@@ -103,6 +109,12 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "idUsuario"),
             inverseJoinColumns = @JoinColumn(name = "idTematica"))
     private List<Tematica> tematicas = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "usuarios_reportes",
+            joinColumns = @JoinColumn(name = "idUsuarioReportado"),
+            inverseJoinColumns = @JoinColumn(name = "idReporte"))
+    private List<Reporte> reportesUsuarios = new ArrayList<>();
 
     public Usuario() {
     }
