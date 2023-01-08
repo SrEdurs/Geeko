@@ -2,12 +2,9 @@ package es.geeko.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "preferencias")
-public class Preferencias {
+public class Preferencia {
 
     @Id
     @Column(name = "idUsuario")
@@ -25,9 +22,7 @@ public class Preferencias {
     @JoinColumn(name = "id")
     Tematica tematica;
 
-
-
-    public Preferencias(int idUsuario, int idTematica) {
+    public Preferencia(int idUsuario, int idTematica) {
         this.idUsuario = idUsuario;
         this.idTematica = idTematica;
     }
