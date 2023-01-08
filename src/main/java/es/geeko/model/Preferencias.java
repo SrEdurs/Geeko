@@ -26,6 +26,7 @@ public class Preferencias {
     Tematica tematica;
 
 
+
     public Preferencias(int idUsuario, int idTematica) {
         this.idUsuario = idUsuario;
         this.idTematica = idTematica;
