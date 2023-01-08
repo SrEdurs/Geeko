@@ -16,7 +16,9 @@ public class Tematica {
 
     @Column(name = "nombre", length = 45)
     private String nombre;
-    //Falta idRelacionada (se devuelve a su misma tabla y npi) HELP
+
+    @Column(name = "idRelacionada")
+    private int idRelacionada;
 
     @ManyToMany(mappedBy = "tematicas")
     private List<Usuario> usuarios = new ArrayList<>();
@@ -45,12 +47,19 @@ public class Tematica {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    public int getIdRelacionada() {
+        return idRelacionada;
+    }
+    public void setIdRelacionada(int idRelacionada) {
+        this.idRelacionada = idRelacionada;
+    }
 
-@Override
+    @Override
 public String toString() {
     return "Temática{" +
             "id=" + id +
             ", nombre=" + nombre + '\'' +
+            ", idRelacionada=" + idRelacionada + '\'' +
             '}';
  }
 }

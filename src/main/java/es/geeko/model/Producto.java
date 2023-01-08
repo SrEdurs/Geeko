@@ -66,11 +66,12 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int id, String titulo, String imagen, String descripcion) {
+    public Producto(int id, String titulo, String imagen, String descripcion, int idUsuarioPropietario) {
         this.id = id;
         this.titulo = titulo;
         this.imagen = imagen;
         this.descripcion = descripcion;
+        this.idUsuarioPropietario = idUsuarioPropietario;
     }
 
     public int getId() {
