@@ -3,6 +3,7 @@ package es.geeko.model;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,11 @@ public class Chat {
 
     @Column(name="activo", length = 1)
     private int activo;
+
+    @JoinTable(name = "chats_has_usuarios",
+            joinColumns = @JoinColumn(name = "Chats_id"),
+            inverseJoinColumns = @JoinColumn(name = "Destinatarios_id"))
+    private List<Usuario> usuarios = new ArrayList<>();
 
     @OneToMany(mappedBy = "mensajes")
     List<Mensaje> mensajes;

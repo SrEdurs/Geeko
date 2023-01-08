@@ -83,6 +83,9 @@ public class Usuario {
     @JoinColumn(name = "idPropietario")
     Producto producto;
 
+    @ManyToMany(mappedBy = "usuarios")
+    private List<Chat> chats = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(name = "seguimientos",
             joinColumns = @JoinColumn(name = "idSeguidor"),
