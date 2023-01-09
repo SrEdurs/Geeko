@@ -32,6 +32,7 @@ public class Mensaje {
     @Column(name="idChat")
     private int idChat;
 
+    /*
     @ManyToOne
     @JoinColumn(name = "id")
     Usuario usuario;
@@ -39,7 +40,7 @@ public class Mensaje {
     @ManyToOne
     @JoinColumn(name = "id")
     Chat chat;
-
+*/
 
 
     public Mensaje() {
@@ -93,6 +94,7 @@ public class Mensaje {
         this.idChat = idChat;
     }
 
+  /*
     public Usuario getUsuario() {
         return usuario;
     }
@@ -108,4 +110,6 @@ public class Mensaje {
     public void setChat(Chat chat) {
         this.chat = chat;
     }
+
+   */
 }

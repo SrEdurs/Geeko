@@ -15,7 +15,7 @@ public class Producto {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name="título", length = 60)
     @NotNull
@@ -57,22 +57,25 @@ public class Producto {
     @Column(name="fechaSubida")
     private Date fechaSubida;
 
+    /*
     @OneToMany(mappedBy = "idProducto")
+
     List<Producto> producto;
-
+*/
     @ManyToMany(mappedBy = "productos")
-    private List<Tematica> tematicas = new ArrayList<>();
+    private List<Tematica> tematicas ;
 
+    /*
     @ManyToMany
     @JoinTable(name = "productos_reportados",
             joinColumns = @JoinColumn(name = "idProductoReportado"),
             inverseJoinColumns = @JoinColumn(name = "idReporte"))
     private List<Reporte> reportesProductos = new ArrayList<>();
-
+*/
     public Producto() {
     }
 
-    public Producto(int id, String titulo, String imagen, String descripcion, int idUsuarioPropietario) {
+    public Producto(Long id, String titulo, String imagen, String descripcion, int idUsuarioPropietario) {
         this.id = id;
         this.titulo = titulo;
         this.imagen = imagen;
@@ -80,11 +83,11 @@ public class Producto {
         this.idUsuarioPropietario = idUsuarioPropietario;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

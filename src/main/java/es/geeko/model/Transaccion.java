@@ -34,13 +34,13 @@ public class Transaccion {
     @Column(name = "fecha")
     @NotNull
     private Date Fecha;
-
+/*
     @OneToOne(mappedBy = "producto")
     private Producto producto;
 
     @ManyToMany(mappedBy = "transacciones")
     private List<Usuario> usuarios = new ArrayList<>();
-
+*/
     public Transaccion() {
     }
 

@@ -76,18 +76,27 @@ public class Usuario {
     @Column (name="reportado", length = 1)
     private int reportado;
 
+    @ManyToMany
+    @JoinTable(
+            name="Preferencias",
+            joinColumns = @JoinColumn(name="idUsuario"),
+            inverseJoinColumns = @JoinColumn(name="idTematica")
+    )
+    private List<Tematica> tematicas;
+
+    /*
     @OneToMany(mappedBy = "idRemitente")
-    List<Mensaje> mensajes;
+    private List<Mensaje> mensajes;
 
     @OneToMany(mappedBy = "idPropietario")
-    List<Comentario> comentarios;
+    private List<Comentario> comentarios;
 
     @ManyToOne
     @JoinColumn(name = "idPropietario")
-    Producto producto;
+    private Producto producto;
 
     @OneToMany(mappedBy = "idUsuarioReporta")
-    List<Reporte> reportes;
+    private List<Reporte> reportes;
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Chat> chats = new ArrayList<>();
@@ -115,7 +124,7 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "idUsuarioReportado"),
             inverseJoinColumns = @JoinColumn(name = "idReporte"))
     private List<Reporte> reportesUsuarios = new ArrayList<>();
-
+*/
     public Usuario() {
     }
 
@@ -286,6 +295,7 @@ public class Usuario {
         this.reportado = reportado;
     }
 
+    /*
     public List<Mensaje> getMensajes() {
         return mensajes;
     }
@@ -309,7 +319,7 @@ public class Usuario {
     public void setSeguimientos(List<Usuario> seguimientos) {
         this.seguimientos = seguimientos;
     }
-
+*/
     @Override
     public String toString() {
         return "Usuario{" +
@@ -319,6 +329,7 @@ public class Usuario {
                 ", usuario='" + usuario + '\'' +
                 ", emilio='" + emilio + '\'' +
                 ", clave='" + clave + '\'' +
+                ", temáticas='" + tematicas + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", direccion1='" + direccion1 + '\'' +
                 ", direccion2='" + direccion2 + '\'' +
@@ -333,9 +344,9 @@ public class Usuario {
                 ", activo=" + activo +
                 ", biografia='" + biografia + '\'' +
                 ", reportado=" + reportado +
-                ", mensajes=" + mensajes +
-                ", producto=" + producto +
-                ", seguimientos=" + seguimientos +
+                //", mensajes=" + mensajes +
+                //", producto=" + producto +
+                //", seguimientos=" + seguimientos +
                 '}';
     }
 }

@@ -17,7 +17,9 @@ public class Seguimiento {
     @Column(name="idSeguido")
     @NotNull
     private int idSeguido;
-
+/*
     @ManyToMany(mappedBy = "seguimientos")
     private List<Usuario> usuarios = new ArrayList<>();
+
+ */
 }

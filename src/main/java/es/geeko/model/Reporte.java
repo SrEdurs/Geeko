@@ -26,7 +26,7 @@ public class Reporte {
     @Column(name="idUsuarioReporta")
     @NotNull
     private int idUsuarioReporta;
-
+/*
     @ManyToOne
     @JoinColumn(name = "id")
     Usuario usuario;
@@ -39,5 +39,5 @@ public class Reporte {
 
     @ManyToMany(mappedBy = "reportesProductos")
     private List<Producto> productos = new ArrayList<>();
-
+*/
 }

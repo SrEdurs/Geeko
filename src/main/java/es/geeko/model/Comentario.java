@@ -46,6 +46,7 @@ public class Comentario {
     @Column(name="idProducto")
     private int idProducto;
 
+    /*
     @ManyToOne
     @JoinColumn(name = "id")
     Usuario usuario;
@@ -63,7 +64,7 @@ public class Comentario {
             joinColumns = @JoinColumn(name = "idComentarioReportado"),
             inverseJoinColumns = @JoinColumn(name = "idReporte"))
     private List<Reporte> reportesComentarios = new ArrayList<>();
-
+*/
     public Comentario() {
     }
 
@@ -156,6 +157,7 @@ public class Comentario {
         this.idProducto = idProducto;
     }
 
+    /*
     public Usuario getUsuario() {
         return usuario;
     }
@@ -179,4 +181,5 @@ public class Comentario {
     public void setReportesComentarios(List<Reporte> reportesComentarios) {
         this.reportesComentarios = reportesComentarios;
     }
+*/
 }

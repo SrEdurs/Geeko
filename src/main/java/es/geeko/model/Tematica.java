@@ -12,33 +12,37 @@ public class Tematica {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "nombre", length = 45)
     private String nombre;
 
     @Column(name = "idRelacionada")
-    private int idRelacionada;
+    private Long idRelacionada;
+
 
     @ManyToMany(mappedBy = "tematicas")
-    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Usuario> usuarios;
 
     @ManyToMany
-    @JoinTable(name = "tematica_productos",
-            joinColumns = @JoinColumn(name = "Tematica_id"),
-            inverseJoinColumns = @JoinColumn(name = "Productos_id"))
-    private List<Producto> productos = new ArrayList<>();
+    @JoinTable(
+            name="Tematica_Productos",
+            joinColumns = @JoinColumn(name="Tematica_id"),
+            inverseJoinColumns = @JoinColumn(name="Productos_id")
+    )
+    private List<Producto> productos;
 
     public Tematica() {
     }
-    public Tematica(int id, String nombre) {
+    public Tematica(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
+        //this.idRelacionada = 0L;
     }
-    public int getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getNombre() {
@@ -47,11 +51,21 @@ public class Tematica {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public int getIdRelacionada() {
+
+    public Long getIdRelacionada() {
         return idRelacionada;
     }
-    public void setIdRelacionada(int idRelacionada) {
+
+    public void setIdRelacionada(Long idRelacionada) {
         this.idRelacionada = idRelacionada;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
     @Override

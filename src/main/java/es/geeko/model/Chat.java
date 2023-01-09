@@ -34,6 +34,7 @@ public class Chat {
     @Column(name="activo", length = 1)
     private int activo;
 
+    /*
     @JoinTable(name = "chats_has_usuarios",
             joinColumns = @JoinColumn(name = "Chats_id"),
             inverseJoinColumns = @JoinColumn(name = "Destinatarios_id"))
@@ -41,7 +42,7 @@ public class Chat {
 
     @OneToMany(mappedBy = "mensajes")
     List<Mensaje> mensajes;
-
+*/
     public Chat() {
     }
 
@@ -108,6 +109,7 @@ public class Chat {
         this.activo = activo;
     }
 
+    /*
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
@@ -123,7 +125,7 @@ public class Chat {
     public void setMensajes(List<Mensaje> mensajes) {
         this.mensajes = mensajes;
     }
-
+*/
     @Override
     public String toString() {
         return "Chat{" +
@@ -134,8 +136,8 @@ public class Chat {
                 ", imagen='" + imagen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", activo=" + activo +
-                ", usuarios=" + usuarios +
-                ", mensajes=" + mensajes +
+                //", usuarios=" + usuarios +
+                //", mensajes=" + mensajes +
                 '}';
     }
 }
