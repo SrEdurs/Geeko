@@ -43,18 +43,16 @@ public class Comentario {
     @NotNull
     private int activo;
 
-    @Column(name="idPropietario")
-    @NotNull
-    private int idPropietario;
-
     @Column(name="idProducto")
     private int idProducto;
 
-    /*
     @ManyToOne
-    @JoinColumn(name = "id")
-    Usuario usuario;
+    @JoinColumn(name = "idPropietario")
+    private Usuario usuario;
 
+
+
+    /*
     @ManyToOne
     @JoinColumn(name = "id")
     Producto producto;
@@ -72,13 +70,12 @@ public class Comentario {
     public Comentario() {
     }
 
-    public Comentario(int id, String titulo, String texto, Date fecha, int activo, int idPropietario) {
+    public Comentario(long id, String titulo, String texto, Date fecha, int activo) {
         this.id = id;
         this.titulo = titulo;
         this.texto = texto;
         this.fecha = fecha;
         this.activo = activo;
-        this.idPropietario = idPropietario;
     }
 
     /*
@@ -106,4 +103,11 @@ public class Comentario {
         this.reportesComentarios = reportesComentarios;
     }
 */
+
+    @Override
+    public String toString() {
+        return "Comentario{" +
+                "id=" + id +
+                '}';
+    }
 }

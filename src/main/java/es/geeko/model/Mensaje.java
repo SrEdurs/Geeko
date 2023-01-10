@@ -19,10 +19,6 @@ public class Mensaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="idRemitente")
-    @NotNull
-    private int idRemitente;
-
     @Column(name="fecha")
     @NotNull
     private Date fecha;
@@ -33,8 +29,13 @@ public class Mensaje {
     @Column(name="imagen", length = 255)
     private String imagen;
 
-    @Column(name="idChat")
-    private int idChat;
+    @ManyToOne
+    @JoinColumn(name = "idRemitente")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "idChat")
+    private Chat chat;
 
     /*
     @ManyToOne
@@ -52,10 +53,8 @@ public class Mensaje {
 
     public Mensaje(long id, int idRemitente, Date fecha, String texto, int idChat) {
         this.id = id;
-        this.idRemitente = idRemitente;
         this.fecha = fecha;
         this.texto = texto;
-        this.idChat = idChat;
     }
 
     /*
@@ -76,4 +75,11 @@ public class Mensaje {
     }
 
    */
+
+    @Override
+    public String toString() {
+        return "Mensaje{" +
+                "id=" + id +
+                '}';
+    }
 }

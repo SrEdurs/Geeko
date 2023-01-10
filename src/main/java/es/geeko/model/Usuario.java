@@ -96,27 +96,25 @@ public class Usuario {
     )
     private List<Transaccion> transacciones;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Comentario> comentarios;
 
-    /*@ManyToMany
+    @OneToMany(mappedBy = "usuario")
+    private List<Producto> productos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Mensaje> mensajes;
+
+
+    @ManyToMany
     @JoinTable(
             name="Usuarios_Reportes",
             joinColumns = @JoinColumn(name="idUsuarioReportado"),
             inverseJoinColumns = @JoinColumn(name="idReporte")
     )
     private List<Reporte> reportes;
-*/
 
-    /*
-    @OneToMany(mappedBy = "idRemitente")
-    private List<Mensaje> mensajes;
-
-    @OneToMany(mappedBy = "idPropietario")
-    private List<Comentario> comentarios;
-
-    @ManyToOne
-    @JoinColumn(name = "idPropietario")
-    private Producto producto;
-
+/*
     @OneToMany(mappedBy = "idUsuarioReporta")
     private List<Reporte> reportes;
 
@@ -165,6 +163,10 @@ public class Usuario {
                 ", reportado=" + reportado +
                 ", tematicas=" + tematicas +
                 ", transacciones=" + transacciones +
+                ", comentarios=" + comentarios +
+                ", productos=" + productos +
+                ", mensajes=" + mensajes +
+                ", reportes=" + reportes +
                 '}';
     }
 }

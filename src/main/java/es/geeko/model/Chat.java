@@ -38,6 +38,9 @@ public class Chat {
     @Column(name="activo", length = 1)
     private int activo;
 
+    @OneToMany(mappedBy = "chat")
+    private List<Mensaje> mensajes;
+
     /*
     @JoinTable(name = "chats_has_usuarios",
             joinColumns = @JoinColumn(name = "Chats_id"),
@@ -67,8 +70,7 @@ public class Chat {
                 ", imagen='" + imagen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", activo=" + activo +
-                //", usuarios=" + usuarios +
-                //", mensajes=" + mensajes +
+                ", mensajes=" + mensajes +
                 '}';
     }
 }

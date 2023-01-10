@@ -28,13 +28,7 @@ public class Tematica {
     @ManyToMany(mappedBy = "tematicas")
     private List<Usuario> usuarios;
 
-    @ManyToMany
-    @JoinTable(
-            name="Tematica_Productos",
-            joinColumns = @JoinColumn(name="Tematica_id"),
-            inverseJoinColumns = @JoinColumn(name="Productos_id")
-    )
-    private List<Producto> productos;
+
 
     public Tematica() {
     }

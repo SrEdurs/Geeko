@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "reportes")
 public class Reporte {
 
     @Id
@@ -27,8 +27,8 @@ public class Reporte {
     @NotNull
     private int idUsuarioReporta;
 
-    //@ManyToMany(mappedBy = "reportes")
-    //private List<Usuario> usuarios;
+    @ManyToMany(mappedBy = "reportes")
+    private List<Usuario> usuarios;
 /*
     @ManyToOne
     @JoinColumn(name = "id")
@@ -40,4 +40,21 @@ public class Reporte {
     @ManyToMany(mappedBy = "reportesProductos")
     private List<Producto> productos = new ArrayList<>();
 */
+
+    public Reporte() {
+    }
+
+    public Reporte(int id, String motivo, Date fecha, int idUsuarioReporta) {
+        this.id = id;
+        this.motivo = motivo;
+        this.fecha = fecha;
+        this.idUsuarioReporta = idUsuarioReporta;
+    }
+
+    @Override
+    public String toString() {
+        return "Reporte{" +
+                "id=" + id +
+                '}';
+    }
 }
