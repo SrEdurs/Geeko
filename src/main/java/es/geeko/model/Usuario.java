@@ -4,9 +4,7 @@ import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -80,6 +78,16 @@ public class Usuario {
     @Column (name="reportado", length = 1)
     private int reportado;
 
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Comentario> comentarios;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Producto> productos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Mensaje> mensajes;
+
     @ManyToMany
     @JoinTable(
             name="Preferencias",
@@ -96,15 +104,13 @@ public class Usuario {
     )
     private List<Transaccion> transacciones;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Comentario> comentarios;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Producto> productos;
-
-    @OneToMany(mappedBy = "usuario")
-    private List<Mensaje> mensajes;
-
+    @ManyToMany
+    @JoinTable(
+            name="Chats_has_Usuarios",
+            joinColumns = @JoinColumn(name="Destinatarios_id"),
+            inverseJoinColumns = @JoinColumn(name="Chats_id")
+    )
+    private List<Chat> chats;
 
     @ManyToMany
     @JoinTable(
@@ -112,22 +118,16 @@ public class Usuario {
             joinColumns = @JoinColumn(name="idUsuarioReportado"),
             inverseJoinColumns = @JoinColumn(name="idReporte")
     )
+    private List<Reporte> usuariosReportados;
+
+    @OneToMany(mappedBy = "usuario")
     private List<Reporte> reportes;
 
-/*
-    @OneToMany(mappedBy = "idUsuarioReporta")
-    private List<Reporte> reportes;
 
-    @ManyToMany(mappedBy = "usuarios")
-    private List<Chat> chats = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "seguimientos",
-            joinColumns = @JoinColumn(name = "idSeguidor"),
-            inverseJoinColumns = @JoinColumn(name = "idSeguido"))
-    private List<Usuario> seguimientos = new ArrayList<>();
+   //Falta la relación Many to Many recursiva, la tabla "Seguimientos" es la intermedia
 
-*/
+
     public Usuario() {
     }
 
@@ -163,9 +163,11 @@ public class Usuario {
                 ", reportado=" + reportado +
                 ", tematicas=" + tematicas +
                 ", transacciones=" + transacciones +
+                ", chats=" + chats +
                 ", comentarios=" + comentarios +
                 ", productos=" + productos +
                 ", mensajes=" + mensajes +
+                ", usuariosReportados=" + usuariosReportados +
                 ", reportes=" + reportes +
                 '}';
     }

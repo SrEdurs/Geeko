@@ -1,10 +1,7 @@
 package es.geeko.model;
-
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
-
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,23 +20,19 @@ public class Reporte {
     @NotNull
     private Date fecha;
 
-    @Column(name="idUsuarioReporta")
-    @NotNull
-    private int idUsuarioReporta;
-
-    @ManyToMany(mappedBy = "reportes")
-    private List<Usuario> usuarios;
-/*
     @ManyToOne
-    @JoinColumn(name = "id")
-    Usuario usuario;
+    @JoinColumn(name = "idUsuarioReporta")
+    private Usuario usuario;
 
-    @ManyToMany(mappedBy = "reportesComentarios")
-    private List<Comentario> comentarios = new ArrayList<>();
+    @ManyToMany(mappedBy = "usuariosReportados")
+    private List<Usuario> usuarios;
 
-    @ManyToMany(mappedBy = "reportesProductos")
-    private List<Producto> productos = new ArrayList<>();
-*/
+    @ManyToMany(mappedBy = "productosReportados")
+    private List<Producto> productos;
+
+    @ManyToMany(mappedBy = "comentariosReportados")
+    private List<Comentario> comentarios;
+
 
     public Reporte() {
     }
@@ -48,7 +41,6 @@ public class Reporte {
         this.id = id;
         this.motivo = motivo;
         this.fecha = fecha;
-        this.idUsuarioReporta = idUsuarioReporta;
     }
 
     @Override

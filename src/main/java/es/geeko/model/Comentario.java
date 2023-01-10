@@ -1,12 +1,9 @@
 package es.geeko.model;
-
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,30 +40,23 @@ public class Comentario {
     @NotNull
     private int activo;
 
-    @Column(name="idProducto")
-    private int idProducto;
-
     @ManyToOne
     @JoinColumn(name = "idPropietario")
     private Usuario usuario;
 
-
-
-    /*
     @ManyToOne
-    @JoinColumn(name = "id")
-    Producto producto;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    Usuario usuarios;
+    @JoinColumn(name = "idProducto")
+    private Producto producto;
 
     @ManyToMany
-    @JoinTable(name = "comentarios_reportados",
-            joinColumns = @JoinColumn(name = "idComentarioReportado"),
-            inverseJoinColumns = @JoinColumn(name = "idReporte"))
-    private List<Reporte> reportesComentarios = new ArrayList<>();
-*/
+    @JoinTable(
+            name="Comentarios_Reportados",
+            joinColumns = @JoinColumn(name="idComentarioReportado"),
+            inverseJoinColumns = @JoinColumn(name="idReporte")
+    )
+    private List<Reporte> comentariosReportados;
+
+
     public Comentario() {
     }
 
@@ -77,32 +67,6 @@ public class Comentario {
         this.fecha = fecha;
         this.activo = activo;
     }
-
-    /*
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public List<Reporte> getReportesComentarios() {
-        return reportesComentarios;
-    }
-
-    public void setReportesComentarios(List<Reporte> reportesComentarios) {
-        this.reportesComentarios = reportesComentarios;
-    }
-*/
 
     @Override
     public String toString() {

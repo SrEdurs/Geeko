@@ -1,12 +1,9 @@
 package es.geeko.model;
-
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -57,17 +54,28 @@ public class Producto {
     @Column(name="fechaSubida")
     private Date fechaSubida;
 
+    @OneToMany(mappedBy = "producto")
+    private List<Comentario> comentario;
+
     @ManyToOne
     @JoinColumn(name = "idUsuarioPropietario")
     private Usuario usuario;
 
-    /*
+    //Revisar la One to One
+    //@OneToOne(mappedBy = "producto")
+    //private Transaccion transaccion;
+
+    //Falta la Many to May con Tematica
+
     @ManyToMany
-    @JoinTable(name = "productos_reportados",
-            joinColumns = @JoinColumn(name = "idProductoReportado"),
-            inverseJoinColumns = @JoinColumn(name = "idReporte"))
-    private List<Reporte> reportesProductos = new ArrayList<>();
-*/
+    @JoinTable(
+            name="Productos_Reportados",
+            joinColumns = @JoinColumn(name="idProductoReportado"),
+            inverseJoinColumns = @JoinColumn(name="idReporte")
+    )
+    private List<Reporte> productosReportados;
+
+
     public Producto() {
     }
 

@@ -1,12 +1,9 @@
 package es.geeko.model;
-
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,10 +25,6 @@ public class Transaccion {
     @NotNull
     private int idVendedor;
 
-    @Column(name = "Productos_id")
-    @NotNull
-    private int Productos_id;
-
     @Column(name= "valoracionTransaccion")
     private double valoracionTransaccion;
 
@@ -39,15 +32,15 @@ public class Transaccion {
     @NotNull
     private Date Fecha;
 
-    @ManyToMany(mappedBy = "transacciones")
-    private List<Usuario> usuarios;
-/*
-    @OneToOne(mappedBy = "producto")
-    private Producto producto;
+    //Revisar la One to One
+    //@OneToOne
+    //@JoinColumn(name = "Productos_id")
+    //private Producto producto;
 
     @ManyToMany(mappedBy = "transacciones")
-    private List<Usuario> usuarios = new ArrayList<>();
-*/
+    private List<Usuario> usuarios;
+
+
     public Transaccion() {
     }
 
@@ -55,9 +48,15 @@ public class Transaccion {
         this.id = id;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
-        Productos_id = productos_id;
         this.valoracionTransaccion = valoracionTransaccion;
         Fecha = fecha;
         this.usuarios = usuarios;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaccion{" +
+                "id=" + id +
+                '}';
     }
 }

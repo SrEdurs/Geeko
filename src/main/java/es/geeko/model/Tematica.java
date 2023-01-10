@@ -1,10 +1,7 @@
 package es.geeko.model;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +25,9 @@ public class Tematica {
     @ManyToMany(mappedBy = "tematicas")
     private List<Usuario> usuarios;
 
+    //Falta la one to many recursiva
+
+    //Falta la many to many con producto
 
 
     public Tematica() {

@@ -1,12 +1,9 @@
 package es.geeko.model;
-
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Getter
@@ -37,16 +34,6 @@ public class Mensaje {
     @JoinColumn(name = "idChat")
     private Chat chat;
 
-    /*
-    @ManyToOne
-    @JoinColumn(name = "id")
-    Usuario usuario;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    Chat chat;
-*/
-
 
     public Mensaje() {
     }
@@ -57,24 +44,6 @@ public class Mensaje {
         this.texto = texto;
     }
 
-    /*
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
-
-   */
 
     @Override
     public String toString() {

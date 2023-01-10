@@ -4,8 +4,6 @@ import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,15 +39,9 @@ public class Chat {
     @OneToMany(mappedBy = "chat")
     private List<Mensaje> mensajes;
 
-    /*
-    @JoinTable(name = "chats_has_usuarios",
-            joinColumns = @JoinColumn(name = "Chats_id"),
-            inverseJoinColumns = @JoinColumn(name = "Destinatarios_id"))
-    private List<Usuario> usuarios = new ArrayList<>();
+    @ManyToMany(mappedBy = "chats")
+    private List<Usuario> usuarios;
 
-    @OneToMany(mappedBy = "mensajes")
-    List<Mensaje> mensajes;
-*/
     public Chat() {
     }
 
