@@ -2,19 +2,23 @@ package es.geeko.model;
 
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Transacciones")
 public class Transaccion {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name="idCliente")
     @NotNull
@@ -34,6 +38,9 @@ public class Transaccion {
     @Column(name = "fecha")
     @NotNull
     private Date Fecha;
+
+    @ManyToMany(mappedBy = "transacciones")
+    private List<Usuario> usuarios;
 /*
     @OneToOne(mappedBy = "producto")
     private Producto producto;
@@ -44,51 +51,13 @@ public class Transaccion {
     public Transaccion() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Transaccion(long id, int idCliente, int idVendedor, int productos_id, double valoracionTransaccion, Date fecha, List<Usuario> usuarios) {
         this.id = id;
-    }
-
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
-    }
-
-    public int getIdVendedor() {
-        return idVendedor;
-    }
-
-    public void setIdVendedor(int idVendedor) {
         this.idVendedor = idVendedor;
-    }
-
-    public int getProductos_id() {
-        return Productos_id;
-    }
-
-    public void setProductos_id(int productos_id) {
         Productos_id = productos_id;
-    }
-
-    public double getValoracionTransaccion() {
-        return valoracionTransaccion;
-    }
-
-    public void setValoracionTransaccion(double valoracionTransaccion) {
         this.valoracionTransaccion = valoracionTransaccion;
-    }
-
-    public Date getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(Date fecha) {
         Fecha = fecha;
+        this.usuarios = usuarios;
     }
 }

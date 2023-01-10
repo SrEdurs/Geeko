@@ -1,11 +1,15 @@
 package es.geeko.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "tematicas")
 public class Tematica {
 
@@ -34,38 +38,11 @@ public class Tematica {
 
     public Tematica() {
     }
+
     public Tematica(Long id, String nombre) {
         this.id = id;
         this.nombre = nombre;
         //this.idRelacionada = 0L;
-    }
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Long getIdRelacionada() {
-        return idRelacionada;
-    }
-
-    public void setIdRelacionada(Long idRelacionada) {
-        this.idRelacionada = idRelacionada;
-    }
-
-    public List<Producto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
     }
 
     @Override

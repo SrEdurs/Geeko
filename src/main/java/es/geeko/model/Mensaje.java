@@ -2,18 +2,22 @@ package es.geeko.model;
 
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "mensajes")
 public class Mensaje {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name="idRemitente")
     @NotNull
@@ -46,55 +50,15 @@ public class Mensaje {
     public Mensaje() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public Mensaje(long id, int idRemitente, Date fecha, String texto, int idChat) {
         this.id = id;
-    }
-
-    public int getIdRemitente() {
-        return idRemitente;
-    }
-
-    public void setIdRemitente(int idRemitente) {
         this.idRemitente = idRemitente;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public String getTexto() {
-        return texto;
-    }
-
-    public void setTexto(String texto) {
         this.texto = texto;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public int getIdChat() {
-        return idChat;
-    }
-
-    public void setIdChat(int idChat) {
         this.idChat = idChat;
     }
 
-  /*
+    /*
     public Usuario getUsuario() {
         return usuario;
     }
