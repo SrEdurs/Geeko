@@ -124,8 +124,24 @@ public class Usuario {
     private List<Reporte> reportes;
 
 
+    //Relación Many to Many recursiva, la tabla "Seguimientos" es la intermedia
+    //Vista en https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
+   @ManyToMany
+   @JoinTable(
+           name="Seguimientos",
+           joinColumns = @JoinColumn(name="idSeguidor"),
+           inverseJoinColumns = @JoinColumn(name="idSeguido")
+   )
+   private List<Usuario> seguimientos;
 
-   //Falta la relación Many to Many recursiva, la tabla "Seguimientos" es la intermedia
+    @ManyToMany
+    @JoinTable(
+            name="Seguimientos",
+            joinColumns = @JoinColumn(name="idSeguido"),
+            inverseJoinColumns = @JoinColumn(name="idSeguidor")
+    )
+    private List<Usuario> seguidos;
+    //----------------------------------------------------------------------------
 
 
     public Usuario() {

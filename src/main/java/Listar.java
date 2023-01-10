@@ -1,6 +1,4 @@
-import es.geeko.model.Comentario;
-import es.geeko.model.Producto;
-import es.geeko.model.Usuario;
+import es.geeko.model.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -12,7 +10,7 @@ public class Listar {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("geeko");
 
         EntityManager em = emf.createEntityManager();
-        List<Comentario> listaUsuarios = em.createQuery("select usu from Comentario usu", Comentario.class).getResultList();
+        List<Transaccion> listaUsuarios = em.createQuery("select usu from Transaccion usu", Transaccion.class).getResultList();
 
         listaUsuarios.forEach(System.out::println);
         System.out.println();

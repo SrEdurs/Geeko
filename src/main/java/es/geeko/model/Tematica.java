@@ -18,17 +18,20 @@ public class Tematica {
     @Column(name = "nombre", length = 45)
     private String nombre;
 
-    @Column(name = "idRelacionada")
-    private Long idRelacionada;
-
-
     @ManyToMany(mappedBy = "tematicas")
     private List<Usuario> usuarios;
 
-    //Falta la one to many recursiva
+    @ManyToMany(mappedBy = "tematicas")
+    private List<Producto> productos;
 
-    //Falta la many to many con producto
+    //Relación One to Many recursiva-------
+    @ManyToOne
+    @JoinColumn(name = "idRelacionada")
+    private Tematica tematica;
 
+    @OneToMany(mappedBy = "tematica")
+    private List<Tematica> tematicas;
+    //--------------------------------------
 
     public Tematica() {
     }
@@ -40,11 +43,10 @@ public class Tematica {
     }
 
     @Override
-public String toString() {
-    return "Temática{" +
-            "id=" + id +
-            ", nombre=" + nombre + '\'' +
-            ", idRelacionada=" + idRelacionada + '\'' +
-            '}';
- }
+    public String toString() {
+        return "Tematica{" +
+                "id=" + id +
+                ", nombre='" + nombre +
+                '}';
+    }
 }

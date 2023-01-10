@@ -32,10 +32,9 @@ public class Transaccion {
     @NotNull
     private Date Fecha;
 
-    //Revisar la One to One
-    //@OneToOne
-    //@JoinColumn(name = "Productos_id")
-    //private Producto producto;
+    @OneToOne
+    @JoinColumn(name = "Productos_id")
+    private Producto producto;
 
     @ManyToMany(mappedBy = "transacciones")
     private List<Usuario> usuarios;

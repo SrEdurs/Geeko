@@ -61,11 +61,13 @@ public class Producto {
     @JoinColumn(name = "idUsuarioPropietario")
     private Usuario usuario;
 
-    //Revisar la One to One
-    //@OneToOne(mappedBy = "producto")
-    //private Transaccion transaccion;
-
-    //Falta la Many to May con Tematica
+    @ManyToMany
+    @JoinTable(
+            name="Tematica_Productos",
+            joinColumns = @JoinColumn(name="Productos_id"),
+            inverseJoinColumns = @JoinColumn(name="Tematica_id")
+    )
+    private List<Tematica> tematicas;
 
     @ManyToMany
     @JoinTable(
