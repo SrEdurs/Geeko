@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService {
 
-   /* //Acceso a los datos de la bbdd
+   //Acceso a los datos de la bbdd
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
 
@@ -31,5 +31,5 @@ public class UsuarioService {
 
         //Traducir la entidad a DTO para devolver el DTO
         return usuarioMapper.toDto(entidadUsuarioGuardada);
-    }*/
+    }
 }

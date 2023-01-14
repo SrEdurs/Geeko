@@ -1,17 +1,22 @@
 package es.geeko.model;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "reportes")
 public class Reporte {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name="motivo", length = 300)
     private String motivo;
@@ -37,7 +42,7 @@ public class Reporte {
     public Reporte() {
     }
 
-    public Reporte(int id, String motivo, Date fecha, int idUsuarioReporta) {
+    public Reporte(long id, String motivo, Date fecha, int idUsuarioReporta) {
         this.id = id;
         this.motivo = motivo;
         this.fecha = fecha;
