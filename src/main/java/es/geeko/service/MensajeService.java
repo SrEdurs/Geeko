@@ -12,9 +12,9 @@ public class MensajeService {
     private final MensajeRepository mensajeRepository;
     private final MensajeMapper mensajeMapper;
 
-    public MensajeService(MensajeRepository mensajeRepository, MensajeMapper mensajeMapper) {
+    public MensajeService(MensajeRepository mensajeRepository) {
         this.mensajeRepository = mensajeRepository;
-        this.mensajeMapper = mensajeMapper;
+        this.mensajeMapper = new MensajeMapper();
     }
 
     public MensajeDto save(MensajeDto mensajeDto){

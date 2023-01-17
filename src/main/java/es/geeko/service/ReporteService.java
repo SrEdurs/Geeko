@@ -12,9 +12,9 @@ public class ReporteService {
     private final ReporteRepository reporteRepository;
     private final ReporteMapper reporteMapper;
 
-    public ReporteService(ReporteRepository reporteRepository, ReporteMapper reporteMapper) {
+    public ReporteService(ReporteRepository reporteRepository) {
         this.reporteRepository = reporteRepository;
-        this.reporteMapper = reporteMapper;
+        this.reporteMapper = new ReporteMapper();
     }
 
     public ReporteDto save(ReporteDto reporteDto){

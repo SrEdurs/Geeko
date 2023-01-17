@@ -12,9 +12,9 @@ public class ComentarioService {
     private final ComentarioRepository comentarioRepository;
     private final ComentarioMapper comentarioMapper;
 
-    public ComentarioService(ComentarioRepository comentarioRepository, ComentarioMapper comentarioMapper) {
+    public ComentarioService(ComentarioRepository comentarioRepository) {
         this.comentarioRepository = comentarioRepository;
-        this.comentarioMapper = comentarioMapper;
+        this.comentarioMapper = new ComentarioMapper();
     }
 
     public ComentarioDto save(ComentarioDto comentarioDto){

@@ -12,9 +12,9 @@ public class ProductoService {
     private final ProductoRepository productoRepository;
     private final ProductoMapper productoMapper;
 
-    public ProductoService(ProductoRepository productoRepository, ProductoMapper productoMapper) {
+    public ProductoService(ProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
-        this.productoMapper = productoMapper;
+        this.productoMapper = new ProductoMapper();
     }
 
 

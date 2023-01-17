@@ -12,9 +12,9 @@ public class TematicaService {
     private final TematicaRepository tematicaRepository;
     private final TematicaMapper tematicaMapper;
 
-    public TematicaService(TematicaRepository tematicaRepository, TematicaMapper tematicaMapper) {
+    public TematicaService(TematicaRepository tematicaRepository) {
         this.tematicaRepository = tematicaRepository;
-        this.tematicaMapper = tematicaMapper;
+        this.tematicaMapper = new TematicaMapper();
     }
 
     public TematicaDto save(TematicaDto tematicaDto){

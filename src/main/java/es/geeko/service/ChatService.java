@@ -12,9 +12,9 @@ public class ChatService {
     private final ChatRepository chatRepository;
     private final ChatMapper chatMapper;
 
-    public ChatService(ChatRepository chatRepository, ChatMapper chatMapper) {
+    public ChatService(ChatRepository chatRepository) {
         this.chatRepository = chatRepository;
-        this.chatMapper = chatMapper;
+        this.chatMapper = new ChatMapper();
     }
 
     public ChatDto save(ChatDto chatDto){

@@ -12,9 +12,9 @@ public class TransaccionService {
     private final TransaccionRepository transaccionRepository;
     private final TransaccionMapper transaccionMapper;
 
-    public TransaccionService(TransaccionRepository transaccionRepository, TransaccionMapper transaccionMapper) {
+    public TransaccionService(TransaccionRepository transaccionRepository) {
         this.transaccionRepository = transaccionRepository;
-        this.transaccionMapper = transaccionMapper;
+        this.transaccionMapper = new TransaccionMapper();
     }
 
     public TransaccionDto save(TransaccionDto transaccionDto){
