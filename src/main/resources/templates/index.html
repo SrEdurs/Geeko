@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<p>Holaaaaaaaaaaaa</p>
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 px-4 px-lg-5">
+    <a href="index.html" class="navbar-brand d-flex align-items-center"></a>
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto py-4 py-lg-0">
+            <a th:href="@{/}" class="nav-item nav-link active">Home</a>
+            <a th:href="@{/usuarios}" class="nav-item nav-link" >Lista de usuarios</a>
+            <a th:href="@{/registro}" class="nav-item nav-link">Registrar usuario</a>
+            <a th:href="@{/login}" class="nav-item nav-link">Entrar en la aplicación</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+                    <a th:href="@{/usuarios}" class="dropdown-item" >Lista de usuarios</a>
+                    <a th:href="@{/registro}" class="dropdown-item">Registrar usuario</a>
+                    <a th:href="@{/login}" class="dropdown-item">Entrar en la aplicación</a>
+                </div>
+            </div>
+            <a href="contact.html" class="nav-item nav-link">Contact</a>
+        </div>
+        <div class="h-100 d-lg-inline-flex align-items-center d-none">
+            <a class="btn btn-square rounded-circle bg-light text-primary me-2" href=""><i class="fab fa-facebook-f"></i></a>
+            <a class="btn btn-square rounded-circle bg-light text-primary me-2" href=""><i class="fab fa-twitter"></i></a>
+            <a class="btn btn-square rounded-circle bg-light text-primary me-2" href=""><i class="fab fa-linkedin-in"></i></a>
+            <a class="btn btn-square rounded-circle bg-light text-primary me-0" href=""><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</nav>
 </body>
 </html>

@@ -6,6 +6,10 @@ import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.mapper.UsuarioMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class UsuarioService {
 
@@ -20,16 +24,22 @@ public class UsuarioService {
 
     //Método para guardar usuarios
     //La entrada es un DTO (que viene de la pantalla)
-    //La respuesta es un DTO del registro almacenado
-    public UsuarioDto save(UsuarioDto usuarioDto) {
-
+    //La respuesta en un DTO del registro almacenado
+    public UsuarioDto save(UsuarioDto usuarioDto){
         //Traduzco del dto con datos de entrada a la entidad
         final Usuario entidad = usuarioMapper.toEntity(usuarioDto);
-
         //Guardo en la base de datos
-        Usuario entidadUsuarioGuardada = usuarioRepository.save(entidad);
-
+        Usuario entidadUsuarioGuardada =  usuarioRepository.save(entidad);
         //Traducir la entidad a DTO para devolver el DTO
         return usuarioMapper.toDto(entidadUsuarioGuardada);
+    }
+    //Método para buscar por id
+    public Optional<UsuarioDto> encuentraPorId(Integer id){
+        return this.usuarioRepository.findById(Long.valueOf(id)).map(this.usuarioMapper::toDto);
+    }
+    public List<UsuarioDto> listaUsrTodos(){
+        final List<UsuarioDto> list =
+                this.usuarioRepository.findAll().stream().map(this.usuarioMapper::toDto).collect(Collectors.toList());
+        return list;
     }
 }
