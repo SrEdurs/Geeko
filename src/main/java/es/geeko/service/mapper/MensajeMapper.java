@@ -3,8 +3,9 @@ package es.geeko.service.mapper;
 import es.geeko.dto.MensajeDto;
 import es.geeko.model.Mensaje;
 
-public class MensajeMapper {
+public class MensajeMapper extends AbstractServiceMapper<Mensaje, MensajeDto> {
 
+    @Override
     public MensajeDto toDto(Mensaje mensaje){
 
         //Convertir entidad a dto
@@ -12,11 +13,10 @@ public class MensajeMapper {
         dto.setId(mensaje.getId());
         dto.setFecha(mensaje.getFecha());
         dto.setTexto(mensaje.getTexto());
-        dto.setUsuario(mensaje.getUsuario());
-        dto.setChat(mensaje.getChat());
         return dto;
     }
 
+    @Override
     public Mensaje toEntity(MensajeDto mensajeDto){
 
         //Convertir de dto a entidad
@@ -24,8 +24,6 @@ public class MensajeMapper {
         entidad.setId(mensajeDto.getId());
         entidad.setFecha(mensajeDto.getFecha());
         entidad.setTexto(mensajeDto.getTexto());
-        entidad.setUsuario(mensajeDto.getUsuario());
-        entidad.setChat(mensajeDto.getChat());
         return entidad;
     }
 

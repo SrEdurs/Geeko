@@ -3,8 +3,9 @@ package es.geeko.service.mapper;
 import es.geeko.dto.TransaccionDto;
 import es.geeko.model.Transaccion;
 
-public class TransaccionMapper {
+public class TransaccionMapper extends AbstractServiceMapper<Transaccion, TransaccionDto> {
 
+    @Override
     public TransaccionDto toDto(Transaccion transaccion){
 
         //Convertir entidad a dto
@@ -13,12 +14,10 @@ public class TransaccionMapper {
         dto.setIdCliente(transaccion.getIdCliente());
         dto.setIdVendedor(transaccion.getIdVendedor());
         dto.setValoracionTransaccion(transaccion.getValoracionTransaccion());
-        dto.setFecha(transaccion.getFecha());
-        dto.setProducto(transaccion.getProducto());
-        dto.setUsuarios(transaccion.getUsuarios());
         return dto;
     }
 
+    @Override
     public Transaccion toEntity(TransaccionDto transaccionDto){
 
         //Convertir de dto a entidad
@@ -27,9 +26,6 @@ public class TransaccionMapper {
         entidad.setIdCliente(transaccionDto.getIdCliente());
         entidad.setIdVendedor(transaccionDto.getIdVendedor());
         entidad.setValoracionTransaccion(transaccionDto.getValoracionTransaccion());
-        entidad.setFecha(transaccionDto.getFecha());
-        entidad.setProducto(transaccionDto.getProducto());
-        entidad.setUsuarios(transaccionDto.getUsuarios());
         return entidad;
     }
 

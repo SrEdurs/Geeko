@@ -7,19 +7,9 @@ import es.geeko.service.mapper.MensajeMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MensajeService {
+public class MensajeService extends AbstractBusinessService<Mensaje, Integer, MensajeDto, MensajeRepository, MensajeMapper> {
 
-    private final MensajeRepository mensajeRepository;
-    private final MensajeMapper mensajeMapper;
-
-    public MensajeService(MensajeRepository mensajeRepository) {
-        this.mensajeRepository = mensajeRepository;
-        this.mensajeMapper = new MensajeMapper();
-    }
-
-    public MensajeDto save(MensajeDto mensajeDto){
-        final Mensaje entidad = mensajeMapper.toEntity(mensajeDto);
-        Mensaje entidadMensajeGuardada = mensajeRepository.save(entidad);
-        return mensajeMapper.toDto(entidadMensajeGuardada);
+    public MensajeService(MensajeRepository mensajeRepository, MensajeMapper mapper) {
+        super(mensajeRepository, mapper);
     }
 }

@@ -6,40 +6,27 @@ import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.mapper.UsuarioMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-public class UsuarioService {
+public class UsuarioService extends AbstractBusinessService<Usuario, Integer, UsuarioDto, UsuarioRepository, UsuarioMapper> {
 
-   //Acceso a los datos de la bbdd
-    private final UsuarioRepository usuarioRepository;
-    private final UsuarioMapper usuarioMapper;
-
-    public UsuarioService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.usuarioMapper = new UsuarioMapper();
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper mapper) {
+        super(usuarioRepository, mapper);
     }
 
-    //Método para guardar usuarios
-    //La entrada es un DTO (que viene de la pantalla)
-    //La respuesta en un DTO del registro almacenado
-    public UsuarioDto save(UsuarioDto usuarioDto){
-        //Traduzco del dto con datos de entrada a la entidad
-        final Usuario entidad = usuarioMapper.toEntity(usuarioDto);
-        //Guardo en la base de datos
-        Usuario entidadUsuarioGuardada =  usuarioRepository.save(entidad);
-        //Traducir la entidad a DTO para devolver el DTO
-        return usuarioMapper.toDto(entidadUsuarioGuardada);
-    }
-    //Método para buscar por id
-    public Optional<UsuarioDto> encuentraPorId(Integer id){
-        return this.usuarioRepository.findById(Long.valueOf(id)).map(this.usuarioMapper::toDto);
-    }
-    public List<UsuarioDto> listaUsrTodos(){
-        final List<UsuarioDto> list =
-                this.usuarioRepository.findAll().stream().map(this.usuarioMapper::toDto).collect(Collectors.toList());
-        return list;
+    @Override
+    public void guardar(List<UsuarioDto> lUsuarioDto){
+        Iterator<UsuarioDto> it = lUsuarioDto.iterator();
+
+        // mientras al iterador queda próximo juego
+        while(it.hasNext()){
+            //Obtenemos la password de a entidad
+            //Datos del usuario
+            Usuario usuario = getMapper().toEntity(it.next());
+            usuario.setClave(getRepo().getReferenceById((int)usuario.getId()).getClave());
+            getRepo().save(usuario);
+        }
     }
 }

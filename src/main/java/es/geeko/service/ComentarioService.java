@@ -7,24 +7,9 @@ import es.geeko.service.mapper.ComentarioMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComentarioService {
+public class ComentarioService extends AbstractBusinessService<Comentario, Integer, ComentarioDto, ComentarioRepository, ComentarioMapper> {
 
-    private final ComentarioRepository comentarioRepository;
-    private final ComentarioMapper comentarioMapper;
-
-    public ComentarioService(ComentarioRepository comentarioRepository) {
-        this.comentarioRepository = comentarioRepository;
-        this.comentarioMapper = new ComentarioMapper();
-    }
-
-    public ComentarioDto save(ComentarioDto comentarioDto){
-        //Traduzco del dto con datos de entrada a la entidad
-        final Comentario entidad = comentarioMapper.toEntity(comentarioDto);
-
-        //Guardo en la base de datos
-        Comentario entidadComentarioGuardada = comentarioRepository.save(entidad);
-
-        //Traducir la entidad a DTO para devolver el DTO
-        return comentarioMapper.toDto(entidadComentarioGuardada);
+    public ComentarioService(ComentarioRepository comentarioRepository, ComentarioMapper mapper) {
+        super(comentarioRepository, mapper);
     }
 }

@@ -7,19 +7,9 @@ import es.geeko.service.mapper.TematicaMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TematicaService {
+public class TematicaService extends AbstractBusinessService<Tematica, Integer, TematicaDto, TematicaRepository, TematicaMapper> {
 
-    private final TematicaRepository tematicaRepository;
-    private final TematicaMapper tematicaMapper;
-
-    public TematicaService(TematicaRepository tematicaRepository) {
-        this.tematicaRepository = tematicaRepository;
-        this.tematicaMapper = new TematicaMapper();
-    }
-
-    public TematicaDto save(TematicaDto tematicaDto){
-        final Tematica entidad = tematicaMapper.toEntity(tematicaDto);
-        Tematica entidadTematicaGuardada = tematicaRepository.save(entidad);
-        return tematicaMapper.toDto(entidadTematicaGuardada);
+    public TematicaService(TematicaRepository tematicaRepository, TematicaMapper mapper) {
+        super(tematicaRepository, mapper);
     }
 }

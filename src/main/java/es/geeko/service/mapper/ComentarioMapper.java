@@ -3,8 +3,9 @@ package es.geeko.service.mapper;
 import es.geeko.dto.ComentarioDto;
 import es.geeko.model.Comentario;
 
-public class ComentarioMapper {
+public class ComentarioMapper extends AbstractServiceMapper<Comentario, ComentarioDto> {
 
+    @Override
     public ComentarioDto toDto(Comentario comentario){
 
         //Convertir de entidad a dto
@@ -17,13 +18,10 @@ public class ComentarioMapper {
         dto.setLikes(comentario.getLikes());
         dto.setReportado(comentario.getReportado());
         dto.setActivo(comentario.getActivo());
-        dto.setUsuario(comentario.getUsuario());
-        dto.setProducto(comentario.getProducto());
-        dto.setComentariosReportados(comentario.getComentariosReportados());
         return dto;
     }
 
-
+    @Override
     public Comentario toEntity(ComentarioDto comentarioDto){
 
         //Convertir de dto a entidad
@@ -36,9 +34,6 @@ public class ComentarioMapper {
         entidad.setLikes(comentarioDto.getLikes());
         entidad.setReportado(comentarioDto.getReportado());
         entidad.setActivo(comentarioDto.getActivo());
-        entidad.setUsuario(comentarioDto.getUsuario());
-        entidad.setProducto(comentarioDto.getProducto());
-        entidad.setComentariosReportados(comentarioDto.getComentariosReportados());
         return entidad;
     }
 

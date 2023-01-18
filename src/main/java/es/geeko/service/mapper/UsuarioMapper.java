@@ -3,9 +3,10 @@ package es.geeko.service.mapper;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Usuario;
 
-public class UsuarioMapper {
+public class UsuarioMapper extends AbstractServiceMapper<Usuario,UsuarioDto> {
 
     //Convertir de entidad a dto
+    @Override
    public UsuarioDto toDto(Usuario usuario){
         final UsuarioDto dto = new UsuarioDto();
         dto.setId(usuario.getId());
@@ -32,6 +33,7 @@ public class UsuarioMapper {
     }
 
     //Convertir de dto a entidad
+    @Override
     public Usuario toEntity(UsuarioDto usuarioDto){
         final Usuario entidad = new Usuario();
         entidad.setId(usuarioDto.getId());

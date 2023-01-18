@@ -7,19 +7,9 @@ import es.geeko.service.mapper.ReporteMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReporteService {
+public class ReporteService extends AbstractBusinessService<Reporte, Integer, ReporteDto, ReporteRepository, ReporteMapper> {
 
-    private final ReporteRepository reporteRepository;
-    private final ReporteMapper reporteMapper;
-
-    public ReporteService(ReporteRepository reporteRepository) {
-        this.reporteRepository = reporteRepository;
-        this.reporteMapper = new ReporteMapper();
-    }
-
-    public ReporteDto save(ReporteDto reporteDto){
-        final Reporte entidad = reporteMapper.toEntity(reporteDto);
-        Reporte entidadReporteGuardada = reporteRepository.save(entidad);
-        return reporteMapper.toDto(entidadReporteGuardada);
+    public ReporteService(ReporteRepository reporteRepository, ReporteMapper mapper) {
+        super(reporteRepository, mapper);
     }
 }

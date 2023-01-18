@@ -3,9 +3,10 @@ package es.geeko.service.mapper;
 import es.geeko.dto.ProductoDto;
 import es.geeko.model.Producto;
 
-public class ProductoMapper {
+public class ProductoMapper extends AbstractServiceMapper<Producto, ProductoDto> {
 
     //Convertir de entidad a dto
+    @Override
     public ProductoDto toDto(Producto producto){
         final ProductoDto dto = new ProductoDto();
         dto.setId(producto.getId());
@@ -20,14 +21,11 @@ public class ProductoMapper {
         dto.setReportado(producto.getReportado());
         dto.setActivo(producto.getActivo());
         dto.setFechaSubida(producto.getFechaSubida());
-        dto.setComentario(producto.getComentario());
-        dto.setUsuario(producto.getUsuario());
-        dto.setTematicas(producto.getTematicas());
-        dto.setProductosReportados(producto.getProductosReportados());
         return dto;
     }
 
 
+    @Override
     public Producto toEntity(ProductoDto productoDto){
 
         //Convertir de dto a entidad
@@ -44,10 +42,6 @@ public class ProductoMapper {
         entidad.setReportado(productoDto.getReportado());
         entidad.setActivo(productoDto.getActivo());
         entidad.setFechaSubida(productoDto.getFechaSubida());
-        entidad.setComentario(productoDto.getComentario());
-        entidad.setUsuario(productoDto.getUsuario());
-        entidad.setTematicas(productoDto.getTematicas());
-        entidad.setProductosReportados(productoDto.getProductosReportados());
         return entidad;
     }
 

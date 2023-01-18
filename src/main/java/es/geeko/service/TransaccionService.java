@@ -7,19 +7,9 @@ import es.geeko.service.mapper.TransaccionMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TransaccionService {
+public class TransaccionService extends AbstractBusinessService<Transaccion, Integer, TransaccionDto, TransaccionRepository, TransaccionMapper> {
 
-    private final TransaccionRepository transaccionRepository;
-    private final TransaccionMapper transaccionMapper;
-
-    public TransaccionService(TransaccionRepository transaccionRepository) {
-        this.transaccionRepository = transaccionRepository;
-        this.transaccionMapper = new TransaccionMapper();
-    }
-
-    public TransaccionDto save(TransaccionDto transaccionDto){
-        final Transaccion entidad = transaccionMapper.toEntity(transaccionDto);
-        Transaccion entidadTransaccionGuardada = transaccionRepository.save(entidad);
-        return transaccionMapper.toDto(entidadTransaccionGuardada);
+    public TransaccionService(TransaccionRepository transaccionRepository, TransaccionMapper mapper) {
+        super(transaccionRepository, mapper);
     }
 }

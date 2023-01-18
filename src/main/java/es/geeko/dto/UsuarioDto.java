@@ -2,8 +2,8 @@ package es.geeko.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Date;
+
 @Getter
 @Setter
 public class UsuarioDto {

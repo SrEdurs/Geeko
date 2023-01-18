@@ -16,21 +16,13 @@ public class ReporteDto {
     private long id;
     private String motivo;
     private Date fecha;
-    private Usuario usuario;
-    private List<Usuario> usuarios;
-    private List<Producto> productos;
-    private List<Comentario> comentarios;
 
     public ReporteDto() {
     }
 
-    public ReporteDto(long id, String motivo, Date fecha, Usuario usuario, List<Usuario> usuarios, List<Producto> productos, List<Comentario> comentarios) {
+    public ReporteDto(long id, String motivo, Date fecha) {
         this.id = id;
         this.motivo = motivo;
         this.fecha = fecha;
-        this.usuario = usuario;
-        this.usuarios = usuarios;
-        this.productos = productos;
-        this.comentarios = comentarios;
     }
 }

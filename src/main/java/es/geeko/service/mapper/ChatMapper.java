@@ -3,11 +3,11 @@ package es.geeko.service.mapper;
 import es.geeko.dto.ChatDto;
 import es.geeko.model.Chat;
 
-public class ChatMapper {
+public class ChatMapper extends AbstractServiceMapper<Chat, ChatDto> {
 
+    //Convertir de entidad a dto
+    @Override
     public ChatDto toDto(Chat chat){
-
-        //Convertir de entidad a dto
         final ChatDto dto = new ChatDto();
         dto.setId(chat.getId());
         dto.setIdDestinatario(chat.getIdDestinatario());
@@ -16,12 +16,11 @@ public class ChatMapper {
         dto.setImagen(chat.getImagen());
         dto.setDescripcion(chat.getDescripcion());
         dto.setActivo(chat.getActivo());
-        dto.setMensajes(chat.getMensajes());
-        dto.setUsuarios(chat.getUsuarios());
         return dto;
     }
 
     //Convertir de dto a entidad
+    @Override
     public Chat toEntity(ChatDto chatDto){
         final Chat entidad = new Chat();
         entidad.setId(chatDto.getId());
@@ -31,8 +30,6 @@ public class ChatMapper {
         entidad.setImagen(chatDto.getImagen());
         entidad.setDescripcion(chatDto.getDescripcion());
         entidad.setActivo(chatDto.getActivo());
-        entidad.setMensajes(chatDto.getMensajes());
-        entidad.setUsuarios(chatDto.getUsuarios());
         return entidad;
     }
 
