@@ -108,5 +108,6 @@
     <orderEntry type="library" name="Maven: io.micrometer:micrometer-commons:1.10.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:6.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:6.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.modelmapper:modelmapper:2.4.4" level="project" />
   </component>
 </module>
