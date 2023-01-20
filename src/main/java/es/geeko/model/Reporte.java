@@ -1,20 +1,22 @@
 package es.geeko.model;
-
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "usuarios")
+@Getter
+@Setter
+@Table(name = "reportes")
 public class Reporte {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name="motivo", length = 300)
     private String motivo;
@@ -23,21 +25,33 @@ public class Reporte {
     @NotNull
     private Date fecha;
 
-    @Column(name="idUsuarioReporta")
-    @NotNull
-    private int idUsuarioReporta;
-/*
     @ManyToOne
-    @JoinColumn(name = "id")
-    Usuario usuario;
+    @JoinColumn(name = "idUsuarioReporta")
+    private Usuario usuario;
 
-    @ManyToMany(mappedBy = "reportesComentarios")
-    private List<Comentario> comentarios = new ArrayList<>();
+    @ManyToMany(mappedBy = "usuariosReportados")
+    private List<Usuario> usuarios;
 
-    @ManyToMany(mappedBy = "reportesUsuarios")
-    private List<Usuario> usuarios = new ArrayList<>();
+    @ManyToMany(mappedBy = "productosReportados")
+    private List<Producto> productos;
 
-    @ManyToMany(mappedBy = "reportesProductos")
-    private List<Producto> productos = new ArrayList<>();
-*/
+    @ManyToMany(mappedBy = "comentariosReportados")
+    private List<Comentario> comentarios;
+
+
+    public Reporte() {
+    }
+
+    public Reporte(long id, String motivo, Date fecha, int idUsuarioReporta) {
+        this.id = id;
+        this.motivo = motivo;
+        this.fecha = fecha;
+    }
+
+    @Override
+    public String toString() {
+        return "Reporte{" +
+                "id=" + id +
+                '}';
+    }
 }

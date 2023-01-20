@@ -2,19 +2,21 @@ package es.geeko.model;
 
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "usuarios")
 public class Usuario {
 
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name="nombre", length = 60)
     private String nombre;
@@ -76,6 +78,16 @@ public class Usuario {
     @Column (name="reportado", length = 1)
     private int reportado;
 
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Comentario> comentarios;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Producto> productos;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Mensaje> mensajes;
+
     @ManyToMany
     @JoinTable(
             name="Preferencias",
@@ -84,47 +96,54 @@ public class Usuario {
     )
     private List<Tematica> tematicas;
 
-    /*
-    @OneToMany(mappedBy = "idRemitente")
-    private List<Mensaje> mensajes;
+    @ManyToMany
+    @JoinTable(
+            name="Usuarios_has_Transacciones",
+            joinColumns = @JoinColumn(name="Usuarios_id"),
+            inverseJoinColumns = @JoinColumn(name="Transacciones_id")
+    )
+    private List<Transaccion> transacciones;
 
-    @OneToMany(mappedBy = "idPropietario")
-    private List<Comentario> comentarios;
+    @ManyToMany
+    @JoinTable(
+            name="Chats_has_Usuarios",
+            joinColumns = @JoinColumn(name="Destinatarios_id"),
+            inverseJoinColumns = @JoinColumn(name="Chats_id")
+    )
+    private List<Chat> chats;
 
-    @ManyToOne
-    @JoinColumn(name = "idPropietario")
-    private Producto producto;
+    @ManyToMany
+    @JoinTable(
+            name="Usuarios_Reportes",
+            joinColumns = @JoinColumn(name="idUsuarioReportado"),
+            inverseJoinColumns = @JoinColumn(name="idReporte")
+    )
+    private List<Reporte> usuariosReportados;
 
-    @OneToMany(mappedBy = "idUsuarioReporta")
+    @OneToMany(mappedBy = "usuario")
     private List<Reporte> reportes;
 
-    @ManyToMany(mappedBy = "usuarios")
-    private List<Chat> chats = new ArrayList<>();
+
+    //Relación Many to Many recursiva, la tabla "Seguimientos" es la intermedia
+    //Vista en https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
+   @ManyToMany
+   @JoinTable(
+           name="Seguimientos",
+           joinColumns = @JoinColumn(name="idSeguidor"),
+           inverseJoinColumns = @JoinColumn(name="idSeguido")
+   )
+   private List<Usuario> seguimientos;
 
     @ManyToMany
-    @JoinTable(name = "seguimientos",
-            joinColumns = @JoinColumn(name = "idSeguidor"),
-            inverseJoinColumns = @JoinColumn(name = "idSeguido"))
-    private List<Usuario> seguimientos = new ArrayList<>();
+    @JoinTable(
+            name="Seguimientos",
+            joinColumns = @JoinColumn(name="idSeguido"),
+            inverseJoinColumns = @JoinColumn(name="idSeguidor")
+    )
+    private List<Usuario> seguidos;
+    //----------------------------------------------------------------------------
 
-    @ManyToMany
-    @JoinTable(name = "usuarios_has_transacciones",
-            joinColumns = @JoinColumn(name = "Usuarios_id"),
-            inverseJoinColumns = @JoinColumn(name = "Transacciones_id"))
-    private List<Transaccion> transacciones = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(name = "preferencias",
-            joinColumns = @JoinColumn(name = "idUsuario"),
-            inverseJoinColumns = @JoinColumn(name = "idTematica"))
-    private List<Tematica> tematicas = new ArrayList<>();
-
-    @ManyToMany
-    @JoinTable(name = "usuarios_reportes",
-            joinColumns = @JoinColumn(name = "idUsuarioReportado"),
-            inverseJoinColumns = @JoinColumn(name = "idReporte"))
-    private List<Reporte> reportesUsuarios = new ArrayList<>();
-*/
     public Usuario() {
     }
 
@@ -135,191 +154,6 @@ public class Usuario {
         this.clave = clave;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getEmilio() {
-        return emilio;
-    }
-
-    public void setEmilio(String emilio) {
-        this.emilio = emilio;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getDireccion1() {
-        return direccion1;
-    }
-
-    public void setDireccion1(String direccion1) {
-        this.direccion1 = direccion1;
-    }
-
-    public String getDireccion2() {
-        return direccion2;
-    }
-
-    public void setDireccion2(String direccion2) {
-        this.direccion2 = direccion2;
-    }
-
-    public String getCp() {
-        return cp;
-    }
-
-    public void setCp(String cp) {
-        this.cp = cp;
-    }
-
-    public String getPoblacion() {
-        return poblacion;
-    }
-
-    public void setPoblacion(String poblacion) {
-        this.poblacion = poblacion;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    public String getTlf() {
-        return tlf;
-    }
-
-    public void setTlf(String tlf) {
-        this.tlf = tlf;
-    }
-
-    public int getVerificacion2pasos() {
-        return verificacion2pasos;
-    }
-
-    public void setVerificacion2pasos(int verificacion2pasos) {
-        this.verificacion2pasos = verificacion2pasos;
-    }
-
-    public Date getFecha_alta() {
-        return fecha_alta;
-    }
-
-    public void setFecha_alta(Date fecha_alta) {
-        this.fecha_alta = fecha_alta;
-    }
-
-    public double getValoracion_media() {
-        return valoracion_media;
-    }
-
-    public void setValoracion_media(double valoracion_media) {
-        this.valoracion_media = valoracion_media;
-    }
-
-    public int getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(int admin) {
-        this.admin = admin;
-    }
-
-    public int getActivo() {
-        return activo;
-    }
-
-    public void setActivo(int activo) {
-        this.activo = activo;
-    }
-
-    public String getBiografia() {
-        return biografia;
-    }
-
-    public void setBiografia(String biografia) {
-        this.biografia = biografia;
-    }
-
-    public int getReportado() {
-        return reportado;
-    }
-
-    public void setReportado(int reportado) {
-        this.reportado = reportado;
-    }
-
-    /*
-    public List<Mensaje> getMensajes() {
-        return mensajes;
-    }
-
-    public void setMensajes(List<Mensaje> mensajes) {
-        this.mensajes = mensajes;
-    }
-
-    public Producto getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public List<Usuario> getSeguimientos() {
-        return seguimientos;
-    }
-
-    public void setSeguimientos(List<Usuario> seguimientos) {
-        this.seguimientos = seguimientos;
-    }
-*/
     @Override
     public String toString() {
         return "Usuario{" +
@@ -329,7 +163,6 @@ public class Usuario {
                 ", usuario='" + usuario + '\'' +
                 ", emilio='" + emilio + '\'' +
                 ", clave='" + clave + '\'' +
-                ", temáticas='" + tematicas + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", direccion1='" + direccion1 + '\'' +
                 ", direccion2='" + direccion2 + '\'' +
@@ -344,9 +177,14 @@ public class Usuario {
                 ", activo=" + activo +
                 ", biografia='" + biografia + '\'' +
                 ", reportado=" + reportado +
-                //", mensajes=" + mensajes +
-                //", producto=" + producto +
-                //", seguimientos=" + seguimientos +
+                ", tematicas=" + tematicas +
+                ", transacciones=" + transacciones +
+                ", chats=" + chats +
+                ", comentarios=" + comentarios +
+                ", productos=" + productos +
+                ", mensajes=" + mensajes +
+                ", usuariosReportados=" + usuariosReportados +
+                ", reportes=" + reportes +
                 '}';
     }
 }

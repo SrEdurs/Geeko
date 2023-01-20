@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi primera página de login</title>
+</head>
+<body>
+<div>
+    <h1>Estas en la detalles de usuarios</h1>
+    <form role="form" th:object="${datosUsuario}" method="post">
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>email</th>
+                <th>usuario</th>
+                <th>Nombre con email</th>
+            </tr>
+            <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+</body>
+</html>

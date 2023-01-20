@@ -1,13 +1,14 @@
 package es.geeko.model;
-
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "productos")
 
 public class Producto {
@@ -17,21 +18,21 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="título", length = 60)
+    @Column(name="titulo", length = 60)
     @NotNull
     private String titulo;
 
     @Column(name="imagen", length = 200)
     private String imagen;
 
-    @Column(name="descripción", length = 250) //tipo TEXT(?) no sé cuánto ponerle
+    @Column(name="descripcion")
     @NotNull
     private String descripcion;
 
     @Column(name="precio")
     private double precio;
 
-    @Column(name="puntuación")
+    @Column(name="puntuacion")
     private int puntuacion;
 
     @Column(name="videojuego")
@@ -40,12 +41,8 @@ public class Producto {
     @Column(name="libro")
     private int libro;
 
-    @Column(name="película")
+    @Column(name="pelicula")
     private int pelicula;
-
-    @Column(name="idUsuarioPropietario")
-    @NotNull
-    private int idUsuarioPropietario;
 
     @Column(name="reportado", length = 1)
     private int reportado;
@@ -57,152 +54,43 @@ public class Producto {
     @Column(name="fechaSubida")
     private Date fechaSubida;
 
-    /*
-    @OneToMany(mappedBy = "idProducto")
+    @OneToMany(mappedBy = "producto")
+    private List<Comentario> comentario;
 
-    List<Producto> producto;
-*/
-    @ManyToMany(mappedBy = "productos")
-    private List<Tematica> tematicas ;
+    @ManyToOne
+    @JoinColumn(name = "idUsuarioPropietario")
+    private Usuario usuario;
 
-    /*
     @ManyToMany
-    @JoinTable(name = "productos_reportados",
-            joinColumns = @JoinColumn(name = "idProductoReportado"),
-            inverseJoinColumns = @JoinColumn(name = "idReporte"))
-    private List<Reporte> reportesProductos = new ArrayList<>();
-*/
+    @JoinTable(
+            name="Tematica_Productos",
+            joinColumns = @JoinColumn(name="Productos_id"),
+            inverseJoinColumns = @JoinColumn(name="Tematica_id")
+    )
+    private List<Tematica> tematicas;
+
+    @ManyToMany
+    @JoinTable(
+            name="Productos_Reportados",
+            joinColumns = @JoinColumn(name="idProductoReportado"),
+            inverseJoinColumns = @JoinColumn(name="idReporte")
+    )
+    private List<Reporte> productosReportados;
+
+
     public Producto() {
     }
 
-    public Producto(Long id, String titulo, String imagen, String descripcion, int idUsuarioPropietario) {
+    public Producto(Long id, String titulo, String imagen, String descripcion) {
         this.id = id;
         this.titulo = titulo;
         this.imagen = imagen;
         this.descripcion = descripcion;
-        this.idUsuarioPropietario = idUsuarioPropietario;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
-
-    public int getPuntuacion() {
-        return puntuacion;
-    }
-
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
-    }
-
-    public int getVideojuego() {
-        return videojuego;
-    }
-
-    public void setVideojuego(int videojuego) {
-        this.videojuego = videojuego;
-    }
-
-    public int getLibro() {
-        return libro;
-    }
-
-    public void setLibro(int libro) {
-        this.libro = libro;
-    }
-
-    public int getPelicula() {
-        return pelicula;
-    }
-
-    public void setPelicula(int pelicula) {
-        this.pelicula = pelicula;
-    }
-
-    public int getIdUsuarioPropietario() {
-        return idUsuarioPropietario;
-    }
-
-    public void setIdUsuarioPropietario(int idUsuarioPropietario) {
-        this.idUsuarioPropietario = idUsuarioPropietario;
-    }
-
-    public int getReportado() {
-        return reportado;
-    }
-
-    public void setReportado(int reportado) {
-        this.reportado = reportado;
-    }
-
-    public int getActivo() {
-        return activo;
-    }
-
-    public void setActivo(int activo) {
-        this.activo = activo;
-    }
-
-    public Date getFechaSubida() {
-        return fechaSubida;
-    }
-
-    public void setFechaSubida(Date fechaSubida) {
-        this.fechaSubida = fechaSubida;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", título='" + titulo + '\'' +
-                ", imagen='" + imagen + '\'' +
-                ", descripción='" + descripcion + '\'' +
-                ", precio='" + precio + '\'' +
-                ", puntuación='" + puntuacion + '\'' +
-                ", videojuego='" + videojuego + '\'' +
-                ", libro='" + libro + '\'' +
-                ", película='" + pelicula + '\'' +
-                ", idUsuarioPropietario='" + idUsuarioPropietario + '\'' +
-                ", reportado='" + reportado + '\'' +
-                ", activo='" + activo + '\'' +
-                ", fechaSubida='" + fechaSubida + '\'' +
-                '}';
+        return "Producto{" +
+                "id=" + id;
     }
 }

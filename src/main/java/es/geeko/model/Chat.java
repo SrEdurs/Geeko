@@ -2,17 +2,19 @@ package es.geeko.model;
 
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "chats")
 public class Chat {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(name="idDestinatario")
     @NotNull
@@ -34,15 +36,12 @@ public class Chat {
     @Column(name="activo", length = 1)
     private int activo;
 
-    /*
-    @JoinTable(name = "chats_has_usuarios",
-            joinColumns = @JoinColumn(name = "Chats_id"),
-            inverseJoinColumns = @JoinColumn(name = "Destinatarios_id"))
-    private List<Usuario> usuarios = new ArrayList<>();
+    @OneToMany(mappedBy = "chat")
+    private List<Mensaje> mensajes;
 
-    @OneToMany(mappedBy = "mensajes")
-    List<Mensaje> mensajes;
-*/
+    @ManyToMany(mappedBy = "chats")
+    private List<Usuario> usuarios;
+
     public Chat() {
     }
 
@@ -53,79 +52,6 @@ public class Chat {
         this.titulo = titulo;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdDestinatario() {
-        return idDestinatario;
-    }
-
-    public void setIdDestinatario(int idDestinatario) {
-        this.idDestinatario = idDestinatario;
-    }
-
-    public int getIdRemitente() {
-        return idRemitente;
-    }
-
-    public void setIdRemitente(int idRemitente) {
-        this.idRemitente = idRemitente;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getActivo() {
-        return activo;
-    }
-
-    public void setActivo(int activo) {
-        this.activo = activo;
-    }
-
-    /*
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    public List<Mensaje> getMensajes() {
-        return mensajes;
-    }
-
-    public void setMensajes(List<Mensaje> mensajes) {
-        this.mensajes = mensajes;
-    }
-*/
     @Override
     public String toString() {
         return "Chat{" +
@@ -136,8 +62,7 @@ public class Chat {
                 ", imagen='" + imagen + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", activo=" + activo +
-                //", usuarios=" + usuarios +
-                //", mensajes=" + mensajes +
+                ", mensajes=" + mensajes +
                 '}';
     }
 }
