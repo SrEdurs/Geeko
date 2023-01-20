@@ -74,12 +74,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "/login";
     }
 
-    @PostMapping("/login")
-    public String vistaLoginy(){
-        return "/login";
-    }
-
-
     //Para crear un usuario hay dos bloques
     //El que genera la pantalla para pedir los datos de tipo GetMapping
     //Cuando pasamos información a la pantalla hay que usar ModelMap
@@ -99,23 +93,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         UsuarioDto usuarioGuardado =  this.service.guardar(usuarioDto);
         Long id = usuarioGuardado.getId();
         //return "usuarios/detallesusuario";
-        return "/inicio";
-    }
-
-
-    @PostMapping("/usuarios/{idusr}/delete")
-    public String eliminarDatosUsuario(@PathVariable("idusr") Integer id){
-        //Con el id tengo que buscar el registro a nivel de entidad
-        Optional<UsuarioDto> usuarioDto = this.service.encuentraPorId(id);
-        //¿Debería comprobar si hay datos?
-        if (usuarioDto.isPresent()){
-            this.service.eliminarPorId(id);
-            //Mostrar listado de usuarios
-            return "redirect:/usuarios";
-        } else{
-            //Mostrar página usuario no existe
-            return "usuarios/detallesusuarionoencontrado";
-        }
+        return "/usuarios/cuestionario";
     }
 
 
