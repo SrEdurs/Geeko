@@ -2,6 +2,7 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.ProductoDto;
 import es.geeko.model.Producto;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,20 +10,10 @@ public class ProductoMapper extends AbstractServiceMapper<Producto, ProductoDto>
 
     //Convertir de entidad a dto
     @Override
-    public ProductoDto toDto(Producto producto){
+    public ProductoDto toDto(Producto entidad){
         final ProductoDto dto = new ProductoDto();
-        dto.setId(producto.getId());
-        dto.setTitulo(producto.getTitulo());
-        dto.setImagen(producto.getImagen());
-        dto.setDescripcion(producto.getDescripcion());
-        dto.setPrecio(producto.getPrecio());
-        dto.setPuntuacion(producto.getPuntuacion());
-        dto.setVideojuego(producto.getVideojuego());
-        dto.setLibro(producto.getLibro());
-        dto.setPelicula(producto.getPelicula());
-        dto.setReportado(producto.getReportado());
-        dto.setActivo(producto.getActivo());
-        dto.setFechaSubida(producto.getFechaSubida());
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(entidad,dto);
         return dto;
     }
 

@@ -38,7 +38,7 @@ public abstract class AbstractBusinessService<E, ID, DTO, REPO extends JpaReposi
     }
 
     //Guardar
-    public DTO guardar(DTO dto){
+    public DTO guardar(DTO dto) throws Exception {
         //Traduzco del dto con datos de entrada a la entidad
         final E entidad = mapper.toEntity(dto);
         //Guardo en la base de datos
@@ -47,7 +47,7 @@ public abstract class AbstractBusinessService<E, ID, DTO, REPO extends JpaReposi
         return mapper.toDto(entidadGuardada);
     }
 
-    public void  guardar(List<DTO> dtos){
+    public void  guardar(List<DTO> dtos) throws Exception {
         Iterator<DTO> it = dtos.iterator();
 
         // mientras al iterador tenga más

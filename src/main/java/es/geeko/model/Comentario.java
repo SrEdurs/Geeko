@@ -60,18 +60,17 @@ public class Comentario {
     public Comentario() {
     }
 
-    public Comentario(long id, String titulo, String texto, Date fecha, int activo) {
+    public Comentario(long id, String titulo, String texto, String imagen, Date fecha, int likes, int reportado, int activo, Usuario usuario, Producto producto, List<Reporte> comentariosReportados) {
         this.id = id;
         this.titulo = titulo;
         this.texto = texto;
+        this.imagen = imagen;
         this.fecha = fecha;
+        this.likes = likes;
+        this.reportado = reportado;
         this.activo = activo;
-    }
-
-    @Override
-    public String toString() {
-        return "Comentario{" +
-                "id=" + id +
-                '}';
+        this.usuario = usuario;
+        this.producto = producto;
+        this.comentariosReportados = comentariosReportados;
     }
 }

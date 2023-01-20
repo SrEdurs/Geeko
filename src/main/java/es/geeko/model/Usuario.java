@@ -147,45 +147,37 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int id, String usuario, String emilio, String clave) {
+    public Usuario(long id, String nombre, String apellidos, String usuario, String emilio, String clave, String avatar, String direccion1, String direccion2, String cp, String poblacion, String provincia, String tlf, int verificacion2pasos, Date fecha_alta, double valoracion_media, int admin, int activo, String biografia, int reportado, List<Comentario> comentarios, List<Producto> productos, List<Mensaje> mensajes, List<Tematica> tematicas, List<Transaccion> transacciones, List<Chat> chats, List<Reporte> usuariosReportados, List<Reporte> reportes, List<Usuario> seguimientos, List<Usuario> seguidos) {
         this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.usuario = usuario;
         this.emilio = emilio;
         this.clave = clave;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                ", usuario='" + usuario + '\'' +
-                ", emilio='" + emilio + '\'' +
-                ", clave='" + clave + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", direccion1='" + direccion1 + '\'' +
-                ", direccion2='" + direccion2 + '\'' +
-                ", cp='" + cp + '\'' +
-                ", poblacion='" + poblacion + '\'' +
-                ", provincia='" + provincia + '\'' +
-                ", tlf='" + tlf + '\'' +
-                ", verificacion2pasos=" + verificacion2pasos +
-                ", fecha_alta=" + fecha_alta +
-                ", valoracion_media=" + valoracion_media +
-                ", admin=" + admin +
-                ", activo=" + activo +
-                ", biografia='" + biografia + '\'' +
-                ", reportado=" + reportado +
-                ", tematicas=" + tematicas +
-                ", transacciones=" + transacciones +
-                ", chats=" + chats +
-                ", comentarios=" + comentarios +
-                ", productos=" + productos +
-                ", mensajes=" + mensajes +
-                ", usuariosReportados=" + usuariosReportados +
-                ", reportes=" + reportes +
-                '}';
+        this.avatar = avatar;
+        this.direccion1 = direccion1;
+        this.direccion2 = direccion2;
+        this.cp = cp;
+        this.poblacion = poblacion;
+        this.provincia = provincia;
+        this.tlf = tlf;
+        this.verificacion2pasos = verificacion2pasos;
+        this.fecha_alta = fecha_alta;
+        this.valoracion_media = valoracion_media;
+        this.admin = admin;
+        this.activo = activo;
+        this.biografia = biografia;
+        this.reportado = reportado;
+        this.comentarios = comentarios;
+        this.productos = productos;
+        this.mensajes = mensajes;
+        this.tematicas = tematicas;
+        this.transacciones = transacciones;
+        this.chats = chats;
+        this.usuariosReportados = usuariosReportados;
+        this.reportes = reportes;
+        this.seguimientos = seguimientos;
+        this.seguidos = seguidos;
     }
 }
 

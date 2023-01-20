@@ -71,7 +71,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @GetMapping("/login")
     public String vistaLogin(){
-        return "login";
+        return "usuarios/login";
     }
 
 
@@ -89,12 +89,12 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     //El que con los datos de la pantalla guarda la información de tipo PostMapping
     @PostMapping("/registro")
-    public String guardarUsuario(UsuarioDto usuarioDto){
-        //LLamo al método del servicioi para guardar los datos
+    public String guardarUsuario(UsuarioDto usuarioDto) throws Exception {
+        //LLamo al método del servicio para guardar los datos
         UsuarioDto usuarioGuardado =  this.service.guardar(usuarioDto);
         Long id = usuarioGuardado.getId();
         //return "usuarios/detallesusuario";
-        return String.format("redirect:/usuarios/%s", id);
+        return String.format("redirect:/inicio");
     }
 
 
@@ -116,7 +116,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     //Me falta un postmaping para guardar
     @PostMapping("/usuarios/{idusr}")
-    public String guardarEdicionDatosUsuario(@PathVariable("idusr") Integer id, UsuarioDto usuarioDtoEntrada){
+    public String guardarEdicionDatosUsuario(@PathVariable("idusr") Integer id, UsuarioDto usuarioDtoEntrada) throws Exception {
         //Cuidado que la password no viene
         //Necesitamos copiar la información que llega menos la password
         //Con el id tengo que buscar el registro a nivel de entidad

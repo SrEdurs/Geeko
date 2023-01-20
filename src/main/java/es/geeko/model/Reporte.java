@@ -42,16 +42,13 @@ public class Reporte {
     public Reporte() {
     }
 
-    public Reporte(long id, String motivo, Date fecha, int idUsuarioReporta) {
+    public Reporte(long id, String motivo, Date fecha, Usuario usuario, List<Usuario> usuarios, List<Producto> productos, List<Comentario> comentarios) {
         this.id = id;
         this.motivo = motivo;
         this.fecha = fecha;
-    }
-
-    @Override
-    public String toString() {
-        return "Reporte{" +
-                "id=" + id +
-                '}';
+        this.usuario = usuario;
+        this.usuarios = usuarios;
+        this.productos = productos;
+        this.comentarios = comentarios;
     }
 }

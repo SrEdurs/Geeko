@@ -1,18 +1,25 @@
 package es.geeko.service.mapper;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class AbstractServiceMapper<E,DTO> {
     //Convertir de entidad a dto
     public abstract DTO toDto(E e);
     //Convertir de dto a entidad
-    public abstract E toEntity(DTO dto);
+    public abstract E toEntity(DTO dto) throws Exception;
 
     //Conversion de listas de dtos a entidades
-    public List<E>  toEntity(List<DTO> dtos){
-        return dtos.stream().map(this::toEntity).collect(Collectors.toList());
+    public List<E>  toEntity(List<DTO> dtos) throws Exception {
+        //Recorrer la lista manualmente para gestionar las excepciones
+        ListIterator it = dtos.listIterator();
+        List<E> list = new ArrayList<>();
+        while(it.hasNext()){
+            DTO dto = (DTO) it.next();
+            E e = this.toEntity(dto);
+            list.add(e);
+        }
+        return list;
     }
     //Conversion de listas de entidades a DTOs
     public List<DTO>  toDto(List<E> e){
@@ -20,8 +27,15 @@ public abstract class AbstractServiceMapper<E,DTO> {
     }
 
     //Gestionamos set de datos
-    public Set<E> toEntity(Set<DTO> dtos){
-        return dtos.stream().map(this::toEntity).collect(Collectors.toSet());
+    public Set<E> toEntity(Set<DTO> dtos) throws Exception {
+        //return dtos.stream().map(this::toEntity).collect(Collectors.toSet());
+        //Recorrer el set manualmente para gestionar las excepciones
+        Set<E> eSet = new HashSet<E>();
+        for(DTO item: dtos){
+            E e = this.toEntity(item);
+            eSet.add(e);
+        }
+        return eSet;
     }
     //Conversion de listas de entidades a DTOs
     public Set<DTO>  toDto(Set<E> e){

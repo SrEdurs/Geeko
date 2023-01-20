@@ -45,24 +45,15 @@ public class Chat {
     public Chat() {
     }
 
-    public Chat(int id, int idDestinatario, int idRemitente, String titulo) {
+    public Chat(long id, int idDestinatario, int idRemitente, String titulo, String imagen, String descripcion, int activo, List<Mensaje> mensajes, List<Usuario> usuarios) {
         this.id = id;
         this.idDestinatario = idDestinatario;
         this.idRemitente = idRemitente;
         this.titulo = titulo;
-    }
-
-    @Override
-    public String toString() {
-        return "Chat{" +
-                "id=" + id +
-                ", idDestinatario=" + idDestinatario +
-                ", idRemitente=" + idRemitente +
-                ", titulo='" + titulo + '\'' +
-                ", imagen='" + imagen + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", activo=" + activo +
-                ", mensajes=" + mensajes +
-                '}';
+        this.imagen = imagen;
+        this.descripcion = descripcion;
+        this.activo = activo;
+        this.mensajes = mensajes;
+        this.usuarios = usuarios;
     }
 }

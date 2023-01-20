@@ -43,19 +43,13 @@ public class Transaccion {
     public Transaccion() {
     }
 
-    public Transaccion(long id, int idCliente, int idVendedor, int productos_id, double valoracionTransaccion, Date fecha, List<Usuario> usuarios) {
+    public Transaccion(long id, int idCliente, int idVendedor, double valoracionTransaccion, Date fecha, Producto producto, List<Usuario> usuarios) {
         this.id = id;
         this.idCliente = idCliente;
         this.idVendedor = idVendedor;
         this.valoracionTransaccion = valoracionTransaccion;
         Fecha = fecha;
+        this.producto = producto;
         this.usuarios = usuarios;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaccion{" +
-                "id=" + id +
-                '}';
     }
 }

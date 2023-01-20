@@ -2,32 +2,29 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.TransaccionDto;
 import es.geeko.model.Transaccion;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TransaccionMapper extends AbstractServiceMapper<Transaccion, TransaccionDto> {
 
     @Override
-    public TransaccionDto toDto(Transaccion transaccion){
+    public TransaccionDto toDto(Transaccion entidad){
 
         //Convertir entidad a dto
         final TransaccionDto dto = new TransaccionDto();
-        dto.setId(transaccion.getId());
-        dto.setIdCliente(transaccion.getIdCliente());
-        dto.setIdVendedor(transaccion.getIdVendedor());
-        dto.setValoracionTransaccion(transaccion.getValoracionTransaccion());
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(entidad,dto);
         return dto;
     }
 
     @Override
-    public Transaccion toEntity(TransaccionDto transaccionDto){
+    public Transaccion toEntity(TransaccionDto dto){
 
         //Convertir de dto a entidad
         final Transaccion entidad = new Transaccion();
-        entidad.setId(transaccionDto.getId());
-        entidad.setIdCliente(transaccionDto.getIdCliente());
-        entidad.setIdVendedor(transaccionDto.getIdVendedor());
-        entidad.setValoracionTransaccion(transaccionDto.getValoracionTransaccion());
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(dto, entidad);
         return entidad;
     }
 

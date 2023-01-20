@@ -81,16 +81,22 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(Long id, String titulo, String imagen, String descripcion) {
+    public Producto(Long id, String titulo, String imagen, String descripcion, double precio, int puntuacion, int videojuego, int libro, int pelicula, int reportado, int activo, Date fechaSubida, List<Comentario> comentario, Usuario usuario, List<Tematica> tematicas, List<Reporte> productosReportados) {
         this.id = id;
         this.titulo = titulo;
         this.imagen = imagen;
         this.descripcion = descripcion;
-    }
-
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "id=" + id;
+        this.precio = precio;
+        this.puntuacion = puntuacion;
+        this.videojuego = videojuego;
+        this.libro = libro;
+        this.pelicula = pelicula;
+        this.reportado = reportado;
+        this.activo = activo;
+        this.fechaSubida = fechaSubida;
+        this.comentario = comentario;
+        this.usuario = usuario;
+        this.tematicas = tematicas;
+        this.productosReportados = productosReportados;
     }
 }

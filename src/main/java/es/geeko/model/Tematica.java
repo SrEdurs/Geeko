@@ -36,17 +36,12 @@ public class Tematica {
     public Tematica() {
     }
 
-    public Tematica(Long id, String nombre) {
+    public Tematica(Long id, String nombre, List<Usuario> usuarios, List<Producto> productos, Tematica tematica, List<Tematica> tematicas) {
         this.id = id;
         this.nombre = nombre;
-        //this.idRelacionada = 0L;
-    }
-
-    @Override
-    public String toString() {
-        return "Tematica{" +
-                "id=" + id +
-                ", nombre='" + nombre +
-                '}';
+        this.usuarios = usuarios;
+        this.productos = productos;
+        this.tematica = tematica;
+        this.tematicas = tematicas;
     }
 }

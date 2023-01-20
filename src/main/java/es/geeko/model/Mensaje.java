@@ -38,17 +38,12 @@ public class Mensaje {
     public Mensaje() {
     }
 
-    public Mensaje(long id, int idRemitente, Date fecha, String texto, int idChat) {
+    public Mensaje(long id, Date fecha, String texto, String imagen, Usuario usuario, Chat chat) {
         this.id = id;
         this.fecha = fecha;
         this.texto = texto;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Mensaje{" +
-                "id=" + id +
-                '}';
+        this.imagen = imagen;
+        this.usuario = usuario;
+        this.chat = chat;
     }
 }
