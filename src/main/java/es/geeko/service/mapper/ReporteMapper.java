@@ -2,7 +2,9 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.ReporteDto;
 import es.geeko.model.Reporte;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReporteMapper extends AbstractServiceMapper<Reporte, ReporteDto> {
 
     @Override

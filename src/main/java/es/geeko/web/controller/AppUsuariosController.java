@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-public class AppMainController extends AbstractController<UsuarioDto> {
+public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     private final  UsuarioService service;
 
-    public AppMainController(UsuarioService service) {
+    public AppUsuariosController(UsuarioService service) {
         this.service = service;
     }
 

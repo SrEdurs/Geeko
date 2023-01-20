@@ -2,7 +2,9 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.ChatDto;
 import es.geeko.model.Chat;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ChatMapper extends AbstractServiceMapper<Chat, ChatDto> {
 
     //Convertir de entidad a dto

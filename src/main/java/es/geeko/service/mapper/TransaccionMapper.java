@@ -2,7 +2,9 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.TransaccionDto;
 import es.geeko.model.Transaccion;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TransaccionMapper extends AbstractServiceMapper<Transaccion, TransaccionDto> {
 
     @Override

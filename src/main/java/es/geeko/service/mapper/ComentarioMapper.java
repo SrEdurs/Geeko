@@ -2,7 +2,9 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.ComentarioDto;
 import es.geeko.model.Comentario;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ComentarioMapper extends AbstractServiceMapper<Comentario, ComentarioDto> {
 
     @Override

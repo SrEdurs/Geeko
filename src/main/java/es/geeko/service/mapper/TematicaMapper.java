@@ -2,7 +2,9 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.TematicaDto;
 import es.geeko.model.Tematica;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TematicaMapper extends AbstractServiceMapper<Tematica, TematicaDto> {
 
     @Override

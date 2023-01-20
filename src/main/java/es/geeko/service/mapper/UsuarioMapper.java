@@ -2,7 +2,9 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Usuario;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UsuarioMapper extends AbstractServiceMapper<Usuario,UsuarioDto> {
 
     //Convertir de entidad a dto

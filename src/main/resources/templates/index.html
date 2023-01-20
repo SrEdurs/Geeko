@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,13 +12,13 @@
 
 <body class="bg-geeko">
     <div class="container">
-        <img src="../static/logo/logo.png" width="60%" height="60%" />
+        <img th:src="@{logo/logo.png}" width="60%" height="60%" />
         <br> <br><br> <br>
         <div style="display: flex;" class="letras">
             <br> <br><br>
-            <a href="usuarios/login.html" class="enlaces">Iniciar sesión</a>
+            <a th:href="@{/login}" class="enlaces">Iniciar sesión</a>
             <p> | </p>
-            <a href="usuarios/registro.html" class="enlaces">Registro</a>
+            <a th:href="@{/registro}" class="enlaces">Registro</a>
         </div>
     </div>
     

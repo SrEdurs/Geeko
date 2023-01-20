@@ -2,7 +2,9 @@ package es.geeko.service.mapper;
 
 import es.geeko.dto.MensajeDto;
 import es.geeko.model.Mensaje;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MensajeMapper extends AbstractServiceMapper<Mensaje, MensajeDto> {
 
     @Override
