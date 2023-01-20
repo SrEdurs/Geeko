@@ -71,7 +71,12 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @GetMapping("/login")
     public String vistaLogin(){
-        return "usuarios/login";
+        return "/login";
+    }
+
+    @PostMapping("/login")
+    public String vistaLoginy(){
+        return "/login";
     }
 
 
@@ -94,7 +99,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         UsuarioDto usuarioGuardado =  this.service.guardar(usuarioDto);
         Long id = usuarioGuardado.getId();
         //return "usuarios/detallesusuario";
-        return String.format("redirect:/inicio");
+        return "/inicio";
     }
 
 
