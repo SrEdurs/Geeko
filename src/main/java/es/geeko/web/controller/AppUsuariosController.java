@@ -77,7 +77,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     //Para crear un usuario hay dos bloques
     //El que genera la pantalla para pedir los datos de tipo GetMapping
     //Cuando pasamos información a la pantalla hay que usar ModelMap
-    @GetMapping("/registro")
+    @GetMapping("/crearcuenta")
     public String vistaRegistro(ModelMap interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final UsuarioDto usuarioDto = new UsuarioDto();
@@ -87,13 +87,13 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
     //El que con los datos de la pantalla guarda la información de tipo PostMapping
-    @PostMapping("/registro")
+    @PostMapping("/crearcuenta")
     public String guardarUsuario(UsuarioDto usuarioDto) throws Exception {
         //LLamo al método del servicio para guardar los datos
         UsuarioDto usuarioGuardado =  this.service.guardar(usuarioDto);
         Long id = usuarioGuardado.getId();
         //return "usuarios/detallesusuario";
-        return "/cuestionario";
+        return "usuarios/cuestionario";
     }
 
 
