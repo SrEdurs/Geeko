@@ -9,36 +9,36 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}" />
     <title>Crear Cuenta</title>
 </head>
-<body>
-    <form role="form" th:object="${datosUsuario}" method="post">
-        <a href="localhost:8080/" class="navbar-brand">
-            <img src="../../static/logo/logo.png" alt="">
-        </a>
-        <button class="btn2" style="float: right;" >Iniciar sesión</button>
-        <div class="container">
-            <div class="row width=350">
-                <label>CREAR CUENTA</label>
-                <p> </p>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="InputEmail">Email</label>
-                        <input type="email" id="InputEmail" class="form-control"  maxlength="100" th:field="${datosUsuario.emilio}"/>
-                    </div>
+    <body>
+        <form role="form" th:object="${datosUsuario}" method="post">
+            <a th:href="@{/}" class="navbar-brand">
+                <img th:src="@{imagenes/logo.png}" alt="">
+            </a>
+            <button class="btn2" style="float: right;" >Iniciar sesión</button>
+            <div class="container">
+                <div class="row width=350">
+                    <label>CREAR CUENTA</label>
                     <p> </p>
-                    <div class="form-group">
-                        <label for="InputUser">Usuario</label>
-                        <input type="text" id="InputUser" class="form-control"  maxlength="30" th:field="${datosUsuario.usuario}"/>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="InputEmail">Email</label>
+                            <input type="email" id="InputEmail" class="form-control"  maxlength="100" th:field="${datosUsuario.emilio}"/>
+                        </div>
+                        <p> </p>
+                        <div class="form-group">
+                            <label for="InputUser">Usuario</label>
+                            <input type="text" id="InputUser" class="form-control"  maxlength="30" th:field="${datosUsuario.usuario}"/>
+                        </div>
+                        <p> </p>
+                        <div class="form-group">
+                            <label for="InputPassword">Contraseña</label>
+                            <input type="password" id="InputPassword" class="form-control" maxlength="255" th:field="${datosUsuario.clave}" />
+                        </div>
+                        <p> </p>
+                        <button type="submit" class="btn btn-primary">Registrarse</button>
                     </div>
-                    <p> </p>
-                    <div class="form-group">
-                        <label for="InputPassword">Contraseña</label>
-                        <input type="password" id="InputPassword" class="form-control" maxlength="255" th:field="${datosUsuario.clave}" />
-                    </div>
-                    <p> </p>
-                    <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
             </div>
-        </div>
-</form>
+    </form>
 </body>
 </html>
