@@ -93,7 +93,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         UsuarioDto usuarioGuardado =  this.service.guardar(usuarioDto);
         Long id = usuarioGuardado.getId();
         //return "usuarios/detallesusuario";
-        return "/usuarios/cuestionario";
+        return "/cuestionario";
     }
 
 
