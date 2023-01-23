@@ -27,27 +27,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
 
-    @GetMapping("/usuarios")
-    public String vistaUsuarios(@RequestParam("page") Optional<Integer> page,
-                                @RequestParam("size") Optional<Integer> size,
-                                ModelMap interfazConPantalla){
-
-        Integer pagina = 1;
-        if (page.isPresent()) {
-            pagina = page.get() -1;
-        }
-        Integer maxelementos = 10;
-        if (size.isPresent()) {
-            maxelementos = size.get();
-        }
-        Page<UsuarioDto> usuarioDtoPage =
-                this.service.buscarTodos(PageRequest.of(pagina,maxelementos));
-        interfazConPantalla.addAttribute(pageNumbersAttributeKey,dameNumPaginas(usuarioDtoPage));
-        interfazConPantalla.addAttribute("listausuarios", usuarioDtoPage);
-        return "usuarios/listausuariospagina";
-    }
-
-
     @GetMapping("/usuarios/{idusr}")
     public String vistaDatosUsuario(@PathVariable("idusr") Integer id, ModelMap interfazConPantalla){
         //Con el id tengo que buscar el registro a nivel de entidad
@@ -69,9 +48,9 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
 
-    @GetMapping("/login")
+    @GetMapping("/iniciarsesion")
     public String vistaLogin(){
-        return "/login";
+        return "usuarios/iniciarsesion";
     }
 
     //Para crear un usuario hay dos bloques
@@ -83,7 +62,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         final UsuarioDto usuarioDto = new UsuarioDto();
         //Mediante "addAttribute" comparto con la pantalla
         interfazConPantalla.addAttribute("datosUsuario",usuarioDto);
-        return "usuarios/registro";
+        return "usuarios/crearcuenta";
     }
 
     //El que con los datos de la pantalla guarda la información de tipo PostMapping
