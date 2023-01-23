@@ -2,7 +2,9 @@ package es.geeko.model;
 
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "usuarios")
 public class Usuario {
 
@@ -141,44 +145,7 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name="idSeguidor")
     )
     private List<Usuario> seguidos;
-    //----------------------------------------------------------------------------
 
-
-    public Usuario() {
-    }
-
-    public Usuario(long id, String nombre, String apellidos, String usuario, String emilio, String clave, String avatar, String direccion1, String direccion2, String cp, String poblacion, String provincia, String tlf, int verificacion2pasos, Date fecha_alta, double valoracion_media, int admin, int activo, String biografia, int reportado, List<Comentario> comentarios, List<Producto> productos, List<Mensaje> mensajes, List<Tematica> tematicas, List<Transaccion> transacciones, List<Chat> chats, List<Reporte> usuariosReportados, List<Reporte> reportes, List<Usuario> seguimientos, List<Usuario> seguidos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.usuario = usuario;
-        this.emilio = emilio;
-        this.clave = clave;
-        this.avatar = avatar;
-        this.direccion1 = direccion1;
-        this.direccion2 = direccion2;
-        this.cp = cp;
-        this.poblacion = poblacion;
-        this.provincia = provincia;
-        this.tlf = tlf;
-        this.verificacion2pasos = verificacion2pasos;
-        this.fecha_alta = fecha_alta;
-        this.valoracion_media = valoracion_media;
-        this.admin = admin;
-        this.activo = activo;
-        this.biografia = biografia;
-        this.reportado = reportado;
-        this.comentarios = comentarios;
-        this.productos = productos;
-        this.mensajes = mensajes;
-        this.tematicas = tematicas;
-        this.transacciones = transacciones;
-        this.chats = chats;
-        this.usuariosReportados = usuariosReportados;
-        this.reportes = reportes;
-        this.seguimientos = seguimientos;
-        this.seguidos = seguidos;
-    }
 }
 
 

@@ -1,12 +1,16 @@
 package es.geeko.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ComentarioDto {
 
     private long id;
@@ -18,17 +22,4 @@ public class ComentarioDto {
     private int reportado;
     private int activo;
 
-    public ComentarioDto() {
-    }
-
-    public ComentarioDto(long id, String titulo, String texto, String imagen, Date fecha, int likes, int reportado, int activo) {
-        this.id = id;
-        this.titulo = titulo;
-        this.texto = texto;
-        this.imagen = imagen;
-        this.fecha = fecha;
-        this.likes = likes;
-        this.reportado = reportado;
-        this.activo = activo;
-    }
 }

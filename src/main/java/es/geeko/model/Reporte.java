@@ -1,7 +1,9 @@
 package es.geeko.model;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
@@ -10,6 +12,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "reportes")
 public class Reporte {
 
@@ -38,17 +42,4 @@ public class Reporte {
     @ManyToMany(mappedBy = "comentariosReportados")
     private List<Comentario> comentarios;
 
-
-    public Reporte() {
-    }
-
-    public Reporte(long id, String motivo, Date fecha, Usuario usuario, List<Usuario> usuarios, List<Producto> productos, List<Comentario> comentarios) {
-        this.id = id;
-        this.motivo = motivo;
-        this.fecha = fecha;
-        this.usuario = usuario;
-        this.usuarios = usuarios;
-        this.productos = productos;
-        this.comentarios = comentarios;
-    }
 }

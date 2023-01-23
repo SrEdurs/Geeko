@@ -1,13 +1,17 @@
 package es.geeko.model;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "mensajes")
 public class Mensaje {
 
@@ -34,16 +38,4 @@ public class Mensaje {
     @JoinColumn(name = "idChat")
     private Chat chat;
 
-
-    public Mensaje() {
-    }
-
-    public Mensaje(long id, Date fecha, String texto, String imagen, Usuario usuario, Chat chat) {
-        this.id = id;
-        this.fecha = fecha;
-        this.texto = texto;
-        this.imagen = imagen;
-        this.usuario = usuario;
-        this.chat = chat;
-    }
 }

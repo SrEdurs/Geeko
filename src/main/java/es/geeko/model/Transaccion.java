@@ -1,7 +1,9 @@
 package es.geeko.model;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Transacciones")
 public class Transaccion {
 
@@ -39,17 +43,4 @@ public class Transaccion {
     @ManyToMany(mappedBy = "transacciones")
     private List<Usuario> usuarios;
 
-
-    public Transaccion() {
-    }
-
-    public Transaccion(long id, int idCliente, int idVendedor, double valoracionTransaccion, Date fecha, Producto producto, List<Usuario> usuarios) {
-        this.id = id;
-        this.idCliente = idCliente;
-        this.idVendedor = idVendedor;
-        this.valoracionTransaccion = valoracionTransaccion;
-        Fecha = fecha;
-        this.producto = producto;
-        this.usuarios = usuarios;
-    }
 }

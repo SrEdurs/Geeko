@@ -1,11 +1,15 @@
 package es.geeko.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductoDto {
 
     private Long id;
@@ -21,21 +25,4 @@ public class ProductoDto {
     private int activo;
     private Date fechaSubida;
 
-    public ProductoDto() {
-    }
-
-    public ProductoDto(Long id, String titulo, String imagen, String descripcion, double precio, int puntuacion, int videojuego, int libro, int pelicula, int reportado, int activo, Date fechaSubida) {
-        this.id = id;
-        this.titulo = titulo;
-        this.imagen = imagen;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.puntuacion = puntuacion;
-        this.videojuego = videojuego;
-        this.libro = libro;
-        this.pelicula = pelicula;
-        this.reportado = reportado;
-        this.activo = activo;
-        this.fechaSubida = fechaSubida;
-    }
 }

@@ -2,13 +2,17 @@ package es.geeko.model;
 
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "chats")
 public class Chat {
     @Id
@@ -42,18 +46,4 @@ public class Chat {
     @ManyToMany(mappedBy = "chats")
     private List<Usuario> usuarios;
 
-    public Chat() {
-    }
-
-    public Chat(long id, int idDestinatario, int idRemitente, String titulo, String imagen, String descripcion, int activo, List<Mensaje> mensajes, List<Usuario> usuarios) {
-        this.id = id;
-        this.idDestinatario = idDestinatario;
-        this.idRemitente = idRemitente;
-        this.titulo = titulo;
-        this.imagen = imagen;
-        this.descripcion = descripcion;
-        this.activo = activo;
-        this.mensajes = mensajes;
-        this.usuarios = usuarios;
-    }
 }

@@ -1,22 +1,18 @@
 package es.geeko.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TematicaDto {
 
     private Long id;
     private String nombre;
 
-    public TematicaDto() {
-    }
-
-    public TematicaDto(Long id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
-    }
 }

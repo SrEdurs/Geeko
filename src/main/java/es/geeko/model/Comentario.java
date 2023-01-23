@@ -1,7 +1,9 @@
 package es.geeko.model;
 import com.sun.istack.NotNull;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
 import java.util.List;
@@ -9,6 +11,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "comentarios")
 public class Comentario {
 
@@ -56,21 +60,4 @@ public class Comentario {
     )
     private List<Reporte> comentariosReportados;
 
-
-    public Comentario() {
-    }
-
-    public Comentario(long id, String titulo, String texto, String imagen, Date fecha, int likes, int reportado, int activo, Usuario usuario, Producto producto, List<Reporte> comentariosReportados) {
-        this.id = id;
-        this.titulo = titulo;
-        this.texto = texto;
-        this.imagen = imagen;
-        this.fecha = fecha;
-        this.likes = likes;
-        this.reportado = reportado;
-        this.activo = activo;
-        this.usuario = usuario;
-        this.producto = producto;
-        this.comentariosReportados = comentariosReportados;
-    }
 }

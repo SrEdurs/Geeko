@@ -1,11 +1,15 @@
 package es.geeko.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UsuarioDto {
 
     private long id;
@@ -28,32 +32,5 @@ public class UsuarioDto {
     private int activo;
     private String biografia;
     private int reportado;
-
-    public UsuarioDto() {
-    }
-
-    public UsuarioDto(long id, String nombre, String apellidos, String usuario, String emilio, String clave, String avatar, String direccion1, String direccion2, String cp, String poblacion, String provincia, String tlf, int verificacion2pasos, Date fecha_alta, double valoracion_media, int admin, int activo, String biografia, int reportado) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.usuario = usuario;
-        this.emilio = emilio;
-        this.clave = clave;
-        this.avatar = avatar;
-        this.direccion1 = direccion1;
-        this.direccion2 = direccion2;
-        this.cp = cp;
-        this.poblacion = poblacion;
-        this.provincia = provincia;
-        this.tlf = tlf;
-        this.verificacion2pasos = verificacion2pasos;
-        this.fecha_alta = fecha_alta;
-        this.valoracion_media = valoracion_media;
-        this.admin = admin;
-        this.activo = activo;
-        this.biografia = biografia;
-        this.reportado = reportado;
-    }
-
 
 }

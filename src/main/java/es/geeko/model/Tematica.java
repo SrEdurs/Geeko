@@ -1,12 +1,16 @@
 package es.geeko.model;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "tematicas")
 public class Tematica {
 
@@ -33,15 +37,5 @@ public class Tematica {
     private List<Tematica> tematicas;
     //--------------------------------------
 
-    public Tematica() {
-    }
 
-    public Tematica(Long id, String nombre, List<Usuario> usuarios, List<Producto> productos, Tematica tematica, List<Tematica> tematicas) {
-        this.id = id;
-        this.nombre = nombre;
-        this.usuarios = usuarios;
-        this.productos = productos;
-        this.tematica = tematica;
-        this.tematicas = tematicas;
-    }
 }
