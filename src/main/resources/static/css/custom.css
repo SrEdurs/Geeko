@@ -1,15 +1,50 @@
-.bg-geeko{
+body{
     background-color: #1E1E1E;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right:10px;
+    padding-bottom: 10px;
 }
 
 .container{
-        
+    width: 400px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #D9D9D9;
+    border-radius: 15px;
     text-align: center;
-    margin: auto;
-    margin-top: 5em;
-    
+    margin-top: 7em;
+    font-family: 'Inter',sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    color: #1E1E1E;
+}
+.form-control{
+    background-color: #1E1E1E;
+    border-radius: 20px;
+    font-family: 'Inter',sans-serif;
+    color: #D9D9D9;
 }
 
+.btn{
+   background-color: #8D92BB;
+   border: 0;
+   border-radius: 20px;
+   font-family: 'Inter',sans-serif;
+   font-weight: bold;
+   font-size: 15px;
+   color: #D9D9D9;
+}
+
+.btn2{
+   background-color: #1E1E1E;
+   border-color: #8D92BB;
+   border-radius: 20px;
+   color: #D9D9D9;
+   font-family: 'Inter',sans-serif;
+   margin-top: 10px;
+   margin-right: 10px;
+}
 .letras{
  color: blanchedalmond !important;   
  font-weight: bold;
@@ -27,6 +62,7 @@
 
 a.navbar-brand > img {
     width: 8rem;
+    margin-left: 10px;
 }
 
 .recuerdame{
@@ -49,53 +85,5 @@ a.navbar-brand > img {
 .card-body{
     background-color: #D9D9D9;
     border-radius: 30px;
-}
+}/*
 
-#divCuestionario{
-    margin: auto;
-    background-color: #D9D9D9;
-    border-radius: 23px;
-    top:50% !important;
-    left: 50% !important;
-    justify-content: center;
-}
-
-.invisible-checkboxes{
-
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    top:50% !important;
-    left: 50% !important;
-}
-
-.invisible-checkboxes input[type=checkbox]{
-    display: none;
-  /*   margin-right: -20px;
-    position: relative;
-    z-index: 2; */
-  }
-
-
-
-
-.checkbox-alias{
-    border-radius: 23px;
-background-color: #FFFFFF;
-    display: inline-block;
-    width: 200px;
-    height: 200px;
-  z-index: 1;
-  position: relative;
-  transition: all 250ms ease-out;
-  cursor: pointer;
-}
-
-.invisible-checkboxes input[type=checkbox]:checked + .checkbox-alias{
-    background-color: #8d92bb;
-    border: 4px solid;
-
-}
-
-.espaciadoCuestionario{
-    padding: 10px;
-}
