@@ -6,39 +6,39 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-    <link rel="stylesheet" type="text/css" href="../../static/css/custom.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}" />
     <title>Crear Cuenta</title>
 </head>
 <body>
-<form role="form" th:object="${datosUsuario}" method="post">
-    <a href="localhost:8080/" class="navbar-brand">
-        <img src="../../static/logo/logo.png" alt="">
-    </a>
-    <button class="btn2" style="float: right;" >Iniciar sesión</button>
-    <div class="container">
-        <div class="row width=350">
-            <label>CREAR CUENTA</label>
-            <p> </p>
-            <div class="col">
-                <div class="form-group">
-                    <label for="InputEmail">Email</label>
-                    <input type="email" class="form-control" id="InputEmail" maxlength="100" th:field="${datosUsuario.emilio}">
-                </div>
+    <form role="form" th:object="${datosUsuario}" method="post">
+        <a href="localhost:8080/" class="navbar-brand">
+            <img src="../../static/logo/logo.png" alt="">
+        </a>
+        <button class="btn2" style="float: right;" >Iniciar sesión</button>
+        <div class="container">
+            <div class="row width=350">
+                <label>CREAR CUENTA</label>
                 <p> </p>
-                <div class="form-group">
-                    <label for="InputUser">Usuario</label>
-                    <input type="user" class="form-control" id="InputUser" maxlength="30" th:field="${datosUsuario.usuario}">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="InputEmail">Email</label>
+                        <input type="email" id="InputEmail" class="form-control"  maxlength="100" th:field="${datosUsuario.emilio}"/>
+                    </div>
+                    <p> </p>
+                    <div class="form-group">
+                        <label for="InputUser">Usuario</label>
+                        <input type="text" id="InputUser" class="form-control"  maxlength="30" th:field="${datosUsuario.usuario}"/>
+                    </div>
+                    <p> </p>
+                    <div class="form-group">
+                        <label for="InputPassword">Contraseña</label>
+                        <input type="password" id="InputPassword" class="form-control" maxlength="255" th:field="${datosUsuario.clave}" />
+                    </div>
+                    <p> </p>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
-                <p> </p>
-                <div class="form-group">
-                    <label for="InputPassword">Contraseña</label>
-                    <input type="password" class="form-control" id="InputPassword" maxlength="255" th:field="${datosUsuario.clave}">
-                </div>
-                <p> </p>
-                <button type="submit" class="btn btn-primary">Registrarse</button>
             </div>
         </div>
-    </div>
 </form>
 </body>
 </html>
