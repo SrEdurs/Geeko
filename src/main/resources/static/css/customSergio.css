@@ -1,5 +1,6 @@
 .bg-geeko{
     background-color: #1E1E1E;
+
 }
 
 .container{
@@ -99,3 +100,12 @@ background-color: #FFFFFF;
 .espaciadoCuestionario{
     padding: 10px;
 }
+
+ @media(max-width:500px){
+            .logoMedio{
+                margin-left: 25%;
+                    margin-right: 25% !important;
+                    width: 9em !important;
+                    margin-top: 20%;
+            }
+ }
