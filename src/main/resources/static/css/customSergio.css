@@ -1,6 +1,9 @@
 .bg-geeko{
     background-color: #1E1E1E;
-
+padding-top: 10px;
+    padding-left: 10px;
+    padding-right:10px;
+    padding-bottom: 10px;
 }
 
 .container{
