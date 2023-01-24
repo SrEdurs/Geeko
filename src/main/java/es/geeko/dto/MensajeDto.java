@@ -17,5 +17,7 @@ public class MensajeDto {
     private Date fecha;
     private String texto;
     private String imagen;
+    private UsuarioDto usuario;
+    private ChatDto chat;
 
 }

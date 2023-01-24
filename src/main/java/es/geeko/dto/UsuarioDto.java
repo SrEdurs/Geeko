@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,5 +33,14 @@ public class UsuarioDto {
     private int activo;
     private String biografia;
     private int reportado;
+    private List<ComentarioDto> comentarios;
+    private List<ProductoDto> productos;
+    private List<MensajeDto> mensajes;
+    private List<TematicaDto> tematicas;
+    private List<TransaccionDto> transacciones;
+    private List<ChatDto> chats;
+    private List<ReporteDto> usuariosReportados;
+    private List<UsuarioDto> seguimientos;
+    private List<UsuarioDto> seguidos;
 
 }

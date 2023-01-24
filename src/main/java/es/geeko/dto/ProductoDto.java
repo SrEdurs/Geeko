@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +25,9 @@ public class ProductoDto {
     private int reportado;
     private int activo;
     private Date fechaSubida;
+    private List<ComentarioDto> comentario;
+    private UsuarioDto usuario;
+    private List<TematicaDto> tematicas;
+    private List<ReporteDto> productosReportados;
 
 }

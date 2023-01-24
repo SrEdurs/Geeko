@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -14,5 +16,9 @@ public class TematicaDto {
 
     private Long id;
     private String nombre;
+    private List<UsuarioDto> usuarios;
+    private List<ProductoDto> productos;
+    private TematicaDto tematica;
+    private List<TematicaDto> tematicas;
 
 }

@@ -1,6 +1,11 @@
 package es.geeko.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,5 +20,7 @@ public class ChatDto {
     private String imagen;
     private String descripcion;
     private int activo;
+    private List<MensajeDto> mensajes;
+    private List<UsuarioDto> usuarios;
 
 }
