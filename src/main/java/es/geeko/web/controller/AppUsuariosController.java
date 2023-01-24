@@ -1,5 +1,6 @@
 package es.geeko.web.controller;
 
+import es.geeko.dto.LoginDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.dto.UsuariosListaDto;
 import es.geeko.service.UsuarioService;
@@ -36,26 +37,15 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             //Como encontré datos, obtengo el objerto de tipo "UsuarioDto"
             //addAttribute y thymeleaf no entienden Optional
             UsuarioDto attr = usuarioDto.get();
-            System.out.println("La password es:");
-            System.out.println(attr.getClave());
             //Asigno atributos y muestro
             interfazConPantalla.addAttribute("datosUsuario",attr);
             return "usuarios/edit";
         } else{
             //Mostrar página usuario no existe
-            return "usuarios/detallesusuarionoencontrado";
+            return "usuarios/perfil";
         }
     }
 
-
-    @GetMapping("/iniciarsesion")
-    public String vistaLogin(){
-        return "usuarios/iniciarsesion";
-    }
-
-    //Para crear un usuario hay dos bloques
-    //El que genera la pantalla para pedir los datos de tipo GetMapping
-    //Cuando pasamos información a la pantalla hay que usar ModelMap
     @GetMapping("/crearcuenta")
     public String vistaRegistro(ModelMap interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
@@ -65,13 +55,12 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/crearcuenta";
     }
 
-    //El que con los datos de la pantalla guarda la información de tipo PostMapping
     @PostMapping("/crearcuenta")
     public String guardarUsuario(UsuarioDto usuarioDto) throws Exception {
         //LLamo al método del servicio para guardar los datos
         UsuarioDto usuarioGuardado =  this.service.guardar(usuarioDto);
+        System.out.println(usuarioGuardado.getClave());
         Long id = usuarioGuardado.getId();
-        //return "usuarios/detallesusuario";
         return "usuarios/cuestionario";
     }
 
@@ -88,7 +77,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             System.out.println("usuarioDtoControl:La password es:");
             System.out.println(usuarioDtoControl.get().getClave());
 
-            //LLamo al método del servicioi para guardar los datos
+            //LLamo al método del servicio para guardar los datos
             UsuarioDto usuarioDtoGuardar =  new UsuarioDto();
             usuarioDtoGuardar.setId(id);
             usuarioDtoGuardar.setEmilio(usuarioDtoEntrada.getEmilio());
@@ -104,20 +93,24 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }
     }
 
-
-    // Lista múltiple de edición
-    @GetMapping("/usuarios/editmultiple")
-    public String mostrarEditMultipleForm(Model intefrazConPantalla) {
-        UsuariosListaDto usuariosListaDto = new UsuariosListaDto(this.service.buscarTodos());
-
-        intefrazConPantalla.addAttribute("form", usuariosListaDto);
-        return "usuarios/listaeditableusuarios";
+    //Controlador de Login
+    @GetMapping("/iniciarsesion")
+    public String vistaLogin(){
+        return "usuarios/iniciarsesion";
+    }
+    @PostMapping("/iniciarsesion")
+    public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
+        String emilio = loginDto.getEmilio();
+        System.out.println(emilio);
+        String clave = loginDto.getClave();
+        System.out.println(clave);
+        //¿es correcta la password?
+        if (service.getRepo().validarClave(emilio, clave) > 0)
+        {
+            return "index";
+        }else {
+            return "usuarios/iniciarsesion";
+        }
     }
 
-
-    @PostMapping("/usuarios/savemultiple")
-    public String saveListaUsuariuos(@ModelAttribute UsuariosListaDto usuariosListaDto) {
-        service.guardar(usuariosListaDto.getUsuarioDtos());
-        return "redirect:/usuarios";
-    }
 }

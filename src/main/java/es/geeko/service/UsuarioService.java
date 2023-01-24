@@ -16,6 +16,16 @@ public class UsuarioService extends AbstractBusinessService<Usuario, Integer, Us
         super(usuarioRepository, mapper);
     }
 
+    public UsuarioDto guardar(UsuarioDto usuarioDto, String password){
+        //Traduzco del dto con datos de entrada a la entidad
+        final Usuario entidad = getMapper().toEntity(usuarioDto);
+        entidad.setClave(password);
+        //Guardo el la base de datos
+        Usuario entidadGuardada =  getRepo().save(entidad);
+        //Traducir la entidad a DTO para devolver el DTO
+        return getMapper().toDto(entidadGuardada);
+    }
+
     @Override
     public void guardar(List<UsuarioDto> lUsuarioDto){
         Iterator<UsuarioDto> it = lUsuarioDto.iterator();
