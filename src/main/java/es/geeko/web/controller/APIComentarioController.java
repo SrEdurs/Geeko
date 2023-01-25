@@ -1,7 +1,6 @@
 package es.geeko.web.controller;
 
 import es.geeko.model.Comentario;
-import es.geeko.model.Usuario;
 import es.geeko.repository.ComentarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/api/comentario")
-public class ComentarioController {
+public class APIComentarioController {
     @Autowired
     ComentarioRepository comentarioRepository;
 

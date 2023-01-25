@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Producto</title>
+</head>
+<body>
+<div>
+    <h1>Estas en un producto</h1>
+    <form role="form" th:object="${datosProducto}" method="post">
+        <table>
+            <tr>
+                <th>Título</th>
+                <th>Imagen</th>
+                <th>Descripción</th>
+            </tr>
+            <tr>
+                <td type="text" th:field="${datosProducto.titulo}"></td>
+                <td type="text" th:field="${datosProducto.imagen}"></td>
+                <td type="text" th:field="${datosProducto.descripcion}"></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+</body>
+</html>
