@@ -29,8 +29,8 @@ public class UsuarioDto {
     private int verificacion2pasos;
     private Date fecha_alta;
     private double valoracion_media;
-    private int admin;
-    private int activo;
+    private int admin = 0;
+    private int activo = 1;
     private String biografia;
     private int reportado;
     private List<ComentarioDto> comentarios;

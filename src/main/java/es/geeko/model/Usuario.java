@@ -71,16 +71,16 @@ public class Usuario {
     private double valoracion_media;
 
     @Column(name="admin", length = 1)
-    private int admin;
+    private int admin = 0;
 
     @Column(name="activo", length = 1)
-    private int activo;
+    private int activo = 1;
 
     @Column(name="biografia", length = 160)
     private String biografia;
 
     @Column (name="reportado", length = 1)
-    private int reportado;
+    private int reportado = 0;
 
 
     @OneToMany(mappedBy = "usuario")

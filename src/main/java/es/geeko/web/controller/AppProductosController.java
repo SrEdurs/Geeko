@@ -6,10 +6,13 @@ import es.geeko.service.ProductoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
-public class AppProductosController extends AbstractController<UsuarioDto> {
+public class AppProductosController extends AbstractController<ProductoDto> {
 
     private final ProductoService service;
 
@@ -19,7 +22,7 @@ public class AppProductosController extends AbstractController<UsuarioDto> {
 
 
     @GetMapping("/productos/crearproducto")
-    public String vistaRegistro(ModelMap interfazConPantalla){
+    public String vistaCrearProducto(ModelMap interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final ProductoDto productoDto = new ProductoDto();
         //Mediante "addAttribute" comparto con la pantalla
@@ -28,12 +31,37 @@ public class AppProductosController extends AbstractController<UsuarioDto> {
     }
 
     @PostMapping("/productos/crearproducto")
-    public String guardarUsuario(ProductoDto productoDto) throws Exception {
+    public String guardarProducto(ProductoDto productoDto) throws Exception {
         //LLamo al método del servicio para guardar los datos
         ProductoDto productoGuardado =  this.service.guardar(productoDto);
-        System.out.println(productoGuardado.getTitulo());
+        System.out.println("Titulo = " + productoGuardado.getTitulo());
+        System.out.println("Imagen = " + productoGuardado.getImagen());
+        System.out.println("Descripcion = " + productoGuardado.getDescripcion());
         Long id = productoGuardado.getId();
         return "productos/producto";
+    }
+
+    @PostMapping("/productos/{idusr}")
+    public String guardarEdicionDatosUsuario(@PathVariable("idusr") Integer id, ProductoDto productoEntrada) throws Exception {
+        //Cuidado que la password no viene
+        //Necesitamos copiar la información que llega menos la password
+        //Con el id tengo que buscar el registro a nivel de entidad
+        Optional<ProductoDto> productoDtoControl = this.service.encuentraPorId(id);
+        //¿Debería comprobar si hay datos?
+        if (productoDtoControl.isPresent()){
+
+            //LLamo al método del servicio para guardar los datos
+            ProductoDto productoDtoGuardar =  new ProductoDto();
+            productoDtoGuardar.setId(Long.valueOf(id));
+            productoDtoGuardar.setTitulo(productoEntrada.getTitulo());
+            productoDtoGuardar.setDescripcion(productoEntrada.getDescripcion());
+
+            this.service.guardar(productoDtoGuardar);
+            return String.format("redirect:/usuarios/%s", id);
+        } else {
+            //Mostrar página usuario no existe
+            return "usuarios/detallesusuarionoencontrado";
+        }
     }
 
 

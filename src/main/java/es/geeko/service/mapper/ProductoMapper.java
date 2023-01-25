@@ -19,22 +19,12 @@ public class ProductoMapper extends AbstractServiceMapper<Producto, ProductoDto>
 
 
     @Override
-    public Producto toEntity(ProductoDto productoDto){
+    public Producto toEntity(ProductoDto dto){
 
         //Convertir de dto a entidad
         final Producto entidad = new Producto();
-        entidad.setId(productoDto.getId());
-        entidad.setTitulo(productoDto.getTitulo());
-        entidad.setImagen(productoDto.getImagen());
-        entidad.setDescripcion(productoDto.getDescripcion());
-        entidad.setPrecio(productoDto.getPrecio());
-        entidad.setPuntuacion(productoDto.getPuntuacion());
-        entidad.setVideojuego(productoDto.getVideojuego());
-        entidad.setLibro(productoDto.getLibro());
-        entidad.setPelicula(productoDto.getPelicula());
-        entidad.setReportado(productoDto.getReportado());
-        entidad.setActivo(productoDto.getActivo());
-        entidad.setFechaSubida(productoDto.getFechaSubida());
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(dto, entidad);
         return entidad;
     }
 

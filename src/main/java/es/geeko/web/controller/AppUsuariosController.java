@@ -2,13 +2,8 @@ package es.geeko.web.controller;
 
 import es.geeko.dto.LoginDto;
 import es.geeko.dto.UsuarioDto;
-import es.geeko.dto.UsuariosListaDto;
-import es.geeko.model.Usuario;
 import es.geeko.service.UsuarioService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
