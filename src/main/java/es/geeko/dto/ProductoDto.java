@@ -22,8 +22,8 @@ public class ProductoDto {
     private int videojuego;
     private int libro;
     private int pelicula;
-    private int reportado;
-    private int activo;
+    private int reportado = 0;
+    private int activo = 1;
     private Date fechaSubida;
     private List<ComentarioDto> comentario;
     private UsuarioDto usuario;

@@ -31,7 +31,6 @@ public class Comentario {
     private String imagen;
 
     @Column(name="fecha")
-    @NotNull
     private Date fecha;
 
     @Column(name="likes")

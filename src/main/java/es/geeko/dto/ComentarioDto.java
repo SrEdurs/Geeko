@@ -20,8 +20,8 @@ public class ComentarioDto {
     private String imagen;
     private Date fecha;
     private int likes;
-    private int reportado;
-    private int activo;
+    private int reportado = 0;
+    private int activo = 1;
     private UsuarioDto usuario;
     private ProductoDto producto;
     private List<ReporteDto> comentariosReportados;
