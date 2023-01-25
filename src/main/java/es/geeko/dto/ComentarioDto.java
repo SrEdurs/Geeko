@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Getter
@@ -18,7 +19,7 @@ public class ComentarioDto {
     private String titulo;
     private String texto;
     private String imagen;
-    private Date fecha;
+    private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private int likes;
     private int reportado = 0;
     private int activo = 1;

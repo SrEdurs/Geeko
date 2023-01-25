@@ -51,7 +51,7 @@ public class Comentario {
     @JoinColumn(name = "idProducto")
     private Producto producto;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Comentarios_Reportados",
             joinColumns = @JoinColumn(name="idComentarioReportado"),

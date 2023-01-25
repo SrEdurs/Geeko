@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -65,7 +66,7 @@ public class Usuario {
     private int verificacion2pasos;
 
     @Column(name="fecha_alta")
-    private Date fecha_alta;
+    private Date fecha_alta = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
     @Column(name="valoracion_media")
     private double valoracion_media;
@@ -92,7 +93,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Mensaje> mensajes;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Preferencias",
             joinColumns = @JoinColumn(name="idUsuario"),
@@ -100,7 +101,7 @@ public class Usuario {
     )
     private List<Tematica> tematicas;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Usuarios_has_Transacciones",
             joinColumns = @JoinColumn(name="Usuarios_id"),
@@ -108,7 +109,7 @@ public class Usuario {
     )
     private List<Transaccion> transacciones;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Chats_has_Usuarios",
             joinColumns = @JoinColumn(name="Destinatarios_id"),
@@ -116,7 +117,7 @@ public class Usuario {
     )
     private List<Chat> chats;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Usuarios_Reportes",
             joinColumns = @JoinColumn(name="idUsuarioReportado"),
@@ -130,7 +131,7 @@ public class Usuario {
 
     //Relación Many to Many recursiva, la tabla "Seguimientos" es la intermedia
     //Vista en https://stackoverflow.com/questions/1656113/hibernate-recursive-many-to-many-association-with-the-same-entity
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
    @JoinTable(
            name="Seguimientos",
            joinColumns = @JoinColumn(name="idSeguidor"),
@@ -138,7 +139,7 @@ public class Usuario {
    )
    private List<Usuario> seguimientos;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Seguimientos",
             joinColumns = @JoinColumn(name="idSeguido"),

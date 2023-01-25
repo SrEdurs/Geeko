@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Getter
@@ -16,7 +17,7 @@ public class ReporteDto {
 
     private long id;
     private String motivo;
-    private Date fecha;
+    private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private UsuarioDto usuario;
     private List<UsuarioDto> usuarios;
     private List<ProductoDto> productos;

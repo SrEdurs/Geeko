@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 @Getter
 @Setter
@@ -14,7 +15,7 @@ import java.sql.Date;
 public class MensajeDto {
 
     private long id;
-    private Date fecha;
+    private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private String texto;
     private String imagen;
     private UsuarioDto usuario;

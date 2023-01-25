@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Getter
@@ -27,7 +28,7 @@ public class UsuarioDto {
     private String provincia;
     private String tlf;
     private int verificacion2pasos;
-    private Date fecha_alta;
+    private Date fecha_alta = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private double valoracion_media;
     private int admin = 0;
     private int activo = 1;
