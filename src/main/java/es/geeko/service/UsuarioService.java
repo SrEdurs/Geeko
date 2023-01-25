@@ -12,8 +12,8 @@ import java.util.List;
 @Service
 public class UsuarioService extends AbstractBusinessService<Usuario, Integer, UsuarioDto, UsuarioRepository, UsuarioMapper> {
 
-    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper mapper) {
-        super(usuarioRepository, mapper);
+    public UsuarioService(UsuarioRepository repo, UsuarioMapper mapper) {
+        super(repo, mapper);
     }
 
     public UsuarioDto guardar(UsuarioDto usuarioDto, String password){

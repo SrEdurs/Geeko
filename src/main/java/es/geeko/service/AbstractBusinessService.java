@@ -37,6 +37,11 @@ public abstract class AbstractBusinessService<E, ID, DTO, REPO extends JpaReposi
         return this.repo.findById(id).map(this.mapper::toDto);
     }
 
+    public Optional<E> encuentraPorIdEntity(ID id){
+
+        return this.repo.findById(id);
+    }
+
     //Guardar
     public DTO guardar(DTO dto) throws Exception {
         //Traduzco del dto con datos de entrada a la entidad

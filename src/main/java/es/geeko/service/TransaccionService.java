@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransaccionService extends AbstractBusinessService<Transaccion, Integer, TransaccionDto, TransaccionRepository, TransaccionMapper> {
 
-    public TransaccionService(TransaccionRepository transaccionRepository, TransaccionMapper mapper) {
-        super(transaccionRepository, mapper);
+    public TransaccionService(TransaccionRepository repo, TransaccionMapper mapper) {
+        super(repo, mapper);
     }
 }

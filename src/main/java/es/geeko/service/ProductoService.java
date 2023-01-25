@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductoService  extends AbstractBusinessService<Producto, Integer, ProductoDto, ProductoRepository, ProductoMapper> {
 
-    public ProductoService(ProductoRepository productoRepository, ProductoMapper mapper) {
-        super(productoRepository, mapper);
+    public ProductoService(ProductoRepository repo, ProductoMapper mapper) {
+        super(repo, mapper);
     }
 }

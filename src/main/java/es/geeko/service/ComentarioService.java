@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ComentarioService extends AbstractBusinessService<Comentario, Integer, ComentarioDto, ComentarioRepository, ComentarioMapper> {
 
-    public ComentarioService(ComentarioRepository comentarioRepository, ComentarioMapper mapper) {
-        super(comentarioRepository, mapper);
+    public ComentarioService(ComentarioRepository repo, ComentarioMapper mapper) {
+        super(repo, mapper);
     }
 }

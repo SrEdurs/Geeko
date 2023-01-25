@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MensajeService extends AbstractBusinessService<Mensaje, Integer, MensajeDto, MensajeRepository, MensajeMapper> {
 
-    public MensajeService(MensajeRepository mensajeRepository, MensajeMapper mapper) {
-        super(mensajeRepository, mapper);
+    public MensajeService(MensajeRepository repo, MensajeMapper mapper) {
+        super(repo, mapper);
     }
 }

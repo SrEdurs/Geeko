@@ -3,6 +3,7 @@ package es.geeko.web.controller;
 import es.geeko.dto.LoginDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.dto.UsuariosListaDto;
+import es.geeko.model.Usuario;
 import es.geeko.service.UsuarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,25 +29,9 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
 
-    @GetMapping("/usuarios/{idusr}")
-    public String vistaDatosUsuario(@PathVariable("idusr") Integer id, ModelMap interfazConPantalla){
-        //Con el id tengo que buscar el registro a nivel de entidad
-        Optional<UsuarioDto> usuarioDto = this.service.encuentraPorId(id);
-        //¿Debería comprobar si hay datos?
-        if (usuarioDto.isPresent()){
-            //Como encontré datos, obtengo el objerto de tipo "UsuarioDto"
-            //addAttribute y thymeleaf no entienden Optional
-            UsuarioDto attr = usuarioDto.get();
-            //Asigno atributos y muestro
-            interfazConPantalla.addAttribute("datosUsuario",attr);
-            return "usuarios/edit";
-        } else{
-            //Mostrar página usuario no existe
-            return "usuarios/perfil";
-        }
-    }
 
-    @GetMapping("/crearcuenta")
+
+    @GetMapping("/usuarios/crearcuenta")
     public String vistaRegistro(ModelMap interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final UsuarioDto usuarioDto = new UsuarioDto();
@@ -55,7 +40,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/crearcuenta";
     }
 
-    @PostMapping("/crearcuenta")
+    @PostMapping("/usuarios/crearcuenta")
     public String guardarUsuario(UsuarioDto usuarioDto) throws Exception {
         //LLamo al método del servicio para guardar los datos
         UsuarioDto usuarioGuardado =  this.service.guardar(usuarioDto);
@@ -63,6 +48,13 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         Long id = usuarioGuardado.getId();
         return "usuarios/cuestionario";
     }
+
+    @GetMapping("/usuarios/cambiarcontraseña")
+    public String vistaOlvidona(){
+        return "usuarios/cambiarcontraseña";
+    }
+
+
 
 
     //Me falta un postmaping para guardar
@@ -94,11 +86,11 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
     //Controlador de Login
-    @GetMapping("/iniciarsesion")
+    @GetMapping("/usuarios/iniciarsesion")
     public String vistaLogin(){
         return "usuarios/iniciarsesion";
     }
-    @PostMapping("/iniciarsesion")
+    @PostMapping("/usuarios/iniciarsesion")
     public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
         String emilio = loginDto.getEmilio();
         System.out.println(emilio);

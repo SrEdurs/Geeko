@@ -10,8 +10,8 @@
   <title>Iniciar Sesión</title>
 </head>
 <body>
-<form>
-  <a href="localhost:8080/" class="navbar-brand">
+<form role="form" th:action="@{/usuarios/iniciarsesion}" th:object="${loginForm}" method="post">
+  <a th:href="@{/}" class="navbar-brand">
     <img th:src="@{imagenes/logo.png}" alt="">
   </a>
   <button class="btnCC" style="float: right;" >Crear cuenta</button>
@@ -22,18 +22,18 @@
       <div class="col">
         <div class="form-group">
           <label for="InputEmail">Email</label>
-          <input type="email" class="form-control" id="InputEmail">
+          <input type="email" class="form-control" name="emilio" id="InputEmail">
         </div>
         <p> </p>
         <div class="form-group">
           <label for="InputPassword">Contraseña</label>
-          <input type="password" class="form-control" id="InputPassword">
+          <input type="password" class="form-control" name="clave" id="InputPassword">
         </div>
         <p> </p>
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
           <label class="form-check-label" style="float: left;" for="flexCheckDefault">Recuérdame</label>
-          <button type="submit" class="btnCO" style="float: right;">Contraseña Olvidada</button>
+          <button type="submit" class="btnCO" style="float: right;" th:href="@{/cambiarcontraseña}">Contraseña Olvidada</button>
         </div>
         <p> </p>
         <button type="submit" class="btn btn-primary">Iniciar</button>

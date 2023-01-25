@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReporteService extends AbstractBusinessService<Reporte, Integer, ReporteDto, ReporteRepository, ReporteMapper> {
 
-    public ReporteService(ReporteRepository reporteRepository, ReporteMapper mapper) {
-        super(reporteRepository, mapper);
+    public ReporteService(ReporteRepository repo, ReporteMapper mapper) {
+        super(repo, mapper);
     }
 }

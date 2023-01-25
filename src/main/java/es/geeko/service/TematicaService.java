@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TematicaService extends AbstractBusinessService<Tematica, Integer, TematicaDto, TematicaRepository, TematicaMapper> {
 
-    public TematicaService(TematicaRepository tematicaRepository, TematicaMapper mapper) {
-        super(tematicaRepository, mapper);
+    public TematicaService(TematicaRepository repo, TematicaMapper mapper) {
+        super(repo, mapper);
     }
 }
