@@ -88,7 +88,29 @@ body{
 }
 
 .col{
+   background-color: #1E1E1E;
    color: #D9D9D9;
+}
+
+.card{
+   background-color: #1E1E1E;
+   border: 0;
+}
+
+.carprodu{
+   width: 210px;
+   height: 210px;
+}
+
+.cardnovedad{
+   width: 300px;
+   height: 390px;
+}
+
+.card-img-top{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
 }
 
 .libros{
@@ -96,7 +118,6 @@ body{
    border: 0;
    color: #D9D9D9;
    font-weight: bold;
-
 }
 
 .series{
@@ -159,12 +180,22 @@ a.navbar-brand > img {
     border-radius: 30px;
 }
 
-.label{
-    text-align: left;
+.clasificacion{
+    direction: rtl;
+    text-align: center;
+    color: #D9D9D9;
+}
+input[type = "radio"]{ display:none;}
+label:hover,
+label:hover ~ label {
+  color: #8d92bb;
+}
+input[type="radio"]:checked ~ label {
+  color: #8d92bb;
 }
 
 .card-body{
-    background-color: #D9D9D9;
+    background-color: #1E1E1E;
     border-radius: 30px;
 }/*
 
