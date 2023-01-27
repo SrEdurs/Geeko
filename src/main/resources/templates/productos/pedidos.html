@@ -1,10 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sd="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Pedidos</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/customSergio.css}"/>
+</head>
+<body class="bg-geeko">
+<nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
+    <div class="container-fluid text-center">
+        <div class="row w-100">
+            <div class="col">
+                <a href="localhost:8080/" class="navbar-brand">
+                    <img th:src="@{imagenes/logo.png}" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
+                        aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
+                <form action="" class="d-flex w-100" role="search">
+                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <a style="margin-top: 8px; margin-left: -48px;" type="submit">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </form>
+            </div>
+            <div class="col">
+                <img src="../static/imagenes/icono-perfil.webp" id="iconoperfil" alt="">
+                <p>Usuario</p>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-2"></div>
+            <div class="col text-white">
+                <a href="#" class="text-uppercase enlace">
+                    <img th:src="@{iconos/libro.png}" class="icono">Libros
+                </a>
+            </div>
+            <div class="col text-white">
+                <a href="/series" class="text-uppercase enlace">
+                    <img th:src="@{iconos/tv.png}" class="icono">Series
+                </a>
+            </div>
+            <div class="col text-white">
+                <a href="#" class="text-uppercase enlace">
+                    <img th:src="@{iconos/claqueta.png}" class="icono">Películas
+                </a></div>
+            <div class="col text-white">
+                <a href="#" class="text-uppercase enlace">
+                    <img th:src="@{iconos/consola.png}" class="icono">Videojuegos
+                </a></div>
+            <div class="col text-white">
+                <a href="#" class="text-uppercase enlace">
+                    <img th:src="@{iconos/dialogo.png}" class="icono">Social
+                </a></div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+</nav>
+<section class="py-1">
+    <div class="container py-5">
+        <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 1000px;">
+            <div class="row row-cols-1 " style="max-width: 500px;margin-right: 5px;">
+                <h3 style="color: aliceblue;" class="mb-4">Compras</h3>
+                <!--A partir de aqui se repitiria-->
+                <div class="col mb-12 b mb-4 card-body">
+                    <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
+                       style="color: black;text-decoration: none;">
+                        <div class="row g-0 ">
+                            <div class="col-md-4">
+                                <img src="juego_ds.jpg" style="width: 100px; height: 100px;border-radius: 50%;"
+                                     class="img-fluid p-2 fotosPedidos" alt="...">
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class=" p-2">
+                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
+                                        <h2 class="mt-1">25€</h2>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
+                                <form>
+                                    <p class="clasificacion">
+                                        <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                  --><label for="radio1">★</label><!--
+                                  --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                  --><label for="radio2">★</label><!--
+                                  --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                  --><label for="radio3">★</label><!--
+                                  --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                  --><label for="radio4">★</label><!--
+                                  --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                  --><label for="radio5">★</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!--Hasta aqui-->
+            </div>
+            <div class="row row-cols-1" style="max-width: 500px;">
+                <h3 style="color: aliceblue;" class="mb-4">Ventas</h3>
+                <!--A partir de aqui se repitiria-->
+                <div class="col mb-12 b mb-4 card-body">
+                    <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
+                       style="color: black;text-decoration: none;">
+                        <div class="row g-0 ">
+                            <div class="col-md-4">
+                                <img src="juego_ds.jpg" style="width: 100px; height: 100px;border-radius: 50%;"
+                                     class="img-fluid p-2 fotosPedidos" alt="...">
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class=" p-2">
+                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
+                                        <h2 class="mt-1">25€</h2>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
+                                <form>
+                                    <p class="clasificacion">
+                                        <input id="radio6" type="radio" name="estrellas" value="5"><!--
+                                  --><label for="radio6">★</label><!--
+                                  --><input id="radio7" type="radio" name="estrellas" value="4"><!--
+                                  --><label for="radio7">★</label><!--
+                                  --><input id="radio8" type="radio" name="estrellas" value="3"><!--
+                                  --><label for="radio8">★</label><!--
+                                  --><input id="radio9" type="radio" name="estrellas" value="2"><!--
+                                  --><label for="radio9">★</label><!--
+                                  --><input id="radio10" type="radio" name="estrellas" value="1"><!--
+                                  --><label for="radio10">★</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--Hasta aqui-->
+            </div>
+
+        </div>
+    </div>
+</section>
 </body>
 </html>

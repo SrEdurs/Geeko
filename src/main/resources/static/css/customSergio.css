@@ -112,3 +112,52 @@ background-color: #FFFFFF;
                     margin-top: 20%;
             }
  }
+
+
+
+    .valoracionPedidos p {
+        text-align: center;
+        margin-right: 5px;
+      }
+
+      .valoracionPedidos label {
+        font-size: 17px;
+        cursor: pointer;
+        margin-right: 1px;
+      }
+
+      .valoracionPedidos input[type="radio"] {
+        display: none;
+      }
+
+      .valoracionPedidos label {
+        color: grey;
+      }
+
+      .clasificacion {
+        direction: rtl;
+        unicode-bidi: bidi-override;
+      }
+
+      .valoracionPedidos label:hover,
+      .valoracionPedidos label:hover ~ label {
+        color: orange;
+      }
+
+      .valoracionPedidos input[type="radio"]:checked ~ label {
+        color: orange;
+      }
+
+      @media(max-width:765px){
+        .fotosPedidos{
+            width: 200px !important;
+            height:200px !important;
+        }
+
+        .valoracionPedidos label{
+            font-size: 40px !important;
+        }
+    }
+
+
+
