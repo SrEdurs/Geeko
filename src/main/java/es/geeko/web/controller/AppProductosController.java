@@ -1,7 +1,6 @@
 package es.geeko.web.controller;
 
 import es.geeko.dto.ProductoDto;
-import es.geeko.dto.UsuarioDto;
 import es.geeko.service.ProductoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +17,27 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     public AppProductosController(ProductoService service) {
         this.service = service;
+    }
+
+
+    @GetMapping("/productos/libros")
+    public String vistaLibro(){
+        return "/productos/libros";
+    }
+
+    @GetMapping("/productos/peliculas")
+    public String vistaPelis(){
+        return "/productos/peliculas";
+    }
+
+    @GetMapping("/productos/series")
+    public String vistaSerie(){
+        return "/productos/series";
+    }
+
+    @GetMapping("/productos/videojuegos")
+    public String vistaVideojuegos(){
+        return "/productos/videojuegos";
     }
 
 
