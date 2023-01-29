@@ -4,15 +4,16 @@ padding-top: 10px;
     padding-left: 10px;
     padding-right:10px;
     padding-bottom: 10px;
+
 }
 
 .container{
-
     text-align: center;
     margin: auto;
     margin-top: 3em;
-
 }
+
+
 
 .letras{
  color: blanchedalmond !important;
@@ -51,7 +52,7 @@ a.navbar-brand > img {
 }
 
 .card-body{
-    background-color: #D9D9D9;
+
     border-radius: 30px;
 }
 
@@ -118,6 +119,7 @@ background-color: #FFFFFF;
     .valoracionPedidos p {
         text-align: center;
         margin-right: 5px;
+        margin: auto;
       }
 
       .valoracionPedidos label {
@@ -155,9 +157,52 @@ background-color: #FFFFFF;
         }
 
         .valoracionPedidos label{
-            font-size: 40px !important;
+            font-size: 25px !important;
         }
+
+        .valoracionPedidos p{
+          font-size: 20px !important;
+          margin-top: auto;
+      }
     }
 
+    .interesante{
+      margin-bottom: 5px;
+      color: #8D92BB;
+      min-width: 212px;
+      min-height: 228px;
+      text-align: center !important;
+    }
 
+    @media(max-width:750px){
+      .productoPropio{
+          display: block;
+      }
+
+    }
+
+    .productoPropio{
+      font-size: large;
+  }
+
+
+  @media(min-width:1100px){
+    .interesarte{
+    max-width: 300px;
+  }
+
+  }
+
+  @media(max-width:1050px ){
+    .interesarteEncogido{
+      display: flex !important;
+            flex-direction: row !important;
+            justify-content: space-around !important;
+            flex-flow: wrap !important;
+  }
+  .interesarte{
+    width: 100%;
+
+  }
+}
 
