@@ -123,3 +123,29 @@ a.navbar-brand > img {
 .reporte{
     color: #FA5959;
 }
+
+.interesante{
+   margin-bottom: 5px;
+   color: #8D92BB;
+   min-width: 212px;
+   min-height: 228px;
+   text-align: center !important;
+}
+
+@media(max-width:1050px ){
+   .interesarteEncogido{
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      flex-flow: wrap !important;
+   }
+   .interesarte{
+      width: 100%;
+
+   }
+}
+
+.clasificacion {
+   direction: rtl;
+   unicode-bidi: bidi-override;
+}
