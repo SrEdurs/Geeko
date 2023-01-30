@@ -58,7 +58,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         System.out.println("Imagen = " + productoGuardado.getImagen());
         System.out.println("Descripcion = " + productoGuardado.getDescripcion());
         Long id = productoGuardado.getId();
-        return "productos/producto";
+        return "productos/productopropio";
     }
 
     @PostMapping("/productos/{idusr}")
@@ -77,10 +77,10 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             productoDtoGuardar.setDescripcion(productoEntrada.getDescripcion());
 
             this.service.guardar(productoDtoGuardar);
-            return String.format("redirect:/usuarios/%s", id);
+            return String.format("redirect:/productos/{idusr}", id);
         } else {
             //Mostrar página usuario no existe
-            return "usuarios/detallesusuarionoencontrado";
+            return "error";
         }
     }
 
