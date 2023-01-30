@@ -8,7 +8,7 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link href="../../static/css/customEdu.css" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/customEdu.css}" type="text/css" rel="stylesheet">
 </head>
 <body style="background: #1e1e1e;">
 <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
@@ -16,7 +16,7 @@
         <div class="row w-100">
             <div class="col">
                 <a href="localhost:8080/" class="navbar-brand">
-                    <img src="../../static/imagenes/logo.png" alt="">
+                    <img th:src="@{/imagenes/logo.png}" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                         aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,29 +33,29 @@
                 </form>
             </div>
             <div class="col">
-                <img src="../../static/imagenes/peepogoku.png" width="40px" id="iconoperfil" alt="" style="margin-top: 8px;">
+                <img th:src="@{/imagenes/peepogoku.png}" width="40px" id="iconoperfil" alt="" style="margin-top: 8px;">
                 <p class="usuario">@Usuario</p>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
             <div class="col text-white" style="margin-bottom: 40px;">
-                <img src="../../static/iconos/libro.png" class="icono" width="35px">
+                <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
                 <button class="libros">LIBROS</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/tv.png" class="icono" width="35px">
+                <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
                 <button class="series">SERIES</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/claqueta.png" class="icono" width="33px">
+                <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
                 <button class="peliculas">PELÍCULAS</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/consola.png" class="icono" width="35px">
+                <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
                 <button class="vj">VIDEOJUEGOS</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/dialogo.png" class="icono" width="35px">
+                <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
                 <button class="social">SOCIAL</button>
             </div>
             <div class="col-2"></div>
@@ -73,7 +73,7 @@
                 <div class="col"></div>
                 <div class="col-xxl-3" style="height: 180px;">
                     <div class="row" style="height: 164px;">
-                        <div class="col"><img width="199" height="199" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" src="../../static/imagenes/peepogoku.png"></div>
+                        <div class="col"><img width="199" height="199" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="@{/imagenes/peepogoku.png}"></div>
                     </div>
                     <div class="row">
                         <div class="col">

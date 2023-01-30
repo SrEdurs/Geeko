@@ -99,4 +99,24 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }
     }
 
+    @GetMapping("/usuarios/perfil")
+    public String vistaperfil(){
+        return "/usuarios/perfil";
+    }
+
+    @GetMapping("/usuarios/perfilotrousuario")
+    public String vistaotroperfil(){
+        return "/usuarios/perfilotrousuario";
+    }
+
+    @GetMapping("/usuarios/perfiladmin")
+    public String vistaperfiladmin(){
+        return "/usuarios/perfiladmin";
+    }
+
+    @GetMapping("/social/social")
+    public String vistasocial(){
+        return "/social/social";
+    }
+
 }

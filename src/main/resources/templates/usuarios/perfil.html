@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -9,7 +9,7 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link href="../../static/css/customEdu.css" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/customEdu.css}"  type="text/css" rel="stylesheet">
 </head>
 
 <body style="background: #1e1e1e;">
@@ -18,7 +18,7 @@
         <div class="row w-100">
             <div class="col">
                 <a href="localhost:8080/" class="navbar-brand">
-                    <img src="../../static/imagenes/logo.png" alt="">
+                    <img th:src="@{/imagenes/logo.png}" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                         aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,29 +35,29 @@
                 </form>
             </div>
             <div class="col">
-                <img src="../../static/imagenes/peepogoku.png" width="40px" id="iconoperfil" alt="" style="margin-top: 8px;">
+                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
                 <p class="usuario">@Usuario</p>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
             <div class="col text-white" style="margin-bottom: 40px;">
-                <img src="../../static/iconos/libro.png" class="icono" width="35px">
+                <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
                 <button class="libros">LIBROS</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/tv.png" class="icono" width="35px">
+                <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
                 <button class="series">SERIES</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/claqueta.png" class="icono" width="33px">
+                <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
                 <button class="peliculas">PELÍCULAS</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/consola.png" class="icono" width="35px">
+                <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
                 <button class="vj">VIDEOJUEGOS</button>
             </div>
             <div class="col text-white">
-                <img src="../../static/iconos/dialogo.png" class="icono" width="35px">
+                <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
                 <button class="social">SOCIAL</button>
             </div>
             <div class="col-2"></div>
@@ -69,7 +69,7 @@
         <div class="col-md-4 col-xxl-3">
             <div class="row">
                 <div class="col" style="margin-top: 11px;">
-                    <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" src="/static/imagenes/peepogoku.png">
+                    <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" th:src="@{/imagenes/peepogoku.png}">
                         <h3 class="text-white text-center pt-2">@SrEdurs</h3>
                         <p class="fw-light text-white m-0">Esto es una descripción de muestra pipopipopipo</p>
                     </div>
@@ -94,7 +94,7 @@
             <div class="row" style="margin-top: 19px;">
                 <section class="card mb-3">
                     <div class="row">
-                        <div class="col-3"><img src="/static/imagenes/peepogoku.png" style="width: 7rem;" class="mt-1" alt=""></div>
+                        <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
                         <div class="col">
                             <div class="card-body">
                                 <h5 class="card-title">Título feed</h5>
@@ -111,12 +111,12 @@
                 <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
                     <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;">168</h4>
                 </div>
-                <div class="col" style="padding-left: 6px;"><img src="/static/iconos/like.png" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
+                <div class="col" style="padding-left: 6px;"><img th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
             </div>
             <div class="row" style="margin-top: 19px;">
                 <section class="card mb-3">
                     <div class="row">
-                        <div class="col-3"><img src="/static/imagenes/peepogoku.png" style="width: 7rem;" class="mt-1" alt=""></div>
+                        <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
                         <div class="col">
                             <div class="card-body">
                                 <h5 class="card-title">Título feed</h5>
@@ -133,12 +133,12 @@
                 <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
                     <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;">168</h4>
                 </div>
-                <div class="col" style="padding-left: 6px;"><img src="/static/iconos/like.png" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
+                <div class="col" style="padding-left: 6px;"><img th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
             </div>
             <div class="row" style="margin-top: 19px;">
                 <section class="card mb-3">
                     <div class="row">
-                        <div class="col-3"><img src="/static/imagenes/peepogoku.png" style="width: 7rem;" class="mt-1" alt=""></div>
+                        <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
                         <div class="col">
                             <div class="card-body">
                                 <h5 class="card-title">Título feed</h5>
@@ -155,7 +155,7 @@
                 <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
                     <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;">168</h4>
                 </div>
-                <div class="col" style="padding-left: 6px;"><img src="/static/iconos/like.png" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
+                <div class="col" style="padding-left: 6px;"><img th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
             </div>
         </div>
         <div class="col" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
@@ -165,13 +165,13 @@
                 </div>
             </div>
             <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px;">
-                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" src="/static/imagenes/dragon.jpg"></div>
+                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" th:src="@{/imagenes/dragon.jpg}"></div>
             </div>
             <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px;">
-                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" src="/static/imagenes/dragon.jpg"></div>
+                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" th:src="@{/imagenes/dragon.jpg}"></div>
             </div>
             <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px;">
-                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" src="/static/imagenes/dragon.jpg"></div>
+                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" th:src="@{/imagenes/dragon.jpg}"></div>
             </div>
         </div>
     </div>
