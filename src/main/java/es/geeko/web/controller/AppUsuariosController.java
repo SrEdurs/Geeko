@@ -18,10 +18,11 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
 
-    @GetMapping("")
+    @GetMapping("/home")
     public String vistaHome(){
         return "index";
     }
+
 
 
 
@@ -88,9 +89,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     @PostMapping("/usuarios/iniciarsesion")
     public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
         String emilio = loginDto.getEmilio();
-        System.out.println(emilio);
         String clave = loginDto.getClave();
-        System.out.println(clave);
         //¿es correcta la password?
         if (service.getRepo().validarClave(emilio, clave) > 0)
         {
@@ -98,6 +97,26 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }else {
             return "usuarios/iniciarsesion";
         }
+    }
+
+    @GetMapping("/usuarios/perfil")
+    public String vistaperfil(){
+        return "/usuarios/perfil";
+    }
+
+    @GetMapping("/usuarios/perfilotrousuario")
+    public String vistaotroperfil(){
+        return "/usuarios/perfilotrousuario";
+    }
+
+    @GetMapping("/usuarios/perfiladmin")
+    public String vistaperfiladmin(){
+        return "/usuarios/perfiladmin";
+    }
+
+    @GetMapping("/social/social")
+    public String vistasocial(){
+        return "/social/social";
     }
 
 }
