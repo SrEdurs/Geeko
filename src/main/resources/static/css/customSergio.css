@@ -200,9 +200,17 @@ background-color: #FFFFFF;
             justify-content: space-around !important;
             flex-flow: wrap !important;
   }
+  .iconosNav{
+   display: flex !important;
+               flex-direction: row !important;
+               justify-content: space-around !important;
+               flex-flow: wrap !important;
+   }
   .interesarte{
     width: 100%;
 
   }
 }
+
+
 
