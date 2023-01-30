@@ -19,12 +19,45 @@ body{
     font-size: 18px;
     color: #1E1E1E;
 }
+
+.form-group{
+    background-col: #D9D9D9;
+}
+
 .form-control{
     background-color: #1E1E1E;
     border-radius: 20px;
     font-family: 'Inter',sans-serif;
     color: #D9D9D9;
 }
+
+.form-label{
+    color: #8D92BB;
+    font-family: 'Inter',sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.usu{
+   background-color: #D9D9D9;
+   color: #1E1E1E;
+}
+
+.col2{
+   background-color: #D9D9D9;
+   color: #1E1E1E ;
+}
+
+.col{
+   background-color: #1E1E1E;
+   color: #D9D9D9;
+}
+
+/*.scroll-container {
+   display: block;
+   overflow-y: scroll;
+   scroll-behavior: smooth;
+ }*/
 
 .btn{
    background-color: #8D92BB;
@@ -87,30 +120,78 @@ body{
    margin-right: 10px;
 }
 
-.col{
-   background-color: #1E1E1E;
-   color: #D9D9D9;
-}
-
 .card{
    background-color: #1E1E1E;
    border: 0;
 }
 
-.carprodu{
-   width: 210px;
-   height: 210px;
+.cardpago{
+   width: 500px;
+   height: 350px;
+   justify-content: center;
 }
 
-.cardnovedad{
+.card-bodypago{
+   margin-top: 45px;
+   background-color: #D9D9D9;
+   border: 0;
+   border-radius: 20px;
+   color: #1E1E1E;
+   font-family: 'Inter',sans-serif;
+   font-weight: bold;
+   font-size: 15px;
+   text-align: center;
+   width: 500px;
+   height: 350px;
+   justify-content: center;
+}
+
+.cardprodint{
    width: 300px;
-   height: 390px;
+   height: 350px;
 }
 
-.card-img-top{
+.card-img-toppdint{
+   width: 270px;
+   height: 270px;
    border-radius: 20px;
    object-position: center;
    object-fit: cover;
+}
+
+.cardprodu{
+   width: 210px;
+   height: 240px;
+}
+
+.card-img-toppu{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 200px;
+   height: 200px;
+}
+
+.cardnovedad{
+   width: 310px;
+   height: 420px;
+}
+
+.card-img-topn{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 320px;
+   height: 390px;
+}
+
+.btn-floating{
+   background-color: #1E1E1E;
+}
+
+.card-title{
+   margin-top: 5px;
+   text-align: center;
 }
 
 .libros{
