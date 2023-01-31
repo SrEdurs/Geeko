@@ -41,7 +41,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         interfazConPantalla.addAttribute("datosUsuario",usuarioDtoPsw);
         return "usuarios/crearcuenta";
     }
-    //El que con los datos de la pantalla guarda la informacion de tipo PostMapping
+    //El que con los datos de la pantalla guarda la información de tipo PostMapping
     @PostMapping("/usuarios/crearcuenta")
     public String guardarUsuario( UsuarioDtoPsw usuarioDtoPsw) throws Exception {
         //LLamo al método del servicioi para guardar los datos
