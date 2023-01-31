@@ -18,7 +18,7 @@
         <div class="row w-100">
             <div class="col">
                 <a href="localhost:8080/" class="navbar-brand">
-                    <img th:src="@{imagenes/logo.png}" alt="">
+                    <img th:src="@{/imagenes/logo.png}" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                         aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
             </div>
             <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
                 <form action="" class="d-flex w-100" role="search">
-                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Search"
+                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
                            aria-label="Search">
                     <a style="margin-top: 8px; margin-left: -48px;" type="submit">
                         <i class="bi bi-search"></i>
@@ -35,33 +35,31 @@
                 </form>
             </div>
             <div class="col">
-                <img src="../static/imagenes/icono-perfil.webp" id="iconoperfil" alt="">
-                <p>Usuario</p>
+                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
+                <p class="usuario">@Usuario</p>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
-            <div class="col text-white">
-                <a href="#" class="text-uppercase enlace">
-                    <img th:src="@{iconos/libro.png}" class="icono">Libros
-                </a>
+            <div class="col text-white" style="margin-bottom: 40px;">
+                <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
+                <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
             </div>
             <div class="col text-white">
-                <a href="/series" class="text-uppercase enlace">
-                    <img th:src="@{iconos/tv.png}" class="icono">Series
-                </a>
+                <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
+                <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
             </div>
             <div class="col text-white">
-                <a href="#" class="text-uppercase enlace">
-                    <img th:src="@{iconos/claqueta.png}" class="icono">Películas
-                </a></div>
+                <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
+                <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
+            </div>
             <div class="col text-white">
-                <a href="#" class="text-uppercase enlace">
-                    <img th:src="@{iconos/consola.png}" class="icono">Videojuegos
-                </a></div>
+                <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
+                <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
+            </div>
             <div class="col text-white">
-                <a href="#" class="text-uppercase enlace">
-                    <img th:src="@{iconos/dialogo.png}" class="icono">Social
-                </a></div>
+                <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
+                <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
+            </div>
             <div class="col-2"></div>
         </div>
     </div>

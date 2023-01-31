@@ -29,7 +29,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @GetMapping("/productos/peliculas")
-    public String vistaPelis(){
+    public String vistaPelis(ModelMap interfazConPantalla){
+        final List<ProductoDto> listaProductos = service.buscarTodos();
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "/productos/peliculas";
     }
 
