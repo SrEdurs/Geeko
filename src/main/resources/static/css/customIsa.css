@@ -120,6 +120,14 @@ body{
    margin-right: 10px;
 }
 
+.scroll-container {
+   display: block;
+   width: 350px;
+   height: 200px;
+   overflow-y: scroll;
+   scroll-behavior: smooth;
+ }
+
 .card{
    background-color: #1E1E1E;
    border: 0;
@@ -131,7 +139,35 @@ body{
    justify-content: center;
 }
 
+.card-bodydire{
+   background-color: #D9D9D9;
+   border: 0;
+   border-radius: 20px;
+   color: #1E1E1E;
+   font-family: 'Inter',sans-serif;
+   font-weight: bold;
+   font-size: 15px;
+   text-align: center;
+   width: 500px;
+   height: 500px;
+   justify-content: center;
+}
+
 .card-bodypago{
+   background-color: #D9D9D9;
+   border: 0;
+   border-radius: 20px;
+   color: #1E1E1E;
+   font-family: 'Inter',sans-serif;
+   font-weight: bold;
+   font-size: 15px;
+   text-align: center;
+   width: 500px;
+   height: 300px;
+   justify-content: center;
+}
+
+.card-bodypago2{
    margin-top: 45px;
    background-color: #D9D9D9;
    border: 0;
@@ -153,7 +189,7 @@ body{
 
 .card-img-toppdint{
    width: 270px;
-   height: 270px;
+   height: 300px;
    border-radius: 20px;
    object-position: center;
    object-fit: cover;
