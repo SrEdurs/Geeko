@@ -89,7 +89,11 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             usuarioDtoGuardar.setApellidos(usuarioDtoEntrada.getApellidos());
             usuarioDtoGuardar.setAvatar(usuarioDtoEntrada.getAvatar());
             usuarioDtoGuardar.setDireccion1(usuarioDtoEntrada.getDireccion1());
-
+            usuarioDtoGuardar.setDireccion2(usuarioDtoEntrada.getDireccion2());
+            usuarioDtoGuardar.setPoblacion(usuarioDtoEntrada.getPoblacion());
+            usuarioDtoGuardar.setProvincia(usuarioDtoEntrada.getProvincia());
+            usuarioDtoGuardar.setTlf(usuarioDtoEntrada.getTlf());
+            usuarioDtoGuardar.setBiografia(usuarioDtoEntrada.getBiografia());
             usuarioDtoGuardar.setClave(usuarioDtoControl.get().getClave());
 
         System.out.println("usuarioDtoEntrada = " + usuarioDtoEntrada.getClave());
