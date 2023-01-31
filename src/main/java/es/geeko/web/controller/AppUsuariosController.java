@@ -154,4 +154,14 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/cambiarcontraseña";
     }
 
+    @GetMapping("/usuarios/cuestionario")
+    public String vistaCuestionario(ModelMap interfazConPantalla){
+
+        final List<Tematica> tematicas = tematicaService.buscarEntidades();
+        interfazConPantalla.addAttribute("listaTematicas",tematicas);
+
+
+        return "usuarios/cuestionario";
+    }
+
 }
