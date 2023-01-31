@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es_ES" xmlns:th="http://www.thymeleaf.org">
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+                   xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -23,7 +24,8 @@
   <title>Iniciar Sesión</title>
 </head>
 <body>
-<form role="form" th:action="@{/usuarios/iniciarsesion}" th:object="${loginForm}" method="post">
+<form role="form" th:action="@{/usuarios/iniciarsesion}"
+      th:object="${login}" method="post">
   <a th:href="@{/}" class="navbar-brand">
     <img th:src="@{logo/geekohueco.png}" alt="">
   </a>

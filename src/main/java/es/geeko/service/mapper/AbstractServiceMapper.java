@@ -25,20 +25,4 @@ public abstract class AbstractServiceMapper<E,DTO> {
     public List<DTO>  toDto(List<E> e){
         return e.stream().map(this::toDto).collect(Collectors.toList());
     }
-
-    //Gestionamos set de datos
-    public Set<E> toEntity(Set<DTO> dtos) throws Exception {
-        //return dtos.stream().map(this::toEntity).collect(Collectors.toSet());
-        //Recorrer el set manualmente para gestionar las excepciones
-        Set<E> eSet = new HashSet<E>();
-        for(DTO item: dtos){
-            E e = this.toEntity(item);
-            eSet.add(e);
-        }
-        return eSet;
-    }
-    //Conversion de listas de entidades a DTOs
-    public Set<DTO>  toDto(Set<E> e){
-        return e.stream().map(this::toDto).collect(Collectors.toSet());
-    }
 }

@@ -2,6 +2,7 @@ package es.geeko.web.controller;
 
 import es.geeko.dto.LoginDto;
 import es.geeko.dto.UsuarioDto;
+import es.geeko.model.Usuario;
 import es.geeko.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,11 +48,13 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
     @PostMapping("/usuarios/iniciarsesion")
-    public String validarPasswordPst(@ModelAttribute(name = "loginForm" ) LoginDto loginDto) {
+    public String validarClave(@ModelAttribute(name = "login" ) LoginDto loginDto) {
         String emilio = loginDto.getEmilio();
+        System.out.println("emilio = " + emilio);
         String clave = loginDto.getClave();
+        System.out.println("clave = " + clave);
         //¿es correcta la password?
-        if (service.getRepo().validarClave(emilio, clave) > 0)
+        if (service.getRepo().validarClave(emilio,clave) > 0)
         {
             return "index";
         }else {
