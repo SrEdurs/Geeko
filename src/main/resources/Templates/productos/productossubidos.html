@@ -20,7 +20,7 @@
     <div class="row w-100">
       <div class="col">
         <a href="localhost:8080/" class="navbar-brand">
-          <img src="../../static/imagenes/logo.png" alt="">
+          <img th:src="@{/imagenes/logo.png}" alt="" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                 aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,30 +37,30 @@
         </form>
       </div>
       <div class="col">
-        <img src="../../static/iconos/perfil.png" width="40px" id="iconoperfil" alt="" style="margin-top: 8px;">
+        <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
         <p class="usuario">@Usuario</p>
       </div>
       <div class="w-100"></div>
       <div class="col-2"></div>
       <div class="col text-white" style="margin-bottom: 40px;">
-        <img src="../../static/iconos/libro.png" class="icono" width="35px">
-        <button class="libros">LIBROS</button>
+        <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
+        <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
       </div>
       <div class="col text-white">
-        <img src="../../static/iconos/tv.png" class="icono" width="35px">
-        <button class="series">SERIES</button>
+        <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
+        <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
       </div>
       <div class="col text-white">
-        <img src="../../static/iconos/claqueta.png" class="icono" width="33px">
-        <button class="peliculas">PELÍCULAS</button>
+        <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
+        <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
       </div>
       <div class="col text-white">
-        <img src="../../static/iconos/consola.png" class="icono" width="35px">
-        <button class="vj">VIDEOJUEGOS</button>
+        <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
+        <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
       </div>
       <div class="col text-white">
-        <img src="../../static/iconos/dialogo.png" class="icono" width="35px">
-        <button class="social">SOCIAL</button>
+        <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
+        <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
       </div>
       <div class="col-2"></div>
     </div>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -21,12 +22,16 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
 
     @GetMapping("/productos/libros")
-    public String vistaLibro(){
+    public String vistaLibro(ModelMap interfazConPantalla){
+        final List<ProductoDto> listaProductos = service.buscarTodos();
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "/productos/libros";
     }
 
     @GetMapping("/productos/peliculas")
-    public String vistaPelis(){
+    public String vistaPelis(ModelMap interfazConPantalla){
+        final List<ProductoDto> listaProductos = service.buscarTodos();
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "/productos/peliculas";
     }
 
