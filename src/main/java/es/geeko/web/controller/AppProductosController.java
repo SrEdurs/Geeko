@@ -1,6 +1,7 @@
 package es.geeko.web.controller;
 
 import es.geeko.dto.ProductoDto;
+import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ProductoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,23 +15,25 @@ import java.util.Optional;
 @Controller
 public class AppProductosController extends AbstractController<ProductoDto> {
 
-    private final ProductoService service;
+    private final ProductoService productoService;
+
 
     public AppProductosController(ProductoService service) {
-        this.service = service;
+        this.productoService = service;
+
     }
 
 
     @GetMapping("/productos/libros")
     public String vistaLibro(ModelMap interfazConPantalla){
-        final List<ProductoDto> listaProductos = service.buscarTodos();
+        final List<ProductoDto> listaProductos = productoService.buscarTodos();
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "/productos/libros";
     }
 
     @GetMapping("/productos/peliculas")
     public String vistaPelis(ModelMap interfazConPantalla){
-        final List<ProductoDto> listaProductos = service.buscarTodos();
+        final List<ProductoDto> listaProductos = productoService.buscarTodos();
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "/productos/peliculas";
     }
@@ -58,7 +61,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     @PostMapping("/productos/crearproducto")
     public String guardarProducto(ProductoDto productoDto) throws Exception {
         //LLamo al método del servicio para guardar los datos
-        ProductoDto productoGuardado =  this.service.guardar(productoDto);
+        ProductoDto productoGuardado =  this.productoService.guardar(productoDto);
         System.out.println("Titulo = " + productoGuardado.getTitulo());
         System.out.println("Imagen = " + productoGuardado.getImagen());
         System.out.println("Descripcion = " + productoGuardado.getDescripcion());
@@ -66,12 +69,39 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         return "productos/productopropio";
     }
 
+    /*@GetMapping("productos/productopropio")
+    public String vistaProducto(ProductoDto productoDto, Integer id, ModelMap interfazConPantalla) throws Exception{
+
+        Optional<ProductoDto> producto = productoService.encuentraPorId(id);
+
+        if (producto.isPresent()){
+
+            //LLamo al método del servicio para guardar los datos
+            ProductoDto productoDtoGuardar =  new ProductoDto();
+            productoDtoGuardar.setId(Long.valueOf(id));
+            productoDtoGuardar.setTitulo(productoDto.getTitulo());
+            productoDtoGuardar.setDescripcion(productoDto.getDescripcion());
+            productoDtoGuardar.setImagen(productoDto.getImagen());
+
+            this.productoService.guardar(productoDtoGuardar);
+            interfazConPantalla.addAttribute("datosProducto",productoDtoGuardar);
+            return "/productos/productopropio";
+        } else {
+            //Mostrar página usuario no existe
+            return "error";
+        }
+
+
+    }
+
+*/
+
     @PostMapping("/productos/{idusr}")
     public String guardarEdicionDatosUsuario(@PathVariable("idusr") Integer id, ProductoDto productoEntrada) throws Exception {
         //Cuidado que la password no viene
         //Necesitamos copiar la información que llega menos la password
         //Con el id tengo que buscar el registro a nivel de entidad
-        Optional<ProductoDto> productoDtoControl = this.service.encuentraPorId(id);
+        Optional<ProductoDto> productoDtoControl = this.productoService.encuentraPorId(id);
         //¿Debería comprobar si hay datos?
         if (productoDtoControl.isPresent()){
 
@@ -81,7 +111,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             productoDtoGuardar.setTitulo(productoEntrada.getTitulo());
             productoDtoGuardar.setDescripcion(productoEntrada.getDescripcion());
 
-            this.service.guardar(productoDtoGuardar);
+            this.productoService.guardar(productoDtoGuardar);
             return String.format("redirect:/productos/{idusr}", id);
         } else {
             //Mostrar página usuario no existe
