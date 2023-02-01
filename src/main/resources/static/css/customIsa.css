@@ -302,11 +302,43 @@ a.navbar-brand > img {
     text-align: center;
     color: #D9D9D9;
 }
+
 input[type = "radio"]{ display:none;}
 label:hover,
 label:hover ~ label {
   color: #8d92bb;
 }
+
+input[type="radio"]:checked ~ label {
+  color: #8d92bb;
+}
+
+.report{
+    text-align: left;
+    color: #D9D9D9;
+}
+
+input[type = "button"]{display:none;}
+label:hover,
+label:hover ~ label {
+  color: #FA5959;
+}
+
+input[type="button"]:checked ~ label {
+  color: #FA5959;
+}
+
+.like{
+    text-align: right;
+    color: #D9D9D9;
+}
+
+input[type = "radio"]{display:none;}
+label:hover,
+label:hover ~ label {
+  color: #8d92bb;
+}
+
 input[type="radio"]:checked ~ label {
   color: #8d92bb;
 }
@@ -315,4 +347,3 @@ input[type="radio"]:checked ~ label {
     background-color: #1E1E1E;
     border-radius: 30px;
 }/*
-
