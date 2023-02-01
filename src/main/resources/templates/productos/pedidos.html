@@ -1,65 +1,71 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sd="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{layout}">
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Pedidos</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/customSergio.css}"/>
+    <title>Pedidos</title>
 </head>
+
+
 <body class="bg-geeko">
 <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
     <div class="container-fluid text-center">
-        <div class="row w-100">
+        <div class="row w-100 iconosNav">
             <div class="col">
                 <a href="localhost:8080/" class="navbar-brand">
-                    <img th:src="@{/imagenes/logo.png}" alt="" />
+                    <img th:src="@{imagenes/logo.png}" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                         aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
+            <div class="col-6 align-self-center collapse navbar-collapse" id="opciones">
                 <form action="" class="d-flex w-100" role="search">
-                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
+                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Search"
                            aria-label="Search">
                     <a style="margin-top: 8px; margin-left: -48px;" type="submit">
                         <i class="bi bi-search"></i>
                     </a>
                 </form>
             </div>
-            <div class="col">
-                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
-                <p class="usuario">@Usuario</p>
+            <div class="col" style="white-space:nowrap !important;">
+                <img th:src="@{imagenes/peepogoku.png}" width="48px" class="h-8 w-8 rounded-full object-cover"
+                     id="iconoperfil" alt="">
+                <p class="text-white">Usuario</p>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
-            <div class="col text-white" style="margin-bottom: 40px;">
-                <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
-                <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
+            <div class="col text-white">
+                <a href="#" class="text-uppercase enlaces " >
+                    <img th:src="@{iconos/libro.png}" class="icono p-2" width="35px">Libros
+                </a>
             </div>
             <div class="col text-white">
-                <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
-                <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
+                <a href="/series" class="text-uppercase enlaces" >
+                    <img th:src="@{iconos/tv.png}" class="icono p-2" width="35px">Series
+                </a>
             </div>
             <div class="col text-white">
-                <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
-                <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
-            </div>
+                <a href="#" class="text-uppercase enlaces" >
+                    <img th:src="@{iconos/claqueta.png}" class="icono p-2" width="35px">Películas
+                </a></div>
             <div class="col text-white">
-                <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
-                <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
-            </div>
+                <a href="#" class="text-uppercase enlaces" style="white-space:nowrap">
+                    <img th:src="@{iconos/consola.png}" class="icono p-2" width="35px">Videojuegos
+                </a></div>
             <div class="col text-white">
-                <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-                <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
-            </div>
+                <a href="#" class="text-uppercase enlaces" >
+                    <img th:src="@{iconos/dialogo.png}" class="icono p-2" width="35px">Social
+                </a></div>
             <div class="col-2"></div>
         </div>
     </div>
@@ -70,12 +76,12 @@
             <div class="row row-cols-1 " style="max-width: 500px;margin-right: 5px;">
                 <h3 style="color: aliceblue;" class="mb-4">Compras</h3>
                 <!--A partir de aqui se repitiria-->
-                <div class="col mb-12 b mb-4 card-body">
+                <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
                     <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
                        style="color: black;text-decoration: none;">
                         <div class="row g-0 ">
                             <div class="col-md-4">
-                                <img src="juego_ds.jpg" style="width: 100px; height: 100px;border-radius: 50%;"
+                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
                                      class="img-fluid p-2 fotosPedidos" alt="...">
                             </div>
                             <div class="col-md-6 ">
@@ -105,16 +111,50 @@
                     </a>
                 </div>
                 <!--Hasta aqui-->
-            </div>
-            <div class="row row-cols-1" style="max-width: 500px;">
-                <h3 style="color: aliceblue;" class="mb-4">Ventas</h3>
-                <!--A partir de aqui se repitiria-->
-                <div class="col mb-12 b mb-4 card-body">
+                <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
                     <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
                        style="color: black;text-decoration: none;">
                         <div class="row g-0 ">
                             <div class="col-md-4">
-                                <img src="juego_ds.jpg" style="width: 100px; height: 100px;border-radius: 50%;"
+                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
+                                     class="img-fluid p-2 fotosPedidos" alt="...">
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class=" p-2">
+                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
+                                    <h2 class="mt-1">25€</h2>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
+                                <form>
+                                    <p class="clasificacion">
+                                        <input id="radio1" type="radio" name="estrellas" value="5"><!--
+                                  --><label for="radio1">★</label><!--
+                                  --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+                                  --><label for="radio2">★</label><!--
+                                  --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+                                  --><label for="radio3">★</label><!--
+                                  --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+                                  --><label for="radio4">★</label><!--
+                                  --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+                                  --><label for="radio5">★</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row row-cols-1" style="max-width: 500px;">
+                <h3 style="color: aliceblue;" class="mb-4">Ventas</h3>
+                <!--A partir de aqui se repitiria-->
+                <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
+                    <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
+                       style="color: black;text-decoration: none;">
+                        <div class="row g-0 ">
+                            <div class="col-md-4">
+                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
                                      class="img-fluid p-2 fotosPedidos" alt="...">
                             </div>
                             <div class="col-md-6 ">
@@ -145,10 +185,47 @@
                 </div>
 
                 <!--Hasta aqui-->
+                <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
+                    <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
+                       style="color: black;text-decoration: none;">
+                        <div class="row g-0 ">
+                            <div class="col-md-4">
+                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
+                                     class="img-fluid p-2 fotosPedidos" alt="...">
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class=" p-2">
+                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
+                                    <h2 class="mt-1">25€</h2>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
+                                <form>
+                                    <p class="clasificacion">
+                                        <input id="radio6" type="radio" name="estrellas" value="5"><!--
+                                  --><label for="radio6">★</label><!--
+                                  --><input id="radio7" type="radio" name="estrellas" value="4"><!--
+                                  --><label for="radio7">★</label><!--
+                                  --><input id="radio8" type="radio" name="estrellas" value="3"><!--
+                                  --><label for="radio8">★</label><!--
+                                  --><input id="radio9" type="radio" name="estrellas" value="2"><!--
+                                  --><label for="radio9">★</label><!--
+                                  --><input id="radio10" type="radio" name="estrellas" value="1"><!--
+                                  --><label for="radio10">★</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
 
         </div>
     </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
 </html>
