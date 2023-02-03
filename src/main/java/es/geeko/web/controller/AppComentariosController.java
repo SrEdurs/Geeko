@@ -2,6 +2,7 @@ package es.geeko.web.controller;
 
 import es.geeko.dto.ComentarioDto;
 import es.geeko.dto.LoginDto;
+import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.service.ComentarioService;
 import es.geeko.service.UsuarioService;
@@ -40,7 +41,4 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         Long id = comentarioGuardado.getId();
         return "usuarios/cuestionario";
     }
-
-
-
 }

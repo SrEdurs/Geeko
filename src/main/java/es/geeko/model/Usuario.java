@@ -21,7 +21,7 @@ public class Usuario {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name="nombre", length = 60)
     private String nombre;
@@ -42,7 +42,7 @@ public class Usuario {
     private String clave;
 
     @Column(name="avatar", length = 255)
-    private String avatar;
+    private String avatar = "https://www.gasso.com/wp-content/uploads/2017/04/noimage.jpg";
 
     @Column(name="direccion1", length = 50)
     private String direccion1;

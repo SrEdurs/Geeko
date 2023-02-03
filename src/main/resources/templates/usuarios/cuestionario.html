@@ -17,7 +17,7 @@
 <body class="bg-geeko">
 <form role="form">
   <a th:href="@{/}" class="navbar-brand">
-    <img th:src="@{imagenes/logo.png}" class="logoMedio" alt="">
+    <img th:src="@{/imagenes/logo.png}" class="logoMedio" alt="">
   </a>
 
 <div layout:fragment="contenido">
@@ -28,40 +28,13 @@
         line-height: 30px;
         text-align: center;" class="espaciadoCuestionario">Escoge tus preferencias</h2>
 
-    <form id="" action="" method="post" enctype="multipart/form-data" style="text-align: center;">
+    <form th:object="${listaTematicas}" id="" action="" method="post" enctype="multipart/form-data" style="text-align: center;">
       <div class="invisible-checkboxes  espaciadoCuestionario ">
 
-
-        <input type="checkbox" name="rGroup" value="1" id="r1"/>
-        <label class="checkbox-alias" for="r1"></label>
-
-        <input type="checkbox" name="rGroup" value="2" id="r2"/>
-        <label class="checkbox-alias" for="r2"></label>
-
-        <input type="checkbox" name="rGroup" value="3" id="r3"/>
-        <label class="checkbox-alias" for="r3"></label>
-
-        <input type="checkbox" name="rGroup" value="4" id="r4"/>
-        <label class="checkbox-alias" for="r4"></label>
-
-        <input type="checkbox" name="rGroup" value="5" id="r5"/>
-        <label class="checkbox-alias" for="r5"></label>
-
-
-        <input type="checkbox" name="rGroup" value="6" id="r6"/>
-        <label class="checkbox-alias" for="r6"></label>
-
-        <input type="checkbox" name="rGroup" value="7" id="r7"/>
-        <label class="checkbox-alias" for="r7"></label>
-
-        <input type="checkbox" name="rGroup" value="8" id="r8"/>
-        <label class="checkbox-alias" for="r8"></label>
-
-        <input type="checkbox" name="rGroup" value="9" id="r9"/>
-        <label class="checkbox-alias" for="r9"></label>
-
-        <input type="checkbox" name="rGroup" value="10" id="r10"/>
-        <label class="checkbox-alias" for="r10"></label>
+        <th:block th:each="elemento : ${listaTematicas}">
+          <input type="checkbox" name="rGroup" th:value="${elemento.id}" th:id="${elemento.id}"/>
+          <label class="checkbox-alias" th:for="${elemento.id}" th:text="${elemento.nombre}"></label>
+        </th:block>
 
       </div>
       <button class="btn btn-dark espaciadoCuestionario mt-2"

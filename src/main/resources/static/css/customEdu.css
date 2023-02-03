@@ -1,40 +1,5 @@
 body{
-    background-color: #1E1E1E;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right:10px;
-    padding-bottom: 10px;
-}
-
-.container{
-    width: 400px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background-color: #D9D9D9;
-    border-radius: 15px;
-    text-align: center;
-    margin-top: 7em;
-    font-family: 'Inter',sans-serif;
-    font-weight: bold;
-    font-size: 18px;
-    color: #1E1E1E;
-}
-.form-control{
-    background-color: #1E1E1E;
-    border-radius: 20px;
-    font-family: 'Inter',sans-serif;
-    color: #D9D9D9;
-}
-
-.btn{
-   background-color: #8D92BB;
-   border: 0;
-   border-radius: 20px;
-   font-family: 'Inter',sans-serif;
-   font-weight: bold;
-   font-size: 15px;
-   color: #D9D9D9;
-   margin-top: 20px;
+    padding: 10px;
 }
 
 .btnCC{
@@ -87,26 +52,10 @@ body{
    margin-right: 10px;
 }
 
-.col{
-   background-color: #1E1E1E;
-   color: #D9D9D9;
-}
-
-.card{
-   background-color: #1E1E1E;
-   border: 0;
-}
-
-.carprodu{
-   width: 210px;
-   height: 210px;
-}
-
 .cardnovedad{
    width: 300px;
    height: 390px;
 }
-
 .card-img-top{
    border-radius: 20px;
    object-position: center;
@@ -149,7 +98,7 @@ body{
 }
 
 .letras{
- color: blanchedalmond !important;   
+ color: blanchedalmond !important;
  font-weight: bold;
  font-size:x-large;
  justify-content: center;
@@ -167,35 +116,36 @@ a.navbar-brand > img {
     margin-left: 10px;
 }
 
-.recuerdame{
-    color: aliceblue !important;
+.usuario{
+    color: white;
 }
 
-.boton{
-    background-color: #8d92bb;
-    border-radius: 30px;
+.reporte{
+    color: #FA5959;
 }
 
-.input{
-    border-radius: 30px;
+.interesante{
+   margin-bottom: 5px;
+   color: #8D92BB;
+   min-width: 212px;
+   min-height: 228px;
+   text-align: center !important;
 }
 
-.clasificacion{
-    direction: rtl;
-    text-align: center;
-    color: #D9D9D9;
-}
-input[type = "radio"]{ display:none;}
-label:hover,
-label:hover ~ label {
-  color: #8d92bb;
-}
-input[type="radio"]:checked ~ label {
-  color: #8d92bb;
+@media(max-width:1050px ){
+   .interesarteEncogido{
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      flex-flow: wrap !important;
+   }
+   .interesarte{
+      width: 100%;
+
+   }
 }
 
-.card-body{
-    background-color: #1E1E1E;
-    border-radius: 30px;
+.clasificacion {
+   direction: rtl;
+   unicode-bidi: bidi-override;
 }
-

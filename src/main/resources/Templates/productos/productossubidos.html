@@ -1,27 +1,20 @@
 <!DOCTYPE html>
-<html lang="es_ES" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" style="background: #1e1e1e;">
+
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Estilos personalizados -->
-  <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
-
-  <!-- Bootstrap icons  -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-  <!-- Google fonts icons     -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>productosusu</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-  <title>Películas</title>
+  <link href="../../static/css/customEdu.css" type="text/css" rel="stylesheet">
+  <link href="../../static/css/customEdu.css" type="text/css" rel="stylesheet">
 </head>
-<body>
+
+<body style="background: #1e1e1e;">
 <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
   <div class="container-fluid text-center">
     <div class="row w-100">
@@ -73,83 +66,63 @@
     </div>
   </div>
 </nav>
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <article class="col-4">
-      <h4 class="text-white">Productos de usuarios</h4>
-      <section>
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-          <th:block th:each="elemento : ${listaProductos}">
-            <th:block th:if="${elemento.usuario} != null and ${elemento.activo} == 1 and ${elemento.pelicula} == 1">
-              <div class="col">
-                <div class="card cardprodu">
-                  <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="90%" class="card-img-top"></a>
-                  <h4 th:align="center" th:text="${elemento.titulo}"></h4>
-                </div>
-              </div>
-            </th:block>
-          </th:block>
+    <div class="col-md-12"></div>
+  </div>
+</div>
+<div class="container">
+  <div class="row" style="padding-top: 0px;margin-top: 20px;margin-bottom: 13px;">
+    <div class="col-xxl-3">
+      <h1 style="color: rgb(255,255,255);">Tus productos</h1>
+    </div>
+    <div class="col"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 100.375px;font-weight: bold;">Añadir</button></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xxl-8">
+      <div class="row">
+        <div class="col">
+          <div class="card" style="height: 225.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" src="/static/imagenes/dragon.jpg"></div>
+          <h3 class="text-center" style="color: rgb(255,255,255);">Producto 1</h3>
         </div>
-      </section>
-    </article>
-    <article class="col-8">
-      <h4 class="text-white">Novedades</h4>
-      <section>
-        <div class="row row-cols-1 row-cols-2 row-cols-3 g-4">
-          <th:block th:each="elemento : ${listaProductos}">
-            <th:block th:if="${elemento.usuario} == null and ${elemento.activo} == 1 and ${elemento.pelicula} == 1">
-              <div class="card cardnovedad">
-                <div class="row">
-                  <div class="col">
-                    <div class="card-body">
-                      <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
-                      <h4 th:align="center" th:text="${elemento.titulo}"></h4>
-                      <div class="clasificacion">
-                        <th:block th:if="${elemento.puntuacion} < 20 ">
-                          <label>✰</label>
-                          <label>✰</label>
-                          <label>✰</label>
-                          <label>✰</label>
-                          <label>★</label>
-                        </th:block>
-                        <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
-                          <label>✰</label>
-                          <label>✰</label>
-                          <label>✰</label>
-                          <label>★</label>
-                          <label>★</label>
-                        </th:block>
-                        <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
-                          <label>✰</label>
-                          <label>✰</label>
-                          <label>★</label>
-                          <label>★</label>
-                          <label>★</label>
-                        </th:block>
-                        <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
-                          <label>✰</label>
-                          <label>★</label>
-                          <label>★</label>
-                          <label>★</label>
-                          <label>★</label>
-                        </th:block>
-                        <th:block th:if="${elemento.puntuacion} >= 90 ">
-                          <label>★</label>
-                          <label>★</label>
-                          <label>★</label>
-                          <label>★</label>
-                          <label>★</label>
-                        </th:block>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </th:block>
-          </th:block>
+        <div class="col">
+          <div class="card" style="height: 225.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" src="/static/imagenes/dragon.jpg"></div>
+          <h3 class="text-center" style="color: rgb(255,255,255);">Producto 2</h3>
         </div>
-      </section>
-    </article>
+        <div class="col">
+          <div class="card" style="height: 225.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" src="/static/imagenes/dragon.jpg"></div>
+          <h3 class="text-center" style="color: rgb(255,255,255);">Producto 3</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="card" style="height: 225.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" src="/static/imagenes/dragon.jpg"></div>
+          <h3 class="text-center" style="color: rgb(255,255,255);">Producto 1</h3>
+        </div>
+        <div class="col">
+          <div class="card" style="height: 225.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" src="/static/imagenes/dragon.jpg"></div>
+          <h3 class="text-center" style="color: rgb(255,255,255);">Producto 2</h3>
+        </div>
+        <div class="col">
+          <div class="card" style="height: 225.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" src="/static/imagenes/dragon.jpg"></div>
+          <h3 class="text-center" style="color: rgb(255,255,255);">Producto 3</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xxl-4" style="margin-top: 28px;">
+      <div class="card" style="border-radius: 49px;height: 461.984px;margin: 19px;background: #d9d9d9;">
+        <div class="card-body">
+          <h4 class="card-title" style="text-align: center;font-weight: bold;">Valoración media</h4>
+          <h6 class="text-muted card-subtitle mb-2">Subtitle</h6>
+          <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12"></div>
   </div>
 </div>
 <footer class="text-center mt-5 text-white">
@@ -221,12 +194,12 @@
   </div>
   <!-- Copyright -->
 </footer>
-<!-- Optional JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

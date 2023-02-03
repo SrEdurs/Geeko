@@ -1,6 +1,7 @@
 package es.geeko.service.mapper;
 
 import es.geeko.dto.UsuarioDto;
+import es.geeko.dto.UsuarioDtoPsw;
 import es.geeko.model.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,13 @@ public class UsuarioMapper extends AbstractServiceMapper<Usuario,UsuarioDto> {
         final Usuario entidad = new Usuario();
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.map(dto, entidad);
+        return entidad;
+    }
+
+    public Usuario toEntityPsw(UsuarioDtoPsw dto){
+        final Usuario entidad = new Usuario();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.map(dto,entidad);
         return entidad;
     }
 

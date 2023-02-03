@@ -9,7 +9,7 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link th:href="@{/css/customEdu.css}"  type="text/css" rel="stylesheet">
+    <link th:href="@{/css/customEdu.css}" type="text/css" rel="stylesheet">
 </head>
 
 <body style="background: #1e1e1e;">
@@ -69,24 +69,23 @@
         <div class="col-md-4 col-xxl-3">
             <div class="row">
                 <div class="col" style="margin-top: 11px;">
-                    <th:block th:object="${datosUsuario}">
-                        <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" th:src="@{/imagenes/peepogoku.png}">
-                            <h3 class="text-white text-center pt-2" th:text="${datosUsuario.usuario}"></h3>
-                            <p class="fw-light text-white m-0" th:text="${datosUsuario.biografia}"></p>
-                        </div>
-                    </th:block>
+                    <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" th:src="@{/imagenes/peepogoku.png}">
+                        <h3 class="text-white text-center pt-2">@Admin</h3>
+                        <p class="fw-light text-white m-0">Esto es una descripción de muestra pipopipopipo</p>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/usuarios/edit}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Editar perfil</a></div>
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Editar perfil</button></div>
             </div>
             <div class="row">
-                <th:block th:object="${datosUsuario}">
-                    <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{'/usuarios/'+ ${datosUsuario.id}}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
-                </th:block>
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Tus productos</button></div>
             </div>
             <div class="row">
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>
+            </div>
+            <div class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #FA5959;">Reportes</button></div>
             </div>
         </div>
         <div class="col-md-4 col-xxl-5">
@@ -147,7 +146,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Título feed</h5>
                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    <br>Deserunt eum liberos
+                                    <br>Deserunt eum libero
                                 </p>
                             </div>
                         </div>
