@@ -1,6 +1,7 @@
 package es.geeko.service;
 
 
+import es.geeko.model.Usuario;
 import es.geeko.service.mapper.AbstractServiceMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,6 +59,9 @@ public abstract class AbstractBusinessService <E, ID, DTO,  REPO extends JpaRepo
         //Traducir la entidad a DTO para devolver el DTO
         return serviceMapper.toDto(entidadGuardada);
     }
+
+
+
     public void  guardar(List<DTO> dtos) throws Exception {
         Iterator<DTO> it = dtos.iterator();
 

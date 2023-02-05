@@ -1,0 +1,56 @@
+package es.geeko.service;
+
+import es.geeko.model.Usuario;
+import es.geeko.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+
+@Service
+public class UserServiceImpl implements IUserService, UserDetailsService{
+
+    @Autowired
+    private UsuarioRepository userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Override
+    public Integer saveUser(Usuario user) {
+        String passwd= user.getClave();
+        String encodedPasswod = passwordEncoder.encode(passwd);
+        user.setClave(encodedPasswod);
+        user = userRepo.save(user);
+        return user.getId();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email)
+            throws UsernameNotFoundException {
+
+        Optional<Usuario> opt = userRepo.findUsuarioByEmilio(email);
+
+        if(opt.isEmpty())
+            throw new UsernameNotFoundException("User with email: " +email +" not found !");
+        else {
+            Usuario user = opt.get();
+            return new org.springframework.security.core.userdetails.User(
+                    user.getEmilio(),
+                    user.getClave(),
+                    user.getRoles()
+                            .stream()
+                            .map(role-> new SimpleGrantedAuthority(role))
+                            .collect(Collectors.toSet())
+            );
+        }
+
+    }
+}

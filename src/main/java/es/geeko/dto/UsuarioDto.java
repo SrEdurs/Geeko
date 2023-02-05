@@ -30,7 +30,6 @@ public class UsuarioDto {
     private int verificacion2pasos;
     private Date fecha_alta = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private double valoracion_media;
-    private int admin = 0;
     private int activo = 1;
     private String biografia;
     private int reportado;
@@ -43,5 +42,6 @@ public class UsuarioDto {
     private List<ReporteDto> usuariosReportados;
     private List<UsuarioDto> seguimientos;
     private List<UsuarioDto> seguidos;
+    private List<String> roles;
 
 }

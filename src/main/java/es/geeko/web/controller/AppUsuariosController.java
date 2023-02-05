@@ -16,23 +16,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+//@Controller
 public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
-    private final  UsuarioService usuarioService;
+    /*private final  UsuarioService usuarioService;
     private final TematicaService tematicaService;
 
     public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
     }
-
-    @GetMapping("")
+*/
+   /* @GetMapping("")
     public String vistaIndex(){
         return "index";
-    }
+    }*/
 
-    @GetMapping("/usuarios/crearcuenta")
+    /*@GetMapping("/usuarios/crearcuenta")
     public String vistaRegistro(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final UsuarioDtoPsw usuarioDtoPsw = new UsuarioDtoPsw();
@@ -110,15 +110,15 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     }
 
+*/
 
-
-    //Controlador de Login
-    @GetMapping("/usuarios/iniciarsesion")
+    /*//Controlador de Login
+    @GetMapping("/usuarios/login")
     public String vistaLogin(){
-        return "usuarios/iniciarsesion";
+        return "usuarios/login";
     }
 
-    @PostMapping("/usuarios/iniciarsesion")
+    @PostMapping("/usuarios/login")
     public String validarClave(@ModelAttribute(name = "login" ) LoginDto loginDto) {
         String emilio = loginDto.getEmilio();
         System.out.println("emilio = " + emilio);
@@ -129,10 +129,10 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         {
             return "index";
         }else {
-            return "usuarios/iniciarsesion";
+            return "usuarios/login";
         }
     }
-
+*/
     @GetMapping("/usuarios/perfil")
     public String vistaperfil(){
         return "/usuarios/perfil";
@@ -158,7 +158,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/cambiarcontraseña";
     }
 
-    @GetMapping("/usuarios/cuestionario")
+    /*@GetMapping("/usuarios/cuestionario")
     public String vistaCuestionario(ModelMap interfazConPantalla){
 
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
@@ -166,6 +166,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
 
         return "usuarios/cuestionario";
-    }
+    }*/
 
 }

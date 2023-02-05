@@ -21,7 +21,7 @@ public class Usuario {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name="nombre", length = 60)
     private String nombre;
@@ -71,9 +71,6 @@ public class Usuario {
     @Column(name="valoracion_media")
     private double valoracion_media;
 
-    @Column(name="admin", length = 1)
-    private int admin = 0;
-
     @Column(name="activo", length = 1)
     private int activo = 1;
 
@@ -83,6 +80,13 @@ public class Usuario {
     @Column (name="reportado", length = 1)
     private int reportado = 0;
 
+    @ElementCollection(fetch= FetchType.EAGER)
+    @CollectionTable(
+            name="roles",
+            joinColumns = @JoinColumn(name="user_id")
+    )
+    @Column(name="user_role")
+    private List<String> roles;
 
     @OneToMany(mappedBy = "usuario")
     private List<Comentario> comentarios;
