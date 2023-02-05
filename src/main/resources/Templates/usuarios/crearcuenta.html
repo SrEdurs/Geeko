@@ -23,11 +23,13 @@
     <title>Crear Cuenta</title>
 </head>
 <body>
-<form role="form" th:object="${datosUsuario}" method="post">
     <a th:href="@{/}" class="navbar-brand">
         <img th:src="@{/logo/geekohueco.png}" alt="">
     </a>
-    <button class="btnIS" style="float: right;">Iniciar sesión</button>
+    <a th:href="@{/login}">
+        <button class="btnCC" style="float: right;">Crear cuenta</button>
+    </a>
+<form action="saveUser" method="post">
     <div class="container">
         <div class="row width=350">
             <label>CREAR CUENTA</label>
@@ -35,27 +37,29 @@
             <div class="col2">
                 <div class="form-group">
                     <label for="InputEmail">Email</label>
-                    <input type="email" id="InputEmail" class="form-control" maxlength="100"
-                           th:field="${datosUsuario.emilio}"/>
+                    <input type="email" id="InputEmail" class="form-control" maxlength="100" name="emilio"/>
                 </div>
                 <p></p>
                 <div class="form-group">
                     <label for="InputUser">Usuario</label>
-                    <input type="text" id="InputUser" class="form-control" maxlength="30"
-                           th:field="${datosUsuario.usuario}"/>
+                    <input type="text" id="InputUser" class="form-control" maxlength="30" name="nick"/>
                 </div>
                 <p></p>
                 <div class="form-group">
                     <label for="InputPassword">Contraseña</label>
-                    <input type="password" id="InputPassword" class="form-control" maxlength="255"
-                           th:field="${datosUsuario.clave}"/>
+                    <input type="password" id="InputPassword" class="form-control" maxlength="255" name="clave"/>
+                   <!-- Role(s): <input type="checkbox" name="roles" value="ROLE_ADMIN"/>Admin -->
+                    <input type="hidden" name="roles" value="ROLE_USER"/>
+
+                    <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
                 </div>
                 <p></p>
-                <button type="submit" class="btn btn-primary">Registrarse</button>
+                <input type="submit" class="btn btn-primary" value="Register"/>
             </div>
         </div>
     </div>
 </form>
+<div th:text="${msg}"></div>
 <footer class="text-center mt-5 text-white">
     <!-- Grid container -->
     <div class=" pt-2">

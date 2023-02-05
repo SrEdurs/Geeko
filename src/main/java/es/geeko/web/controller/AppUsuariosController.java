@@ -1,38 +1,60 @@
 package es.geeko.web.controller;
 
-import es.geeko.dto.LoginDto;
-import es.geeko.dto.TematicaDto;
 import es.geeko.dto.UsuarioDto;
-import es.geeko.dto.UsuarioDtoPsw;
-import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
-import es.geeko.service.TematicaService;
+import es.geeko.service.IUserService;
 import es.geeko.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
-    private final  UsuarioService usuarioService;
+    /*private final  UsuarioService usuarioService;
     private final TematicaService tematicaService;
 
     public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
     }
+*/
+    @Autowired
+    private IUserService userService;
+    private final UsuarioService service;
+    @Autowired
+    private UserDetailsService uds;
 
-    @GetMapping("")
-    public String vistaIndex(){
-        return "index";
+    public AppUsuariosController( UsuarioService service) {
+
+        this.service = service;
+
     }
 
-    @GetMapping("/usuarios/crearcuenta")
+    @GetMapping("/crearcuenta")
+    public String register() {
+        return "usuarios/crearcuenta";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "usuarios/login";
+    }
+
+    // Read Form data to save into DB
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute Usuario user, Model model){
+
+        System.out.println("EYYYYYYYY");
+        Integer id = userService.saveUser(user);
+        String message = "User '"+id+"' saved successfully !";
+        model.addAttribute("msg", message);
+        return "/usuarios/cuestionario";
+    }
+
+    /*@GetMapping("/usuarios/crearcuenta")
     public String vistaRegistro(Model interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final UsuarioDtoPsw usuarioDtoPsw = new UsuarioDtoPsw();
@@ -110,15 +132,15 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     }
 
+*/
 
-
-    //Controlador de Login
-    @GetMapping("/usuarios/iniciarsesion")
+    /*//Controlador de Login
+    @GetMapping("/usuarios/login")
     public String vistaLogin(){
-        return "usuarios/iniciarsesion";
+        return "usuarios/login";
     }
 
-    @PostMapping("/usuarios/iniciarsesion")
+    @PostMapping("/usuarios/login")
     public String validarClave(@ModelAttribute(name = "login" ) LoginDto loginDto) {
         String emilio = loginDto.getEmilio();
         System.out.println("emilio = " + emilio);
@@ -129,10 +151,10 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         {
             return "index";
         }else {
-            return "usuarios/iniciarsesion";
+            return "usuarios/login";
         }
     }
-
+*/
     @GetMapping("/usuarios/perfil")
     public String vistaperfil(){
         return "/usuarios/perfil";
@@ -158,7 +180,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/cambiarcontraseña";
     }
 
-    @GetMapping("/usuarios/cuestionario")
+    /*@GetMapping("/usuarios/cuestionario")
     public String vistaCuestionario(ModelMap interfazConPantalla){
 
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
@@ -166,6 +188,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
 
         return "usuarios/cuestionario";
-    }
+    }*/
 
 }

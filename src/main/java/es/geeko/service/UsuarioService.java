@@ -1,7 +1,6 @@
 package es.geeko.service;
 
 import es.geeko.dto.UsuarioDto;
-import es.geeko.dto.UsuarioDtoPsw;
 import es.geeko.model.Usuario;
 import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.mapper.UsuarioMapper;
@@ -32,19 +31,7 @@ public class UsuarioService extends AbstractBusinessService<Usuario, Integer, Us
         return getMapper().toDto(entidadGuardada);
     }
 
-    public UsuarioDto guardar(UsuarioDtoPsw usuarioDtoPsw){
-        System.out.println("usuarioDto:" +usuarioDtoPsw.getEmilio() );
 
-        System.out.println("clave:" +usuarioDtoPsw.getClave() );
-        //Traduzco del dto con datos de entrada a la entidad
-        final Usuario entidad = getMapper().toEntityPsw(usuarioDtoPsw);
-        System.out.println("clave:" +usuarioDtoPsw.getClave() );
-        //Guardo el la base de datos
-        Usuario entidadGuardada =  getRepo().save(entidad);
-        System.out.println("clave:" +usuarioDtoPsw.getClave() );
-        //Traducir la entidad a DTO para devolver el DTO
-        return getMapper().toDto(entidadGuardada);
-    }
 
     @Override
     public void guardar(List<UsuarioDto> lUsuarioDto){

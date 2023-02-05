@@ -1,5 +1,4 @@
 package es.geeko.model;
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,19 +20,16 @@ public class Transaccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="idCliente")
-    @NotNull
+    @Column(name="idCliente", nullable = false)
     private int idCliente;
 
-    @Column(name = "idVendedor")
-    @NotNull
+    @Column(name = "idVendedor", nullable = false)
     private int idVendedor;
 
     @Column(name= "valoracionTransaccion")
     private double valoracionTransaccion;
 
-    @Column(name = "fecha")
-    @NotNull
+    @Column(name = "fecha", nullable = false)
     private Date Fecha;
 
     @OneToOne

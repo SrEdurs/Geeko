@@ -1,6 +1,5 @@
 package es.geeko.model;
 
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +20,10 @@ public class Usuario {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+
+    @Column(name="usuario", length = 60)
+    private String nick;
 
     @Column(name="nombre", length = 60)
     private String nombre;
@@ -29,16 +31,11 @@ public class Usuario {
     @Column(name="apellidos", length = 60)
     private String apellidos;
 
-    @Column(name="usuario", length = 30)
-    @NotNull
-    private String usuario;
 
-    @Column(name="emilio", length = 100)
-    @NotNull
+    @Column(name="emilio", length = 100, nullable = false, unique = true)
     private String emilio;
 
-    @Column(name="clave", length = 255)
-    @NotNull
+    @Column(name="clave", length = 255, nullable = false)
     private String clave;
 
     @Column(name="avatar", length = 255)
@@ -71,9 +68,6 @@ public class Usuario {
     @Column(name="valoracion_media")
     private double valoracion_media;
 
-    @Column(name="admin", length = 1)
-    private int admin = 0;
-
     @Column(name="activo", length = 1)
     private int activo = 1;
 
@@ -83,6 +77,13 @@ public class Usuario {
     @Column (name="reportado", length = 1)
     private int reportado = 0;
 
+    @ElementCollection(fetch= FetchType.EAGER)
+    @CollectionTable(
+            name="roles",
+            joinColumns = @JoinColumn(name="user_id")
+    )
+    @Column(name="user_role")
+    private List<String> roles;
 
     @OneToMany(mappedBy = "usuario")
     private List<Comentario> comentarios;
