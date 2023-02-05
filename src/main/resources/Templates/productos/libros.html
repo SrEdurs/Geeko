@@ -8,9 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Estilos personalizados -->
     <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
@@ -29,7 +27,7 @@
         <div class="row w-100">
             <div class="col">
                 <a href="localhost:8080/" class="navbar-brand">
-                    <img th:src="@{/imagenes/logo.png}" alt=""/>
+                    <img th:src="@{/imagenes/logo.png}" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                         aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,41 +44,30 @@
                 </form>
             </div>
             <div class="col">
-                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}" width="40px" id="iconoperfil"
-                                                      alt="" style="margin-top: 8px;"></a>
+                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
                 <p class="usuario">@Usuario</p>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
             <div class="col text-white" style="margin-bottom: 40px;">
                 <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
-                <a class="libros" th:href="@{/productos/libros}">
-                    <button class="libros">LIBROS</button>
-                </a>
+                <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
-                <a class="series" th:href="@{/productos/series}">
-                    <button class="series">SERIES</button>
-                </a>
+                <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
-                <a class="peliculas" th:href="@{/productos/peliculas}">
-                    <button class="peliculas">PELÍCULAS</button>
-                </a>
+                <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
-                <a class="vj" th:href="@{/productos/videojuegos}">
-                    <button class="vj">VIDEOJUEGOS</button>
-                </a>
+                <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-                <a class="social" th:href="@{/productos/social}">
-                    <button class="social">SOCIAL</button>
-                </a>
+                <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
             </div>
             <div class="col-2"></div>
         </div>
@@ -94,13 +81,12 @@
                 <div class="row row-cols-1 row-cols-md-2 g-4">
                     <th:block th:each="elemento : ${listaProductos}">
                         <th:block th:if="${elemento.usuario} != null and ${elemento.activo} == 1 and ${elemento.libro} == 1">
-                            <div class="col">
-                                <div class="card cardprodu">
-                                    <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}"
-                                                                                     class="card-img-toppu img-fluid"></a>
-                                    <h6 th:align="center" th:text="${elemento.titulo}"></h6>
-                                </div>
-                            </div>
+                    <div class="col">
+                        <div class="card cardprodu">
+                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="90%" class="card-img-top"></a>
+                            <h4 th:align="center" th:text="${elemento.titulo}"></h4>
+                        </div>
+                    </div>
                         </th:block>
                     </th:block>
                 </div>
@@ -116,9 +102,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="card-body">
-                                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}"
-                                                                                             class="card-img-topn"></a>
-                                            <h6 th:align="center" th:text="${elemento.titulo}"></h6>
+                                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
+                                            <h4 th:align="center" th:text="${elemento.titulo}"></h4>
                                             <div class="clasificacion">
                                                 <th:block th:if="${elemento.puntuacion} < 20 ">
                                                     <label>✰</label>
@@ -127,24 +112,21 @@
                                                     <label>✰</label>
                                                     <label>★</label>
                                                 </th:block>
-                                                <th:block
-                                                        th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
+                                                <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                 </th:block>
-                                                <th:block
-                                                        th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
+                                                <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                 </th:block>
-                                                <th:block
-                                                        th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
+                                                <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
                                                     <label>✰</label>
                                                     <label>★</label>
                                                     <label>★</label>
@@ -170,70 +152,63 @@
         </article>
     </div>
 </div>
-<!-- Optional JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
 <footer class="text-center mt-5 text-white">
     <!-- Grid container -->
     <div class=" pt-2">
         <!-- Section: Social media -->
         <section class="mb-4">
             <!-- Facebook -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1"
-               href="#!"
-               role="button"
-               data-mdb-ripple-color="dark">
-                <i class="fab fa-facebook-f">
-                </i>
-            </a>
+            <a
+                    class="btn btn-link btn-floating btn-lg text-white m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+            ></a>
 
             <!-- Twitter -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1"
-               href="#!"
-               role="button"
-               data-mdb-ripple-color="dark">
-                <i class="fab fa-twitter">
-                </i>
-            </a>
+            <a
+                    class="btn btn-link btn-floating btn-lg text-white m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+            ></a>
 
             <!-- Google -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1"
-               href="#!"
-               role="button"
-               data-mdb-ripple-color="dark">
-                <i class="fab fa-google">
-                </i>
-            </a>
+            <a
+                    class="btn btn-link btn-floating btn-lg text-white m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+            ></a>
 
             <!-- Instagram -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1"
-               href="#!"
-               role="button"
-               data-mdb-ripple-color="dark">
-                <i class="fab fa-instagram">
-                </i>
-            </a>
+            <a
+                    class="btn btn-link btn-floating btn-lg text-white m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+            ></a>
 
             <!-- Linkedin -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1"
-               href="#!"
-               role="button"
-               data-mdb-ripple-color="dark">
-                <i class="fab fa-linkedin">
-                </i>
-            </a>
+            <a
+                    class="btn btn-link btn-floating btn-lg text-white m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-linkedin"></i
+            ></a>
             <!-- Github -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1"
-               href="#!"
-               role="button"
-               data-mdb-ripple-color="dark">
-                <i class="fab fa-github">
-                </i>
-            </a>
+            <a
+                    class="btn btn-link btn-floating btn-lg text-white m-1"
+                    href="#!"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+            ><i class="fab fa-github"></i
+            ></a>
         </section>
         <!-- Section: Social media -->
     </div>
@@ -242,10 +217,16 @@
     <!-- Copyright -->
     <div class="text-center text-white">
         © 2023 Copyright:
-        <a class="text-white" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ%22%3E">Geeko</a>
+        <a class="text-white" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Geeko</a>
     </div>
     <!-- Copyright -->
 </footer>
-
+<!-- Optional JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
 </body>
 </html>
