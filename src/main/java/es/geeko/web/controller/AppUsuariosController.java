@@ -1,22 +1,16 @@
 package es.geeko.web.controller;
 
-import es.geeko.dto.LoginDto;
-import es.geeko.dto.TematicaDto;
 import es.geeko.dto.UsuarioDto;
-import es.geeko.dto.UsuarioDtoPsw;
-import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
-import es.geeko.service.TematicaService;
+import es.geeko.service.IUserService;
 import es.geeko.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
-//@Controller
+@Controller
 public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     /*private final  UsuarioService usuarioService;
@@ -27,10 +21,38 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         this.tematicaService = tematicaService;
     }
 */
-   /* @GetMapping("")
-    public String vistaIndex(){
-        return "index";
-    }*/
+    @Autowired
+    private IUserService userService;
+    private final UsuarioService service;
+    @Autowired
+    private UserDetailsService uds;
+
+    public AppUsuariosController( UsuarioService service) {
+
+        this.service = service;
+
+    }
+
+    @GetMapping("/crearcuenta")
+    public String register() {
+        return "usuarios/crearcuenta";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "usuarios/login";
+    }
+
+    // Read Form data to save into DB
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute Usuario user, Model model){
+
+        System.out.println("EYYYYYYYY");
+        Integer id = userService.saveUser(user);
+        String message = "User '"+id+"' saved successfully !";
+        model.addAttribute("msg", message);
+        return "/usuarios/cuestionario";
+    }
 
     /*@GetMapping("/usuarios/crearcuenta")
     public String vistaRegistro(Model interfazConPantalla){

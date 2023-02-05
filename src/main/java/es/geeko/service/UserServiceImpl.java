@@ -33,14 +33,16 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email)
+    public UserDetails loadUserByUsername(String emilio)
             throws UsernameNotFoundException {
-
-        Optional<Usuario> opt = userRepo.findUsuarioByEmilio(email);
+        System.out.println("jkshdfkjsef");
+        Optional<Usuario> opt = userRepo.findUsuarioByEmilio(emilio);
+        System.out.println("jkshdfkjsef2");
 
         if(opt.isEmpty())
-            throw new UsernameNotFoundException("User with email: " +email +" not found !");
+            throw new UsernameNotFoundException("User with email: " +emilio +" not found !");
         else {
+            System.out.println("jkshdfkjsef3");
             Usuario user = opt.get();
             return new org.springframework.security.core.userdetails.User(
                     user.getEmilio(),

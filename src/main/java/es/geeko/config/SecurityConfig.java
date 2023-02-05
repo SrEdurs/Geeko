@@ -25,23 +25,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.formLogin(form -> form
-                .loginPage("/usuarios/login")
-                .defaultSuccessUrl("/welcome",true)
-                .permitAll()
-        );
-
-        http.logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        /*.logoutSuccessHandler(logoutSuccessHandler)
-                        .invalidateHttpSession(true)
-                        .addLogoutHandler(logoutHandler)
-                        .deleteCookies(cookieNamesToClear)*/
-        );
 
         http.authorizeHttpRequests()
-                .requestMatchers("/registerUser","/usuarios/crearcuenta","/saveUser","/","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**").permitAll()
+                .requestMatchers("/**","/registerUser","/usuarios/crearcuenta","/saveUser","/","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**").permitAll()
                 .requestMatchers("/reportes/panelreportes").hasAuthority("Admin")
                 .requestMatchers("/usr").hasAuthority("User")
                 .requestMatchers("/ano").hasAuthority("Annonymous")
@@ -49,8 +35,9 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
 
                 .and()
-                .formLogin().loginPage("/usuarios/login")
-                .defaultSuccessUrl("/inicio",true)
+                .csrf().disable()
+                .formLogin().loginPage("/usuarios/login").permitAll()
+                .defaultSuccessUrl("/",true)
 
                 .and()
                 .logout()

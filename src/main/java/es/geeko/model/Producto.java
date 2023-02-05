@@ -1,5 +1,4 @@
 package es.geeko.model;
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,15 +21,13 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="titulo", length = 60)
-    @NotNull
+    @Column(name="titulo", length = 60, nullable = false)
     private String titulo;
 
     @Column(name="imagen", length = 200)
     private String imagen = "https://www.gasso.com/wp-content/uploads/2017/04/noimage.jpg";
 
-    @Column(name="descripcion")
-    @NotNull
+    @Column(name="descripcion", nullable = false)
     private String descripcion;
 
     @Column(name="precio")
@@ -51,8 +48,7 @@ public class Producto {
     @Column(name="reportado", length = 1)
     private int reportado;
 
-    @Column(name="activo", length = 1)
-    @NotNull
+    @Column(name="activo", length = 1, nullable = false)
     private int activo;
 
     @Column(name="fechaSubida")

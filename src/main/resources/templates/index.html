@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,14 +12,17 @@
 </head>
 
 <body class="bg-geeko" >
+<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
     <div class="container">
         <img th:src="@{imagenes/logo.png}" width="60%" height="60%" />
 
         <div style="display: flex;" class="letras">
 
-            <a th:href="@{/usuarios/login}" class="enlaces">Iniciar sesión</a>
+            <a th:href="@{/login}" class="enlaces">Iniciar sesión</a>
             <p> | </p>
-            <a th:href="@{/usuarios/crearcuenta}" class="enlaces">Registro</a>
+            <a th:href="@{/crearcuenta}" class="enlaces">Registro</a>
+            <p> | </p>
+            <a th:href="@{/logout}" class="enlaces"> Cerrar sesión (NO TOCAR, es temporal)</a>
         </div>
     </div>
 

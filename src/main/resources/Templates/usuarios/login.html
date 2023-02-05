@@ -27,11 +27,13 @@
     Email o clave incorrectos.</div>
 <div th:if="${param.logout}">
     Has cerrado sesión.</div>
-<form th:action="@{/usuarios/login}" method="post">
     <a th:href="@{/}" class="navbar-brand">
         <img th:src="@{/logo/geekohueco.png}" alt="">
     </a>
-    <button class="btnCC" style="float: right;" th:action="@{/usuarios/crearcuenta}">Crear cuenta</button>
+    <a th:href="@{/crearcuenta}">
+        <button class="btnCC" style="float: right;">Crear cuenta</button>
+    </a>
+<form action="login" method="post">
     <div class="container">
         <div class="row width=350">
             <label>INICIAR SESIÓN</label>
@@ -39,12 +41,12 @@
             <div class="col2">
                 <div class="form-group">
                     <label for="InputEmail">Email</label>
-                    <input type="email" class="form-control" name="emilio" id="InputEmail">
+                    <input type="email" class="form-control" name="username" id="InputEmail">
                 </div>
                 <p></p>
                 <div class="form-group">
                     <label for="InputPassword">Contraseña</label>
-                    <input type="password" class="form-control" name="clave" id="InputPassword">
+                    <input type="password" class="form-control" name="password" id="InputPassword">
                 </div>
                 <p></p>
                 <div class="form-check">
@@ -55,8 +57,12 @@
                     </button>
                 </div>
                 <p></p>
-                <input type="submit" value="Log in" class="btn btn-primary"/>
+                <input type="submit" class="btn btn-primary"/>
                 <p></p>
+                <div class="btnCO" th:if="${param.error}">
+                    Email o clave incorrectos.</div>
+                <div class="btnCO" th:if="${param.logout}">
+                    Has cerrado sesión.</div>
 
             </div>
         </div>

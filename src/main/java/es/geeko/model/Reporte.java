@@ -1,5 +1,4 @@
 package es.geeko.model;
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +24,7 @@ public class Reporte {
     @Column(name="motivo", length = 300)
     private String motivo;
 
-    @Column(name="fecha")
-    @NotNull
+    @Column(name="fecha", nullable = false)
     private Date fecha;
 
     @ManyToOne

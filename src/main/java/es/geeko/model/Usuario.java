@@ -1,6 +1,5 @@
 package es.geeko.model;
 
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,22 +22,20 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name="usuario", length = 60)
+    private String nick;
+
     @Column(name="nombre", length = 60)
     private String nombre;
 
     @Column(name="apellidos", length = 60)
     private String apellidos;
 
-    @Column(name="usuario", length = 30)
-    @NotNull
-    private String usuario;
 
-    @Column(name="emilio", length = 100)
-    @NotNull
+    @Column(name="emilio", length = 100, nullable = false, unique = true)
     private String emilio;
 
-    @Column(name="clave", length = 255)
-    @NotNull
+    @Column(name="clave", length = 255, nullable = false)
     private String clave;
 
     @Column(name="avatar", length = 255)

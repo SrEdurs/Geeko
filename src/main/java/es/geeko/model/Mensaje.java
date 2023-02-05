@@ -1,5 +1,4 @@
 package es.geeko.model;
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +19,8 @@ public class Mensaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="fecha")
-    @NotNull
+    @Column(name="fecha", nullable = false)
+
     private Date fecha;
 
     @Column(name="texto", length = 100)

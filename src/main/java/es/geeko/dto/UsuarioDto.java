@@ -17,7 +17,7 @@ public class UsuarioDto {
     private long id;
     private String nombre;
     private String apellidos;
-    private String usuario;
+    private String nick;
     private String emilio;
     private String clave;
     private String avatar;

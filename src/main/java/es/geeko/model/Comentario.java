@@ -1,5 +1,4 @@
 package es.geeko.model;
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,8 +38,7 @@ public class Comentario {
     @Column(name="reportado", length = 1)
     private int reportado;
 
-    @Column(name="activo", length = 1)
-    @NotNull
+    @Column(name="activo", length = 1, nullable = false)
     private int activo;
 
     @ManyToOne

@@ -1,6 +1,5 @@
 package es.geeko.model;
 
-import com.sun.istack.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,12 +19,11 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="idDestinatario")
-    @NotNull
+    @Column(name="idDestinatario", nullable = false)
+
     private int idDestinatario;
 
-    @Column(name="idRemitente")
-    @NotNull
+    @Column(name="idRemitente", nullable = false)
     private int idRemitente;
 
     @Column(name="titulo", length = 50)
