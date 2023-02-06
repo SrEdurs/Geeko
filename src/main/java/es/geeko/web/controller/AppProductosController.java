@@ -34,7 +34,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/libros")
     public String vistaLibro(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivo(1,1);
+        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivoAndUsuarioIsNotNull(1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         final List<Producto> listaNovedades = productoRepository.findProductosByLibroAndUsuarioIsNull(1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
@@ -50,7 +50,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/peliculas")
     public String vistaPelis(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivo(1,1);
+        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivoAndUsuarioIsNotNull(1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         final List<Producto> listaNovedades = productoRepository.findProductosByPeliculaAndUsuarioIsNull(1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
@@ -66,7 +66,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/series")
     public String vistaSerie(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivo(1,1);
+        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivoAndUsuarioIsNotNull(1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         final List<Producto> listaNovedades = productoRepository.findProductosBySerieAndUsuarioIsNull(1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
@@ -82,7 +82,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/videojuegos")
     public String vistaVideojuegos(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivo(1,1);
+        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivoAndUsuarioIsNotNull(1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         final List<Producto> listaNovedades = productoRepository.findProductosByVideojuegoAndUsuarioIsNull(1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
