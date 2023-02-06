@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es_ES" xmlns:th="http://www.thymeleaf.org">
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -23,10 +24,6 @@
     <title>Iniciar Sesión</title>
 </head>
 <body>
-<div th:if="${param.error}">
-    Email o clave incorrectos.</div>
-<div th:if="${param.logout}">
-    Has cerrado sesión.</div>
     <a th:href="@{/}" class="navbar-brand">
         <img th:src="@{/logo/geekohueco.png}" alt="">
     </a>
