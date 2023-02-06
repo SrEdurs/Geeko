@@ -173,7 +173,6 @@
             </div>
             <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
                 <th:block th:each="elemento : ${listaProductos}">
-                    <th:block th:if="${elemento.usuario} == null and ${elemento.activo} == 1">
                         <div class="card cardnovedad">
                             <div class="row">
                                 <div class="col">
@@ -222,12 +221,11 @@
                             </div>
                         </div>
                     </th:block>
-                </th:block>
             </div>
         </div>
     </div>
 </div>
-<footer class="text-center mt-5 text-white">
+<footer class=" row text-center mt-5 text-white">
     <!-- Grid container -->
     <div class=" pt-2">
         <!-- Section: Social media -->

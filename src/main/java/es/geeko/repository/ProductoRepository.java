@@ -23,4 +23,7 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
     //Videojuego
     List<Producto> findProductosByVideojuegoAndActivoAndUsuarioIsNotNull(int videojuego, int activo);
     List<Producto> findProductosByVideojuegoAndUsuarioIsNull(int videojuego);
+
+    //Perfil
+    List<Producto> findProductosByTituloIsNotLikeAndUsuarioIsNull(String ignorar);
 }

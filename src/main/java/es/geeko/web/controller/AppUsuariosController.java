@@ -2,8 +2,10 @@ package es.geeko.web.controller;
 
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
+import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
+import es.geeko.repository.ProductoRepository;
 import es.geeko.service.IUserService;
 import es.geeko.service.ProductoService;
 import es.geeko.service.TematicaService;
@@ -34,11 +36,14 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @Autowired
     private UserDetailsService uds;
+    private final ProductoRepository productoRepository;
 
-    public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService, ProductoService productoService) {
+    public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService, ProductoService productoService,
+                                 ProductoRepository productoRepository) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
         this.productoService = productoService;
+        this.productoRepository = productoRepository;
     }
 
     @GetMapping("/crearcuenta")
@@ -68,7 +73,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        final List<ProductoDto> listaProductos = productoService.buscarTodos();
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         if (usuarioDto.isPresent()){
             UsuarioDto attr = usuarioDto.get();
