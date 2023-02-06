@@ -12,17 +12,16 @@
 </head>
 
 <body class="bg-geeko" >
-<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
     <div class="container">
         <img th:src="@{imagenes/logo.png}" width="60%" height="60%" />
 
         <div style="display: flex;" class="letras">
 
-            <a th:href="@{/login}" class="enlaces">Iniciar sesión</a>
+            <a th:href="@{usuarios/login}" class="enlaces">Iniciar sesión</a>
             <p> | </p>
             <a th:href="@{/crearcuenta}" class="enlaces">Registro</a>
-            <p> | </p>
-            <a th:href="@{/logout}" class="enlaces"> Cerrar sesión (NO TOCAR, es temporal)</a>
+            <p sec:authorize="isAuthenticated()"> | </p>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="enlaces"> Cerrar sesión (NO TOCAR, es temporal)</a>
         </div>
     </div>
 

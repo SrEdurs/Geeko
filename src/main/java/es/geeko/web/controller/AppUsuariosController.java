@@ -1,36 +1,44 @@
 package es.geeko.web.controller;
 
+import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
+import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
 import es.geeko.service.IUserService;
+import es.geeko.service.ProductoService;
+import es.geeko.service.TematicaService;
 import es.geeko.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
-    /*private final  UsuarioService usuarioService;
-    private final TematicaService tematicaService;
 
-    public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService) {
-        this.usuarioService = usuarioService;
-        this.tematicaService = tematicaService;
-    }
-*/
     @Autowired
     private IUserService userService;
-    private final UsuarioService service;
+    private final UsuarioService usuarioService;
+    private final TematicaService tematicaService;
+    private final ProductoService productoService;
+
     @Autowired
     private UserDetailsService uds;
 
-    public AppUsuariosController( UsuarioService service) {
-
-        this.service = service;
-
+    public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService, ProductoService productoService) {
+        this.usuarioService = usuarioService;
+        this.tematicaService = tematicaService;
+        this.productoService = productoService;
     }
 
     @GetMapping("/crearcuenta")
@@ -40,41 +48,122 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @GetMapping("/login")
     public String login(){
-        return "usuarios/login";
+        return "perfil";
     }
 
     // Read Form data to save into DB
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute Usuario user, Model model){
-
         System.out.println("EYYYYYYYY");
         Integer id = userService.saveUser(user);
         String message = "User '"+id+"' saved successfully !";
         model.addAttribute("msg", message);
-        return "/usuarios/cuestionario";
+        //return String.format("redirect:/usuarios/%s", id);
+        return "usuarios/login";
     }
 
-    /*@GetMapping("/usuarios/crearcuenta")
-    public String vistaRegistro(Model interfazConPantalla){
-        //Instancia en memoria del dto a informar en la pantalla
-        final UsuarioDtoPsw usuarioDtoPsw = new UsuarioDtoPsw();
-        //Obtengo la lista de roles
-        //Mediante "addAttribute" comparto con la pantalla
-        interfazConPantalla.addAttribute("datosUsuario",usuarioDtoPsw);
-        return "usuarios/crearcuenta";
-    }
-    //El que con los datos de la pantalla guarda la información de tipo PostMapping
-    @PostMapping("/usuarios/crearcuenta")
-    public String guardarUsuario( UsuarioDtoPsw usuarioDtoPsw) throws Exception {
-        //LLamo al método del servicioi para guardar los datos
-        UsuarioDto usuarioGuardado =  this.usuarioService.guardar(usuarioDtoPsw);
-        System.out.println("clave DTOPSW:" +usuarioDtoPsw.getClave() );
-        System.out.println("clave GUARDADO:" +usuarioGuardado.getClave() );
-        Long id = usuarioGuardado.getId();
-        //return "usuarios/detallesusuario";
-        return String.format("redirect:/usuarios/%s", id);
+    @GetMapping("/perfil")
+    public String perfil(Integer id, ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        final List<ProductoDto> listaProductos = productoService.buscarTodos();
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
+        if (usuarioDto.isPresent()){
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario",attr);
+            return "usuarios/perfil";
+        } else{
+            return "error";
+        }
     }
 
+    /*@GetMapping("usuarios/cuestionario/{idusr}")
+    public String vistaCuestionario(@PathVariable("idusr") Integer id, ModelMap interfazConPantalla){
+        final List<Tematica> tematicas = tematicaService.buscarEntidades();
+        interfazConPantalla.addAttribute("listaTematicas",tematicas);
+        return "usuarios/cuestionario";
+    }
+
+    @PostMapping("/usuarios/cuestionario/{idusr}")
+    public String guardarCuestionario(@ModelAttribute Usuario user, @PathVariable("idusr") Integer id, UsuarioDto usuarioDtoEntrada){
+
+        //Con el id tengo que buscar el registro a nivel de entidad
+        Optional<UsuarioDto> usuarioDtoControl = this.usuarioService.encuentraPorId(id);
+        //¿Debería comprobar si hay datos?
+        if (usuarioDtoControl.isPresent()) {
+            System.out.println("EEEEEEEEEEEEEEEEE");
+            UsuarioDto usuarioDtoGuardar = new UsuarioDto();
+            usuarioDtoGuardar.setId(id);
+            usuarioDtoGuardar.setEmilio(usuarioDtoEntrada.getEmilio());
+            usuarioDtoGuardar.setNick(usuarioDtoEntrada.getNick());
+            usuarioDtoGuardar.setNombre(usuarioDtoEntrada.getNombre());
+            usuarioDtoGuardar.setApellidos(usuarioDtoEntrada.getApellidos());
+            usuarioDtoGuardar.setAvatar(usuarioDtoEntrada.getAvatar());
+            usuarioDtoGuardar.setDireccion1(usuarioDtoEntrada.getDireccion1());
+            usuarioDtoGuardar.setDireccion2(usuarioDtoEntrada.getDireccion2());
+            usuarioDtoGuardar.setPoblacion(usuarioDtoEntrada.getPoblacion());
+            usuarioDtoGuardar.setProvincia(usuarioDtoEntrada.getProvincia());
+            usuarioDtoGuardar.setTlf(usuarioDtoEntrada.getTlf());
+            usuarioDtoGuardar.setBiografia(usuarioDtoEntrada.getBiografia());
+            usuarioDtoGuardar.setClave(usuarioDtoControl.get().getClave());
+            usuarioDtoGuardar.setTematicas(usuarioDtoEntrada.getTematicas());
+        }
+
+
+        return String.format("redirect:/");
+    }*/
+
+    @GetMapping("usuarios/edit")
+    public String vistaDatosUsuario(ModelMap interfazConPantalla){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        //¿Debería comprobar si hay datos?
+        if (usuarioDto.isPresent()){
+            //Como encontré datos, obtengo el objeto de tipo "UsuarioDto"
+            //addAttribute y thymeleaf no entienden Optional
+            UsuarioDto attr = usuarioDto.get();
+            System.out.println("La password es:");
+            System.out.println(attr.getClave());
+            //Asigno atributos y muestro
+            interfazConPantalla.addAttribute("datosUsuario",attr);
+
+            return "usuarios/edit";
+        } else{
+            //Mostrar página usuario no existe
+            return "error";
+        }
+    }
+
+    //Me falta un postmaping para guardar
+    @PostMapping("usuarios/edit")
+    public String guardarEdicionDatosUsuario(UsuarioDto usuarioDtoEntrada, ModelMap interfazConPantalla) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDtoControl = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto usuarioDtoGuardar =  new UsuarioDto();
+        usuarioDtoGuardar.setId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        usuarioDtoGuardar.setEmilio(usuarioDtoEntrada.getEmilio());
+        usuarioDtoGuardar.setNick(usuarioDtoEntrada.getNick());
+        usuarioDtoGuardar.setNombre(usuarioDtoEntrada.getNombre());
+        usuarioDtoGuardar.setApellidos(usuarioDtoEntrada.getApellidos());
+        usuarioDtoGuardar.setAvatar(usuarioDtoEntrada.getAvatar());
+        usuarioDtoGuardar.setDireccion1(usuarioDtoEntrada.getDireccion1());
+        usuarioDtoGuardar.setDireccion2(usuarioDtoEntrada.getDireccion2());
+        usuarioDtoGuardar.setPoblacion(usuarioDtoEntrada.getPoblacion());
+        usuarioDtoGuardar.setProvincia(usuarioDtoEntrada.getProvincia());
+        usuarioDtoGuardar.setTlf(usuarioDtoEntrada.getTlf());
+        usuarioDtoGuardar.setBiografia(usuarioDtoEntrada.getBiografia());
+        usuarioDtoGuardar.setClave(usuarioDtoControl.get().getClave());
+        this.usuarioService.guardar(usuarioDtoGuardar);
+        interfazConPantalla.addAttribute("datosUsuario",usuarioDtoGuardar);
+        return String.format("redirect:/perfil");
+    }
+
+    /*
     @GetMapping("/usuarios/{idusr}")
     public String vistaDatosUsuario(@PathVariable("idusr") Integer id, ModelMap interfazConPantalla){
         //Con el id tengo que buscar el registro a nivel de entidad
@@ -134,31 +223,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
 */
 
-    /*//Controlador de Login
-    @GetMapping("/usuarios/login")
-    public String vistaLogin(){
-        return "usuarios/login";
-    }
-
-    @PostMapping("/usuarios/login")
-    public String validarClave(@ModelAttribute(name = "login" ) LoginDto loginDto) {
-        String emilio = loginDto.getEmilio();
-        System.out.println("emilio = " + emilio);
-        String clave = loginDto.getClave();
-        System.out.println("clave = " + clave);
-        //¿es correcta la password?
-        if (usuarioService.getRepo().validarClave(emilio,clave) > 0)
-        {
-            return "index";
-        }else {
-            return "usuarios/login";
-        }
-    }
-*/
-    @GetMapping("/usuarios/perfil")
-    public String vistaperfil(){
-        return "/usuarios/perfil";
-    }
 
     @GetMapping("/usuarios/perfilotrousuario")
     public String vistaotroperfil(){

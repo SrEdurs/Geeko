@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -35,8 +36,10 @@
                 </form>
             </div>
             <div class="col">
-                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
-                <p class="usuario">@Usuario</p>
+                <th:block th:object="${datosUsuario}">
+                    <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                    <p class="usuario" th:text="${datosUsuario.nick}"></p>
+                </th:block>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
@@ -70,15 +73,15 @@
             <div class="row">
                 <div class="col" style="margin-top: 11px;">
                     <th:block th:object="${datosUsuario}">
-                        <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" th:src="@{/imagenes/peepogoku.png}">
-                            <h3 class="text-white text-center pt-2" th:text="${datosUsuario.usuario}"></h3>
+                        <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" style=" border-radius: 15px;" th:src="${datosUsuario.avatar}">
+                            <h3 class="text-white text-center pt-2" th:text="${datosUsuario.nick}"></h3>
                             <p class="fw-light text-white m-0" th:text="${datosUsuario.biografia}"></p>
                         </div>
                     </th:block>
                 </div>
             </div>
             <div class="row">
-                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/usuarios/edit}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Editar perfil</a></div>
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{usuarios/edit}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Editar perfil</a></div>
             </div>
             <div class="row">
                 <th:block th:object="${datosUsuario}">
@@ -168,14 +171,58 @@
                     <h2 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h2>
                 </div>
             </div>
-            <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px;">
-                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" th:src="@{/imagenes/dragon.jpg}"></div>
-            </div>
-            <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px;">
-                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" th:src="@{/imagenes/dragon.jpg}"></div>
-            </div>
-            <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px;">
-                <div class="col" style="margin-bottom: -3px;margin-top: 1px;"><img class="d-xxl-flex justify-content-center justify-content-xxl-center" width="284" height="199" style="height: 308px;border-color: rgba(33,37,41,0);border-radius: 50px;margin-right: -8px;padding-left: 0px;margin-left: 20px;" th:src="@{/imagenes/dragon.jpg}"></div>
+            <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
+                <th:block th:each="elemento : ${listaProductos}">
+                    <th:block th:if="${elemento.usuario} == null and ${elemento.activo} == 1">
+                        <div class="card cardnovedad">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-body cardprodu">
+                                        <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
+                                        <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
+                                        <div class="clasificacion">
+                                            <th:block th:if="${elemento.puntuacion} < 20 ">
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
+                                                <label>✰</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} >= 90 ">
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
             </div>
         </div>
     </div>

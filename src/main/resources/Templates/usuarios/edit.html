@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es_ES" xmlns:th="http://www.thymeleaf.org">
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -34,8 +35,10 @@
                 </form>
             </div>
             <div class="col">
-                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
-                <p class="usuario">@Usuario</p>
+                <th:block th:object="${datosUsuario}">
+                    <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                    <p class="usuario" th:text="${datosUsuario.nick}"></p>
+                </th:block>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
@@ -75,7 +78,7 @@
                     <div class="col">
                         <div class="row" style="background: #d9d9d9;border-radius: 57px;margin-bottom: 24px;">
                             <div class="col" style="background: rgba(217,217,217,0);border-radius: 34px;text-align: right;"><label class="col-form-label" style="font-weight: bold;">Usuario:</label></div>
-                            <div class="col" style="background: #d9d9d9;border-radius: 34px;"><input th:field="${datosUsuario.usuario}" class="form-control" type="text" style="background: #1e1e1e;border-radius: 65px;color: rgb(255,255,255);"></div>
+                            <div class="col" style="background: #d9d9d9;border-radius: 34px;"><input th:field="${datosUsuario.nick}" class="form-control" type="text" style="background: #1e1e1e;border-radius: 65px;color: rgb(255,255,255);"></div>
                         </div>
                     </div>
                 </div>
@@ -235,10 +238,6 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="row" style="background: #d9d9d9;border-radius: 57px;">
-                                            <div class="col" style="background: rgba(217,217,217,0);border-radius: 34px;text-align: right;"><label class="col-form-label" style="font-weight: bold;">Verif. dos pasos:</label></div>
-                                            <div class="col" style="background: #d9d9d9;border-radius: 34px;text-align: center;margin-top: 9px;"><!-- <input th:field="${datosUsuario.verificacion2pasos}" type="checkbox" style="margin-right: 145px;"> --></div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -247,13 +246,18 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="text-align: center; margin-bottom: 10px;">
+            <div class="col"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;">Guardar</button></div>
+        </div>
         <div class="row" style="text-align: center;">
-            <div class="col"><a th:href="@{/usuarios/perfil}" role="button" title="Volver a principal" ><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;">Finalizar</button></a></div>
-            <div class="col"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;">Preferencias</button></div>
-            <div class="col"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 189.3594px;font-weight: bold;">Cambiar contraseña</button></div>
-            <div class="col"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 139.3594px;font-weight: bold;">Tus productos</button></div>
+            <div class="col"></div>
         </div>
     </form>
+    <div class="row" style="text-align: center;">
+        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;">Preferencias</a></div>
+        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 189.3594px;font-weight: bold;">Cambiar contraseña</a></div>
+        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 139.3594px;font-weight: bold;">Tus productos</a></div>
+    </div>
 </div>
 <footer class="text-center mt-5 text-white">
     <!-- Grid container -->
