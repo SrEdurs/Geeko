@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -44,8 +45,10 @@
                 </form>
             </div>
             <div class="col">
-                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
-                <p class="usuario">@Usuario</p>
+                <th:block th:object="${datosUsuario}">
+                    <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                    <p class="usuario" th:text="${datosUsuario.nick}"></p>
+                </th:block>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
@@ -80,14 +83,12 @@
             <section>
                 <div class="row row-cols-1 row-cols-md-2 g-4">
                     <th:block th:each="elemento : ${listaProductos}">
-                        <th:block th:if="${elemento.usuario} != null and ${elemento.activo} == 1 and ${elemento.libro} == 1">
                     <div class="col">
                         <div class="card cardprodu">
                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="90%" class="card-img-top"></a>
                             <h4 th:align="center" th:text="${elemento.titulo}"></h4>
                         </div>
                     </div>
-                        </th:block>
                     </th:block>
                 </div>
             </section>
@@ -96,8 +97,7 @@
             <h4 class="text-white">Novedades</h4>
             <section>
                 <div class="row row-cols-1 row-cols-2 row-cols-3 g-4">
-                    <th:block th:each="elemento : ${listaProductos}">
-                        <th:block th:if="${elemento.usuario} == null and ${elemento.activo} == 1 and ${elemento.libro} == 1">
+                    <th:block th:each="elemento : ${listaNovedades}">
                             <div class="card cardnovedad">
                                 <div class="row">
                                     <div class="col">
@@ -146,7 +146,6 @@
                                 </div>
                             </div>
                         </th:block>
-                    </th:block>
                 </div>
             </section>
         </article>

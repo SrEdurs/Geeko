@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es_ES">
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -45,8 +46,10 @@
                 </form>
             </div>
             <div class="col">
-                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
-                <p class="usuario">@Usuario</p>
+                <th:block th:object="${datosUsuario}">
+                    <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                    <p class="usuario" th:text="${datosUsuario.nick}"></p>
+                </th:block>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
@@ -80,36 +83,14 @@
             <h4 class="text-white">Productos de usuarios</h4>
             <section>
                 <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <div class="col">
-                        <div class="card cardprodu">
-                            <img th:src="@{/imagenes/series/dmc.jpg}" width="90%" class="card-img-top">
+                    <th:block th:each="elemento : ${listaProductos}">
+                        <div class="col">
+                            <div class="card cardprodu">
+                                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="90%" class="card-img-top"></a>
+                                <h4 th:align="center" th:text="${elemento.titulo}"></h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card cardprodu">
-                            <img th:src="@{/imagenes/series/bcv.jpg}" width="90%" class="card-img-top">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card cardprodu">
-                            <img th:src="@{/imagenes/series/mandalorian.jpg}" width="90%" class="card-img-top">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card cardprodu">
-                            <img th:src="@{/imagenes/series/sakura.jpg}" width="90%" class="card-img-top">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card cardprodu">
-                            <img th:src="@{/imagenes/series/xena.jpg}" width="90%" class="card-img-top">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card cardprodu">
-                            <img th:src="@{/imagenes/series/dn.jpg}" width="90%" class="card-img-top">
-                        </div>
-                    </div>
+                    </th:block>
                 </div>
             </section>
         </article>
@@ -117,132 +98,55 @@
             <h4 class="text-white">Novedades</h4>
             <section>
                 <div class="row row-cols-1 row-cols-2 row-cols-3 g-4">
-                    <div class="card cardnovedad">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card-body">
-                                    <img th:src="@{/imagenes/series/pennyDreadful.jpg}" class="card-img-top">
-                                    <div class="clasificacion">
-                                        <input id="radio5" type="radio" name="estrellas" value="5">
-                                        <label for="radio5">★</label>
-                                        <input id="radio4" type="radio" name="estrellas" value="4">
-                                        <label for="radio4">★</label>
-                                        <input id="radio3" type="radio" name="estrellas" value="3">
-                                        <label for="radio3">★</label>
-                                        <input id="radio2" type="radio" name="estrellas" value="2">
-                                        <label for="radio2">★</label>
-                                        <input id="radio1" type="radio" name="estrellas" value="1">
-                                        <label for="radio1">★</label>
+                    <th:block th:each="elemento : ${listaNovedades}">
+                        <div class="card cardnovedad">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-body">
+                                        <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
+                                        <h4 th:align="center" th:text="${elemento.titulo}"></h4>
+                                        <div class="clasificacion">
+                                            <th:block th:if="${elemento.puntuacion} < 20 ">
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
+                                                <label>✰</label>
+                                                <label>✰</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
+                                                <label>✰</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                            <th:block th:if="${elemento.puntuacion} >= 90 ">
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                                <label>★</label>
+                                            </th:block>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card cardnovedad">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card-body">
-                                    <img th:src="@{/imagenes/series/spn.jpg}" class="card-img-top">
-                                    <div class="clasificacion">
-                                        <input id="radio5" type="radio" name="estrellas" value="5">
-                                        <label for="radio5">★</label>
-                                        <input id="radio4" type="radio" name="estrellas" value="4">
-                                        <label for="radio2">★</label>
-                                        <input id="radio3" type="radio" name="estrellas" value="3">
-                                        <label for="radio3">★</label>
-                                        <input id="radio2" type="radio" name="estrellas" value="2">
-                                        <label for="radio2">★</label>
-                                        <input id="radio1" type="radio" name="estrellas" value="1">
-                                        <label for="radio1">★</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card cardnovedad">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card-body">
-                                    <img th:src="@{/imagenes/series/vikingos.jpg}" class="card-img-top">
-                                    <div class="clasificacion">
-                                        <input id="radio5" type="radio" name="estrellas" value="5">
-                                        <label for="radio5">★</label>
-                                        <input id="radio4" type="radio" name="estrellas" value="4">
-                                        <label for="radio2">★</label>
-                                        <input id="radio3" type="radio" name="estrellas" value="3">
-                                        <label for="radio3">★</label>
-                                        <input id="radio2" type="radio" name="estrellas" value="2">
-                                        <label for="radio2">★</label>
-                                        <input id="radio1" type="radio" name="estrellas" value="1">
-                                        <label for="radio1">★</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card cardnovedad">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card-body">
-                                    <img th:src="@{/imagenes/series/hannibal.jpg}" class="card-img-top">
-                                    <div class="clasificacion">
-                                        <input id="radio5" type="radio" name="estrellas" value="5">
-                                        <label for="radio5">★</label>
-                                        <input id="radio4" type="radio" name="estrellas" value="4">
-                                        <label for="radio2">★</label>
-                                        <input id="radio3" type="radio" name="estrellas" value="3">
-                                        <label for="radio3">★</label>
-                                        <input id="radio2" type="radio" name="estrellas" value="2">
-                                        <label for="radio2">★</label>
-                                        <input id="radio1" type="radio" name="estrellas" value="1">
-                                        <label for="radio1">★</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card cardnovedad">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card-body">
-                                    <img th:src="@{/imagenes/series/bandolero.jpg}" class="card-img-top">
-                                    <div class="clasificacion">
-                                        <input id="radio5" type="radio" name="estrellas" value="5">
-                                        <label for="radio5">★</label>
-                                        <input id="radio4" type="radio" name="estrellas" value="4">
-                                        <label for="radio2">★</label>
-                                        <input id="radio3" type="radio" name="estrellas" value="3">
-                                        <label for="radio3">★</label>
-                                        <input id="radio2" type="radio" name="estrellas" value="2">
-                                        <label for="radio2">★</label>
-                                        <input id="radio1" type="radio" name="estrellas" value="1">
-                                        <label for="radio1">★</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card cardnovedad">
-                        <div class="row">
-                            <div class="col">
-                                <div class="card-body">
-                                    <img th:src="@{/imagenes/series/pb.jpg}" class="card-img-top">
-                                    <div class="clasificacion">
-                                        <input id="radio5" type="radio" name="estrellas" value="5">
-                                        <label for="radio5">★</label>
-                                        <input id="radio4" type="radio" name="estrellas" value="4">
-                                        <label for="radio2">★</label>
-                                        <input id="radio3" type="radio" name="estrellas" value="3">
-                                        <label for="radio3">★</label>
-                                        <input id="radio2" type="radio" name="estrellas" value="2">
-                                        <label for="radio2">★</label>
-                                        <input id="radio1" type="radio" name="estrellas" value="1">
-                                        <label for="radio1">★</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </th:block>
                 </div>
             </section>
         </article>
