@@ -42,6 +42,9 @@ public class Producto {
     @Column(name="libro")
     private int libro;
 
+    @Column(name="serie")
+    private int serie;
+
     @Column(name="pelicula")
     private int pelicula;
 

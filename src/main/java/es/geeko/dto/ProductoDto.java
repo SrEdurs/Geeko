@@ -23,6 +23,7 @@ public class ProductoDto {
     private int videojuego;
     private int libro;
     private int pelicula;
+    private int serie;
     private int reportado = 0;
     private int activo = 1;
     private Date fechaSubida = new java.sql.Date(Calendar.getInstance().getTime().getTime());
