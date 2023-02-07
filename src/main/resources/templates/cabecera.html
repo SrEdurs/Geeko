@@ -36,36 +36,45 @@
                 </form>
             </div>
             <div class="col">
-                <a th:href="@{/usuarios/perfil}"><img th:src="@{/imagenes/peepogoku.png}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px;"></a>
-                <p class="usuario">@Usuario</p>
+                <th:block th:object="${datosUsuario}">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(30,30,30,0);border: 0px">
+                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                            <label class="usuario" th:text="${datosUsuario.nick}"></label>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                </th:block>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
             <div class="col text-white" style="margin-bottom: 40px;">
                 <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
-                <button class="libros">LIBROS</button>
+                <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
-                <button class="series">SERIES</button>
+                <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
-                <button class="peliculas">PELÍCULAS</button>
+                <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
-                <button class="vj">VIDEOJUEGOS</button>
+                <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-                <button class="social">SOCIAL</button>
+                <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
             </div>
             <div class="col-2"></div>
         </div>
     </div>
 </nav>
-
 
 <!-- Optional JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
