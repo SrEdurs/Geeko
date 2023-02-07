@@ -18,7 +18,7 @@
     <div class="container-fluid text-center">
         <div class="row w-100">
             <div class="col">
-                <a href="localhost:8080/" class="navbar-brand">
+                <a th:href="@{/home}" class="navbar-brand">
                     <img th:src="@{/imagenes/logo.png}" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
@@ -44,6 +44,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
+                            <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
                             <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -98,6 +99,9 @@
                 <th:block th:object="${datosUsuario}">
                     <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{'/usuarios/'+ ${datosUsuario.id}}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
                 </th:block>
+            </div>
+            <div class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/crearproducto}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Añadir producto</a></div>
             </div>
             <div class="row">
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>

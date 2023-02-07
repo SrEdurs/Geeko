@@ -85,14 +85,14 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }
     }
 
-    /*@GetMapping("usuarios/cuestionario/{idusr}")
-    public String vistaCuestionario(@PathVariable("idusr") Integer id, ModelMap interfazConPantalla){
+    @GetMapping("/cuestionario")
+    public String vistaCuestionario(ModelMap interfazConPantalla){
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
         return "usuarios/cuestionario";
     }
 
-    @PostMapping("/usuarios/cuestionario/{idusr}")
+    /*@PostMapping("/usuarios/cuestionario/{idusr}")
     public String guardarCuestionario(@ModelAttribute Usuario user, @PathVariable("idusr") Integer id, UsuarioDto usuarioDtoEntrada){
 
         //Con el id tengo que buscar el registro a nivel de entidad
@@ -189,64 +189,30 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             //Mostrar página usuario no existe
             return "error";
         }
-    }
-
-    //Me falta un postmaping para guardar
-    @PostMapping("/usuarios/{idusr}")
-    public String guardarEdicionDatosUsuario(@PathVariable("idusr") Integer id, UsuarioDto usuarioDtoEntrada) throws Exception {
-        //Con el id tengo que buscar el registro a nivel de entidad
-        Optional<UsuarioDto> usuarioDtoControl = this.usuarioService.encuentraPorId(id);
-        //¿Debería comprobar si hay datos?
-        if (usuarioDtoControl.isPresent()){
-            UsuarioDto usuarioDtoGuardar =  new UsuarioDto();
-            usuarioDtoGuardar.setId(id);
-            usuarioDtoGuardar.setEmilio(usuarioDtoEntrada.getEmilio());
-            usuarioDtoGuardar.setUsuario(usuarioDtoEntrada.getUsuario());
-            usuarioDtoGuardar.setNombre(usuarioDtoEntrada.getNombre());
-            usuarioDtoGuardar.setApellidos(usuarioDtoEntrada.getApellidos());
-            usuarioDtoGuardar.setAvatar(usuarioDtoEntrada.getAvatar());
-            usuarioDtoGuardar.setDireccion1(usuarioDtoEntrada.getDireccion1());
-            usuarioDtoGuardar.setDireccion2(usuarioDtoEntrada.getDireccion2());
-            usuarioDtoGuardar.setPoblacion(usuarioDtoEntrada.getPoblacion());
-            usuarioDtoGuardar.setProvincia(usuarioDtoEntrada.getProvincia());
-            usuarioDtoGuardar.setTlf(usuarioDtoEntrada.getTlf());
-            usuarioDtoGuardar.setBiografia(usuarioDtoEntrada.getBiografia());
-            usuarioDtoGuardar.setClave(usuarioDtoControl.get().getClave());
-
-        System.out.println("usuarioDtoEntrada = " + usuarioDtoEntrada.getClave());
-            //Obtenemos la password del servicio
-
-            this.usuarioService.guardar(usuarioDtoGuardar);
-
-            System.out.println("usuarioDtoEntrada = " + usuarioDtoGuardar.getClave());
-            return String.format("redirect:/usuarios/%s", id);
-        } else {
-            //Mostrar página usuario no existe
-            return "index";
-        }
-
-    }
-
-*/
+    }*/
 
 
     @GetMapping("/usuarios/perfilotrousuario")
-    public String vistaotroperfil(){
+    public String vistaotroperfil(ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
         return "/usuarios/perfilotrousuario";
     }
 
-    @GetMapping("/usuarios/perfiladmin")
-    public String vistaperfiladmin(){
-        return "/usuarios/perfiladmin";
-    }
-
-    @GetMapping("/social/social")
-    public String vistasocial(){
-        return "/social/social";
-    }
-
     @GetMapping("/usuarios/cambiarcontraseña")
-    public String vistaOlvidona(){
+    public String vistaOlvidona(ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
         return "usuarios/cambiarcontraseña";
     }
 

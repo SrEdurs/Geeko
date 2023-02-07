@@ -128,13 +128,14 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @PostMapping("/productos/crearproducto")
-    public String guardarProducto(ProductoDto productoDto, ModelMap interfazConPantalla) throws Exception {
+    public String guardarProducto(ProductoDto productoDto, List<Tematica> tematicas) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         System.out.println(productoDto.getLibro());
         productoDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        productoDto.setTematicas(tematicas);
 
         this.productoService.guardar(productoDto);
 
@@ -168,8 +169,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
 */
 
-    @PostMapping("/productos/{idusr}")
-    public String guardarEdicionDatosUsuario(@PathVariable("idusr") Integer id, ProductoDto productoEntrada) throws Exception {
+    @PostMapping("/productos/{idpro}")
+    public String guardarEdicionDatosUsuario(@PathVariable("idpro") Integer id, ProductoDto productoEntrada) throws Exception {
         //Cuidado que la password no viene
         //Necesitamos copiar la información que llega menos la password
         //Con el id tengo que buscar el registro a nivel de entidad

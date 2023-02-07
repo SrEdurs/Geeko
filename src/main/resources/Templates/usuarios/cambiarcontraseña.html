@@ -12,7 +12,7 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <!-- Estilos personalizados -->
-    <link href="../../static/css/customIsa.css" type="text/css" rel="stylesheet">
+    <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
 
     <!-- Bootstrap icons  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
@@ -24,10 +24,9 @@
 </head>
 <body>
 <form>
-    <a th:href="@{/}" class="navbar-brand">
+    <a th:href="@{/home}" class="navbar-brand">
         <img th:src="@{logo/geekohueco.png}" alt="">
     </a>
-    <button class="btnCC" style="float: right;">Crear cuenta</button>
     <div class="container">
         <div class="row width=350">
             <label>CAMBIAR CONTRASEÑA</label>

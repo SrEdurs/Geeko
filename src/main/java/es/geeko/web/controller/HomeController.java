@@ -1,10 +1,26 @@
 package es.geeko.web.controller;
 
+import es.geeko.dto.UsuarioDto;
+import es.geeko.service.ProductoService;
+import es.geeko.service.UsuarioService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Optional;
 
 @Controller
 public class HomeController {
+
+    private final UsuarioService usuarioService;
+    private final ProductoService productoService;
+
+    public HomeController(UsuarioService usuarioService, ProductoService productoService) {
+        this.usuarioService = usuarioService;
+        this.productoService = productoService;
+    }
 
     @GetMapping("/")
     public String getPage() {
@@ -22,24 +38,17 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String getHomePage() {
-        return "inicio";
+    public String getHomePage(ModelMap interfazConPantalla) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+        return "usuarios/inicio";
     }
 
-    @GetMapping("/welcome")
-    public String getWelcomePage() {
-        return "index";
-    }
-
-    @GetMapping("/admin")
-    public String getAdminPage() {
-        return "adminPage";
-    }
-
-    @GetMapping("/common")
-    public String getCommonPage() {
-        return "commonPage";
-    }
 
     @GetMapping("/accessDenied")
     public String getAccessDeniedPage() {

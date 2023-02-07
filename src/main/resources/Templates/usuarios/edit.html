@@ -17,7 +17,7 @@
     <div class="container-fluid text-center">
         <div class="row w-100">
             <div class="col">
-                <a href="localhost:8080/" class="navbar-brand">
+                <a th:href="@{/home}" class="navbar-brand">
                     <img th:src="@{/imagenes/logo.png}" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
@@ -43,6 +43,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
+                            <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
                             <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -262,9 +263,9 @@
         </div>
     </form>
     <div class="row" style="text-align: center;">
-        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;">Preferencias</a></div>
-        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 189.3594px;font-weight: bold;">Cambiar contraseña</a></div>
-        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 139.3594px;font-weight: bold;">Tus productos</a></div>
+        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/cuestionario}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;">Preferencias</a></div>
+        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/contraseña}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 189.3594px;font-weight: bold;">Cambiar contraseña</a></div>
+        <div class="col"><a class="btn btn-primary text-center" type="button" data-bss-hover-animate="jello" th:href="@{/productos}" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 139.3594px;font-weight: bold;">Tus productos</a></div>
     </div>
 </div>
 <footer class="text-center mt-5 text-white">
