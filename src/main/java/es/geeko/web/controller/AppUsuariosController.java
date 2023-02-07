@@ -2,14 +2,13 @@ package es.geeko.web.controller;
 
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
+import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
+import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
-import es.geeko.service.IUserService;
-import es.geeko.service.ProductoService;
-import es.geeko.service.TematicaService;
-import es.geeko.service.UsuarioService;
+import es.geeko.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,18 +31,22 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     private IUserService userService;
     private final UsuarioService usuarioService;
     private final TematicaService tematicaService;
-    private final ProductoService productoService;
+    private final ComentarioService comentarioService;
 
     @Autowired
     private UserDetailsService uds;
     private final ProductoRepository productoRepository;
+    private final ComentarioRepository comentarioRepository;
 
-    public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService, ProductoService productoService,
-                                 ProductoRepository productoRepository) {
+    public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService,
+                                 ProductoRepository productoRepository,
+                                 ComentarioRepository comentarioRepository,
+                                 ComentarioService comentarioService) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
-        this.productoService = productoService;
         this.productoRepository = productoRepository;
+        this.comentarioRepository = comentarioRepository;
+        this.comentarioService = comentarioService;
     }
 
     @GetMapping("/crearcuenta")
@@ -69,13 +72,18 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
     @GetMapping("/perfil")
-    public String perfil(Integer id, ModelMap interfazConPantalla){
+    public String perfil(ModelMap interfazConPantalla){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
         final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
+
+        final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()),1 );
+        interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
+
         if (usuarioDto.isPresent()){
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario",attr);

@@ -15,4 +15,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
     Usuario getUsuarioByIdIs(int id);
     //UsuarioDto findUsuarioByIdIs(int id);
 
+    String findUsuarioByAvatar(String avatar);
+
 }

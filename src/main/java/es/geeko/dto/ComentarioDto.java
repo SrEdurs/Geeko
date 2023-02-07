@@ -1,5 +1,8 @@
 package es.geeko.dto;
 
+import es.geeko.model.Producto;
+import es.geeko.model.Reporte;
+import es.geeko.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +26,8 @@ public class ComentarioDto {
     private int likes;
     private int reportado = 0;
     private int activo = 1;
-    private UsuarioDto usuario;
-    private ProductoDto producto;
-    private List<ReporteDto> comentariosReportados;
+    private Usuario usuario;
+    private Producto producto;
+    private List<Reporte> comentariosReportados;
 
 }
