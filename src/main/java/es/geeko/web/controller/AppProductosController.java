@@ -141,32 +141,37 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         return String.format("redirect:/perfil");
     }
 
-    /*@GetMapping("productos/productopropio")
-    public String vistaProducto(ProductoDto productoDto, Integer id, ModelMap interfazConPantalla) throws Exception{
+    @GetMapping("/productos/{idpro}")
+    public String vistaProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla) throws Exception{
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
+
+        System.out.println(producto.get().getTitulo());
 
         if (producto.isPresent()){
 
             //LLamo al método del servicio para guardar los datos
-            ProductoDto productoDtoGuardar =  new ProductoDto();
-            productoDtoGuardar.setId(Long.valueOf(id));
-            productoDtoGuardar.setTitulo(productoDto.getTitulo());
-            productoDtoGuardar.setDescripcion(productoDto.getDescripcion());
-            productoDtoGuardar.setImagen(productoDto.getImagen());
+            ProductoDto productoDtoGuardar =  producto.get();
 
-            this.productoService.guardar(productoDtoGuardar);
+
             interfazConPantalla.addAttribute("datosProducto",productoDtoGuardar);
-            return "/productos/productopropio";
+            return "productos/producto";
         } else {
             //Mostrar página usuario no existe
             return "error";
         }
-
-
     }
 
-*/
 
     @PostMapping("/productos/{idpro}")
     public String guardarEdicionDatosUsuario(@PathVariable("idpro") Integer id, ProductoDto productoEntrada) throws Exception {
