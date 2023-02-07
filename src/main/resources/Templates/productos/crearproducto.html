@@ -143,28 +143,28 @@
                                                         <div class="row" style="margin-bottom: 19px;">
                                                             <div class="col" style="text-align: center; justify-content: center" >
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.libro}" th:value="1" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                                    <label class="form-check-label" for="flexRadioDefault1" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-book"></i> Libro &nbsp;</label>
+                                                                    <input th:field="${datosProducto.libro}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Libro">
+                                                                    <label class="form-check-label" for="Libro" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-book"></i> Libro &nbsp;</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col" style="border-radius: 34px;text-align: center;">
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.pelicula}" th:value="1" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                                    <label class="form-check-label" for="flexRadioDefault2" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-film"></i> Pelicula &nbsp;</label>
+                                                                    <input th:field="${datosProducto.pelicula}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Pelicula">
+                                                                    <label class="form-check-label" for="Pelicula" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-film"></i> Pelicula &nbsp;</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row" style="margin-bottom: 19px;">
                                                             <div class="col" style="text-align: center; justify-content: center">
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.serie}" th:value="1" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                                                    <label class="form-check-label" for="flexRadioDefault3" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-tv"></i> Serie &nbsp;</label>
+                                                                    <input th:field="${datosProducto.serie}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Serie">
+                                                                    <label class="form-check-label" for="Serie" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-tv"></i> Serie &nbsp;</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col" style="text-align: center; justify-content: center">
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.videojuego}" th:value="1" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
-                                                                    <label class="form-check-label" for="flexRadioDefault4" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-controller"></i> Videojuego &nbsp;</label>
+                                                                    <input th:field="${datosProducto.videojuego}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Videojuego">
+                                                                    <label class="form-check-label" for="Videojuego" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-controller"></i> Videojuego &nbsp;</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -184,12 +184,11 @@
                                                             <div class="col" style="background: rgba(217,217,217,0);border-radius: 34px;text-align: center;margin-top: 16px;"><input class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;"></div>
                                                             <div class="col" style="background: rgba(30,30,30,0);border-radius: 34px;">
                                                                 <div class="col-auto"><label style="color: #d9d9d9" for="city">Temática:</label></div>
-                                                                <div class="col-auto"><select style="border-radius: 24px; background-color: #d9d9d9" class="form-select" name="city" id="city">
+                                                                <div class="col-auto"><select th:object="${listaTematicas}" style="border-radius: 24px; background-color: #d9d9d9" class="form-select" name="city" id="city">
                                                                     <option disabled selected value>Seleccionar</option>
-                                                                    <option value="madrid">Madrid</option>
-                                                                    <option value="lisboa">Lisboa</option>
-                                                                    <option value="madrid">París</option>
-                                                                    <option value="madrid">Dublín</option>
+                                                                    <th:block th:each="elemento : ${listaTematicas}">
+                                                                        <option th:value="${elemento.id}" th:text="${elemento.nombre}"></option>
+                                                                    </th:block>
                                                                 </select>
                                                                 </div>
                                                             </div>

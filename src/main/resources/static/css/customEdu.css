@@ -160,3 +160,4 @@ label:hover ~ label {
 input[type="radio"]:checked ~ label {
    color: #8d92bb;
 }
+

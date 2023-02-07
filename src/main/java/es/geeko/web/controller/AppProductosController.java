@@ -3,9 +3,11 @@ package es.geeko.web.controller;
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Producto;
+import es.geeko.model.Tematica;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.ProductoService;
+import es.geeko.service.TematicaService;
 import es.geeko.service.UsuarioService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,14 +27,16 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     private final ProductoRepository productoRepository;
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
+    private final TematicaService tematicaService;
 
 
     public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService,
-                                  UsuarioRepository usuarioRepository) {
+                                  UsuarioRepository usuarioRepository, TematicaService tematicaService) {
         this.productoService = service;
         this.productoRepository = productoRepository;
         this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
+        this.tematicaService = tematicaService;
     }
 
 
@@ -117,6 +121,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
+
+        final List<Tematica> tematicas = tematicaService.buscarEntidades();
+        interfazConPantalla.addAttribute("listaTematicas",tematicas);
         return "productos/crearproducto";
     }
 
