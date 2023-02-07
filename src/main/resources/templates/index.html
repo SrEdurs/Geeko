@@ -17,11 +17,10 @@
 
         <div style="display: flex;" class="letras">
 
-            <a th:href="@{usuarios/login}" class="enlaces">Iniciar sesión</a>
-            <p> | </p>
-            <a th:href="@{/crearcuenta}" class="enlaces">Registro</a>
-            <p sec:authorize="isAuthenticated()"> | </p>
-            <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="enlaces"> Cerrar sesión (NO TOCAR, es temporal)</a>
+            <a sec:authorize="isAnonymous()" th:href="@{usuarios/login}" class="enlaces">Iniciar sesión</a>
+            <p sec:authorize="isAnonymous()"> | </p>
+            <a sec:authorize="isAnonymous()" th:href="@{/crearcuenta}" class="enlaces">Registro</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="enlaces"> Cerrar sesión</a>
         </div>
     </div>
 

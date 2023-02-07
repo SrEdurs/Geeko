@@ -18,54 +18,60 @@
 <body class="bg-geeko">
 <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
     <div class="container-fluid text-center">
-        <div class="row w-100 iconosNav">
+        <div class="row w-100">
             <div class="col">
                 <a href="localhost:8080/" class="navbar-brand">
-                    <img th:src="@{imagenes/logo.png}" alt="">
+                    <img th:src="@{/imagenes/logo.png}" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                         aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="col-6 align-self-center collapse navbar-collapse" id="opciones">
+            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
                 <form action="" class="d-flex w-100" role="search">
-                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Search"
+                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
                            aria-label="Search">
                     <a style="margin-top: 8px; margin-left: -48px;" type="submit">
                         <i class="bi bi-search"></i>
                     </a>
                 </form>
             </div>
-            <div class="col" style="white-space:nowrap !important;">
-                <img th:src="@{imagenes/peepogoku.png}" width="48px" class="h-8 w-8 rounded-full object-cover"
-                     id="iconoperfil" alt="">
-                <p class="text-white">Usuario</p>
+            <div class="col">
+                <th:block th:object="${datosUsuario}">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(30,30,30,0);border: 0px">
+                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                            <label class="usuario" th:text="${datosUsuario.nick}"></label>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                </th:block>
             </div>
             <div class="w-100"></div>
             <div class="col-2"></div>
-            <div class="col text-white">
-                <a href="#" class="text-uppercase enlaces " >
-                    <img th:src="@{iconos/libro.png}" class="icono p-2" width="35px">Libros
-                </a>
+            <div class="col text-white" style="margin-bottom: 40px;">
+                <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
+                <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
             </div>
             <div class="col text-white">
-                <a href="/series" class="text-uppercase enlaces" >
-                    <img th:src="@{iconos/tv.png}" class="icono p-2" width="35px">Series
-                </a>
+                <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
+                <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
             </div>
             <div class="col text-white">
-                <a href="#" class="text-uppercase enlaces" >
-                    <img th:src="@{iconos/claqueta.png}" class="icono p-2" width="35px">Películas
-                </a></div>
+                <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
+                <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
+            </div>
             <div class="col text-white">
-                <a href="#" class="text-uppercase enlaces" style="white-space:nowrap">
-                    <img th:src="@{iconos/consola.png}" class="icono p-2" width="35px">Videojuegos
-                </a></div>
+                <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
+                <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
+            </div>
             <div class="col text-white">
-                <a href="#" class="text-uppercase enlaces" >
-                    <img th:src="@{iconos/dialogo.png}" class="icono p-2" width="35px">Social
-                </a></div>
+                <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
+                <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
+            </div>
             <div class="col-2"></div>
         </div>
     </div>
