@@ -101,9 +101,6 @@
                 </th:block>
             </div>
             <div class="row">
-                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/crearproducto}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Añadir producto</a></div>
-            </div>
-            <div class="row">
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>
             </div>
         </div>
@@ -113,72 +110,30 @@
                     <h2 style="text-align: center;color: rgb(255,255,255);">Tus comentarios</h2>
                 </div>
             </div>
-            <div class="row" style="margin-top: 19px;">
-                <section class="card mb-3">
-                    <div class="row">
-                        <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
-                        <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title">Título feed</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    <br>Deserunt eum libero
-                                </p>
+
+            <th:block th:each="elemento : ${listaComentarios}">
+                <div class="row" style="margin-top: 19px;">
+                    <section class="card mb-3">
+                        <div class="row">
+                            <div class="col-3"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
+                                    <p class="card-text" th:text="${elemento.texto}"></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-            </div>
-            <div class="row" style="margin-top: 3px;height: 54px;">
-                <div class="col-xxl-6" style="text-align: left;"></div>
-                <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
-                    <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;">168</h4>
+                    </section>
                 </div>
-                <div class="col" style="padding-left: 6px;"><img th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
-            </div>
-            <div class="row" style="margin-top: 19px;">
-                <section class="card mb-3">
-                    <div class="row">
-                        <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
-                        <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title">Título feed</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    <br>Deserunt eum libero
-                                </p>
-                            </div>
-                        </div>
+                <div class="row" style="margin-top: 3px;height: 54px;">
+                    <div class="col-xxl-6" style="text-align: left;"></div>
+                    <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
+                        <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
                     </div>
-                </section>
-            </div>
-            <div class="row" style="margin-top: 3px;height: 54px;">
-                <div class="col-xxl-6" style="text-align: left;"></div>
-                <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
-                    <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;">168</h4>
+                    <div class="col" style="padding-left: 6px;"><img th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
                 </div>
-                <div class="col" style="padding-left: 6px;"><img th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
-            </div>
-            <div class="row" style="margin-top: 19px;">
-                <section class="card mb-3">
-                    <div class="row">
-                        <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
-                        <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title">Título feed</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    <br>Deserunt eum liberos
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="row" style="margin-top: 3px;height: 54px;">
-                <div class="col-xxl-6" style="text-align: left;"></div>
-                <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
-                    <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;">168</h4>
-                </div>
-                <div class="col" style="padding-left: 6px;"><img th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></div>
-            </div>
+            </th:block>
+
         </div>
         <div class="col" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
             <div class="row" style="margin-top: 44px;">
@@ -188,10 +143,7 @@
             </div>
             <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
                 <th:block th:each="elemento : ${listaProductos}">
-                        <div class="card cardnovedad">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card-body cardprodu">
+                                    <div class="card-body cardprodu" style="margin-bottom: 15px">
                                         <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
                                         <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
                                         <div class="clasificacion">
@@ -232,15 +184,12 @@
                                             </th:block>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
                     </th:block>
             </div>
         </div>
     </div>
 </div>
-<footer class=" row text-center mt-5 text-white">
+<footer class="text-center mt-5 text-white">
     <!-- Grid container -->
     <div class=" pt-2">
         <!-- Section: Social media -->

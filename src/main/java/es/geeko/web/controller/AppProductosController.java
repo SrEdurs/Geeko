@@ -128,14 +128,13 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @PostMapping("/productos/crearproducto")
-    public String guardarProducto(ProductoDto productoDto, List<Tematica> tematicas) throws Exception {
+    public String guardarProducto(ProductoDto productoDto) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         System.out.println(productoDto.getLibro());
         productoDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
-        productoDto.setTematicas(tematicas);
 
         this.productoService.guardar(productoDto);
 
