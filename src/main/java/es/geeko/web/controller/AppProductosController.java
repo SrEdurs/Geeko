@@ -123,15 +123,12 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     @PostMapping("/productos/crearproducto")
     public String guardarProducto(ProductoDto productoDto, ModelMap interfazConPantalla) throws Exception {
 
-        ProductoDto productoGuardado =  this.productoService.guardar(productoDto);
-        System.out.println("Titulo = " + productoGuardado.getTitulo());
-        System.out.println("Imagen = " + productoGuardado.getImagen());
-        System.out.println("Descripcion = " + productoGuardado.getDescripcion());
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        System.out.println("Titulo = " + productoGuardado.getTitulo());
+
+        System.out.println(productoDto.getLibro());
         productoDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+
         this.productoService.guardar(productoDto);
 
         return String.format("redirect:/perfil");
