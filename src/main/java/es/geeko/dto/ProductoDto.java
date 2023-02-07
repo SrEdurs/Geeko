@@ -1,5 +1,9 @@
 package es.geeko.dto;
 
+import es.geeko.model.Comentario;
+import es.geeko.model.Reporte;
+import es.geeko.model.Tematica;
+import es.geeko.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductoDto {
 
-    private Long id;
+    private int id;
     private String titulo;
     private String imagen;
     private String descripcion;
@@ -27,9 +31,9 @@ public class ProductoDto {
     private int reportado = 0;
     private int activo = 1;
     private Date fechaSubida = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-    private List<ComentarioDto> comentario;
-    private UsuarioDto usuario;
-    private List<TematicaDto> tematicas;
-    private List<ReporteDto> productosReportados;
+    private List<Comentario> comentario;
+    private Usuario usuario;
+    private List<Tematica> tematicas;
+    private List<Reporte> productosReportados;
 
 }

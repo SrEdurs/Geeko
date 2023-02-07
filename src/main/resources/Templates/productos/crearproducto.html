@@ -11,67 +11,66 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
           integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/customSergio.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/customEdu.css}"/>
     <title>Crear Producto</title>
 </head>
-<body class="bg-geeko">
-<!--<form role="form" th:object="${datosProducto}" method="post"> -->
-<form role="form"  method="post">
-    <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
-        <div class="container-fluid text-center">
-            <div class="row w-100 iconosNav">
-                <div class="col">
-                    <a href="localhost:8080/" class="navbar-brand">
-                        <img th:src="@{imagenes/logo.png}" alt="">
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
-                            aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="col-6 align-self-center collapse navbar-collapse" id="opciones">
-                    <form action="" class="d-flex w-100" role="search">
-                        <input class="form-control me-2 rounded-pill" type="search" placeholder="Search"
-                               aria-label="Search">
-                        <a style="margin-top: 8px; margin-left: -48px;" type="submit">
-                            <i class="bi bi-search"></i>
-                        </a>
-                    </form>
-                </div>
-                <div class="col" style="white-space:nowrap !important;">
-                    <img th:src="@{imagenes/peepogoku.png}" width="48px" class="h-8 w-8 rounded-full object-cover"
-                         id="iconoperfil" alt="">
-                    <p class="text-white">Usuario</p>
-                </div>
-                <div class="w-100"></div>
-                <div class="col-2"></div>
-                <div class="col text-white">
-                    <a href="#" class="text-uppercase enlaces " >
-                        <img th:src="@{iconos/libro.png}" class="icono p-2" width="35px">Libros
-                    </a>
-                </div>
-                <div class="col text-white">
-                    <a href="/series" class="text-uppercase enlaces" >
-                        <img th:src="@{iconos/tv.png}" class="icono p-2" width="35px">Series
-                    </a>
-                </div>
-                <div class="col text-white">
-                    <a href="#" class="text-uppercase enlaces" >
-                        <img th:src="@{iconos/claqueta.png}" class="icono p-2" width="35px">Películas
-                    </a></div>
-                <div class="col text-white">
-                    <a href="#" class="text-uppercase enlaces" style="white-space:nowrap">
-                        <img th:src="@{iconos/consola.png}" class="icono p-2" width="35px">Videojuegos
-                    </a></div>
-                <div class="col text-white">
-                    <a href="#" class="text-uppercase enlaces" >
-                        <img th:src="@{iconos/dialogo.png}" class="icono p-2" width="35px">Social
-                    </a></div>
-                <div class="col-2"></div>
+<body style="background: #1e1e1e;">
+<nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
+    <div class="container-fluid text-center">
+        <div class="row w-100">
+            <div class="col">
+                <a href="localhost:8080/" class="navbar-brand">
+                    <img th:src="@{/imagenes/logo.png}" alt="" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
+                        aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
+            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
+                <form action="" class="d-flex w-100" role="search">
+                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
+                           aria-label="Search">
+                    <a style="margin-top: 8px; margin-left: -48px;" type="submit">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </form>
+            </div>
+            <div class="col">
+                <th:block th:object="${datosUsuario}">
+                    <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                    <p class="usuario" th:text="${datosUsuario.nick}"></p>
+                </th:block>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-2"></div>
+            <div class="col text-white" style="margin-bottom: 40px;">
+                <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
+                <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
+            </div>
+            <div class="col text-white">
+                <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
+                <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
+            </div>
+            <div class="col text-white">
+                <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
+                <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
+            </div>
+            <div class="col text-white">
+                <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
+                <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
+            </div>
+            <div class="col text-white">
+                <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
+                <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
+            </div>
+            <div class="col-2"></div>
         </div>
-    </nav>
-    <section class="py-1">
+    </div>
+</nav>
+<!--<form role="form" th:object="${datosProducto}" method="post"> -->
+<form role="form" th:object="${datosProducto}" method="post">
+    <section class="py-1" style="margin-left: 50px">
         <div class=" py-5">
             <!--Toda la pagina -->
             <div class="row row-cols-1 productoPropio row-cols-md-2 mx-5">
@@ -80,40 +79,39 @@
                     <!--Parte de foto y descripcion-->
                     <div class="my-2 w-100 ">
                     <p class="px-4 py-2 " style="background-color:#D9D9D9; border-radius:23px;width:100%;max-width:534px !important;">
-                        <label style="font-weight:bold;" for="InputEmail">Titulo: </label>
+                        <label style="font-weight:bold;" for="titulo">Titulo: </label>
                         <!--<input type="text" id="InputEmail" class="form-control"  maxlength="60" th:field="${datosProducto.titulo}"/> -->
-                        <input type="text" id="InputEmail"  style="width:80%;border: none;border-radius: 23px;color: white;background-color: black;padding: 0.25rem!important;line-height:24px; height:33px;"   maxlength="60"/>
+                        <input th:field="${datosProducto.titulo}" type="text" id="titulo"  style="width:80%;border: none;border-radius: 23px;color: white;background-color: black;padding: 0.25rem!important;line-height:24px; height:33px;"   maxlength="60"/>
                     </p>
                     </div>
                     <div class="my-2 w-100 " style="white-space:nowrap;">
                         <p class="px-4 py-2 " style="background-color:#D9D9D9; border-radius:23px;width:100%;max-width:350px !important;">
-                            <label style="font-weight:bold;" for="InputEmail">Precio: </label>
+                            <label style="font-weight:bold;" for="precio">Precio: </label>
                             <!--<input type="text" id="InputEmail" class="form-control"  maxlength="60" th:field="${datosProducto.titulo}"/> -->
-                            <input type="text" id="InputEmail"  style="width:80%;border: none;border-radius: 23px;color: white;background-color: black;padding: 0.25rem!important;line-height:24px; height:33px;"   maxlength="60"/>€
+                            <input th:field="${datosProducto.precio}" type="text" id="precio"  style="width:80%;border: none;border-radius: 23px;color: white;background-color: black;padding: 0.25rem!important;line-height:24px; height:33px;"   maxlength="60"/> €
                         </p>
                     </div>
 
                     <div class="row row-cols-1 row-cols-md-2 mt-3" style="margin-right: 5px;">
                         <div class="col mb-5" >
-                            <label class="rounded" for="fotoProducto" style="cursor:pointer;none;background-color:#D9D9D9;border:none;width:100%;max-width:350px !important;max-height:300px"><i style="color: black;margin:40%" class="fa-solid fa-plus fa-2xl "></i></label>
+                            <label class="rounded" for="fotoProducto" style="cursor:pointer;background-color:#D9D9D9;border:none;width:100%;max-width:350px !important;max-height:300px"><i style="color: black;margin:40%" class="fa-solid fa-plus fa-2xl "></i></label>
                             <input id="fotoProducto" type="file" class=" d-none"/>
                         </div>
 
                         <div class="col d-md-flex mb-5">
                             <div>
-                                <textarea class="text-muted mb-4 rounded" placeholder="Escribe la descripcion del producto..."  style="width: 375px;background-color: #D9D9D9 !important;color:black !important;height:200px;"></textarea>
+                                <textarea th:field="${datosProducto.descripcion}" class="text-muted mb-4 rounded" placeholder="Escribe la descripción del producto..."  style="width: 475px;background-color: #D9D9D9 !important;color:black !important;height:200px;"></textarea>
                                 <!--Etiquetas-->
                                 <p style="color:#8D92BB">
                                     <!-- Repetir aqui-->
                                     <span style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i></span>
 
                                     <!--Hasta aqui-->
-                                    <button  style="none;background:none;border:none;"><i style="color: aliceblue;" class="fa-solid fa-plus fa-2xl"></i></button>
+                                    <button  style="background:none;border:none;"><i style="color: aliceblue;" class="fa-solid fa-plus fa-2xl"></i></button>
                                 </p>
 
                                 <!-- Cierre etiquetas-->
-                                <button class="px-4 py-2" style="height:45px;border-radius: 23px;background-color: #8D92BB"
-                                   type="button">Finalizar <i class="fa-solid fa-floppy-disk"></i></button>
+                                <input type="submit" class="px-4 py-2" style="height:45px;border-radius: 23px;background-color: #8D92BB">Finalizar <i class="fa-solid fa-floppy-disk"></i></input>
                             </div>
                         </div>
                     </div>
@@ -126,58 +124,55 @@
                     <h4 class="text-white" style="text-align: center;">Podrían interesarte</h4>
                     <div class="interesarteEncogido">
                         <!--Desde aqui se repetiria-->
-                        <div class="mb-3 mx-auto" style="justify-content: center;">
-                            <div class=" interesante" style="text-align: center !important;">
-                                <img th:src="@{imagenes/noimage.jpg}" width="212px" height="228px"
-                                     style="justify-content: center; margin-left: auto !important;" class=" rounded">
-                            </div>
-                            <div class=" valoracionPedidos " style="white-space:nowrap !important">
-                                <div class="clasificacion">
-                                    <!-- Añadir th:if="${elemento.puntuacion}< 20 " -->
-                                    <th:block >
-                                        <label>✰</label>
-                                        <label>✰</label>
-                                        <label>✰</label>
-                                        <label>✰</label>
-                                        <label>★</label>
-                                    </th:block>
-                                    <!--Añadir th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 " -->
-                                    <th:block >
-                                        <label>✰</label>
-                                        <label>✰</label>
-                                        <label>✰</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                    </th:block>
-                                    <!--Añadir th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 "-->
-                                    <th:block >
-                                        <label>✰</label>
-                                        <label>✰</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                    </th:block>
-                                    <!--Añadir th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 "-->
-                                    <th:block >
-                                        <label>✰</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                    </th:block>
-                                    <!--Añadir th:if="${elemento.puntuacion} >= 90 "-->
-                                    <th:block >
-                                        <label>★</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                        <label>★</label>
-                                    </th:block>
+                        <th:block th:each="elemento : ${listaProductos}">
+                            <div class="card cardnovedad" style="margin-left: 140px">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-body cardprodu">
+                                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
+                                            <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
+                                            <div class="clasificacion">
+                                                <th:block th:if="${elemento.puntuacion} < 20 ">
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>★</label>
+                                                </th:block>
+                                                <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                </th:block>
+                                                <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                </th:block>
+                                                <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
+                                                    <label>✰</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                </th:block>
+                                                <th:block th:if="${elemento.puntuacion} >= 90 ">
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                    <label>★</label>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-
                             </div>
-                        </div>
+                        </th:block>
                         <!--Hasta aqui-->
 
 
@@ -190,9 +185,81 @@
             <!-- Cierre toda la pagina-->
         </div>
     </section>
+    <footer class="text-center mt-5 text-white">
+        <!-- Grid container -->
+        <div class=" pt-2">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-white m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="fab fa-facebook-f"></i
+                ></a>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+                <!-- Twitter -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-white m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="fab fa-twitter"></i
+                ></a>
+
+                <!-- Google -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-white m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="fab fa-google"></i
+                ></a>
+
+                <!-- Instagram -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-white m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="fab fa-instagram"></i
+                ></a>
+
+                <!-- Linkedin -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-white m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="fab fa-linkedin"></i
+                ></a>
+                <!-- Github -->
+                <a
+                        class="btn btn-link btn-floating btn-lg text-white m-1"
+                        href="#!"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                ><i class="fab fa-github"></i
+                ></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center text-white">
+            © 2023 Copyright:
+            <a class="text-white" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Geeko</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
             crossorigin="anonymous"></script>
 </form>
 </body>

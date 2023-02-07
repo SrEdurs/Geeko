@@ -3,6 +3,8 @@ package es.geeko.repository;
 import es.geeko.dto.ProductoDto;
 import es.geeko.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -26,4 +28,10 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
 
     //Perfil
     List<Producto> findProductosByTituloIsNotLikeAndUsuarioIsNull(String ignorar);
+
+    //UPDATE `geeko`.`productos` SET `id_usuario_propietario` = '1' WHERE (`id` = '57');
+    /*@Modifying
+    @Query(value = "UPDATE `geeko`.`productos` SET `id_usuario_propietario` = ? WHERE (`id` = ?)", nativeQuery = true)
+    Integer idPropietario(int idUsuario, int idProducto);*/
+
 }

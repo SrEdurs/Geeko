@@ -1,5 +1,6 @@
 package es.geeko.dto;
 
+import es.geeko.model.Producto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UsuarioDto {
 
-    private long id;
+    private int id;
     private String nombre;
     private String apellidos;
     private String nick;
@@ -34,7 +35,7 @@ public class UsuarioDto {
     private String biografia;
     private int reportado;
     private List<ComentarioDto> comentarios;
-    private List<ProductoDto> productos;
+    private List<Producto> productos;
     private List<MensajeDto> mensajes;
     private List<TematicaDto> tematicas;
     private List<TransaccionDto> transacciones;

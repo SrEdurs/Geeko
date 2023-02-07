@@ -4,6 +4,7 @@ import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Producto;
 import es.geeko.repository.ProductoRepository;
+import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.ProductoService;
 import es.geeko.service.UsuarioService;
 import org.springframework.security.core.Authentication;
@@ -23,12 +24,15 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     private final ProductoService productoService;
     private final ProductoRepository productoRepository;
     private final UsuarioService usuarioService;
+    private final UsuarioRepository usuarioRepository;
 
 
-    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService) {
+    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService,
+                                  UsuarioRepository usuarioRepository) {
         this.productoService = service;
         this.productoRepository = productoRepository;
         this.usuarioService = usuarioService;
+        this.usuarioRepository = usuarioRepository;
     }
 
 
@@ -103,18 +107,34 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         final ProductoDto productoDto = new ProductoDto();
         //Mediante "addAttribute" comparto con la pantalla
         interfazConPantalla.addAttribute("datosProducto",productoDto);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "productos/crearproducto";
     }
 
     @PostMapping("/productos/crearproducto")
-    public String guardarProducto(ProductoDto productoDto) throws Exception {
-        //LLamo al método del servicio para guardar los datos
+    public String guardarProducto(ProductoDto productoDto, ModelMap interfazConPantalla) throws Exception {
+
         ProductoDto productoGuardado =  this.productoService.guardar(productoDto);
         System.out.println("Titulo = " + productoGuardado.getTitulo());
         System.out.println("Imagen = " + productoGuardado.getImagen());
         System.out.println("Descripcion = " + productoGuardado.getDescripcion());
-        Long id = productoGuardado.getId();
-        return "productos/productopropio";
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        System.out.println("Titulo = " + productoGuardado.getTitulo());
+        productoDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        this.productoService.guardar(productoDto);
+
+        return String.format("redirect:/perfil");
     }
 
     /*@GetMapping("productos/productopropio")
@@ -155,7 +175,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
             //LLamo al método del servicio para guardar los datos
             ProductoDto productoDtoGuardar =  new ProductoDto();
-            productoDtoGuardar.setId(Long.valueOf(id));
+            productoDtoGuardar.setId(id);
             productoDtoGuardar.setTitulo(productoEntrada.getTitulo());
             productoDtoGuardar.setDescripcion(productoEntrada.getDescripcion());
 
