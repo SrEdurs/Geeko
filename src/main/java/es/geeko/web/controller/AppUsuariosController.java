@@ -53,7 +53,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @GetMapping("/login")
     public String login(){
-        return "perfil";
+        return "usuarios/login";
     }
 
     // Read Form data to save into DB
@@ -64,7 +64,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String message = "User '"+id+"' saved successfully !";
         model.addAttribute("msg", message);
         //return String.format("redirect:/usuarios/%s", id);
-        return "usuarios/login";
+        return String.format("redirect:/");
+
     }
 
     @GetMapping("/perfil")
