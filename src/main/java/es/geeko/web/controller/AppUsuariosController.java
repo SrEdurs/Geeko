@@ -250,7 +250,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/cambiarcontraseña";
     }
 
-    @GetMapping("/productos/social")
+    @GetMapping("/social")
     public String vistaOlvidon2a(ModelMap interfazConPantalla){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -259,7 +259,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "productos/social";
+        return "social/social";
     }
 
     /*@GetMapping("/usuarios/cuestionario")
