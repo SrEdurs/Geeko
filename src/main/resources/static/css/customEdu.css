@@ -161,3 +161,10 @@ input[type="radio"]:checked ~ label {
    color: #8d92bb;
 }
 
+input[id="Librobox"]:checked{
+   opacity: 0;
+}
+
+input[id="Librobox"]:checked ~ label{
+   color: #8d92bb;
+}
