@@ -1,3 +1,6 @@
+:root{
+    --bandera-color: #fa5959
+}
 body{
     background-color: #1E1E1E;
     padding-top: 10px;
@@ -287,5 +290,13 @@ input[type="button"]:checked ~ label {
 .card-body{
     background-color: #1E1E1E;
     border-radius: 30px;
-}/*
+}
+
+.banderaroja{
+    color: #fa5959 !important;
+}
+.bandera:hover{
+    color: var(--bandera-color) !important;
+}
+
 

@@ -21,6 +21,19 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
   <title>Inicio</title>
+
+  <script>
+    function cambiabandera() {
+      var bandera = document.getElementById("bandera1");
+      if (bandera.classList.contains("banderaroja")){
+        bandera.classList.remove("banderaroja")
+        bandera.style.setProperty('--bandera-color','#fa5959' )
+      } else {
+        bandera.classList.add("banderaroja");
+        bandera.style.setProperty('--bandera-color','#D9D9D9' )
+      }
+    }
+  </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
@@ -100,12 +113,12 @@
                 <br>Deserunt eum libero magni nisi optio reprehenderit
               </p>
               <div class="report">
-                <input id="report" type="button" name="reporte">
-                <label for="report" class="bi bi-flag-fill"></label>
+                <input id="report1" type="button" name="reporte" >
+                <label id="bandera1" for="report1" class="bi bi-flag-fill bandera" onclick="cambiabandera()"></label>
               </div>
               <div class="like">
                 <input id="like" type="radio" name="like">
-                <label for="like" class="bi bi-hand-thumbs-up-fill" style="margin-left: 250px;"></label>
+                <label for="like" class="bi bi-hand-thumbs-up-fill pulgar" style="margin-left: 250px;"></label>
               </div>
             </div>
           </div>
@@ -121,8 +134,8 @@
                 <br>Deserunt eum libero magni nisi optio reprehenderit
               </p>
               <div class="report">
-                <input id="report" type="button" name="reporte">
-                <label for="report" class="bi bi-flag-fill"></label>
+                <input id="report2" type="button" name="reporte">
+                <label for="report2" class="bi bi-flag-fill"></label>
               </div>
               <div class="like">
                 <input id="like" type="radio" name="like">
@@ -142,8 +155,8 @@
                 <br>Deserunt eum libero magni nisi optio reprehenderit
               </p>
               <div class="report">
-                <input id="report" type="button" name="reporte">
-                <label for="report" class="bi bi-flag-fill"></label>
+                <input id="report3" type="button" name="reporte">
+                <label for="report3" class="bi bi-flag-fill"></label>
               </div>
               <div class="like">
                 <input id="like" type="radio" name="like">
@@ -163,8 +176,8 @@
                 <br>Deserunt eum libero magni nisi optio reprehenderit
               </p>
               <div class="report">
-                <input id="report" type="button" name="reporte">
-                <label for="report" class="bi bi-flag-fill"></label>
+                <input id="report4" type="button" name="reporte">
+                <label for="report4" class="bi bi-flag-fill"></label>
               </div>
               <div class="like">
                 <input id="like" type="radio" name="like">
@@ -319,5 +332,7 @@
   </div>
   <!-- Copyright -->
 </footer>
+
+
 </body>
 </html>
