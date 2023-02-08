@@ -26,7 +26,7 @@
   <div class="container-fluid text-center">
     <div class="row w-100">
       <div class="col">
-        <a th:href="@{/home}" class="navbar-brand">
+        <a href="localhost:8080/" class="navbar-brand">
           <img th:src="@{/imagenes/logo.png}" alt="" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
@@ -78,7 +78,7 @@
       </div>
       <div class="col text-white">
         <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-        <a class="social" th:href="@{/social}"><button class="social">SOCIAL</button></a>
+        <a class="social" th:href="@{/productos/social}"><button class="social">SOCIAL</button></a>
       </div>
       <div class="col-2"></div>
     </div>
@@ -93,8 +93,8 @@
           <th:block th:each="elemento : ${listaProductos}">
             <div class="col">
               <div class="card cardprodu">
-                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="90%" class="card-img-top"></a>
-                <h4 th:align="center" th:text="${elemento.titulo}"></h4>
+                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-toppu"></a>
+                <h6 th:align="center" th:text="${elemento.titulo}"></h6>
               </div>
             </div>
           </th:block>
@@ -110,7 +110,7 @@
               <div class="row">
                 <div class="col">
                   <div class="card-body">
-                    <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
+                    <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-topn"></a>
                     <h4 th:align="center" th:text="${elemento.titulo}"></h4>
                     <div class="clasificacion">
                       <th:block th:if="${elemento.puntuacion} < 20 ">

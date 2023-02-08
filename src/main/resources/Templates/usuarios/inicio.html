@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Estilos personalizados -->
   <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
@@ -93,7 +92,7 @@
       <p> </p>
       <section class="card mb-3">
         <div class="row">
-          <div class="col-3"><img src="../../static/iconos/perfil.png" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
+          <div class="col-3"><img th:src="@{/iconos/perfil.png}" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">Título feed</h5>
@@ -114,7 +113,7 @@
       </section>
       <div class="card mb-3">
         <div class="row">
-          <div class="col-3"><img src="../../static/iconos/perfil.png" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
+          <div class="col-3"><img th:src="@{/iconos/perfil.png}" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">Título feed</h5>
@@ -135,7 +134,7 @@
       </div>
       <div class="card mb-3">
         <div class="row">
-          <div class="col-3"><img src="../../static/iconos/perfil.png" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
+          <div class="col-3"><img th:src="@{/iconos/perfil.png}" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">Título feed</h5>
@@ -156,7 +155,7 @@
       </div>
       <div class="card mb-3">
         <div class="row">
-          <div class="col-3"><img src="../../static/iconos/perfil.png" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
+          <div class="col-3"><img th:src="@{/iconos/perfil.png}" width="60px" style="margin-top: 25px; margin-left: 20px;"></div>
           <div class="col">
             <div class="card-body">
               <h5 class="card-title">Título feed</h5>
@@ -183,38 +182,38 @@
         <div class="row row-cols-1 row-cols-md-2 g-4">
           <div class="col">
             <div class="card cardprodu">
-              <img src="../../static/imagenes/libros/goodOmens.jpg" class="card-img-toppu img-fluid">
+              <img th:src="@{/imagenes/libros/goodOmens.jpg}" class="card-img-toppu img-fluid">
               <h6 class="card-title">Colección 'Good Omens' - 45€</h6>
             </div>
           </div>
           <div class="col">
             <div class="card cardprodu">
-              <img src="../../static/imagenes/videoj/crban.jpg" class="card-img-toppu img-fluid">
+              <img th:src="@{/imagenes/videoj/crban.jpg" class="card-img-toppu img-fluid">
               <h6 class="card-title">'Crash Bandicoot' PS1 - 5.75€</h6>
             </div>
           </div>
           <div class="col">
             <div class="card cardprodu">
-              <img src="../../static/imagenes/libros/cadaverExquisito.jpg"
+              <img th:src="@{/imagenes/libros/cadaverExquisito.jpg}"
                    class="card-img-toppu img-fluid">
               <h6 class="card-title">Cadáver exquisito - 7€</h6>
             </div>
           </div>
           <div class="col">
             <div class="card cardprodu">
-              <img src="../../static/imagenes/series/xena.jpg" class="card-img-toppu img-fluid">
+              <img th:src="@{/imagenes/series/xena.jpg}" class="card-img-toppu img-fluid">
               <h6 class="card-title">"Xena" COMPLETA - 19.95€</h6>
             </div>
           </div>
           <div class="col">
             <div class="card cardprodu">
-              <img src="../../static/imagenes/libros/screamQueer.jpg" class="card-img-toppu img-fluid">
+              <img th:src="@{/imagenes/libros/screamQueer.jpg}" class="card-img-toppu img-fluid">
               <h6 class="card-title">'Scream Queer' de Javier Parra - 13€</h6>
             </div>
           </div>
           <div class="col">
             <div class="card cardprodu">
-              <img src="../../static/imagenes/pelis/camelot.jpg" class="card-img-toppu img-fluid">
+              <img th:src="@{/imagenes/pelis/camelot.jpg}" class="card-img-toppu img-fluid">
               <h6 class="card-title">'En busca de Camelot' DVD - 2.95€</h6>
             </div>
           </div>
@@ -227,15 +226,15 @@
         <section>
           <div class="row row-cols-1">
             <div class="card cardprodint">
-              <img src="../../static/imagenes/series/tlouserie.jpg" class="card-img-toppdint img-fluid">
+              <img th:src="@{/imagenes/series/tlouserie.jpg}" class="card-img-toppdint img-fluid">
               <h6 class="card-title">'The last of us'</h6>
             </div>
             <div class="card cardprodint">
-              <img src="../../static/imagenes/series/hill.jpg" class="card-img-toppdint img-fluid">
+              <img th:src="@{/imagenes/series/hill.jpg}" class="card-img-toppdint img-fluid">
               <h6 class="card-title">'La maldición de Hill House'</h6>
             </div>
             <div class="card cardprodint">
-              <img src="../../static/imagenes/pelis/alien.jpg" class="card-img-toppdint img-fluid">
+              <img th:src="@{/imagenes/pelis/alien.jpg}" class="card-img-toppdint img-fluid">
               <h6 class="card-title">Saga 'Alien' BluRay - 39.99€</h6>
             </div>
           </div>
