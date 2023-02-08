@@ -100,16 +100,15 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/cuestionario";
     }
 
-    /*@PostMapping("/usuarios/cuestionario/{idusr}")
-    public String guardarCuestionario(@ModelAttribute Usuario user, @PathVariable("idusr") Integer id, UsuarioDto usuarioDtoEntrada){
+    /*@PostMapping("/cuestionario")
+    public String guardarCuestionario(UsuarioDto usuarioDtoEntrada){
 
         //Con el id tengo que buscar el registro a nivel de entidad
         Optional<UsuarioDto> usuarioDtoControl = this.usuarioService.encuentraPorId(id);
         //¿Debería comprobar si hay datos?
         if (usuarioDtoControl.isPresent()) {
             System.out.println("EEEEEEEEEEEEEEEEE");
-            UsuarioDto usuarioDtoGuardar = new UsuarioDto();
-            usuarioDtoGuardar.setId(id);
+            UsuarioDto usuarioDtoGuardar = new UsuarioDto();;
             usuarioDtoGuardar.setEmilio(usuarioDtoEntrada.getEmilio());
             usuarioDtoGuardar.setNick(usuarioDtoEntrada.getNick());
             usuarioDtoGuardar.setNombre(usuarioDtoEntrada.getNombre());
@@ -126,7 +125,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }
 
 
-        return String.format("redirect:/");
+        return "/perfil";
     }*/
 
     @GetMapping("usuarios/edit")
