@@ -95,18 +95,28 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @GetMapping("/cuestionario")
     public String vistaCuestionario(ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
+
         return "usuarios/cuestionario";
     }
 
-    /*@PostMapping("/cuestionario")
+    @PostMapping("/cuestionario")
     public String guardarCuestionario(UsuarioDto usuarioDtoEntrada){
 
-        //Con el id tengo que buscar el registro a nivel de entidad
-        Optional<UsuarioDto> usuarioDtoControl = this.usuarioService.encuentraPorId(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
         //¿Debería comprobar si hay datos?
-        if (usuarioDtoControl.isPresent()) {
+        if (usuarioDto.isPresent()) {
             System.out.println("EEEEEEEEEEEEEEEEE");
             UsuarioDto usuarioDtoGuardar = new UsuarioDto();;
             usuarioDtoGuardar.setEmilio(usuarioDtoEntrada.getEmilio());
@@ -120,13 +130,11 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             usuarioDtoGuardar.setProvincia(usuarioDtoEntrada.getProvincia());
             usuarioDtoGuardar.setTlf(usuarioDtoEntrada.getTlf());
             usuarioDtoGuardar.setBiografia(usuarioDtoEntrada.getBiografia());
-            usuarioDtoGuardar.setClave(usuarioDtoControl.get().getClave());
+            usuarioDtoGuardar.setClave(usuarioDto.get().getClave());
             usuarioDtoGuardar.setTematicas(usuarioDtoEntrada.getTematicas());
         }
-
-
-        return "/perfil";
-    }*/
+        return String.format("redirect:/perfil");
+    }
 
     @GetMapping("usuarios/edit")
     public String vistaDatosUsuario(ModelMap interfazConPantalla){
@@ -175,29 +183,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         interfazConPantalla.addAttribute("datosUsuario",usuarioDtoGuardar);
         return String.format("redirect:/perfil");
     }
-
-    /*
-    @GetMapping("/usuarios/{idusr}")
-    public String vistaDatosUsuario(@PathVariable("idusr") Integer id, ModelMap interfazConPantalla){
-        //Con el id tengo que buscar el registro a nivel de entidad
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(id);
-        //¿Debería comprobar si hay datos?
-        if (usuarioDto.isPresent()){
-            //Como encontré datos, obtengo el objeto de tipo "UsuarioDto"
-            //addAttribute y thymeleaf no entienden Optional
-            UsuarioDto attr = usuarioDto.get();
-            System.out.println("La password es:");
-            System.out.println(attr.getClave());
-            //Asigno atributos y muestro
-            interfazConPantalla.addAttribute("datosUsuario",attr);
-
-            return "usuarios/edit";
-        } else{
-            //Mostrar página usuario no existe
-            return "error";
-        }
-    }*/
-
 
     @GetMapping("/usuarios/perfilotrousuario")
     public String vistaotroperfil(ModelMap interfazConPantalla){
