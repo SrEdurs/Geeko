@@ -31,7 +31,7 @@ public class Producto {
     private String descripcion;
 
     @Column(name="precio")
-    private double precio;
+    private double precio = 0;
 
     @Column(name="puntuacion")
     private int puntuacion;

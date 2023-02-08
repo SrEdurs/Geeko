@@ -1,5 +1,7 @@
 package es.geeko.dto;
 
+import es.geeko.model.Chat;
+import es.geeko.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,7 @@ public class MensajeDto {
     private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private String texto;
     private String imagen;
-    private UsuarioDto usuario;
-    private ChatDto chat;
+    private Usuario usuario;
+    private Chat chat;
 
 }

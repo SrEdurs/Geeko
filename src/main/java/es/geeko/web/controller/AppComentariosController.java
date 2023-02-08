@@ -31,7 +31,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         this.productoService = productoService;
     }
 
-    @GetMapping("/social/crearcomentario")
+    @GetMapping("/crearcomentario")
     public String vistaCrearComentario(ModelMap interfazConPantalla){
         //Instancia en memoria del dto a informar en la pantalla
         final ComentarioDto comentarioDto = new ComentarioDto();
@@ -44,10 +44,10 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "/social/crearcomentario";
+        return "social/crearcomentario";
     }
 
-    @PostMapping("/social/crearcomentario")
+    @PostMapping("/crearcomentario")
     public String guardarComentario(ComentarioDto comentarioDto,UsuarioDto usuarioDtoEntrada, ModelMap interfazConPantalla) throws Exception {
         //LLamo al método del servicio para guardar los datos
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,6 +63,6 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        return "usuarios/cuestionario";
+        return "/perfil";
     }
 }

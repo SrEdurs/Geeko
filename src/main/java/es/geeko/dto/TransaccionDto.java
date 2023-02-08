@@ -1,5 +1,7 @@
 package es.geeko.dto;
 
+import es.geeko.model.Producto;
+import es.geeko.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,7 @@ public class TransaccionDto {
     private int idCliente;
     private int idVendedor;
     private double valoracionTransaccion;
-    private ProductoDto producto;
-    private List<UsuarioDto> usuarios;
+    private Producto producto;
+    private List<Usuario> usuarios;
 
 }

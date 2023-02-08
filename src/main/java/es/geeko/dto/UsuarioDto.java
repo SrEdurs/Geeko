@@ -1,6 +1,6 @@
 package es.geeko.dto;
 
-import es.geeko.model.Producto;
+import es.geeko.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,13 +36,13 @@ public class UsuarioDto {
     private int reportado;
     private List<ComentarioDto> comentarios;
     private List<Producto> productos;
-    private List<MensajeDto> mensajes;
-    private List<TematicaDto> tematicas;
-    private List<TransaccionDto> transacciones;
-    private List<ChatDto> chats;
-    private List<ReporteDto> usuariosReportados;
-    private List<UsuarioDto> seguimientos;
-    private List<UsuarioDto> seguidos;
+    private List<Mensaje> mensajes;
+    private List<Tematica> tematicas;
+    private List<Transaccion> transacciones;
+    private List<Chat> chats;
+    private List<Reporte> usuariosReportados;
+    private List<Usuario> seguimientos;
+    private List<Usuario> seguidos;
     private List<String> roles;
 
 }

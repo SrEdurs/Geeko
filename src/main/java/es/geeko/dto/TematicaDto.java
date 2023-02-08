@@ -1,5 +1,8 @@
 package es.geeko.dto;
 
+import es.geeko.model.Producto;
+import es.geeko.model.Tematica;
+import es.geeko.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,9 +19,9 @@ public class TematicaDto {
 
     private Long id;
     private String nombre;
-    private List<UsuarioDto> usuarios;
-    private List<ProductoDto> productos;
-    private TematicaDto tematica;
-    private List<TematicaDto> tematicas;
+    private List<Usuario> usuarios;
+    private List<Producto> productos;
+    private Tematica tematica;
+    private List<Tematica> tematicas;
 
 }

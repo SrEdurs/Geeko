@@ -1,5 +1,7 @@
 package es.geeko.dto;
 
+import es.geeko.model.Mensaje;
+import es.geeko.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,7 @@ public class ChatDto {
     private String imagen;
     private String descripcion;
     private int activo;
-    private List<MensajeDto> mensajes;
-    private List<UsuarioDto> usuarios;
+    private List<Mensaje> mensajes;
+    private List<Usuario> usuarios;
 
 }

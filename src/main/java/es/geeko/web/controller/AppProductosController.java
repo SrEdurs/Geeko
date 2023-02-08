@@ -2,8 +2,10 @@ package es.geeko.web.controller;
 
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
+import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
+import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.ProductoService;
@@ -28,15 +30,17 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
     private final TematicaService tematicaService;
+    private final ComentarioRepository comentarioRepository;
 
 
     public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService,
-                                  UsuarioRepository usuarioRepository, TematicaService tematicaService) {
+                                  UsuarioRepository usuarioRepository, TematicaService tematicaService, ComentarioRepository comentarioRepository) {
         this.productoService = service;
         this.productoRepository = productoRepository;
         this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
         this.tematicaService = tematicaService;
+        this.comentarioRepository = comentarioRepository;
     }
 
 
@@ -152,7 +156,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-
+        final List<Comentario> listaComentarios = this.productoService.encuentraPorId(id).get().getComentario();
+        interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
 
         final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
         interfazConPantalla.addAttribute("listaProductos",listaProductos);

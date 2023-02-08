@@ -22,7 +22,7 @@ public class ProductoDto {
     private String titulo;
     private String imagen;
     private String descripcion;
-    private double precio;
+    private double precio = 0;
     private int puntuacion;
     private int videojuego;
     private int libro;
