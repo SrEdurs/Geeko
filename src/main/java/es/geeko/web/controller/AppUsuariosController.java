@@ -10,6 +10,8 @@ import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -229,5 +231,18 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
         return "usuarios/cuestionario";
     }*/
+
+
+    @GetMapping("/cambiamegusta/{id}")
+    public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Integer id){
+        // Buscamos el comentario a procesar
+        Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
+        if(coment.isPresent()){
+            int likes = coment.get().getLikes();
+            coment.get().setLikes(++likes);
+            comentarioRepository.save(coment.get());
+        }
+        return new ResponseEntity<>("OK",HttpStatus.OK);
+    }
 
 }
