@@ -10,6 +10,9 @@
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- Bootstrap icons  -->
+    <link rel="stylesheet" type="text/css" src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
     <link th:href="@{/css/customEdu.css}"  type="text/css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
             integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
@@ -23,8 +26,10 @@
             // llamar a la funcion del servidor para aumentar el like
             $.ajax(
                 {url: "/cambiamegusta/"+id,
-                    success: function() {
-                        $("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda
+                    success: function(resp) {
+                        console.log(resp)
+                        document.getElementById("likes"+id).innerText=resp
+                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
                     }}
             )
 
@@ -146,13 +151,15 @@
                 </div>
                 <div class="row" style="margin-top: 3px;height: 54px;">
                     <div class="col-xxl-6" style="text-align: left;"></div>
-                    <div class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
-                        <h4 style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
+                    <div  class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
+                        <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
                     </div>
                     <div class="col" style="padding-left: 6px;">
+
                         <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
                                 onclick="cambiamegusta(this.getAttribute('data-id'))">
-                            <img id="megusta" + th:text="${elemento.id}" th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
+
+                            <img th:id="'megusta'+${elemento.id}" th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
                         </button>
                     </div>
                 </div>

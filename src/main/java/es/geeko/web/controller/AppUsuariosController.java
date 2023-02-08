@@ -236,13 +236,14 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     @GetMapping("/cambiamegusta/{id}")
     public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Integer id){
         // Buscamos el comentario a procesar
+        Integer likes = 0;
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
         if(coment.isPresent()){
-            int likes = coment.get().getLikes();
+            likes = coment.get().getLikes();
             coment.get().setLikes(++likes);
             comentarioRepository.save(coment.get());
         }
-        return new ResponseEntity<>("OK",HttpStatus.OK);
+        return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
     }
 
 }
