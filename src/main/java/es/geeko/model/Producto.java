@@ -25,7 +25,7 @@ public class Producto {
     private String titulo;
 
     @Column(name="imagen", length = 200)
-    private String imagen = "https://www.gasso.com/wp-content/uploads/2017/04/noimage.jpg";
+    private String imagen = "/imagenes/noimage.jpg";
 
     @Column(name="descripcion", nullable = false)
     private String descripcion;

@@ -34,4 +34,6 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
     @Query(value = "UPDATE `geeko`.`productos` SET `id_usuario_propietario` = ? WHERE (`id` = ?)", nativeQuery = true)
     Integer idPropietario(int idUsuario, int idProducto);*/
 
+    //Productos de usuario iniciado
+    List<Producto> findProductosByUsuarioId(int id);
 }

@@ -84,44 +84,40 @@
             <h4 style="color: #8D92BB;margin-bottom: 10px;" th:text="${datosProducto.titulo}"></h4>
 
                 <div class="shrink-0 flex items-center mb-2" style="white-space:nowrap !important">
-                    <img th:src="@{/imagenes/peepogoku.png}" width="48px" class="h-8 w-8 rounded-full object-cover" alt="">
-                    <span style="color: #D9D9D9;font-size: large;">@SrEdurs</span>
+                    <img  th:src="${datosProducto.usuario?.getAvatar}" width="48px" class="h-8 w-8 rounded-full object-cover" alt="">
+                    <span  style="color: #D9D9D9;font-size: large;" th:text="${datosProducto.usuario?.getNick}"></span>
                     <span class=" valoracionPedidos " style="white-space:nowrap !important"></span>
                 </div>
                 <div class="row row-cols-1 row-cols-md-2" style="margin-right: 5px;">
                     <div class="col mb-5">
-
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-
                                     <img th:src="${datosProducto.imagen}"
                                          class="d-block w-100 rounded img-fluid shadow "
                                          alt="..." style="height: auto">
-
-
                         </div>
                     </div>
                     <div class="col d-md-flex mb-5">
                         <div>
-                            <h4 class="fw-bolder" style="color: #8D92BB;" th:text="${datosProducto.precio} + '€'"></h4>
+                            <h4 th:if="${datosProducto.precio} > 0" class="fw-bolder" style="color: #8D92BB;" th:text="${datosProducto.precio} + '€'"></h4>
                             <p class="text-muted mb-4" style="width: 400px;color: #D9D9D9 !important;" th:text="${datosProducto.descripcion}"></p>
                             <!--Etiquetas-->
                             <p style="color:#8D92BB">
                                 <!-- Repetir aqui-->
-                                <span style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;"
-                                                                     class="fa-solid fa-tag fa-2xl"></i>Libro</span>
+                                <span th:if="${datosProducto.libro} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Libro</span>
+                                <span th:if="${datosProducto.serie} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Serie</span>
+                                <span th:if="${datosProducto.pelicula} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Película</span>
+                                <span th:if="${datosProducto.videojuego} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Videojuego</span>
                                 <!--Hasta aqui-->
-                                <span style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;"
-                                                                     class="fa-solid fa-tag fa-2xl"></i>Ciencia Ficcion</span>
+                                <span style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Ciencia Ficcion</span>
                             </p>
 
                             <!-- Cierre etiquetas-->
-                            <a class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"
-                               type="button">Editar <i class="fas fa-edit"></i></a>
+                            <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
+            <div class="col-4" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
                 <div class="row" style="margin-top: 44px;">
                     <div class="col">
                         <h2 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h2>

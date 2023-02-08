@@ -110,6 +110,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         //Instancia en memoria del dto a informar en la pantalla
         final ProductoDto productoDto = new ProductoDto();
         //Mediante "addAttribute" comparto con la pantalla
+        productoDto.setImagen("/imagenes/noimage.jpg");
         interfazConPantalla.addAttribute("datosProducto",productoDto);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -138,7 +139,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         this.productoService.guardar(productoDto);
 
-        return String.format("redirect:/perfil");
+        return String.format("redirect:/productos/subidos");
     }
 
     @GetMapping("/productos/{idpro}")
@@ -150,6 +151,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
+
+
 
         final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
@@ -172,7 +175,6 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         }
     }
 
-
     @PostMapping("/productos/{idpro}")
     public String guardarEdicionDatosUsuario(@PathVariable("idpro") Integer id, ProductoDto productoEntrada) throws Exception {
         //Cuidado que la password no viene
@@ -194,6 +196,21 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             //Mostrar página usuario no existe
             return "error";
         }
+    }
+
+    @GetMapping("/productos/subidos")
+    public String vistaSubidos(ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        final List<Producto> listaProductos = productoRepository.findProductosByUsuarioId(attr.getId());
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
+        return "productos/productossubidos";
     }
 
 

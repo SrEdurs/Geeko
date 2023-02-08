@@ -27,7 +27,7 @@ public class SecurityConfig {
 
 
         http.authorizeHttpRequests()
-                .requestMatchers("/**","/registerUser","/usuarios/crearcuenta","/saveUser","/","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**").permitAll()
+                .requestMatchers("/registerUser","/usuarios/crearcuenta","/saveUser","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**").permitAll()
                 .requestMatchers("/reportes/panelreportes").hasAuthority("Admin")
                 .requestMatchers("/usr").hasAuthority("User")
                 .requestMatchers("/ano").hasAuthority("Annonymous")
@@ -45,7 +45,7 @@ public class SecurityConfig {
 
                 .and()
                 .exceptionHandling()
-                .accessDeniedPage("/accessDenied")
+                .accessDeniedPage("/accessdenied")
 
                 .and()
                 .authenticationProvider(authenticationProvider());
