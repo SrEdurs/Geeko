@@ -11,23 +11,19 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Producto,Integer> {
 
     //Libro
-    List<Producto> findProductosByLibroAndActivoAndUsuarioIsNotNull(int libro, int activo);
-    List<Producto> findProductosByLibroAndUsuarioIsNull(int libro);
+    List<Producto> findProductosByLibroAndActivoAndGeekoIs(int libro, int activo, int geeko);
 
     //Pelicula
-    List<Producto> findProductosByPeliculaAndActivoAndUsuarioIsNotNull(int pelicula, int activo);
-    List<Producto> findProductosByPeliculaAndUsuarioIsNull(int pelicula);
+    List<Producto> findProductosByPeliculaAndActivoAndGeekoIs(int pelicula, int activo, int geeko);
 
     //Serie
-    List<Producto> findProductosBySerieAndActivoAndUsuarioIsNotNull(int serie, int activo);
-    List<Producto> findProductosBySerieAndUsuarioIsNull(int serie);
+    List<Producto> findProductosBySerieAndActivoAndGeekoIs(int serie, int activo, int geeko);
 
     //Videojuego
-    List<Producto> findProductosByVideojuegoAndActivoAndUsuarioIsNotNull(int videojuego, int activo);
-    List<Producto> findProductosByVideojuegoAndUsuarioIsNull(int videojuego);
+    List<Producto> findProductosByVideojuegoAndActivoAndGeekoIs(int videojuego, int activo, int geeko);
 
     //Perfil
-    List<Producto> findProductosByTituloIsNotLikeAndUsuarioIsNull(String ignorar);
+    List<Producto> findProductosByTituloIsNotLikeAndGeekoIs(String ignorar, int geeko);
 
     //UPDATE `geeko`.`productos` SET `id_usuario_propietario` = '1' WHERE (`id` = '57');
     /*@Modifying

@@ -19,7 +19,7 @@ public class Producto {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name="titulo", length = 60, nullable = false)
     private String titulo;
@@ -53,6 +53,10 @@ public class Producto {
 
     @Column(name="activo", length = 1, nullable = false)
     private int activo;
+
+    @Column(name="geeko", length = 1, nullable = false)
+    private int geeko = 0;
+
 
     @Column(name="fechaSubida")
     private Date fechaSubida;

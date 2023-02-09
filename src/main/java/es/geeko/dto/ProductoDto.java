@@ -30,6 +30,7 @@ public class ProductoDto {
     private int serie;
     private int reportado = 0;
     private int activo = 1;
+    private int geeko = 0;
     private Date fechaSubida = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private List<Comentario> comentario;
     private Usuario usuario;

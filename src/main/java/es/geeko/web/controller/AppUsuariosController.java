@@ -80,7 +80,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()),1 );
@@ -102,7 +102,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
