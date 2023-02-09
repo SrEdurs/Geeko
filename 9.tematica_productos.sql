@@ -1,0 +1,11 @@
+use geeko;
+insert into tematica_productos (Tematica_id, Productos_id) values (15, 3);
+insert into tematica_productos (Tematica_id, Productos_id) values (19, 18);
+insert into tematica_productos (Tematica_id, Productos_id) values (18, 13);
+insert into tematica_productos (Tematica_id, Productos_id) values (9, 18);
+insert into tematica_productos (Tematica_id, Productos_id) values (6, 12);
+insert into tematica_productos (Tematica_id, Productos_id) values (10, 1);
+insert into tematica_productos (Tematica_id, Productos_id) values (19, 17);
+insert into tematica_productos (Tematica_id, Productos_id) values (9, 6);
+insert into tematica_productos (Tematica_id, Productos_id) values (12, 10);
+insert into tematica_productos (Tematica_id, Productos_id) values (8, 13);
