@@ -36,4 +36,6 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
 
     //Productos de usuario iniciado
     List<Producto> findProductosByUsuarioId(int id);
+
+    Producto findProductoByIdIs(int id);
 }

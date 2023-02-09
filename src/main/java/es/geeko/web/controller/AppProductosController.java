@@ -115,6 +115,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         final ProductoDto productoDto = new ProductoDto();
         //Mediante "addAttribute" comparto con la pantalla
         productoDto.setImagen("/imagenes/noimage.jpg");
+
         interfazConPantalla.addAttribute("datosProducto",productoDto);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -122,6 +123,10 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
         UsuarioDto attr = usuarioDto.get();
+
+        if(attr.getRoles().contains("ROLE_ADMIN")){
+            productoDto.setUsuario(null);
+        }
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
         final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
@@ -140,6 +145,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         System.out.println(productoDto.getLibro());
         productoDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+
+
 
         this.productoService.guardar(productoDto);
 

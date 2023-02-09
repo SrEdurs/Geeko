@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .formLogin().loginPage("/usuarios/login").permitAll()
-                .defaultSuccessUrl("/perfil",true)
+                .defaultSuccessUrl("/inicio",true)
 
                 .and()
                 .logout()

@@ -95,6 +95,32 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }
     }
 
+    @GetMapping("/perfil/{id}")
+    public String perfil(@PathVariable("id") Integer id, ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
+
+        final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
+        interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
+
+        Optional<UsuarioDto> usuarioPerfil = this.usuarioService.encuentraPorId(id);
+
+        if (usuarioDto.isPresent()){
+            UsuarioDto attr = usuarioDto.get();
+            UsuarioDto perf = usuarioPerfil.get();
+            interfazConPantalla.addAttribute("datosUsuario",attr);
+            interfazConPantalla.addAttribute("datosPerfil",perf);
+            return "usuarios/perfilusu";
+        } else{
+            return "error";
+        }
+    }
+
     @GetMapping("/cuestionario")
     public String vistaCuestionario(ModelMap interfazConPantalla){
 
