@@ -60,6 +60,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
 
 
+
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 

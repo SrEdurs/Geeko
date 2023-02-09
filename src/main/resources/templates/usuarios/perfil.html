@@ -150,7 +150,11 @@
                     </section>
                 </div>
                 <div class="row" style="margin-top: 3px;height: 54px;">
-                    <div class="col-xxl-6" style="text-align: left;"></div>
+                    <div class="col-xxl-6" style="text-align: left;">
+
+                        <img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
+
+                    </div>
                     <div  class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
                         <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
                     </div>
