@@ -13,6 +13,9 @@ public class ProductoMapper extends AbstractServiceMapper<Producto, ProductoDto>
     public ProductoDto toDto(Producto entidad){
         final ProductoDto dto = new ProductoDto();
         ModelMapper modelMapper = new ModelMapper();
+        if(entidad.getImagen() == null) {
+            entidad.setImagen("/static/imagenes/noimage.jpg");
+        }
         modelMapper.map(entidad,dto);
         return dto;
     }

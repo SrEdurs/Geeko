@@ -1,0 +1,13 @@
+use geeko;
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`) VALUES ('1', 'Accion');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`) VALUES ('2', 'Romance');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`) VALUES ('3', 'Terror');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`) VALUES ('4', 'Comedia');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`) VALUES ('5', 'Misterio');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`) VALUES ('6', 'Aventura');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`, `id_relacionada`) VALUES ('7', 'Accion espacial', '1');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`, `id_relacionada`) VALUES ('8', 'Romance drama', '2');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`, `id_relacionada`) VALUES ('9', 'Terror gore', '3');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`, `id_relacionada`) VALUES ('10', 'Comedia fantastica', '4');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`, `id_relacionada`) VALUES ('11', 'Misterio policial', '5');
+INSERT INTO `geeko`.`tematicas` (`id`, `nombre`, `id_relacionada`) VALUES ('12', 'Aventura medieval', '6');

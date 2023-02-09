@@ -1,0 +1,11 @@
+use geeko;
+insert into productos_reportados (idReporte, idProductoReportado) values (7, 17);
+insert into productos_reportados (idReporte, idProductoReportado) values (14, 6);
+insert into productos_reportados (idReporte, idProductoReportado) values (1, 18);
+insert into productos_reportados (idReporte, idProductoReportado) values (3, 6);
+insert into productos_reportados (idReporte, idProductoReportado) values (5, 1);
+insert into productos_reportados (idReporte, idProductoReportado) values (17, 5);
+insert into productos_reportados (idReporte, idProductoReportado) values (4, 16);
+insert into productos_reportados (idReporte, idProductoReportado) values (9, 12);
+insert into productos_reportados (idReporte, idProductoReportado) values (6, 7);
+insert into productos_reportados (idReporte, idProductoReportado) values (11, 16);

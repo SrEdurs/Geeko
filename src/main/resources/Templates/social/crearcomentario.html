@@ -11,7 +11,7 @@
     <title>Crear Comentario</title>
 </head>
     <body>
-        <form role="form" th:object="${datosComentario}" method="post">
+        <form th:action="${/crearcomentario}" role="form" th:object="${datosComentario}" method="post">
             <a th:href="@{/}" class="navbar-brand">
                 <img th:src="@{imagenes/logo.png}" alt="">
             </a>
