@@ -80,7 +80,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndUsuarioIsNull("prueba");
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()),1 );
@@ -90,6 +90,32 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario",attr);
             return "usuarios/perfil";
+        } else{
+            return "error";
+        }
+    }
+
+    @GetMapping("/perfil/{id}")
+    public String perfil(@PathVariable("id") Integer id, ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
+
+        final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
+        interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
+
+        Optional<UsuarioDto> usuarioPerfil = this.usuarioService.encuentraPorId(id);
+
+        if (usuarioDto.isPresent()){
+            UsuarioDto attr = usuarioDto.get();
+            UsuarioDto perf = usuarioPerfil.get();
+            interfazConPantalla.addAttribute("datosUsuario",attr);
+            interfazConPantalla.addAttribute("datosPerfil",perf);
+            return "usuarios/perfilusu";
         } else{
             return "error";
         }

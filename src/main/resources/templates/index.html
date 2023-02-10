@@ -10,20 +10,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" th:href="@{/css/customSergio.css}"/>
 </head>
-
 <body class="bg-geeko" >
     <div class="container">
         <img th:src="@{imagenes/logo.png}" width="60%" height="60%" />
-
         <div style="display: flex;" class="letras">
-
             <a sec:authorize="isAnonymous()" th:href="@{usuarios/login}" class="enlaces">Iniciar sesión</a>
             <p sec:authorize="isAnonymous()"> | </p>
             <a sec:authorize="isAnonymous()" th:href="@{/crearcuenta}" class="enlaces">Registro</a>
             <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="enlaces"> Cerrar sesión</a>
         </div>
     </div>
-
 </body>
 <footer class="text-center mt-5 text-white">
   <!-- Grid container -->

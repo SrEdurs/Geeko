@@ -1,29 +1,43 @@
 <!DOCTYPE html>
-<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
-    <!-- Estilos personalizados -->
-    <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
-
     <!-- Bootstrap icons  -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
-    <!-- Google fonts icons     -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-    <title>Series</title>
+    <link th:href="@{/css/customEdu.css}"  type="text/css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        function cambiamegusta(id) {
+            // llamar a la funcion del servidor para aumentar el like
+            $.ajax(
+                {url: "/cambiamegusta/"+id,
+                    success: function(resp) {
+                        console.log(resp)
+                        document.getElementById("likes"+id).innerText=resp
+                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
+                    }}
+            )
+
+        }
+    </script>
 </head>
-<body>
+
+<body style="background: #1e1e1e;">
 <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
     <div class="container-fluid text-center">
         <div class="row w-100">
@@ -86,34 +100,82 @@
         </div>
     </div>
 </nav>
-<div class="container-fluid">
+<div class="container">
     <div class="row">
-        <article class="col-4">
-            <h4 class="text-white">Productos de usuarios</h4>
-            <section>
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <th:block th:each="elemento : ${listaProductos}">
-                        <div class="col">
-                            <div class="card cardprodu">
-                                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-toppu"></a>
-                                <h6 th:align="center" th:text="${elemento.titulo}"></h6>
-                            </div>
+        <div class="col-md-4 col-xxl-3">
+            <div class="row">
+                <div class="col" style="margin-top: 11px;">
+                    <th:block th:object="${datosPerfil}">
+                        <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" style=" border-radius: 15px;" th:src="${datosPerfil.avatar}">
+                            <h3 class="text-white text-center pt-2" th:text="${datosPerfil.nick}"></h3>
+                            <p class="fw-light text-white m-0" th:text="${datosPerfil.biografia}"></p>
                         </div>
                     </th:block>
                 </div>
-            </section>
-        </article>
-        <article class="col-8">
-            <h4 class="text-white">Novedades</h4>
-            <section>
-                <div class="row row-cols-1 row-cols-2 row-cols-3 g-4">
-                    <th:block th:each="elemento : ${listaNovedades}">
-                        <div class="card cardnovedad">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card-body">
-                                        <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-topn"></a>
-                                        <h4 th:align="center" th:text="${elemento.titulo}"></h4>
+            </div>
+            <div class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/reportarusuario/{id}((id = ${datosPerfil.id})}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Reportar</a></div>
+            </div>
+            <div class="row">
+                <th:block th:object="${datosUsuario}">
+                    <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/subidos}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
+                </th:block>
+            </div>
+            <div class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button th:if="${datosUsuario.id} == ${datosPerfil.id}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xxl-5">
+            <div class="row" style="margin-top: 44px;">
+                <div class="col">
+                    <h2 style="text-align: center;color: rgb(255,255,255);">Comentarios</h2>
+                </div>
+            </div>
+
+            <th:block th:each="elemento : ${listaComentarios}">
+                <div class="row" style="margin-top: 19px;">
+                    <section class="card mb-3">
+                        <div class="row">
+                            <div class="col-3"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                            <div class="col">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
+                                    <p class="card-text" th:text="${elemento.texto}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="row" style="margin-top: 3px;height: 54px;">
+                    <div class="col-xxl-6" style="text-align: left;">
+                        <img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
+                    </div>
+                    <div  class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
+                        <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
+                    </div>
+                    <div class="col" style="padding-left: 6px;">
+
+                        <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
+                                onclick="cambiamegusta(this.getAttribute('data-id'))">
+
+                            <img th:id="'megusta'+${elemento.id}" th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
+                        </button>
+                    </div>
+                </div>
+            </th:block>
+
+        </div>
+        <div class="col" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
+            <div class="row" style="margin-top: 44px;">
+                <div class="col">
+                    <h2 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h2>
+                </div>
+            </div>
+            <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
+                <th:block th:each="elemento : ${listaProductos}">
+                                    <div class="card-body cardprodu" style="margin-bottom: 15px">
+                                        <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
+                                        <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
                                         <div class="clasificacion">
                                             <th:block th:if="${elemento.puntuacion} < 20 ">
                                                 <label>✰</label>
@@ -152,13 +214,9 @@
                                             </th:block>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
                     </th:block>
-                </div>
-            </section>
-        </article>
+            </div>
+        </div>
     </div>
 </div>
 <footer class="text-center mt-5 text-white">
@@ -230,12 +288,8 @@
     </div>
     <!-- Copyright -->
 </footer>
-<!-- Optional JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
+
+
 </body>
+
 </html>

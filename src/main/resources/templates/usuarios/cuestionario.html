@@ -10,8 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" type="text/css" th:href="@{/css/customSergio.css}"/>
 </head>
-
-
 <body class="bg-geeko">
 <nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
   <div class="container-fluid text-center">
@@ -51,6 +49,10 @@
       </div>
       <div class="w-100"></div>
       <div class="col-2"></div>
+      <div class="col text-white">
+        <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
+        <a class="social" th:href="@{/home}"><button class="social">INICIO</button></a>
+      </div>
       <div class="col text-white" style="margin-bottom: 40px;">
         <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
         <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
@@ -67,16 +69,12 @@
         <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
         <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
       </div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-        <a class="social" th:href="@{/social}"><button class="social">SOCIAL</button></a>
-      </div>
       <div class="col-2"></div>
     </div>
   </div>
 </nav>
 <form role="form">
-  <div layout:fragment="contenido">
+
   <div id="divCuestionario" class="espaciadoCuestionario container">
     <h2 style="font-family: 'Inter'; font-style: normal;
         font-weight: bold;
@@ -98,7 +96,7 @@
       </button>
     </form>
   </div>
-</div>
+
 </form>
 </body>
 </html>

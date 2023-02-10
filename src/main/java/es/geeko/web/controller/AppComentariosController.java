@@ -4,6 +4,8 @@ import es.geeko.dto.ComentarioDto;
 import es.geeko.dto.LoginDto;
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
+import es.geeko.model.Comentario;
+import es.geeko.model.Producto;
 import es.geeko.service.ComentarioService;
 import es.geeko.service.ProductoService;
 import es.geeko.service.UsuarioService;
@@ -31,38 +33,49 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         this.productoService = productoService;
     }
 
-    @GetMapping("/crearcomentario")
-    public String vistaCrearComentario(ModelMap interfazConPantalla){
-        //Instancia en memoria del dto a informar en la pantalla
+    @GetMapping("/crearcomentario/{id}")
+    public String vistaCrearComentario(@PathVariable("id") Integer id,ModelMap interfazConPantalla){
+
         final ComentarioDto comentarioDto = new ComentarioDto();
-        //Mediante "addAttribute" comparto con la pantalla
+        comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(id));
+
         interfazConPantalla.addAttribute("datosComentario",comentarioDto);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "social/crearcomentario";
+        Optional<ProductoDto> producto = productoService.encuentraPorId(id);
+
+        if(usuarioDto.isPresent()) {
+
+            ProductoDto productoDto =  producto.get();
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario", attr);
+            interfazConPantalla.addAttribute("datosProducto",productoDto);
+            return "social/crearcomentario";
+        } else{
+            return "error";
+        }
+
     }
 
-    @PostMapping("/crearcomentario")
-    public String guardarComentario(ComentarioDto comentarioDto,UsuarioDto usuarioDtoEntrada, ModelMap interfazConPantalla) throws Exception {
-        //LLamo al método del servicio para guardar los datos
+    @PostMapping("/crearcomentario/{id}")
+    public String guardarComentario(@PathVariable("id") Integer id, ComentarioDto comentarioDto, ModelMap interfazConPantalla) throws Exception {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        comentarioDto.setImagen(usuarioDto.get().getAvatar());
-        comentarioDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
-        ComentarioDto comentarioGuardado =  this.comentarioService.guardar(comentarioDto);
-        Long id = comentarioGuardado.getId();
-
-
-
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        return "/perfil";
+        comentarioDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        comentarioDto.setProducto(this.productoService.getRepo().findProductoByIdIs(id));
+        comentarioDto.setImagen(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()).getAvatar());
+
+        this.comentarioService.guardar(comentarioDto);
+
+            return String.format("redirect:/productos/{id}", id);
+
     }
 }
