@@ -6,6 +6,8 @@ import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
+import es.geeko.repository.ComentarioRepository;
+import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ComentarioService;
 import es.geeko.service.ProductoService;
 import es.geeko.service.UsuarioService;
@@ -18,19 +20,23 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 public class AppComentariosController extends AbstractController<ComentarioDto> {
 
-    private final ComentarioService comentarioService;
     private final UsuarioService usuarioService;
     private final ProductoService productoService;
+    private final ComentarioRepository comentarioRepository;
+    private final ProductoRepository productoRepository;
 
-    public AppComentariosController(ComentarioService comentarioService, UsuarioService usuarioService, ProductoService productoService) {
-        this.comentarioService = comentarioService;
+    public AppComentariosController(UsuarioService usuarioService, ProductoService productoService,
+                                    ComentarioRepository comentarioRepository,ProductoRepository productoRepository) {
         this.usuarioService = usuarioService;
         this.productoService = productoService;
+        this.comentarioRepository = comentarioRepository;
+        this.productoRepository = productoRepository;
     }
 
     @GetMapping("/crearcomentario/{id}")
@@ -38,8 +44,10 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
         final ComentarioDto comentarioDto = new ComentarioDto();
         comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(id));
-
         interfazConPantalla.addAttribute("datosComentario",comentarioDto);
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -69,13 +77,16 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        comentarioDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
-        comentarioDto.setProducto(this.productoService.getRepo().findProductoByIdIs(id));
-        comentarioDto.setImagen(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()).getAvatar());
+        Comentario comentario = new Comentario();
+        comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(id));
+        comentario.setImagen(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()).getAvatar());
+        comentario.setTitulo(comentarioDto.getTitulo());
+        comentario.setTexto(comentarioDto.getTexto());
+        comentario.setActivo(1);
+        comentarioRepository.save(comentario);
 
-        this.comentarioService.guardar(comentarioDto);
-
-            return String.format("redirect:/productos/{id}", id);
+        return String.format("redirect:/productos/{id}", id);
 
     }
 }

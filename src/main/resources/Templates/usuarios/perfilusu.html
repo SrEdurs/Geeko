@@ -114,16 +114,13 @@
                     </th:block>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" th:if="${datosUsuario.id} != ${datosPerfil.id}">
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/reportarusuario/{id}(id = ${datosPerfil.id})}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Reportar</a></div>
             </div>
             <div class="row">
                 <th:block th:object="${datosUsuario}">
                     <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/subidos}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
                 </th:block>
-            </div>
-            <div class="row">
-                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button th:if="${datosUsuario.id} == ${datosPerfil.id}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>
             </div>
         </div>
         <div class="col-md-4 col-xxl-5">
@@ -132,11 +129,7 @@
                     <h2 style="text-align: center;color: rgb(255,255,255);">Comentarios</h2>
                 </div>
             </div>
-
             <th:block th:each="elemento : ${listaComentarios}">
-                <th:block th:if="${listaComentarios.isEmpty}">
-                    <h3 style="color: #FFFFFF">Sin comentarios</h3>
-                </th:block>
                 <div class="row" style="margin-top: 19px;">
                     <section class="card mb-3">
                         <div class="row">

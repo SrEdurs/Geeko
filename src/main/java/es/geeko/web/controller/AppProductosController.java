@@ -39,9 +39,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/libros")
     public String vistaLibro(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByLibroAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -59,9 +59,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/peliculas")
     public String vistaPelis(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByPeliculaAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -79,9 +79,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/series")
     public String vistaSerie(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosBySerieAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -99,9 +99,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
     @GetMapping("/productos/videojuegos")
     public String vistaVideojuegos(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -134,7 +134,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario",attr);
 
-            final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
+            final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
             interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
             final List<Tematica> tematicas = tematicaService.buscarEntidades();
@@ -177,7 +177,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         final List<Comentario> listaComentarios = this.productoService.encuentraPorId(id).get().getComentario();
         interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);

@@ -78,25 +78,25 @@
         <form role="form" th:object="${datosComentario}" method="post">
 
             <div class="mx-auto row">
-                <div class="col col-md-8">
-                    <h4 style="color: #8D92BB;margin-bottom: 10px;" th:text="${datosProducto.titulo}"></h4>
-                    <div class="col mt-2">
+                <div class="col-9">
+                    <h4 style="color: #8D92BB;margin-bottom: 10px;margin-left: 400px;margin-top: 100px" th:text="${datosProducto.titulo}"></h4>
+                    <div class="col">
                         <div class="form-group">
-                            <input type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
-                            <label for="InputTitulo" style="color: rgb(255,255,255);font-size: larger">Titulo</label>
-                            <input type="text" id="InputTitulo" class="form-control" style="border-radius: 23px; background: #d9d9d9"  maxlength="100" th:field="${datosComentario.titulo}"/>
+                            <input style="margin-left: 200px" type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
+                            <label for="InputTitulo" style="color: rgb(255,255,255);font-size: larger;margin-left: 400px">Titulo</label>
+                            <input type="text" id="InputTitulo" class="form-control" style="border-radius: 23px; background: #d9d9d9; width: 400px;margin-left: 400px"  maxlength="100" th:field="${datosComentario.titulo}" required/>
                         </div>
                         <p> </p>
                         <div class="form-group">
-                            <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger">Contenido</label>
-                            <textarea  id="InputTexto" class="form-control" style="border-radius: 23px; background: #d9d9d9;min-height: 110px;"  maxlength="300" th:field="${datosComentario.texto}"></textarea>
+                            <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger;margin-left: 400px">Contenido</label>
+                            <textarea  id="InputTexto" class="form-control" style="border-radius: 23px; background: #d9d9d9;min-height: 110px; width: 800px;margin-left: 400px"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
                         </div>
                         <p> </p>
-                        <button type="submit" style="background-color:#8D92BB;border-radius: 23px;padding: 2px;width: 92px;height: 41px; font-weight: bold" class="btn ">Publicar</button>
+                        <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;padding: 2px;width: 92px;height: 41px; font-weight: bold;margin-left: 400px" class="btn ">Publicar</button>
                     </div>
                 </div>
 
-                <div class="col col-md-4" style="padding-bottom: 0px;">
+                <div class="col" style="padding-bottom: 0px;">
                     <div class="row" style="margin-top: 44px;">
                         <div class="col">
                             <h2 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h2>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
                         <th:block th:each="elemento : ${listaProductos}">
-                            <div class="card cardnovedad">
+                            <div class="card cardnovedad" style="margin-left: 60px">
                                 <div class="row">
                                     <div class="col">
                                         <div class="card-body cardprodu">

@@ -160,7 +160,7 @@
                     </div>
                     <div class="row" style="margin-top: 3px;height: 54px; margin-left: 150px">
                         <div class="col" style="text-align: left;margin-top: 22px;">
-                            <img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35">
+                            <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}"><img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35"></a>
                         </div>
                         <div class="col" style="text-align: right;margin-top: 22px;">
                             <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>

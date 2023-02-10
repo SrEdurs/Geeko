@@ -16,6 +16,8 @@ import es.geeko.service.ComentarioService;
 import es.geeko.service.ProductoService;
 import es.geeko.service.ReporteService;
 import es.geeko.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -200,7 +202,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
     }
 
     @GetMapping("/panelreportes")
-    public String vistaReportes(ModelMap interfazConPantalla) throws Exception {
+    public String vistaReportes(ModelMap interfazConPantalla) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -208,15 +210,17 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario", attr);
 
-        final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIs(1);
+        final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIsOrderById(1);
         interfazConPantalla.addAttribute("comentarios", listaComentariosReportados);
 
-        final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIs(1);
+        final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIsOrderById(1);
         interfazConPantalla.addAttribute("usuarios", listaUsuariosReportados);
 
-        final List<Producto> listaProductosReportados = productoRepository.findProductosByReportadoIs(1);
+        final List<Producto> listaProductosReportados = productoRepository.findProductosByReportadoIsOrderById(1);
         interfazConPantalla.addAttribute("productos", listaProductosReportados);
 
         return "reportes/panelreportes";
     }
+
+
 }
