@@ -5,9 +5,7 @@ import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
-import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
-import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.ProductoService;
 import es.geeko.service.TematicaService;
 import es.geeko.service.UsuarioService;
@@ -28,19 +26,14 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     private final ProductoService productoService;
     private final ProductoRepository productoRepository;
     private final UsuarioService usuarioService;
-    private final UsuarioRepository usuarioRepository;
     private final TematicaService tematicaService;
-    private final ComentarioRepository comentarioRepository;
 
 
-    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService,
-                                  UsuarioRepository usuarioRepository, TematicaService tematicaService, ComentarioRepository comentarioRepository) {
+    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService, TematicaService tematicaService) {
         this.productoService = service;
         this.productoRepository = productoRepository;
         this.usuarioService = usuarioService;
-        this.usuarioRepository = usuarioRepository;
         this.tematicaService = tematicaService;
-        this.comentarioRepository = comentarioRepository;
     }
 
 
@@ -55,9 +48,13 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "/productos/libros";
+        if(usuarioDto.isPresent()) {
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario", attr);
+            return "/productos/libros";
+        } else{
+            return "error";
+        }
     }
 
     @GetMapping("/productos/peliculas")
@@ -71,9 +68,13 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "/productos/peliculas";
+        if(usuarioDto.isPresent()) {
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario",attr);
+            return "/productos/peliculas";
+        } else{
+            return "error";
+        }
     }
 
     @GetMapping("/productos/series")
@@ -87,9 +88,13 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "/productos/series";
+        if(usuarioDto.isPresent()) {
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario",attr);
+            return "/productos/series";
+        } else{
+            return "error";
+        }
     }
 
     @GetMapping("/productos/videojuegos")
@@ -103,17 +108,20 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "/productos/videojuegos";
+        if(usuarioDto.isPresent()) {
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario",attr);
+            return "/productos/videojuegos";
+        } else{
+            return "error";
+        }
     }
 
 
     @GetMapping("/productos/crearproducto")
     public String vistaCrearProducto(ModelMap interfazConPantalla){
-        //Instancia en memoria del dto a informar en la pantalla
+
         final ProductoDto productoDto = new ProductoDto();
-        //Mediante "addAttribute" comparto con la pantalla
         productoDto.setImagen("/imagenes/noimage.jpg");
 
         interfazConPantalla.addAttribute("datosProducto",productoDto);
@@ -122,22 +130,20 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        UsuarioDto attr = usuarioDto.get();
+        if(usuarioDto.isPresent()) {
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        System.out.println(authentication.getAuthorities());
+            final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
+            interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
+            final List<Tematica> tematicas = tematicaService.buscarEntidades();
+            interfazConPantalla.addAttribute("listaTematicas",tematicas);
 
-        System.out.println(authentication.getAuthorities().size());
-
-
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
-
-        final List<Tematica> tematicas = tematicaService.buscarEntidades();
-        interfazConPantalla.addAttribute("listaTematicas",tematicas);
-        return "productos/crearproducto";
+            return "productos/crearproducto";
+        } else{
+            return "error";
+        }
     }
 
     @PostMapping("/productos/crearproducto")
@@ -174,33 +180,17 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
-
-        System.out.println(producto.get().getTitulo());
-
-        if (producto.isPresent()){
-
-            //LLamo al método del servicio para guardar los datos
-            ProductoDto productoDtoGuardar =  producto.get();
-
-
-            interfazConPantalla.addAttribute("datosProducto",productoDtoGuardar);
-            return "productos/producto";
-        } else {
-            //Mostrar página usuario no existe
-            return "error";
-        }
+        ProductoDto productoDtoGuardar =  producto.get();
+        interfazConPantalla.addAttribute("datosProducto",productoDtoGuardar);
+        return "productos/producto";
     }
 
     @PostMapping("/productos/{idpro}")
     public String guardarEdicionDatosUsuario(@PathVariable("idpro") Integer id, ProductoDto productoEntrada) throws Exception {
-        //Cuidado que la password no viene
-        //Necesitamos copiar la información que llega menos la password
-        //Con el id tengo que buscar el registro a nivel de entidad
+
         Optional<ProductoDto> productoDtoControl = this.productoService.encuentraPorId(id);
-        //¿Debería comprobar si hay datos?
         if (productoDtoControl.isPresent()){
 
-            //LLamo al método del servicio para guardar los datos
             ProductoDto productoDtoGuardar =  new ProductoDto();
             productoDtoGuardar.setId(id);
             productoDtoGuardar.setTitulo(productoEntrada.getTitulo());
@@ -209,7 +199,6 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             this.productoService.guardar(productoDtoGuardar);
             return String.format("redirect:/productos/{idusr}", id);
         } else {
-            //Mostrar página usuario no existe
             return "error";
         }
     }

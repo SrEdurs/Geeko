@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/reportarusuario/{id}((id = ${datosPerfil.id})}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Reportar</a></div>
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/reportarusuario/{id}(id = ${datosPerfil.id})}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Reportar</a></div>
             </div>
             <div class="row">
                 <th:block th:object="${datosUsuario}">
@@ -133,6 +133,9 @@
             </div>
 
             <th:block th:each="elemento : ${listaComentarios}">
+                <th:block th:if="${listaComentarios.isEmpty}">
+                    <h3 style="color: #FFFFFF">Sin comentarios</h3>
+                </th:block>
                 <div class="row" style="margin-top: 19px;">
                     <section class="card mb-3">
                         <div class="row">
@@ -148,7 +151,7 @@
                 </div>
                 <div class="row" style="margin-top: 3px;height: 54px;">
                     <div class="col-xxl-6" style="text-align: left;">
-                        <img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
+                        <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}"><img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;"></a>
                     </div>
                     <div  class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
                         <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>

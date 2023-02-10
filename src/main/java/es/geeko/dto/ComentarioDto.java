@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ComentarioDto {
 
-    private long id;
+    private int id;
     private String titulo;
     private String texto;
     private String imagen;

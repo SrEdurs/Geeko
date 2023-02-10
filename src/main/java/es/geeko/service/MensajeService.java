@@ -4,6 +4,7 @@ import es.geeko.dto.MensajeDto;
 import es.geeko.model.Mensaje;
 import es.geeko.repository.MensajeRepository;
 import es.geeko.service.mapper.MensajeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,4 +13,5 @@ public class MensajeService extends AbstractBusinessService<Mensaje, Integer, Me
     public MensajeService(MensajeRepository repo, MensajeMapper mapper) {
         super(repo, mapper);
     }
+
 }

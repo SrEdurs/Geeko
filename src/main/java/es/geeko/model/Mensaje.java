@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
+import java.util.Calendar;
 
 @Entity
 @Getter
@@ -21,7 +22,7 @@ public class Mensaje {
 
     @Column(name="fecha", nullable = false)
 
-    private Date fecha;
+    private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
     @Column(name="texto", length = 100)
     private String texto;

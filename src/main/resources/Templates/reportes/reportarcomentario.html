@@ -86,13 +86,11 @@
                 <div class="col-xxl-8" style="height: 180px;">
                     <section class="card mb-3">
                         <div class="row">
-                            <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
+                            <div class="col-3"><img th:src="${datosComentario.imagen}" style="width: 7rem;" class="mt-1" alt=""></div>
                             <div class="col">
                                 <div class="card-body">
-                                    <h5 class="card-title">Título feed</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        <br>Deserunt eum libero
-                                    </p>
+                                    <h5 class="card-title" th:text="${datosComentario.titulo}"></h5>
+                                    <p class="card-text" th:text="${datosComentario.texto}"></p>
                                 </div>
                             </div>
                         </div>
@@ -106,9 +104,13 @@
             </div>
         </div>
         <div class="col-md-6">
+            <form role="form" th:object="${datosReporte}" method="post">
             <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="background: #d9d9d9;width: 477px;height: 233px;">
-                <h4 style="color: #1e1e1e;">Motivo</h4><textarea style="width: 404px;height: 134px;border-radius: 10px;transform: translate(0px);background: #1e1e1e;color: rgb(255,255,255);" placeholder="Escribe brevemente el motivo de tu reporte" required=""></textarea>
-            </div><button class="btn btn-primary" type="submit" style="background: #1e1e1e;border-radius: 38px;transform: translate(433px);border-width: 3px;border-color: #fa5959;">Reportar</button>
+                <h4 style="color: #1e1e1e;">Motivo</h4>
+                <textarea th:field="${datosReporte.motivo}" style="width: 404px;height: 134px;border-radius: 10px;transform: translate(0px);background: #1e1e1e;color: rgb(255,255,255);" placeholder="Escribe brevemente el motivo de tu reporte" required=""></textarea>
+            </div>
+                <button class="btn btn-primary" type="submit" style="background: #1e1e1e;border-radius: 38px;transform: translate(433px);border-width: 3px;border-color: #fa5959;">Reportar</button>
+            </form>
         </div>
     </div>
 </div>

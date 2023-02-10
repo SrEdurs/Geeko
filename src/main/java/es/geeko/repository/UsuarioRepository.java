@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
@@ -15,6 +16,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
     Usuario getUsuarioByIdIs(int id);
     //UsuarioDto findUsuarioByIdIs(int id);
 
-    String findUsuarioByAvatar(String avatar);
+    List<Usuario> findUsuariosByIdIs(int id);
 
 }
