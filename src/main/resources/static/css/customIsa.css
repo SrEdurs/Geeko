@@ -1,6 +1,9 @@
 :root{
     --bandera-color: #fa5959
 }
+:root{
+    --pulgar-color: #8d92bb
+}
 body{
     background-color: #1E1E1E;
     padding-top: 10px;
@@ -299,4 +302,10 @@ input[type="button"]:checked ~ label {
     color: var(--bandera-color) !important;
 }
 
+.pulgarmorado{
+    color: #8d92bb !important;
+}
+.pulgar:hover{
+    color: var(--pulgar-color) !important;
+}
 
