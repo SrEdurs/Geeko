@@ -1,6 +1,7 @@
 package es.geeko.repository;
 
 import es.geeko.dto.ProductoDto;
+import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -35,4 +36,7 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
 
     Producto findProductoByIdIs(int id);
     List<Producto> findProductosByIdIs(int id);
+
+
+    List<Producto> findProductosByReportadoIs(int reportado);
 }

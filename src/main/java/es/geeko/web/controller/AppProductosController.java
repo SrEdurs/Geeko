@@ -153,6 +153,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         String username = authentication.getName();
 
         System.out.println(productoDto.getLibro());
+        productoDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
 
         if(authentication.getAuthorities().size() > 1){
             productoDto.setGeeko(1);

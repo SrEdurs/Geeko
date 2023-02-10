@@ -55,17 +55,6 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         this.productoRepository = productoRepository;
     }
 
-    @GetMapping("/panelreportes")
-    public String panelreporte(ModelMap interfazConPantalla){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "/reportes/panelreportes";
-    }
 
     @GetMapping("/reportarcomentario/{id}")
     public String vistaReportarcomentario(@PathVariable("id") Integer id, ModelMap interfazConPantalla) throws Exception {
@@ -208,5 +197,26 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         productoRepository.save(producto);
 
         return String.format("redirect:/perfil");
+    }
+
+    @GetMapping("/panelreportes")
+    public String vistaReportes(ModelMap interfazConPantalla) throws Exception {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario", attr);
+
+        final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIs(1);
+        interfazConPantalla.addAttribute("comentarios", listaComentariosReportados);
+
+        final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIs(1);
+        interfazConPantalla.addAttribute("usuarios", listaUsuariosReportados);
+
+        final List<Producto> listaProductosReportados = productoRepository.findProductosByReportadoIs(1);
+        interfazConPantalla.addAttribute("productos", listaProductosReportados);
+
+        return "reportes/panelreportes";
     }
 }
