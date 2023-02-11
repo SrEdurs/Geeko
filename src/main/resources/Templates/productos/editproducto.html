@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!----><!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
@@ -194,7 +194,6 @@
                                                             <div class="col" style="background: rgba(30,30,30,0);border-radius: 34px;">
                                                                 <div class="col-auto"><label style="color: #d9d9d9" for="city">Temática:</label></div>
                                                                 <div class="col-auto"><select required th:field="${datosProducto.tematica}" th:object="${listaTematicas}" style="border-radius: 24px; background-color: #d9d9d9" class="form-select" name="city" id="city">
-                                                                    <option th:value=null disabled selected>Seleccionar</option>
                                                                     <th:block th:each="elemento : ${listaTematicas}">
                                                                         <option th:value="${elemento.id}" th:text="${elemento.nombre}"></option>
                                                                     </th:block>

@@ -25,7 +25,7 @@ public class Tematica {
     @ManyToMany(mappedBy = "tematicas")
     private List<Usuario> usuarios;
 
-    @ManyToMany(mappedBy = "tematicas")
+    @OneToMany(mappedBy = "tematica")
     private List<Producto> productos;
 
     //Relación One to Many recursiva-------

@@ -272,4 +272,13 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
     }
 
+    public void usuario(ModelMap interfazConPantalla){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+    }
+
 }

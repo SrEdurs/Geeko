@@ -127,10 +127,10 @@
                                 <span th:if="${datosProducto.pelicula} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Película</span>
                                 <span th:if="${datosProducto.videojuego} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Videojuego</span>
                                 <!--Hasta aqui-->
-                                <span style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Ciencia Ficcion</span>
+                                <i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i><span th:text="${datosProducto.tematica?.getNombre}" style="margin-right:10px ;"></span>
                             </p>
                             <!-- Cierre etiquetas-->
-                            <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
+                            <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/edit/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
                             <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id}" th:href="@{/reportarproducto/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Reportar</a>
                             <a th:if="${datosProducto.usuario?.getId} == null" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Me interesa <i class="fas fa-edit"></i></a>
                             <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id} AND ${datosProducto.usuario?.getId} != null" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Comprar <i class="fas fa-edit"></i></a>

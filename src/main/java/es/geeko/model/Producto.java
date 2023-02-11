@@ -68,13 +68,9 @@ public class Producto {
     @JoinColumn(name = "idUsuarioPropietario")
     private Usuario usuario;
 
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinTable(
-            name="Tematica_Productos",
-            joinColumns = @JoinColumn(name="Productos_id"),
-            inverseJoinColumns = @JoinColumn(name="Tematica_id")
-    )
-    private List<Tematica> tematicas;
+    @ManyToOne
+    @JoinColumn(name= "tematica")
+    private Tematica tematica;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
