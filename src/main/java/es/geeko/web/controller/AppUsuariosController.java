@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,6 +124,12 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
         usuarioSesion(interfazConPantalla);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        final UsuarioDto usuario = usuarioDto.get();
+
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
 
@@ -130,29 +137,18 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
     @PostMapping("/cuestionario")
-    public String guardarCuestionario(UsuarioDto usuarioDtoEntrada){
+    public String guardarCuestionario(UsuarioDto usuarioDtoEntrada ) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        if (usuarioDto.isPresent()) {
-            System.out.println("EEEEEEEEEEEEEEEEE");
-            UsuarioDto usuarioDtoGuardar = new UsuarioDto();;
-            usuarioDtoGuardar.setEmilio(usuarioDtoEntrada.getEmilio());
-            usuarioDtoGuardar.setNick(usuarioDtoEntrada.getNick());
-            usuarioDtoGuardar.setNombre(usuarioDtoEntrada.getNombre());
-            usuarioDtoGuardar.setApellidos(usuarioDtoEntrada.getApellidos());
-            usuarioDtoGuardar.setAvatar(usuarioDtoEntrada.getAvatar());
-            usuarioDtoGuardar.setDireccion1(usuarioDtoEntrada.getDireccion1());
-            usuarioDtoGuardar.setDireccion2(usuarioDtoEntrada.getDireccion2());
-            usuarioDtoGuardar.setPoblacion(usuarioDtoEntrada.getPoblacion());
-            usuarioDtoGuardar.setProvincia(usuarioDtoEntrada.getProvincia());
-            usuarioDtoGuardar.setTlf(usuarioDtoEntrada.getTlf());
-            usuarioDtoGuardar.setBiografia(usuarioDtoEntrada.getBiografia());
-            usuarioDtoGuardar.setClave(usuarioDto.get().getClave());
-            usuarioDtoGuardar.setTematicas(usuarioDtoEntrada.getTematicas());
-        }
+        UsuarioDto attr = usuarioDto.get();
+        attr.setTematicas(usuarioDtoEntrada.getTematicas());
+
+        this.usuarioService.guardar(attr);
+
+
         return String.format("redirect:/perfil");
     }
 

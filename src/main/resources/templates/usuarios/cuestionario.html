@@ -73,7 +73,7 @@
     </div>
   </div>
 </nav>
-<form role="form">
+<form role="form" th:object="${datosUsuario}" method="post">
 
   <div id="divCuestionario" class="espaciadoCuestionario container">
     <h2 style="font-family: 'Inter'; font-style: normal;
@@ -82,11 +82,11 @@
         line-height: 30px;
         text-align: center;" class="espaciadoCuestionario">Escoge tus preferencias</h2>
 
-    <form th:object="${listaTematicas}" id="" action="" method="post" enctype="multipart/form-data" style="text-align: center;">
+    <form   id="" action="" method="post" enctype="multipart/form-data" style="text-align: center;">
       <div class="invisible-checkboxes  espaciadoCuestionario ">
 
-        <th:block th:each="elemento : ${listaTematicas}">
-          <input type="checkbox" name="rGroup" th:value="${elemento.id}" th:id="${elemento.id}"/>
+        <th:block   th:each="elemento : ${listaTematicas}">
+          <input th:field="${datosUsuario.tematicas}" type="checkbox" class="form-check-input" name="rGroup" th:value="${elemento.id}" th:id="${elemento.id}"/>
           <label class="checkbox-alias" th:for="${elemento.id}" th:text="${elemento.nombre}"></label>
         </th:block>
 
