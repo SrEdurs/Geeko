@@ -1,6 +1,5 @@
 package es.geeko.web.controller;
 
-import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
@@ -22,7 +20,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -124,12 +121,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     @GetMapping("/cuestionario")
     public String vistaCuestionario(ModelMap interfazConPantalla){
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
+        usuarioSesion(interfazConPantalla);
 
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
@@ -143,7 +135,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        //¿Debería comprobar si hay datos?
+
         if (usuarioDto.isPresent()) {
             System.out.println("EEEEEEEEEEEEEEEEE");
             UsuarioDto usuarioDtoGuardar = new UsuarioDto();;
@@ -166,29 +158,28 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @GetMapping("usuarios/edit")
     public String vistaDatosUsuario(ModelMap interfazConPantalla){
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        //¿Debería comprobar si hay datos?
+
         if (usuarioDto.isPresent()){
-            //Como encontré datos, obtengo el objeto de tipo "UsuarioDto"
-            //addAttribute y thymeleaf no entienden Optional
+
             UsuarioDto attr = usuarioDto.get();
             System.out.println("La password es:");
             System.out.println(attr.getClave());
-            //Asigno atributos y muestro
+
             interfazConPantalla.addAttribute("datosUsuario",attr);
 
             return "usuarios/edit";
         } else{
-            //Mostrar página usuario no existe
+
             return "error";
         }
     }
 
-    //Me falta un postmaping para guardar
     @PostMapping("usuarios/edit")
-    public String guardarEdicionDatosUsuario(UsuarioDto usuarioDtoEntrada, ModelMap interfazConPantalla) throws Exception {
+    public String guardarEdicionDatosUsuario(UsuarioDto usuarioDtoEntrada) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDtoControl = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
@@ -208,7 +199,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         usuarioDtoGuardar.setBiografia(usuarioDtoEntrada.getBiografia());
         usuarioDtoGuardar.setClave(usuarioDtoControl.get().getClave());
         this.usuarioService.guardar(usuarioDtoGuardar);
-        interfazConPantalla.addAttribute("datosUsuario",usuarioDtoGuardar);
+
         return String.format("redirect:/perfil");
     }
 
@@ -272,7 +263,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
     }
 
-    public void usuario(ModelMap interfazConPantalla){
+    public void usuarioSesion(ModelMap interfazConPantalla){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());

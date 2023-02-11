@@ -164,24 +164,40 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         return "productos/editproducto";
     }
 
-    /*@PostMapping("/productos/{idpro}")
-    public String guardarEdicionDatosUsuario(@PathVariable("idpro") Integer id, ProductoDto productoEntrada) throws Exception {
+    @PostMapping("/productos/edit/{idpro}")
+    public String editProducto(@PathVariable("idpro") Integer id, ProductoDto productoDtoEntrada) throws Exception {
 
-        Optional<ProductoDto> productoDtoControl = this.productoService.encuentraPorId(id);
-        if (productoDtoControl.isPresent()){
 
-            ProductoDto productoDtoGuardar =  new ProductoDto();
-            productoDtoGuardar.setId(id);
-            productoDtoGuardar.setTitulo(productoEntrada.getTitulo());
-            productoDtoGuardar.setDescripcion(productoEntrada.getDescripcion());
-            productoDtoGuardar.setTematica(productoEntrada.getTematica());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-            this.productoService.guardar(productoDtoGuardar);
-            return String.format("redirect:/productos/{idusr}", id);
-        } else {
-            return "error";
-        }
-    }*/
+        UsuarioDto attr = usuarioDto.get();
+
+        ProductoDto productoDtoGuardar = new ProductoDto();
+        productoDtoGuardar.setId(id);
+        productoDtoGuardar.setTitulo(productoDtoEntrada.getTitulo());
+        productoDtoGuardar.setImagen(productoDtoEntrada.getImagen());
+        productoDtoGuardar.setDescripcion(productoDtoEntrada.getDescripcion());
+        productoDtoGuardar.setPrecio(productoDtoEntrada.getPrecio());
+        productoDtoGuardar.setUsuario(this.usuarioService.getMapper().toEntity(attr));
+        productoDtoGuardar.setPuntuacion(productoDtoEntrada.getPuntuacion());
+        productoDtoGuardar.setVideojuego(productoDtoEntrada.getVideojuego());
+        productoDtoGuardar.setLibro(productoDtoEntrada.getLibro());
+        productoDtoGuardar.setPelicula(productoDtoEntrada.getPelicula());
+        productoDtoGuardar.setSerie(productoDtoEntrada.getSerie());
+        productoDtoGuardar.setReportado(productoDtoEntrada.getReportado());
+        productoDtoGuardar.setActivo(productoDtoEntrada.getActivo());
+        productoDtoGuardar.setGeeko(productoDtoEntrada.getGeeko());
+        productoDtoGuardar.setFechaSubida(productoDtoEntrada.getFechaSubida());
+        productoDtoGuardar.setComentario(productoDtoEntrada.getComentario());
+        productoDtoGuardar.setTematica(productoDtoEntrada.getTematica());
+        productoDtoGuardar.setProductosReportados(productoDtoEntrada.getProductosReportados());
+        this.productoService.guardar(productoDtoGuardar);
+
+        return String.format("redirect:/productos/subidos");
+    }
+
 
     @GetMapping("/productos/subidos")
     public String vistaSubidos(ModelMap interfazConPantalla){
