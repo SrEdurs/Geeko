@@ -91,8 +91,6 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Producto> productos;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Mensaje> mensajes;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
@@ -109,14 +107,6 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name="Transacciones_id")
     )
     private List<Transaccion> transacciones;
-
-    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinTable(
-            name="Chats_has_Usuarios",
-            joinColumns = @JoinColumn(name="Destinatarios_id"),
-            inverseJoinColumns = @JoinColumn(name="Chats_id")
-    )
-    private List<Chat> chats;
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
