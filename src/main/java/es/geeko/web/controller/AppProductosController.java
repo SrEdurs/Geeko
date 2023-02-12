@@ -146,14 +146,24 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         usuarioSesion(interfazConPantalla);
         Optional<ProductoDto> productoDto = this.productoService.encuentraPorId(id);
-        interfazConPantalla.addAttribute("datosProducto", productoDto);
 
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
+
+        ProductoDto editar = productoDto.get();
+        if(authentication.getAuthorities().size() > 1){
+            editar.setGeeko(1);
+        }
+
+        interfazConPantalla.addAttribute("datosProducto", editar);
+        System.out.println(editar.getGeeko());
         return "productos/editproducto";
     }
 
@@ -165,10 +175,14 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
+        System.out.println(productoDtoEntrada.getGeeko());
         UsuarioDto attr = usuarioDto.get();
 
         ProductoDto productoDtoGuardar = new ProductoDto();
         productoDtoGuardar.setId(id);
+        if(authentication.getAuthorities().size() > 1){
+            productoDtoGuardar.setGeeko(1);
+        }
         productoDtoGuardar.setTitulo(productoDtoEntrada.getTitulo());
         productoDtoGuardar.setImagen(productoDtoEntrada.getImagen());
         productoDtoGuardar.setDescripcion(productoDtoEntrada.getDescripcion());
@@ -181,7 +195,6 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         productoDtoGuardar.setSerie(productoDtoEntrada.getSerie());
         productoDtoGuardar.setReportado(productoDtoEntrada.getReportado());
         productoDtoGuardar.setActivo(productoDtoEntrada.getActivo());
-        productoDtoGuardar.setGeeko(productoDtoEntrada.getGeeko());
         productoDtoGuardar.setFechaSubida(productoDtoEntrada.getFechaSubida());
         productoDtoGuardar.setComentario(productoDtoEntrada.getComentario());
         productoDtoGuardar.setTematica(productoDtoEntrada.getTematica());

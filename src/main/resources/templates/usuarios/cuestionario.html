@@ -42,8 +42,6 @@
               <label class="usuario" th:text="${datosUsuario.nick}"></label>
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
-              <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
               <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
             </ul>
           </div>
@@ -51,26 +49,6 @@
       </div>
       <div class="w-100"></div>
       <div class="col-2"></div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-        <a class="social" th:href="@{/home}"><button class="social">INICIO</button></a>
-      </div>
-      <div class="col text-white" style="margin-bottom: 40px;">
-        <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
-        <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
-      </div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
-        <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
-      </div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
-        <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
-      </div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
-        <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
-      </div>
       <div class="col-2"></div>
     </div>
   </div>
