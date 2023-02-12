@@ -92,54 +92,39 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-xxl-5">
+
+            <th:block th:each="elemento : ${comentarios}">
             <div class="row" style="margin: 18px;">
                 <div class="col-md-4 col-xxl-9">
-                    <section class="card mb-3">
-                        <div class="row">
-                            <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
-                            <div class="col">
-                                <div class="card-body">
-                                    <h5 class="card-title">Título feed</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        <br>Deserunt eum libero
-                                    </p>
+                    <div class="row" style="margin-top: 19px;">
+                        <section class="card mb-3">
+                            <div class="row">
+                                <div class="col-3"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                                <div class="col">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
+                                        <p class="card-text" th:text="${elemento.texto}"></p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
                 </div>
+
                 <div class="col-md-4 col-xxl-1"><button class="btn btn-primary" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;">Eliminar</button>
                     <p></p><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;">Descartar</button>
                 </div>
-                <div class="row reporte" style="margin: 18px;">Reporte de @Cabesa: Me molesta su pito</div>
+                <div class="row reporte" style="margin: 18px;" >Reporte de @Cabesa: Me molesta su pito</div>
             </div>
-            <div class="row" style="margin: 18px;">
-                <div class="col-md-4 col-xxl-9">
-                    <section class="card mb-3">
-                        <div class="row">
-                            <div class="col-3"><img th:src="@{/imagenes/peepogoku.png}" style="width: 7rem;" class="mt-1" alt=""></div>
-                            <div class="col">
-                                <div class="card-body">
-                                    <h5 class="card-title">Título feed</h5>
-                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        <br>Deserunt eum libero magni nisi optio reprehenderit
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-                <div class="col-md-4 col-xxl-1"><button class="btn btn-primary" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;">Eliminar</button>
-                    <p></p><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;">Descartar</button>
-                </div>
-                <div class="row reporte" style="margin: 18px;">Reporte de @Cabesa: Me molesta su pito</div>
-            </div>
+            </th:block>
+
         </div>
         <div class="col-md-4 col-xxl-3">
+            <th:block th:each="elemento : ${usuarios}">
             <div class="row">
                 <div class="col-md-4 col-xxl-8">
                     <div class="card-group">
-                        <div class="card" style="height: 183.797px;border-style: none;border-radius: 17px 0px 0px 6px;margin-bottom: 17px;margin-left: 17px;margin-top: 14px;margin-right: 18px;--bs-body-bg: rgba(255,255,255,0);background: #1e1e1e;"><img class="card-img-top w-100 d-block" width="284" height="278" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="@{/imagenes/dragon.jpg}"></div>
+                        <div class="card" style="height: 183.797px;border-style: none;border-radius: 17px 0px 0px 6px;margin-bottom: 17px;margin-left: 17px;margin-top: 14px;margin-right: 18px;--bs-body-bg: rgba(255,255,255,0);background: #1e1e1e;"><img class="card-img-top w-100 d-block" width="284" height="278" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="${elemento.avatar}"></div>
                         <div class="row reporte" style="margin: 18px;">Reporte de @Cabesa: Me molesta su pito</div>
                     </div>
                 </div>
@@ -147,23 +132,15 @@
                     <p></p><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;">Descartar</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-xxl-8">
-                    <div class="card-group">
-                        <div class="card" style="height: 183.797px;border-style: none;border-radius: 17px 0px 0px 6px;margin-bottom: 17px;margin-left: 17px;margin-top: 14px;margin-right: 18px;--bs-body-bg: rgba(255,255,255,0);background: #1e1e1e;"><img class="card-img-top w-100 d-block" width="284" height="278" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="@{/imagenes/dragon.jpg}"></div>
-                        <div class="row reporte" style="margin: 18px;">Reporte de @Cabesa: Me molesta su pito</div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xxl-4"><button class="btn btn-primary" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;">Eliminar</button>
-                    <p></p><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;">Descartar</button>
-                </div>
-            </div>
+            </th:block>
         </div>
+
         <div class="col-md-4 col-xxl-3">
+            <th:block th:each="elemento : ${productos}">
             <div class="row">
                 <div class="col-md-4 col-xxl-8">
                     <div class="card-group">
-                        <div class="card" style="height: 183.797px;border-style: none;border-radius: 17px 0px 0px 6px;margin-bottom: 17px;margin-left: 17px;margin-top: 14px;margin-right: 18px;--bs-body-bg: rgba(255,255,255,0);background: #1e1e1e;"><img class="card-img-top w-100 d-block" width="284" height="278" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="@{/imagenes/dragon.jpg}"></div>
+                        <div class="card" style="height: 183.797px;border-style: none;border-radius: 17px 0px 0px 6px;margin-bottom: 17px;margin-left: 17px;margin-top: 14px;margin-right: 18px;--bs-body-bg: rgba(255,255,255,0);background: #1e1e1e;"><img class="card-img-top w-100 d-block" width="284" height="278" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="${elemento.imagen}"></div>
                         <div class="row reporte" style="margin: 18px;">Reporte de @Cabesa: Me molesta su pito</div>
                     </div>
                 </div>
@@ -171,17 +148,7 @@
                     <p></p><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;">Descartar</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-xxl-8">
-                    <div class="card-group">
-                        <div class="card" style="height: 183.797px;border-style: none;border-radius: 17px 0px 0px 6px;margin-bottom: 17px;margin-left: 17px;margin-top: 14px;margin-right: 18px;--bs-body-bg: rgba(255,255,255,0);background: #1e1e1e;"><img class="card-img-top w-100 d-block" width="284" height="278" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="@{/imagenes/dragon.jpg}"></div>
-                        <div class="row reporte" style="margin: 18px;">Reporte de @Cabesa: Me molesta su pito</div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-xxl-4"><button class="btn btn-primary" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;">Eliminar</button>
-                    <p></p><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;">Descartar</button>
-                </div>
-            </div>
+            </th:block>
         </div>
     </div>
 </div>

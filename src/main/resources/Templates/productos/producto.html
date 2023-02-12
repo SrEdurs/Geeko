@@ -128,10 +128,11 @@
                                 <span th:if="${datosProducto.pelicula} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Película</span>
                                 <span th:if="${datosProducto.videojuego} == 1" style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Videojuego</span>
                                 <!--Hasta aqui-->
-                                <span style="margin-right:10px ;"><i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i>Ciencia Ficcion</span>
+                                <i style="color: aliceblue;margin-right: 5px;" class="fa-solid fa-tag fa-2xl"></i><span th:text="${datosProducto.tematica?.getNombre}" style="margin-right:10px ;"></span>
                             </p>
                             <!-- Cierre etiquetas-->
-                            <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
+                            <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/edit/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
+                            <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id}" th:href="@{/reportarproducto/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Reportar</a>
                             <a th:if="${datosProducto.usuario?.getId} == null" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Me interesa <i class="fas fa-edit"></i></a>
                             <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id} AND ${datosProducto.usuario?.getId} != null" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Comprar <i class="fas fa-edit"></i></a>
                         </div>
@@ -160,7 +161,7 @@
                     </div>
                     <div class="row" style="margin-top: 3px;height: 54px; margin-left: 150px">
                         <div class="col" style="text-align: left;margin-top: 22px;">
-                            <img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35">
+                            <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}"><img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35"></a>
                         </div>
                         <div class="col" style="text-align: right;margin-top: 22px;">
                             <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
@@ -185,47 +186,10 @@
                     </div>
                 </div>
                 <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
-                    <th:block th:each="elemento : ${listaProductos}">
+                    <th:block th:each="elemento : ${listaIntereses}">
                         <div class="card-body cardprodu" style="margin-bottom: 15px">
                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
                             <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
-                            <div class="clasificacion">
-                                <th:block th:if="${elemento.puntuacion} < 20 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} >= 90 ">
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                            </div>
                         </div>
                     </th:block>
                 </div>

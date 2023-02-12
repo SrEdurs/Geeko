@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -25,7 +27,7 @@ public class Reporte {
     private String motivo;
 
     @Column(name="fecha", nullable = false)
-    private Date fecha;
+    private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
     @ManyToOne
     @JoinColumn(name = "idUsuarioReporta")
@@ -37,7 +39,8 @@ public class Reporte {
     @ManyToMany(mappedBy = "productosReportados")
     private List<Producto> productos;
 
-    @ManyToMany(mappedBy = "comentariosReportados")
-    private List<Comentario> comentarios;
+    @ManyToMany(mappedBy = "comentariosReportados", cascade = CascadeType.ALL)
+    private List<Comentario> comentarios = new ArrayList<>();
+
 
 }

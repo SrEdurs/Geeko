@@ -5,9 +5,7 @@ import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
-import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
-import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.ProductoService;
 import es.geeko.service.TematicaService;
 import es.geeko.service.UsuarioService;
@@ -28,116 +26,83 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     private final ProductoService productoService;
     private final ProductoRepository productoRepository;
     private final UsuarioService usuarioService;
-    private final UsuarioRepository usuarioRepository;
     private final TematicaService tematicaService;
-    private final ComentarioRepository comentarioRepository;
 
 
-    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService,
-                                  UsuarioRepository usuarioRepository, TematicaService tematicaService, ComentarioRepository comentarioRepository) {
+    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService, TematicaService tematicaService) {
         this.productoService = service;
         this.productoRepository = productoRepository;
         this.usuarioService = usuarioService;
-        this.usuarioRepository = usuarioRepository;
         this.tematicaService = tematicaService;
-        this.comentarioRepository = comentarioRepository;
     }
 
 
     @GetMapping("/productos/libros")
     public String vistaLibro(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByLibroAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        usuarioSesion(interfazConPantalla);
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
         return "/productos/libros";
+
     }
 
     @GetMapping("/productos/peliculas")
     public String vistaPelis(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByPeliculaAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        usuarioSesion(interfazConPantalla);
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
         return "/productos/peliculas";
     }
 
     @GetMapping("/productos/series")
     public String vistaSerie(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosBySerieAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        usuarioSesion(interfazConPantalla);
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
         return "/productos/series";
+
     }
 
     @GetMapping("/productos/videojuegos")
     public String vistaVideojuegos(ModelMap interfazConPantalla){
-        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIs(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderById(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIs(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderById(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        usuarioSesion(interfazConPantalla);
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
         return "/productos/videojuegos";
+
     }
 
 
     @GetMapping("/productos/crearproducto")
     public String vistaCrearProducto(ModelMap interfazConPantalla){
-        //Instancia en memoria del dto a informar en la pantalla
+
+        usuarioSesion(interfazConPantalla);
+
         final ProductoDto productoDto = new ProductoDto();
-        //Mediante "addAttribute" comparto con la pantalla
         productoDto.setImagen("/imagenes/noimage.jpg");
-
         interfazConPantalla.addAttribute("datosProducto",productoDto);
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-
-        UsuarioDto attr = usuarioDto.get();
-
-        System.out.println(authentication.getAuthorities());
-
-
-        System.out.println(authentication.getAuthorities().size());
-
-
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
+
         return "productos/crearproducto";
+
     }
 
     @PostMapping("/productos/crearproducto")
@@ -146,10 +111,15 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        System.out.println(productoDto.getLibro());
+        productoDto.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
 
         if(authentication.getAuthorities().size() > 1){
             productoDto.setGeeko(1);
+        }
+
+        if(productoDto.getLibro() == 0 && productoDto.getSerie()== 0 && productoDto.getPelicula()== 0 && productoDto.getVideojuego()== 0 ){
+
+            productoDto.setLibro(1);
         }
 
         this.productoService.guardar(productoDto);
@@ -158,61 +128,69 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @GetMapping("/productos/{idpro}")
-    public String vistaProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla) throws Exception{
+    public String vistaProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla){
+
+        usuarioSesion(interfazConPantalla);
+
+        final List<Comentario> listaComentarios = this.productoService.encuentraPorId(id).get().getComentario();
+        interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
+
+        Optional<ProductoDto> producto = productoService.encuentraPorId(id);
+        ProductoDto productoDtoGuardar =  producto.get();
+        interfazConPantalla.addAttribute("datosProducto",productoDtoGuardar);
+        return "productos/producto";
+    }
+
+    @GetMapping("/productos/edit/{idpro}")
+    public String vistaEditProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla){
+
+        usuarioSesion(interfazConPantalla);
+        Optional<ProductoDto> productoDto = this.productoService.encuentraPorId(id);
+        interfazConPantalla.addAttribute("datosProducto", productoDto);
+
+        final List<Tematica> tematicas = tematicaService.buscarEntidades();
+        interfazConPantalla.addAttribute("listaTematicas",tematicas);
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
+
+        return "productos/editproducto";
+    }
+
+    @PostMapping("/productos/edit/{idpro}")
+    public String editProducto(@PathVariable("idpro") Integer id, ProductoDto productoDtoEntrada) throws Exception {
+
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
         UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        final List<Comentario> listaComentarios = this.productoService.encuentraPorId(id).get().getComentario();
-        interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
+        ProductoDto productoDtoGuardar = new ProductoDto();
+        productoDtoGuardar.setId(id);
+        productoDtoGuardar.setTitulo(productoDtoEntrada.getTitulo());
+        productoDtoGuardar.setImagen(productoDtoEntrada.getImagen());
+        productoDtoGuardar.setDescripcion(productoDtoEntrada.getDescripcion());
+        productoDtoGuardar.setPrecio(productoDtoEntrada.getPrecio());
+        productoDtoGuardar.setUsuario(this.usuarioService.getMapper().toEntity(attr));
+        productoDtoGuardar.setPuntuacion(productoDtoEntrada.getPuntuacion());
+        productoDtoGuardar.setVideojuego(productoDtoEntrada.getVideojuego());
+        productoDtoGuardar.setLibro(productoDtoEntrada.getLibro());
+        productoDtoGuardar.setPelicula(productoDtoEntrada.getPelicula());
+        productoDtoGuardar.setSerie(productoDtoEntrada.getSerie());
+        productoDtoGuardar.setReportado(productoDtoEntrada.getReportado());
+        productoDtoGuardar.setActivo(productoDtoEntrada.getActivo());
+        productoDtoGuardar.setGeeko(productoDtoEntrada.getGeeko());
+        productoDtoGuardar.setFechaSubida(productoDtoEntrada.getFechaSubida());
+        productoDtoGuardar.setComentario(productoDtoEntrada.getComentario());
+        productoDtoGuardar.setTematica(productoDtoEntrada.getTematica());
+        productoDtoGuardar.setProductosReportados(productoDtoEntrada.getProductosReportados());
+        this.productoService.guardar(productoDtoGuardar);
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIs("prueba",1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
-
-        Optional<ProductoDto> producto = productoService.encuentraPorId(id);
-
-        System.out.println(producto.get().getTitulo());
-
-        if (producto.isPresent()){
-
-            //LLamo al método del servicio para guardar los datos
-            ProductoDto productoDtoGuardar =  producto.get();
-
-
-            interfazConPantalla.addAttribute("datosProducto",productoDtoGuardar);
-            return "productos/producto";
-        } else {
-            //Mostrar página usuario no existe
-            return "error";
-        }
+        return String.format("redirect:/productos/subidos");
     }
 
-    @PostMapping("/productos/{idpro}")
-    public String guardarEdicionDatosUsuario(@PathVariable("idpro") Integer id, ProductoDto productoEntrada) throws Exception {
-        //Cuidado que la password no viene
-        //Necesitamos copiar la información que llega menos la password
-        //Con el id tengo que buscar el registro a nivel de entidad
-        Optional<ProductoDto> productoDtoControl = this.productoService.encuentraPorId(id);
-        //¿Debería comprobar si hay datos?
-        if (productoDtoControl.isPresent()){
-
-            //LLamo al método del servicio para guardar los datos
-            ProductoDto productoDtoGuardar =  new ProductoDto();
-            productoDtoGuardar.setId(id);
-            productoDtoGuardar.setTitulo(productoEntrada.getTitulo());
-            productoDtoGuardar.setDescripcion(productoEntrada.getDescripcion());
-
-            this.productoService.guardar(productoDtoGuardar);
-            return String.format("redirect:/productos/{idusr}", id);
-        } else {
-            //Mostrar página usuario no existe
-            return "error";
-        }
-    }
 
     @GetMapping("/productos/subidos")
     public String vistaSubidos(ModelMap interfazConPantalla){
@@ -227,6 +205,19 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         final List<Producto> listaProductos = productoRepository.findProductosByUsuarioId(attr.getId());
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "productos/productossubidos";
+    }
+
+    public void usuarioSesion(ModelMap interfazConPantalla){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        final List<Producto> listaIntereses = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        interfazConPantalla.addAttribute("listaIntereses",listaIntereses);
+
     }
 
 

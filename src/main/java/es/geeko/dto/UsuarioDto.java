@@ -36,10 +36,8 @@ public class UsuarioDto {
     private int reportado;
     private List<ComentarioDto> comentarios;
     private List<Producto> productos;
-    private List<Mensaje> mensajes;
     private List<Tematica> tematicas;
     private List<Transaccion> transacciones;
-    private List<Chat> chats;
     private List<Reporte> usuariosReportados;
     private List<Usuario> seguimientos;
     private List<Usuario> seguidos;

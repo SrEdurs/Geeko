@@ -122,9 +122,7 @@
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/panelreportes}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #FA5959;">Reportes</a></div>
             </div>
             <div class="row">
-                <th:block th:object="${datosUsuario}">
                     <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/subidos}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
-                </th:block>
             </div>
             <div class="row">
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>
@@ -153,8 +151,6 @@
                 </div>
                 <div class="row" style="margin-top: 3px;height: 54px;">
                     <div class="col-xxl-6" style="text-align: left;">
-
-                        <img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
 
                     </div>
                     <div  class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">

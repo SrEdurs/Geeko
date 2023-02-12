@@ -21,7 +21,7 @@ public class ReporteDto {
     private long id;
     private String motivo;
     private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-    private UsuarioDto usuario;
+    private Usuario usuario;
     private List<Usuario> usuarios;
     private List<Producto> productos;
     private List<Comentario> comentarios;

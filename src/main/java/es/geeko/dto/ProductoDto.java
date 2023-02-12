@@ -34,7 +34,7 @@ public class ProductoDto {
     private Date fechaSubida = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private List<Comentario> comentario;
     private Usuario usuario;
-    private List<Tematica> tematicas;
+    private Tematica tematica;
     private List<Reporte> productosReportados;
 
 }
