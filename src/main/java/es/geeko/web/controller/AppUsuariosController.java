@@ -78,7 +78,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
+        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()),1 );
@@ -100,7 +100,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
+        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
@@ -199,17 +199,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return String.format("redirect:/perfil");
     }
 
-    @GetMapping("/usuarios/perfilotrousuario")
-    public String vistaotroperfil(ModelMap interfazConPantalla){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
-        return "/usuarios/perfilotrousuario";
-    }
 
     @GetMapping("/usuarios/cambiarcontraseña")
     public String vistaOlvidona(ModelMap interfazConPantalla){

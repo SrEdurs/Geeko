@@ -185,47 +185,10 @@
                     </div>
                 </div>
                 <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
-                    <th:block th:each="elemento : ${listaProductos}">
+                    <th:block th:each="elemento : ${listaIntereses}">
                         <div class="card-body cardprodu" style="margin-bottom: 15px">
                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
                             <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
-                            <div class="clasificacion">
-                                <th:block th:if="${elemento.puntuacion} < 20 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacion} >= 90 ">
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                            </div>
                         </div>
                     </th:block>
                 </div>

@@ -3,6 +3,7 @@ package es.geeko.repository;
 import es.geeko.dto.ProductoDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
+import es.geeko.model.Tematica;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,6 +26,7 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
 
     //Te interesa
     List<Producto> findProductosByTituloIsNotLikeAndGeekoIsOrderById(String ignorar, int geeko);
+    List<Producto> findProductosByTematicaIsInAndGeekoIsAndActivoIs(List<Tematica> tematicas, int geeko, int activo);
 
     //Productos de usuario iniciado
     List<Producto> findProductosByUsuarioId(int id);

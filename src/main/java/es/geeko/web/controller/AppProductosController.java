@@ -98,10 +98,6 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         productoDto.setImagen("/imagenes/noimage.jpg");
         interfazConPantalla.addAttribute("datosProducto",productoDto);
 
-
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
-
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
 
@@ -132,15 +128,12 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @GetMapping("/productos/{idpro}")
-    public String vistaProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla) throws Exception{
+    public String vistaProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla){
 
         usuarioSesion(interfazConPantalla);
 
         final List<Comentario> listaComentarios = this.productoService.encuentraPorId(id).get().getComentario();
         interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
-
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
         ProductoDto productoDtoGuardar =  producto.get();
@@ -221,6 +214,10 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        final List<Producto> listaIntereses = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        interfazConPantalla.addAttribute("listaIntereses",listaIntereses);
+
     }
 
 
