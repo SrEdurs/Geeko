@@ -71,6 +71,7 @@ a.navbar-brand > img {
     grid-template-rows: repeat(2, 1fr);
     top:50% !important;
     left: 50% !important;
+
 }
 
 .invisible-checkboxes input[type=checkbox]{
@@ -85,21 +86,29 @@ a.navbar-brand > img {
 
 .checkbox-alias{
     border-radius: 23px;
-background-color: #FFFFFF;
-    display: inline-block;
+background-color: #1E1E1E;
     width: 200px;
     height: 200px;
+    color: #d9d9d9;
   z-index: 1;
-  position: relative;
   transition: all 250ms ease-out;
   cursor: pointer;
+    text-align: center;
 }
 
-.invisible-checkboxes input[type=checkbox]:checked + .checkbox-alias{
-    background-color: #8d92bb;
-    border: 6px solid;
-
+.checkCuestionario{
+    border-radius: 23px;
+    width: 200px;
+    height: 200px;
+    background-color: #8d92bb !important;
+    border: 6px solid #1E1E1E !important;
+    color: #1E1E1E!important;
+    z-index: 1;
+    transition: all 250ms ease-out;
+    cursor: pointer;
+    text-align: center;
 }
+
 
 .espaciadoCuestionario{
     padding: 10px;
