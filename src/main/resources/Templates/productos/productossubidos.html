@@ -99,16 +99,16 @@
           <th:block th:each="elemento : ${listaProductos}">
             <div class="col">
               <div class="card cardprodu" style="background-color: #1E1E1E; border: 0px">
-                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="90%" class="card-img-top"></a>
-                <h4 th:align="center" th:text="${elemento.titulo}" style="color: #FFFFFF"></h4>
+                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="90%" class="card-img-toptp"></a>
+                <h6 th:align="center" th:text="${elemento.titulo}" style="color: #FFFFFF"></h6>
               </div>
             </div>
           </th:block>
         </div>
       </section>
     </div>
-    <div class="col-md-6 col-xxl-4" style="margin-top: 28px;">
-      <div class="card" style="border-radius: 49px;height: 461.984px;margin: 19px;background: #d9d9d9;">
+    <div class="col-md-6 col-xxl-4" style="margin-top: 0px;">
+      <div class="card" style="border-radius: 49px;height: 461.984px; margin-left: 20px; background: #d9d9d9;">
         <div class="card-body">
           <h4 class="card-title" style="text-align: center;font-weight: bold;">Valoración media</h4>
           <h6 class="text-muted card-subtitle mb-2">Subtitle</h6>

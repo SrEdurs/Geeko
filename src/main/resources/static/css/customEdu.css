@@ -1,5 +1,9 @@
 body{
-    padding: 10px;
+    background-color: #1E1E1E;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right:10px;
+    padding-bottom: 10px;
 }
 
 .btnCC{
@@ -20,6 +24,13 @@ body{
    font-family: 'Inter',sans-serif;
    margin-top: 10px;
    margin-left: 5px;
+}
+
+.form-control{
+    background-color: #1E1E1E;
+    border-radius: 20px;
+    font-family: 'Inter',sans-serif;
+    color: #D9D9D9;
 }
 
 .form-check-input{
@@ -62,6 +73,45 @@ body{
    border-radius: 20px;
    object-position: center;
    object-fit: cover;
+}
+
+.cardprodu{
+   width: 180px;
+   height: 210px;
+}
+
+.card-img-toptp{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 200px;
+   height: 200px;
+}
+
+.cardprodupati{
+   width: 220px;
+   height: 310px;
+}
+
+.card-img-toppati{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 220px;
+   height: 270px;
+}
+
+.cardprodupint{
+   width: 220px;
+   height: 310px;
+}
+
+.card-img-toppint{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 220px;
+   height: 270px;
 }
 
 .libros{
