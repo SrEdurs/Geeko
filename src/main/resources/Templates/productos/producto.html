@@ -147,7 +147,10 @@
                         <div class="col-7">
                         <section class="card">
                             <div class="row">
-                                <div class="col-3"><a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></a></div>
+                                <div class="col-3">
+                                    <th:block th:if="${elemento.usuario?.getId} != ${datosUsuario.id}"><a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></a></th:block>
+                                    <th:block th:if="${elemento.usuario?.getId} == ${datosUsuario.id}"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></th:block>
+                                </div>
                                 <div class="col">
                                     <div class="card-body">
                                         <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
