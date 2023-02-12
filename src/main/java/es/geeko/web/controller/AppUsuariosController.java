@@ -86,6 +86,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
         if (usuarioDto.isPresent()){
             UsuarioDto attr = usuarioDto.get();
+            UsuarioDto perf = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosPerfil",perf);
             interfazConPantalla.addAttribute("datosUsuario",attr);
             return "usuarios/perfil";
         } else{
@@ -113,7 +115,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             UsuarioDto perf = usuarioPerfil.get();
             interfazConPantalla.addAttribute("datosUsuario",attr);
             interfazConPantalla.addAttribute("datosPerfil",perf);
-            return "usuarios/perfilusu";
+            return "usuarios/perfil";
         } else{
             return "error";
         }
@@ -236,6 +238,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
     }
+
+
 
     public void usuarioSesion(ModelMap interfazConPantalla){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

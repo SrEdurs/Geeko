@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Bootstrap icons  -->
-    <link rel="stylesheet" type="text/css" src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
     <link th:href="@{/css/customEdu.css}"  type="text/css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -30,6 +30,20 @@
                     success: function(resp) {
                         console.log(resp)
                         document.getElementById("likes"+id).innerText=resp
+                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
+                    }}
+            )
+
+        }
+    </script>
+    <script>
+        function borrar(id) {
+            // llamar a la funcion del servidor para aumentar el like
+            $.ajax(
+                {url: "/borrar/"+id,
+                    success: function(resp) {
+                        console.log(resp)
+                        document.getElementById("borrar"+id).innerText=resp
                         /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
                     }}
             )
@@ -107,11 +121,38 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-xxl-3">
+        <div th:if="${datosUsuario.id} != ${datosPerfil.id}" class="col-md-4 col-xxl-3">
+            <div class="row">
+                <div class="col" style="margin-top: 11px;">
+                    <th:block th:object="${datosPerfil}">
+                        <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" style=" border-radius: 15px;" th:src="${datosPerfil.avatar}">
+                            <h3 class="text-white text-center pt-2" th:text="${datosPerfil.nick}"></h3>
+                            <p class="fw-light text-white m-0" th:text="${datosPerfil.biografia}"></p>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+            <div th:if="${datosUsuario.id} == ${datosPerfil.id}" class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{usuarios/edit}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Editar perfil</a></div>
+            </div>
+            <div th:if="${datosUsuario.id} == ${datosPerfil.id}" sec:authorize="hasRole('ADMIN')" class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/panelreportes}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #FA5959;">Reportes</a></div>
+            </div>
+            <div th:if="${datosUsuario.id} == ${datosPerfil.id}" class="row">
+                    <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/subidos}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
+            </div>
+            <div th:if="${datosUsuario.id} == ${datosPerfil.id}" class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>
+            </div>
+            <div th:if="${datosUsuario.id} != ${datosPerfil.id}" class="row">
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/reportarusuario/{id}(id = ${datosPerfil.id})}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #FA5959;">Reportar</a></div>
+            </div>
+        </div>
+        <div th:if="${datosUsuario.id} == ${datosPerfil.id}" class="col-md-4 col-xxl-3">
             <div class="row">
                 <div class="col" style="margin-top: 11px;">
                     <th:block th:object="${datosUsuario}">
-                        <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" style=" border-radius: 15px;" th:src="${datosUsuario.avatar}">
+                        <div id="cardEntrada-3" class="p-4 text-center shadow-lg m-5 rounded-5" style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50" style=" border-radius: 15px;" th:src="${datosUsuario.avatar}">
                             <h3 class="text-white text-center pt-2" th:text="${datosUsuario.nick}"></h3>
                             <p class="fw-light text-white m-0" th:text="${datosUsuario.biografia}"></p>
                         </div>
@@ -125,7 +166,7 @@
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{/panelreportes}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #FA5959;">Reportes</a></div>
             </div>
             <div class="row">
-                    <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/subidos}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
+                <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a th:href="@{productos/subidos}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Productos</a></div>
             </div>
             <div class="row">
                 <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Pedidos</button></div>
@@ -134,38 +175,56 @@
         <div class="col-md-4 col-xxl-5">
             <div class="row" style="margin-top: 44px;">
                 <div class="col">
-                    <h2 style="text-align: center;color: rgb(255,255,255);">Tus comentarios</h2>
+                    <h2 style="text-align: center;color: rgb(255,255,255);">Comentarios</h2>
                 </div>
             </div>
-
             <th:block th:each="elemento : ${listaComentarios}">
-                <div class="row" style="margin-top: 19px;">
-                    <section class="card mb-3">
-                        <div class="row">
-                            <div class="col-3"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                <div th:id="'borrar'+${elemento.id}">
+                    <div  class="p-4 text-center shadow-lg m-5 rounded-5" style="background: #FFFFFF;width: 484px;height: 200px;transform: translate(-8px);">
+                        <div class="row" style="border-radius: 30px;margin-top: -9px;">
+                            <div class="col-xxl-3" style="height: 118px;">
+                                <div class="row">
+                                    <div class="col-xxl-12" style="height: 116px;"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                                </div>
+                                <div class="row" style="height: 58px;">
+                                    <div class="col-xxl-4 text-start d-xxl-flex justify-content-xxl-start align-items-xxl-end" style="height: 49px;margin-left: -7px;margin-right: 13px;">
+                                        <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}"><i class="bi bi-eye-fill" style="color: black"></i></a>
+                                    </div>
+                                    <div th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" class="col-xxl-5 text-start d-xxl-flex align-items-xxl-end" style="height: 48px;">
+                                        <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}"><i  class="bi bi-flag" style="color: black"></i></a>
+                                    </div>
+                                    <div th:if="${datosUsuario.id} == ${elemento.usuario?.getId}" class="col-xxl-5 text-start d-xxl-flex align-items-xxl-end" style="height: 48px;">
+                                        <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
+                                                onclick="borrar(this.getAttribute('data-id'))">
+                                            <i th:id="'megusta'+${elemento.id}" class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col">
-                                <div class="card-body">
-                                    <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
-                                    <p class="card-text" th:text="${elemento.texto}"></p>
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 style="text-align: left;" th:text="${elemento.titulo}"></h3>
+                                    </div>
+                                </div>
+                                <div class="row" style="height: 103px;">
+                                    <div class="col" style="text-align: left;">
+                                        <p th:text="${elemento.texto}"></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xxl-9" style="text-align: right;">
+                                        <p th:id="'likes'+${elemento.id}" style="color: #1E1E1E; margin-bottom: -10px" th:text="${elemento.likes}"></p>
+                                    </div>
+                                    <div class="col">
+                                        <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
+                                                onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                            <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up" th:id="'megusta'+${elemento.id}"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </div>
-                <div class="row" style="margin-top: 3px;height: 54px;">
-                    <div class="col-xxl-6" style="text-align: left;">
-
-                    </div>
-                    <div  class="col" style="text-align: right;margin-top: 22px;margin-left: 52px;">
-                        <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
-                    </div>
-                    <div class="col" style="padding-left: 6px;">
-
-                        <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
-                                onclick="cambiamegusta(this.getAttribute('data-id'))">
-
-                            <img th:id="'megusta'+${elemento.id}" th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
-                        </button>
                     </div>
                 </div>
             </th:block>
@@ -182,43 +241,6 @@
                                     <div class="card-body cardprodu" style="margin-bottom: 15px">
                                         <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
                                         <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
-                                        <div class="clasificacion">
-                                            <th:block th:if="${elemento.puntuacion} < 20 ">
-                                                <label>✰</label>
-                                                <label>✰</label>
-                                                <label>✰</label>
-                                                <label>✰</label>
-                                                <label>★</label>
-                                            </th:block>
-                                            <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
-                                                <label>✰</label>
-                                                <label>✰</label>
-                                                <label>✰</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                            </th:block>
-                                            <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
-                                                <label>✰</label>
-                                                <label>✰</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                            </th:block>
-                                            <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
-                                                <label>✰</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                            </th:block>
-                                            <th:block th:if="${elemento.puntuacion} >= 90 ">
-                                                <label>★</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                                <label>★</label>
-                                            </th:block>
-                                        </div>
                                     </div>
                     </th:block>
             </div>
