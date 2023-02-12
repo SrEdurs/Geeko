@@ -213,6 +213,9 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIsOrderById(1);
         interfazConPantalla.addAttribute("comentarios", listaComentariosReportados);
 
+        final List<Reporte> listaReportes = reporteRepository.findReportesBy();
+        listaReportes.listIterator()
+
         final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIsOrderById(1);
         interfazConPantalla.addAttribute("usuarios", listaUsuariosReportados);
 

@@ -6,6 +6,7 @@ import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
 import es.geeko.repository.ProductoRepository;
+import es.geeko.repository.ReporteRepository;
 import es.geeko.service.ComentarioService;
 import es.geeko.service.ProductoService;
 import es.geeko.service.TematicaService;
@@ -29,14 +30,17 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     private final UsuarioService usuarioService;
     private final TematicaService tematicaService;
     private final ComentarioService comentarioService;
+    private final ReporteRepository reporteRepository;
 
 
-    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService, TematicaService tematicaService, ComentarioService comentarioService) {
+    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService, TematicaService tematicaService, ComentarioService comentarioService,
+                                  ReporteRepository reporteRepository) {
         this.productoService = service;
         this.productoRepository = productoRepository;
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
         this.comentarioService = comentarioService;
+        this.reporteRepository = reporteRepository;
     }
 
 
@@ -170,7 +174,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
 
@@ -264,7 +268,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        final List<Producto> listaIntereses = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+
+        final List<Producto> listaIntereses = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaIntereses",listaIntereses);
 
     }
