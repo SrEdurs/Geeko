@@ -151,7 +151,7 @@
                             <!-- Cierre etiquetas-->
                             <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/edit/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
                             <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id}" th:href="@{/reportarproducto/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Reportar</a>
-                            <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id} AND ${datosProducto.usuario?.getId} != null" th:href="@{/pago/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Comprar <i class="fas fa-edit"></i></a>
+                            <a th:if="${datosProducto.usuario?.getId != datosUsuario.id} AND ${datosProducto.geeko == 0}" th:href="@{/pago/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Comprar <i class="fas fa-edit"></i></a>
                         </div>
                     </div>
                 </div>
