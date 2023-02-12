@@ -25,15 +25,16 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
     List<Producto> findProductosByVideojuegoAndActivoAndGeekoIsOrderById(int videojuego, int activo, int geeko);
 
     //Te interesa
-    List<Producto> findProductosByTituloIsNotLikeAndGeekoIsOrderById(String ignorar, int geeko);
     List<Producto> findProductosByTematicaIsInAndGeekoIsAndActivoIs(List<Tematica> tematicas, int geeko, int activo);
 
     //Productos de usuario iniciado
-    List<Producto> findProductosByUsuarioId(int id);
+    List<Producto> findProductosByUsuarioIdAndActivoIs(int id,int activo);
 
     Producto findProductoByIdIs(int id);
     List<Producto> findProductosByIdIs(int id);
 
     //Productos reportados
     List<Producto> findProductosByReportadoIsOrderById(int reportado);
+
+    ProductoDto findProductoById(int id);
 }

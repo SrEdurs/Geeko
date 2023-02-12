@@ -12,5 +12,5 @@ public interface ComentarioRepository  extends JpaRepository<Comentario,Integer>
     List<Comentario> findComentarioById(int id);
     Comentario findComentariosByIdIs(int id);
     List<Comentario> findComentariosByReportadoIsOrderById(int reportado);
-    List<Comentario> findComentariosByUsuarioIdAndActivo(Usuario usuario, int activo );
+    List<Comentario> findComentariosByProductoIdAndActivoIs(int id, int activo);
 }

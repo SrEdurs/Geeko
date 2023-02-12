@@ -6,11 +6,14 @@ import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
+import es.geeko.model.Tematica;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ComentarioService;
 import es.geeko.service.ProductoService;
 import es.geeko.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,13 +33,15 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     private final ProductoService productoService;
     private final ComentarioRepository comentarioRepository;
     private final ProductoRepository productoRepository;
+    private final ComentarioService comentarioService;
 
     public AppComentariosController(UsuarioService usuarioService, ProductoService productoService,
-                                    ComentarioRepository comentarioRepository,ProductoRepository productoRepository) {
+                                    ComentarioRepository comentarioRepository,ProductoRepository productoRepository, ComentarioService comentarioService) {
         this.usuarioService = usuarioService;
         this.productoService = productoService;
         this.comentarioRepository = comentarioRepository;
         this.productoRepository = productoRepository;
+        this.comentarioService = comentarioService;
     }
 
     @GetMapping("/crearcomentario/{id}")
@@ -46,12 +51,13 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(id));
         interfazConPantalla.addAttribute("datosComentario",comentarioDto);
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
 
@@ -88,5 +94,17 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
         return String.format("redirect:/productos/{id}", id);
 
+    }
+
+    @GetMapping("/borrar/{id}")
+    public ResponseEntity<String> borrar(@PathVariable("id") Integer id){
+        // Buscamos el comentario a procesar
+        Integer activo = 0;
+        Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
+        if(coment.isPresent()){
+            coment.get().setActivo(0);
+            comentarioRepository.save(coment.get());
+        }
+        return new ResponseEntity<>(activo.toString(), HttpStatus.OK);
     }
 }

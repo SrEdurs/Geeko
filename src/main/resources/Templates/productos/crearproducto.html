@@ -41,12 +41,16 @@
                 <th:block th:object="${datosUsuario}">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(30,30,30,0);border: 0px">
-                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}"  width="40px" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}" height="40px" width="40px" object-position="center"
+                                                         object-fit="cover" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
                             <label class="usuario" th:text="${datosUsuario.nick}"></label>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
                             <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
+                            <div sec:authorize="hasRole('ADMIN')" >
+                                <li><a class="dropdown-item" th:href="@{/panelreportes}" style="color: #FA5959">Reportes</a></li>
+                            </div>
                             <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
                         </ul>
                     </div>
@@ -130,6 +134,38 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row" sec:authorize="hasRole('ADMIN')">
+                                    <div class="col">
+                                        <div class="row" style="margin-bottom: 24px;">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <input  th:field="${datosProducto.geeko}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="geeko">
+                                                            <label class="form-check-label" for="geeko" style="background: #d9d9d9; border-radius: 24px; width: 175px"> &nbsp;<i class="bi bi-chat-right-dots"></i> Producto Geeko &nbsp;</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:if="${datosProducto.id} != null" class="row">
+                                    <div class="col">
+                                        <div class="row" style="margin-bottom: 24px;">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="row">
+                                                            <input  th:field="${datosProducto.activo}" th:value="0" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="pogeeko">
+                                                            <label class="form-check-label" for="pogeeko" style="background: #d9d9d9; border-radius: 24px; width: 175px"> &nbsp;<i class="bi bi-chat-right-dots"></i> Borrar producto &nbsp;</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6 col-xl-4 col-xxl-5" style="margin-left: 36px;">
                                 <div class="row" style="margin-bottom: 24px;">
@@ -152,13 +188,13 @@
                                                         <div class="row" style="margin-bottom: 19px;">
                                                             <div class="col" style="text-align: center; justify-content: center" >
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.libro}" th:value="1" class="form-check-input" th:type="radio" name="flexRadioDefault" id="Librobox">
+                                                                    <input th:field="${datosProducto.libro}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Librobox">
                                                                     <label class="form-check-label" for="Librobox" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-book"></i> Libro &nbsp;</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col" style="border-radius: 34px;text-align: center;">
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.pelicula}" th:value="1" class="form-check-input" th:type="radio" name="flexRadioDefault" id="Peliculabox">
+                                                                    <input th:field="${datosProducto.pelicula}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Peliculabox">
                                                                     <label class="form-check-label" for="Peliculabox" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-film"></i> Pelicula &nbsp;</label>
                                                                 </div>
                                                             </div>
@@ -166,13 +202,13 @@
                                                         <div class="row" style="margin-bottom: 19px;">
                                                             <div class="col" style="text-align: center; justify-content: center">
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.serie}" th:value="1" class="form-check-input" th:type="radio" name="flexRadioDefault" id="Seriebox">
+                                                                    <input th:field="${datosProducto.serie}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Seriebox">
                                                                     <label class="form-check-label" for="Seriebox" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-tv"></i> Serie &nbsp;</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col" style="text-align: center; justify-content: center">
                                                                 <div class="form-check" STYLE="background: #1E1E1E !Important">
-                                                                    <input th:field="${datosProducto.videojuego}" th:value="1" class="form-check-input" th:type="radio" name="flexRadioDefault" id="Videojuegobox">
+                                                                    <input th:field="${datosProducto.videojuego}" th:value="1" class="form-check-input" th:type="checkbox" name="flexRadioDefault" id="Videojuegobox">
                                                                     <label class="form-check-label" for="Videojuegobox" style="background: #d9d9d9; border-radius: 24px;"> &nbsp;<i class="bi bi-controller"></i> Videojuego &nbsp;</label>
                                                                 </div>
                                                             </div>
@@ -226,43 +262,6 @@
                                         <div class="card-body cardprodu">
                                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
                                             <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
-                                            <div class="clasificacion">
-                                                <th:block th:if="${elemento.puntuacion} < 20 ">
-                                                    <label>✰</label>
-                                                    <label>✰</label>
-                                                    <label>✰</label>
-                                                    <label>✰</label>
-                                                    <label>★</label>
-                                                </th:block>
-                                                <th:block th:if="${elemento.puntuacion} > 20 and ${elemento.puntuacion} < 50 ">
-                                                    <label>✰</label>
-                                                    <label>✰</label>
-                                                    <label>✰</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                </th:block>
-                                                <th:block th:if="${elemento.puntuacion} >= 50 and ${elemento.puntuacion} < 70 ">
-                                                    <label>✰</label>
-                                                    <label>✰</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                </th:block>
-                                                <th:block th:if="${elemento.puntuacion} >= 70 and ${elemento.puntuacion} < 90 ">
-                                                    <label>✰</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                </th:block>
-                                                <th:block th:if="${elemento.puntuacion} >= 90 ">
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                    <label>★</label>
-                                                </th:block>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
