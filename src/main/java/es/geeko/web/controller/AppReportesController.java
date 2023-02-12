@@ -210,10 +210,11 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario", attr);
 
-        final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIsOrderById(1);
+        final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIsAndActivoIs(1,1);
         interfazConPantalla.addAttribute("comentarios", listaComentariosReportados);
 
-        final List<Reporte> listaReportes = reporteRepository.findReportesBy();
+        final List <Reporte> reportes = reporteRepository.findReportesByComentariosIsNotNull();
+        interfazConPantalla.addAttribute("motivos", reportes);
 
         final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIsOrderById(1);
         interfazConPantalla.addAttribute("usuarios", listaUsuariosReportados);
@@ -224,5 +225,19 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         return "reportes/panelreportes";
     }
 
+    @GetMapping("/cambiareporte/{id}")
+    public ResponseEntity<String> cambiaReporte(@PathVariable("id") Integer id){
+        // Buscamos el comentario a procesar
+
+        Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
+        if(coment.isPresent()){
+            List<Reporte> reportes = new ArrayList<>();
+
+            coment.get().setReportado(0);
+            coment.get().setComentariosReportados(reportes);
+            comentarioRepository.save(coment.get());
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

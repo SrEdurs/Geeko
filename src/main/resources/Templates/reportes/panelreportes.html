@@ -10,6 +10,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>reportes</title>
     <link th:href="@{/css/customEdu.css}" type="text/css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        function cambiareporte(id) {
+            // llamar a la funcion del servidor para aumentar el like
+            $.ajax(
+                {url: "/cambiareporte/"+id,
+                    success: function(resp) {
+                        console.log(resp)
+                        document.getElementById("reporte"+id).innerText=resp
+                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
+                    }}
+            )
+
+        }
+    </script>
+    <script>
+        function borrar(id) {
+            // llamar a la funcion del servidor para aumentar el like
+            $.ajax(
+                {url: "/borrar/"+id,
+                    success: function(resp) {
+                        console.log(resp)
+                        document.getElementById("borrar"+id).innerText=resp
+                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
+                    }}
+            )
+
+        }
+    </script>
 </head>
 
 <body style="background: #1e1e1e;">
@@ -97,30 +132,43 @@
         <div class="col-md-4 col-xxl-5">
 
             <th:block th:each="elemento : ${comentarios}">
-            <div class="row" style="margin: 18px;">
-                <div class="col-md-4 col-xxl-9">
-                    <div class="row" style="margin-top: 19px;">
-                        <section class="card mb-3">
-                            <div class="row">
-                                <div class="col-3"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
-                                <div class="col">
-                                    <div class="card-body">
-                                        <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
-                                        <p class="card-text" th:text="${elemento.texto}"></p>
+                <th:block th:each="elemento2 : ${motivos}">
+                    <div th:id="'reporte'+${elemento.id}">
+                        <div th:id="'borrar'+${elemento.id}">
+                            <div class="row" style="margin: 18px;">
+                                <div class="col-md-4 col-xxl-9">
+                                    <div class="row" style="margin-top: 19px;">
+                                        <section class="card mb-3">
+                                            <div class="row">
+                                                <div class="col-3"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                                                <div class="col">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
+                                                        <p class="card-text" th:text="${elemento.texto}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
                                     </div>
                                 </div>
+                                <div class="col-md-4 col-xxl-1">
+                                    <button th:data-id="${elemento.id}"
+                                            class="btn btn-primary" data-bss-hover-animate="jello" type="submit"
+                                            onclick="cambiareporte(this.getAttribute('data-id'))" th:id="'reporte'+${elemento.id}"
+                                            style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;"
+                                            >Descartar</button>
+                                    <p></p>
+                                    <button class="btn btn-primary text-center" th:data-id="${elemento.id}"
+                                                   data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'borrar'+${elemento.id}"
+                                                   style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;"
+                                    >Eliminar</button>
+                                </div>
+                                <div class="row reporte" style="margin: 18px;" th:text=" 'Reporte de: ' + ${elemento2.usuario?.getNick} + ', ' + ${elemento2.motivo}"></div>
                             </div>
-                        </section>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-md-4 col-xxl-1"><button class="btn btn-primary" data-bss-hover-animate="jello" type="submit" style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;">Eliminar</button>
-                    <p></p><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;">Descartar</button>
-                </div>
-                <div class="row reporte" style="margin: 18px;" th:text="${elemento.}">Reporte de @Cabesa: Me molesta su pito</div>
-            </div>
+                </th:block>
             </th:block>
-
         </div>
         <div class="col-md-4 col-xxl-3">
             <th:block th:each="elemento : ${usuarios}">

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ReporteRepository extends JpaRepository<Reporte,Integer> {
 
-    List <Reporte> findReportesBy();
+    List <Reporte> findReportesByComentariosIsNotNull();
 
 }
