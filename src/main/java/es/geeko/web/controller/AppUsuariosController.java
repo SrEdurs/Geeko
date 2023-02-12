@@ -224,17 +224,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "social/social";
     }
 
-    /*@GetMapping("/usuarios/cuestionario")
-    public String vistaCuestionario(ModelMap interfazConPantalla){
-
-        final List<Tematica> tematicas = tematicaService.buscarEntidades();
-        interfazConPantalla.addAttribute("listaTematicas",tematicas);
-
-
-        return "usuarios/cuestionario";
-    }*/
-
-
     @GetMapping("/cambiamegusta/{id}")
     public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Integer id){
         // Buscamos el comentario a procesar
