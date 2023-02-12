@@ -56,12 +56,20 @@ public class HomeController {
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()),1 );
-        interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
+        if(attr.getTematicas().isEmpty()){
+            return String.format("redirect:/cuestionario");
+        } else {
 
-        final List<Producto> listaProductos = productoRepository.findProductosByUsuarioId(attr.getId());
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        return "usuarios/inicio";
+            final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()), 1);
+            interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
+
+            final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1, 1);
+            interfazConPantalla.addAttribute("listaProductos", listaProductos);
+
+            final List<Producto> listaProductosParaTi = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 0, 1);
+            interfazConPantalla.addAttribute("listaProductosParaTi", listaProductosParaTi);
+            return "usuarios/inicio";
+        }
     }
 
 

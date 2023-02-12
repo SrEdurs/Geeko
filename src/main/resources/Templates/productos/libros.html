@@ -57,6 +57,9 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
                             <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
+                            <div sec:authorize="hasRole('ADMIN')" >
+                                <li><a class="dropdown-item" th:href="@{/panelreportes}" style="color: #FA5959">Reportes</a></li>
+                            </div>
                             <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
                         </ul>
                     </div>

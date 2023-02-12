@@ -150,10 +150,12 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         ProductoDto editar = productoDto.get();
         if(authentication.getAuthorities().size() > 1){

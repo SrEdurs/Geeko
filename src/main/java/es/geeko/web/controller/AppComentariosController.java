@@ -6,6 +6,7 @@ import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
+import es.geeko.model.Tematica;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ComentarioService;
@@ -46,12 +47,13 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(id));
         interfazConPantalla.addAttribute("datosComentario",comentarioDto);
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTituloIsNotLikeAndGeekoIsOrderById("prueba",1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
 
