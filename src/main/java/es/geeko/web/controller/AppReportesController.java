@@ -223,6 +223,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         final List <Reporte> reportes = reporteRepository.findReportesByComentariosIsNotNull();
         interfazConPantalla.addAttribute("motivos", reportes);
 
+
         final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIsOrderById(1);
         interfazConPantalla.addAttribute("usuarios", listaUsuariosReportados);
 
@@ -241,8 +242,9 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
             List<Reporte> reportes = new ArrayList<>();
 
             coment.get().setReportado(0);
-            coment.get().setComentariosReportados(reportes);
+            coment.get().setComentariosReportados(null);
             comentarioRepository.save(coment.get());
+            coment.get().getComentariosReportados().get(1).getMotivo();
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
