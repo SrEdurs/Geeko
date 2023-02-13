@@ -80,30 +80,29 @@
         </div>
     </nav>
         <form role="form" th:object="${datosComentario}" method="post">
-
             <div class="mx-auto row">
-                <div class="col-9">
-                    <h4 style="color: #8D92BB;margin-bottom: 10px;margin-left: 400px;margin-top: 100px" th:text="${datosProducto.titulo}"></h4>
+                <div class="col-7">
+                    <h3 style="color: #8D92BB;margin-bottom: 10px;margin-top: 30px;margin-left: 50px" th:text="${datosProducto.titulo}"></h3>
                     <div class="col">
                         <div class="form-group">
                             <input style="margin-left: 200px" type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
-                            <label for="InputTitulo" style="color: rgb(255,255,255);font-size: larger;margin-left: 400px">Titulo</label>
-                            <input type="text" id="InputTitulo" class="form-control" style="border-radius: 23px; background: #d9d9d9; width: 400px;margin-left: 400px"  maxlength="100" th:field="${datosComentario.titulo}" required/>
+                            <label for="InputTitulo" style="color: rgb(255,255,255);font-size: larger;margin-left: 50px">Título</label>
+                            <input type="text" id="InputTitulo" class="form-control" style="border-radius: 23px; width: 400px;margin-left: 50px"  maxlength="100" th:field="${datosComentario.titulo}" required/>
                         </div>
                         <p> </p>
                         <div class="form-group">
-                            <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger;margin-left: 400px">Contenido</label>
-                            <textarea  id="InputTexto" class="form-control" style="border-radius: 23px; background: #d9d9d9;min-height: 110px; width: 800px;margin-left: 400px"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
+                            <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger;margin-left: 50px">Contenido</label>
+                            <textarea  id="InputTexto" class="form-control" style="border-radius: 23px;min-height: 110px; width: 800px;margin-left: 50px"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
                         </div>
                         <p> </p>
-                        <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;padding: 2px;width: 92px;height: 41px; font-weight: bold;margin-left: 400px" class="btn ">Publicar</button>
+                        <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;padding: 2px;width: 92px;height: 41px; font-weight: bold;margin-left: 756px" class="btn ">Publicar</button>
                     </div>
                 </div>
 
-                <div class="col" style="padding-bottom: 0px;">
-                    <div class="row" style="margin-top: 44px;">
+                <div class="col-5" style="padding-bottom: 0px;">
+                    <div class="row" style="margin-top: 30px;">
                         <div class="col">
-                            <h2 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h2>
+                            <h3 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h3>
                         </div>
                     </div>
                     <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
@@ -113,7 +112,7 @@
                                     <div class="col">
                                         <div class="card-body cardprodu">
                                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
-                                            <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
+                                            <h5 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h5>
                                             <div class="clasificacion">
                                                 <th:block th:if="${elemento.puntuacion} < 20 ">
                                                     <label>✰</label>

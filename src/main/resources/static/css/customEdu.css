@@ -101,12 +101,12 @@ body{
    height: 270px;
 }
 
-.cardprodupint{
+.cardprodupintinicio{
    width: 220px;
    height: 310px;
 }
 
-.card-img-toppint{
+.card-img-toppintinicio{
    border-radius: 20px;
    object-position: center;
    object-fit: cover;
