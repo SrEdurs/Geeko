@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -212,6 +213,12 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
 
         final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIsAndActivoIs(1,1);
         interfazConPantalla.addAttribute("comentarios", listaComentariosReportados);
+
+        Iterable<Comentario> lista = comentarioRepository.findComentariosByReportadoIsAndActivoIs(1,1);
+        for (Comentario comentario: lista) {
+            comentario.getProducto().getTitulo();
+        }
+        interfazConPantalla.addAttribute("lista", lista);
 
         final List <Reporte> reportes = reporteRepository.findReportesByComentariosIsNotNull();
         interfazConPantalla.addAttribute("motivos", reportes);
