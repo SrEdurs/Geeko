@@ -38,7 +38,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones"  style="margin-top: 29px">
+            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones" style="margin-top: 29px">
                 <form action="" class="d-flex w-100" role="search">
                     <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
                            aria-label="Search">
@@ -51,7 +51,8 @@
                 <th:block th:object="${datosUsuario}">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false" style="background-color: rgba(30,30,30,0);border: 0px; padding-top: 20px">
+                                aria-expanded="false"
+                                style="background-color: rgba(30,30,30,0);border: 0px; padding-top: 20px">
                             <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}" height="40px" width="40px"
                                                          object-position="center"
                                                          object-fit="cover" id="iconoperfil" alt=""
@@ -117,10 +118,9 @@
                         <div class="row row-cols-3">
                             <th:block th:each="elemento : ${listaProductosParaTi}">
                                 <div class="col">
-                                    <div class="card cardprodupati" style="background-color: #1E1E1E; border: 0px">
+                                    <div class="card cardprodupatinicio" style="background-color: #1E1E1E; border: 0px">
                                         <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}"
-                                                                                         width="90%"
-                                                                                         class="card-img-toppati"></a>
+                                                                                         class="card-img-toppatinicio"></a>
                                         <h6 th:align="center" th:text="${elemento.titulo}" style="color: #FFFFFF"></h6>
                                     </div>
                                 </div>
@@ -131,19 +131,20 @@
             </section>
         </article>
         <article class="col-5">
-            <h4 class="text-white" style="margin-left: 200px;">Podría interesarte</h4>
+            <h4 class="text-white" style="margin-left: 170px;">Podría interesarte</h4>
             <p></p>
-            <section>
-                <div class="row row-cols-2">
-                    <th:block th:each="elemento : ${listaProductos}">
-                        <div class="card-body cardprodupintinicio" style="margin: 15px">
-                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%"
-                                                                             class="card-img-toppintinicio"></a>
-                            <h5 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h5>
-                        </div>
-                    </th:block>
-                </div>
-            </section>
+            <div class="row row-cols-1">
+                <section>
+                    <div class="row row-cols-2">
+                        <th:block th:each="elemento : ${listaProductos}">
+                            <div class="card-body cardprodupintinicio">
+                                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}"
+                                                                                 class="card-img-toppintinicio"></a>
+                                <h6 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h6>
+                            </div>
+                        </th:block>
+                    </div>
+                </section>
         </article>
     </div>
 </div>

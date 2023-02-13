@@ -88,12 +88,12 @@ body{
    height: 200px;
 }
 
-.cardprodupati{
+.cardprodupatinicio{
    width: 220px;
    height: 310px;
 }
 
-.card-img-toppati{
+.card-img-toppatinicio{
    border-radius: 20px;
    object-position: center;
    object-fit: cover;
@@ -102,16 +102,49 @@ body{
 }
 
 .cardprodupintinicio{
-   width: 220px;
-   height: 310px;
+   width: 270px;
+   height: 360px;
+   justify-content: center;
+   align-items: center;
 }
 
 .card-img-toppintinicio{
    border-radius: 20px;
    object-position: center;
    object-fit: cover;
-   width: 220px;
-   height: 270px;
+   width: 270px;
+   height: 320px;
+}
+
+.cardproduperfil{
+   width: 270px;
+   height: 360px;
+}
+
+.card-img-topperfil{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 270px;
+   height: 320px;
+}
+
+.cardproduPodint{
+   width: 270px;
+   height: 360px;
+}
+
+.card-img-topproduPodint{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 270px;
+   height: 320px;
+}
+
+.produpodint{
+   display:flex;
+   justify-content: center;
 }
 
 .libros{

@@ -250,19 +250,19 @@
             </th:block>
             </div>
             <div class="col-4" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
-                <div class="row" style="margin-top: 44px;">
-                    <div class="col">
-                        <h2 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h2>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col produpodint">
+                        <h3 style="color: rgb(255,255,255);">Podría interesarte</h3>
                     </div>
-                </div>
-                <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
+                <div class="row">
                     <th:block th:each="elemento : ${listaIntereses}">
-                        <div class="card-body cardprodu" style="margin-bottom: 15px">
-                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
-                            <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
+                        <div class="card-body cardproduPodint" style="margin-bottom: 30px; margin-left: 55px">
+                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-topproduPodint"></a>
+                            <h6 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h6>
                         </div>
                     </th:block>
                 </div>
+            </div>
             </div>
         </div>
     </div>
