@@ -59,6 +59,11 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "usuarios/login";
     }
 
+    @GetMapping("/bienvenida")
+    public String bienvenida(){
+        return "usuarios/bienvenida";
+    }
+
     // Read Form data to save into DB
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute Usuario user, Model model){
@@ -67,7 +72,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String message = "User '"+id+"' saved successfully !";
         model.addAttribute("msg", message);
         //return String.format("redirect:/usuarios/%s", id);
-        return String.format("redirect:/");
+        return String.format("redirect:/bienvenida");
 
     }
 

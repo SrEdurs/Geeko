@@ -27,7 +27,7 @@ public class SecurityConfig {
 
 
         http.authorizeHttpRequests()
-                .requestMatchers("/","","/registerUser","/crearcuenta","/saveUser","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**").permitAll()
+                .requestMatchers("/","","/registerUser","/crearcuenta","/saveUser","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**","/bienvenida").permitAll()
                 .requestMatchers("/panelreportes").hasRole("ADMIN")
                 .requestMatchers("/usr").hasAuthority("User")
                 .requestMatchers("/ano").hasAuthority("Annonymous")
