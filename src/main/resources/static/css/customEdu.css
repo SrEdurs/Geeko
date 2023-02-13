@@ -251,3 +251,7 @@ input[id="Librobox"]:checked{
 input[id="Librobox"]:checked ~ label{
    color: #8d92bb;
 }
+
+.colorLike{
+   color: #1E1E1E!important;
+}
