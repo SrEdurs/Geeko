@@ -124,6 +124,10 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             productoDto.setGeeko(1);
         }
 
+        if(productoDto.getActivo() == null){
+            productoDto.setActivo(1);
+        }
+
         if(productoDto.getLibro() == null){
             productoDto.setLibro(0);
         }
