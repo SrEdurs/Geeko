@@ -108,17 +108,14 @@
         <div>
           <th:block th:each="elemento : ${listaTematicas}">
 
-            <label style="margin:3px;font-weight: bold;font-size: large" class="checkbox-alias"
-                   onclick="checkCuestionario(this)">
-              <div style="position: relative;top: 85px;" th:for="${elemento.id}"
-                   th:text="${elemento.nombre}"></div>
-            </label>
-
-
             <input th:field="${datosUsuario.tematicas}" type="checkbox" class="form-check-input"
                    name="rGroup"
                    th:value="${elemento.id}" th:id="${elemento.id}"/>
 
+            <label style="margin:3px;font-weight: bold;font-size: large" class="checkbox-alias" th:for="${elemento.id}"
+                   onclick="checkCuestionario(this)">
+              <div style="position: relative;top: 85px;" th:text="${elemento.nombre}"></div>
+            </label>
 
           </th:block>
         </div>
