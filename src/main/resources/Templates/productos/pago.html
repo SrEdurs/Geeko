@@ -93,23 +93,23 @@
 </nav>
 <div class="container-fluid">
   <form role="form" th:object="${datosUsuario}" method="post">
-  <div class="row">
-    <article class="col-9">
-      <section>
-        <div class="card align-items-center" style="height: 500px">
-          <div class="cardpago" style="height: 500px;width: 200px">
-            <div class="card-bodypago" style="height: 500px;width: 600px">
-              <div id="smart-button-container" style="margin-top: 25px">
-                <div style="text-align: center;margin-top: 25px"><label style="margin-top: 100px" for="description"> </label><input readonly th:field="${datosProducto.titulo}" type="text" name="descriptionInput" id="description" maxlength="127" value=""></div>
-                <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
-                <div style="text-align: center"><label for="amount"> </label><input readonly th:field="${datosProducto.precio}" name="amountInput" type="number" id="amount" value="" ><span> EUR</span></div>
-                <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
-                <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
-                <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
-                <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
-              </div>
-              <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
-              <script>
+    <div class="row">
+      <article class="col-9">
+        <section>
+          <div class="card align-items-center" style="height: 500px">
+            <div class="cardpago" style="height: 500px;width: 200px; margin-right: 70px">
+              <div class="card-bodypago" style="height: 500px; width: 600px">
+                <div id="smart-button-container" style="margin-top: 25px">
+                  <div style="text-align: center;margin-top: 25px"><label style="margin-top: 100px" for="description"> </label><input readonly th:field="${datosProducto.titulo}" type="text" name="descriptionInput" id="description" maxlength="127" value=""></div>
+                  <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
+                  <div style="text-align: center"><label for="amount"> </label><input readonly th:field="${datosProducto.precio}" name="amountInput" type="number" id="amount" value="" ><span> EUR</span></div>
+                  <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
+                  <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
+                  <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
+                  <div style="text-align: center; margin-top: 0.625rem; width: 100px; margin-left: 200px" id="paypal-button-container"></div>
+                </div>
+                <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
+                <script>
                 function initPayPalButton() {
                   var description = document.querySelector('#smart-button-container #description');
                   var amount = document.querySelector('#smart-button-container #amount');
@@ -217,15 +217,15 @@
                 }
                 initPayPalButton();
               </script>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </article>
-  </div>
-  <div class="row" style="height: 100px">
-    <div class="col" style="margin-top: 100px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Exito</button></div>
-  </div>
+        </section>
+      </article>
+    </div>
+    <div class="row" style="height: 100px">
+      <div class="col" style="margin-top: 100px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Exito</button></div>
+    </div>
   </form>
 </div>
 <!-- Optional JavaScript -->
