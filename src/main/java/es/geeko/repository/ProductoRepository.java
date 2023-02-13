@@ -35,7 +35,6 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
     List<Producto> findProductosByIdIs(int id);
 
     //Productos reportados
-    List<Producto> findProductosByReportadoIsOrderById(int reportado);
+    List<Producto> findProductosByReportadoIsAndActivoIs(int reportado, int activo);
 
-    ProductoDto findProductoById(int id);
 }

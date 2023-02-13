@@ -214,20 +214,10 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         final List<Comentario> listaComentariosReportados = comentarioRepository.findComentariosByReportadoIsAndActivoIs(1,1);
         interfazConPantalla.addAttribute("comentarios", listaComentariosReportados);
 
-        Iterable<Comentario> lista = comentarioRepository.findComentariosByReportadoIsAndActivoIs(1,1);
-        for (Comentario comentario: lista) {
-            comentario.getProducto().getTitulo();
-        }
-        interfazConPantalla.addAttribute("lista", lista);
-
-        final List <Reporte> reportes = reporteRepository.findReportesByComentariosIsNotNull();
-        interfazConPantalla.addAttribute("motivos", reportes);
-
-
-        final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIsOrderById(1);
+        final List<Usuario> listaUsuariosReportados = usuarioRepository.findUsuariosByReportadoIsAndActivoIs(1,1);
         interfazConPantalla.addAttribute("usuarios", listaUsuariosReportados);
 
-        final List<Producto> listaProductosReportados = productoRepository.findProductosByReportadoIsOrderById(1);
+        final List<Producto> listaProductosReportados = productoRepository.findProductosByReportadoIsAndActivoIs(1,1);
         interfazConPantalla.addAttribute("productos", listaProductosReportados);
 
         return "reportes/panelreportes";
@@ -244,7 +234,6 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
             coment.get().setReportado(0);
             coment.get().setComentariosReportados(null);
             comentarioRepository.save(coment.get());
-            coment.get().getComentariosReportados().get(1).getMotivo();
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
