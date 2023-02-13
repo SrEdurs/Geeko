@@ -29,9 +29,23 @@
                     success: function(resp) {
                         console.log(resp)
                         document.getElementById("likes"+id).innerText=resp
-                        //*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda
+                        //$("#megusta"+id).setAttribute("color", "green") // cambiar el icono de color según corresponda
                     }}
             )
+        }
+    </script>
+    <script>
+        function borrar(id) {
+            // llamar a la funcion del servidor para aumentar el like
+            $.ajax(
+                {url: "/borrar/"+id,
+                    success: function(resp) {
+                        console.log(resp)
+                        document.getElementById("borrar"+id).innerText=resp
+                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
+                    }}
+            )
+
         }
     </script>
 </head>
@@ -137,8 +151,7 @@
                             <!-- Cierre etiquetas-->
                             <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/edit/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
                             <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id}" th:href="@{/reportarproducto/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Reportar</a>
-                            <a th:if="${datosProducto.usuario?.getId} == null" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Me interesa <i class="fas fa-edit"></i></a>
-                            <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id} AND ${datosProducto.usuario?.getId} != null" th:href="@{/productos/crearproducto}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Comprar <i class="fas fa-edit"></i></a>
+                            <a th:if="${datosProducto.usuario?.getId != datosUsuario.id} AND ${datosProducto.geeko == 0}" th:href="@{/pago/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Comprar <i class="fas fa-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -147,7 +160,7 @@
                     <th:block th:if="${#lists.isEmpty(listaComentarios)}">
                         <h4 style="color: #FFFFFF; margin-left: 150px;margin-top: 20px">No hay comentarios, escribe el primero!</h4>
                     </th:block>
-                <th:block th:each="elemento : ${listaComentarios}">
+                <!--<th:block th:each="elemento : ${listaComentarios}">
                     <div class="row" style="margin-top: 19px; margin-left: 150px">
                         <div class="col-7">
                         <section class="card">
@@ -181,6 +194,56 @@
                                 <img th:id="'megusta'+${elemento.id}" th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
                             </button>
 
+                        </div>
+                    </div>
+                </th:block>-->
+                <th:block th:each="elemento : ${listaComentarios}">
+                    <div th:id="'borrar'+${elemento.id}">
+                        <div  class="p-4 text-center shadow-lg m-5 rounded-5" style="background: #FFFFFF;width: 484px;height: 200px;transform: translate(-8px);">
+                            <div class="row" style="border-radius: 30px;margin-top: -9px;">
+                                <div class="col-xxl-3" style="height: 118px;">
+                                    <div class="row">
+                                        <div class="col-xxl-12" style="height: 116px;"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                                    </div>
+                                    <div class="row" style="height: 58px;">
+                                        <div class="col-xxl-4 text-start d-xxl-flex justify-content-xxl-start align-items-xxl-end" style="height: 49px;margin-left: -7px;margin-right: 13px;">
+                                            <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}"><i class="bi bi-eye-fill" style="color: black"></i></a>
+                                        </div>
+                                        <div th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" class="col-xxl-5 text-start d-xxl-flex align-items-xxl-end" style="height: 48px;">
+                                            <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}"><i  class="bi bi-flag" style="color: black"></i></a>
+                                        </div>
+                                        <div th:if="${datosUsuario.id} == ${elemento.usuario?.getId}" class="col-xxl-5 text-start d-xxl-flex align-items-xxl-end" style="height: 48px;">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
+                                                    onclick="borrar(this.getAttribute('data-id'))">
+                                                <i th:id="'megusta'+${elemento.id}" class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h3 style="text-align: left;" th:text="${elemento.titulo}"></h3>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="height: 103px;">
+                                        <div class="col" style="text-align: left;">
+                                            <p th:text="${elemento.texto}"></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xxl-9" style="text-align: right;">
+                                            <p th:id="'likes'+${elemento.id}" style="color: #1E1E1E; margin-bottom: -10px" th:text="${elemento.likes}"></p>
+                                        </div>
+                                        <div class="col">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
+                                                    onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                                <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up" th:id="'megusta'+${elemento.id}"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </th:block>

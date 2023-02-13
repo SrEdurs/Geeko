@@ -13,7 +13,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
   <!-- Estilos personalizados -->
-  <link href="../../static/css/customIsa.css" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
 
   <!-- Bootstrap icons  -->
   <link rel="icon" th:href="@{/imagenes/geekoico.ico}">
@@ -92,114 +92,144 @@
   </div>
 </nav>
 <div class="container-fluid">
+  <form role="form" th:object="${datosUsuario}" method="post">
   <div class="row">
     <article class="col-9">
       <section>
-        <div class="card align-items-center">
-          <div class="cardpago">
-            <div class="card-bodydire">
-                <div class="form-group">
-                  <label for="name">Nombre</label>
-                  <input type="text" name="custName" class="form-control">
-                </div>
-              <div class="form-group">
-                <label for="lastname">Apellidos</label>
-                <input type="text" name="custLastname" class="form-control">
+        <div class="card align-items-center" style="height: 500px">
+          <div class="cardpago" style="height: 500px;width: 200px">
+            <div class="card-bodypago" style="height: 500px;width: 600px">
+              <div id="smart-button-container" style="margin-top: 25px">
+                <div style="text-align: center;margin-top: 25px"><label style="margin-top: 100px" for="description"> </label><input readonly th:field="${datosProducto.titulo}" type="text" name="descriptionInput" id="description" maxlength="127" value=""></div>
+                <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
+                <div style="text-align: center"><label for="amount"> </label><input readonly th:field="${datosProducto.precio}" name="amountInput" type="number" id="amount" value="" ><span> EUR</span></div>
+                <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
+                <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
+                <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
+                <div style="text-align: center; margin-top: 0.625rem;" id="paypal-button-container"></div>
               </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" name="custEmail" class="form-control">
-                </div>
-              <div class="form-group">
-                <label for="address">Dirección</label>
-                <input type="text" name="custAddress" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="city">Población</label>
-                <input type="text" name="custCity" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="postalcode">CP</label>
-                <input type="text" name="custPC" size="5" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="phone">Teléfono</label>
-                <input type="text" name="custPhone" size="12" class="form-control">
-              </div>
-              <div class="form-group">
-                <input type="submit" id="save" class="btn btn-success" value="Guardar">
-              </div>
-            </div>
-              <p> </p>
-        <div class="card align-items-center">
-          <div class="cardpago">
-            <div class="card-bodypago">
-                <div class="form-group">
-                  <span class="paymentErrors alert-danger"></span>
-                  <form action="process.php" method="POST" id="paymentForm">
-                  <label>Número de tarjeta</label>
-                  <input type="text" name="cardNumber" size="20" autocomplete="off" id="cardNumber" class="form-control" />
-                </div>
-                <div class="row">
-                  <div class="col-xs-4">
-                    <div class="form-group">
-                      <label>CVC</label>
-                      <input type="text" name="cardCVC" size="3" autocomplete="off" id="cardCVC" class="form-control" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-10">
-                    <div class="form-group">
-                      <label>Fecha Exp. (MM/AAAA)</label>
-                      <div class="col-xs-5">
-                        <input type="text" name="cardExpMonth" placeholder="MM" size="2" id="cardExpMonth" class="form-control" />
-                      </div>
-                      <div class="col-xs-5">
-                        <input type="text" name="cardExpYear" placeholder="AAAA" size="4" id="cardExpYear" class="form-control" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="submit" id="makePayment" class="btn btn-success" value="Pagar">
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-    </article>
-    <article class="col col-3">
-      <h4 class="text-white" style="margin-left: 40px;">Podría interesarte</h4>
-      <p></p>
-      <section>
-        <div class="row row-cols-1">
-          <div class="card cardprodint">
-            <img src="../../static/imagenes/series/tlouserie.jpg" class="card-img-toppdint img-fluid">
-            <h6 class="card-title">'The last of us'</h6>
-          </div>
-          <div class="card cardprodint">
-            <img src="../../static/imagenes/series/hill.jpg" class="card-img-toppdint img-fluid">
-            <h6 class="card-title">'La maldición de Hill House'</h6>
-          </div>
-          <div class="card cardprodint">
-            <img src="../../static/imagenes/pelis/alien.jpg" class="card-img-toppdint img-fluid">
-            <h6 class="card-title">Saga 'Alien' BluRay - 39.99€</h6>
-          </div>
-        </div>
-      </section>
-    </article>
+              <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
+              <script>
+                function initPayPalButton() {
+                  var description = document.querySelector('#smart-button-container #description');
+                  var amount = document.querySelector('#smart-button-container #amount');
+                  var descriptionError = document.querySelector('#smart-button-container #descriptionError');
+                  var priceError = document.querySelector('#smart-button-container #priceLabelError');
+                  var invoiceid = document.querySelector('#smart-button-container #invoiceid');
+                  var invoiceidError = document.querySelector('#smart-button-container #invoiceidError');
+                  var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv');
 
+                  var elArr = [description, amount];
+
+                  if (invoiceidDiv.firstChild.innerHTML.length > 1) {
+                    invoiceidDiv.style.display = "block";
+                  }
+
+                  var purchase_units = [];
+                  purchase_units[0] = {};
+                  purchase_units[0].amount = {};
+
+                  function validate(event) {
+                    return event.value.length > 0;
+                  }
+
+                  paypal.Buttons({
+                    style: {
+                      color: 'blue',
+                      shape: 'pill',
+                      label: 'paypal',
+                      layout: 'vertical',
+
+                    },
+
+                    onInit: function (data, actions) {
+                      actions.disable();
+
+                      if(invoiceidDiv.style.display === "block") {
+                        elArr.push(invoiceid);
+                      }
+
+                      elArr.forEach(function (item) {
+                        item.addEventListener('keyup', function (event) {
+                          var result = elArr.every(validate);
+                          if (result) {
+                            actions.enable();
+                          } else {
+                            actions.disable();
+                          }
+                        });
+                      });
+                    },
+
+                    onClick: function () {
+                      if (description.value.length < 1) {
+                        descriptionError.style.visibility = "visible";
+                      } else {
+                        descriptionError.style.visibility = "hidden";
+                      }
+
+                      if (amount.value.length < 1) {
+                        priceError.style.visibility = "visible";
+                      } else {
+                        priceError.style.visibility = "hidden";
+                      }
+
+                      if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") {
+                        invoiceidError.style.visibility = "visible";
+                      } else {
+                        invoiceidError.style.visibility = "hidden";
+                      }
+
+                      purchase_units[0].description = description.value;
+                      purchase_units[0].amount.value = amount.value;
+
+                      if(invoiceid.value !== '') {
+                        purchase_units[0].invoice_id = invoiceid.value;
+                      }
+                    },
+
+                    createOrder: function (data, actions) {
+                      return actions.order.create({
+                        purchase_units: purchase_units,
+                      });
+                    },
+
+                    onApprove: function (data, actions) {
+                      return actions.order.capture().then(function (orderData) {
+
+                        // Full available details
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                        // Show a success message within this page, e.g.
+                        const element = document.getElementById('paypal-button-container');
+                        element.innerHTML = '';
+                        element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+
+                      });
+                    },
+
+                    onError: function (err) {
+                      console.log(err);
+                    }
+                  }).render('#paypal-button-container');
+                }
+                initPayPalButton();
+              </script>
+            </div>
+          </div>
+        </div>
+      </section>
+    </article>
   </div>
+  <div class="row" style="height: 100px">
+    <div class="col" style="margin-top: 100px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Exito</button></div>
+  </div>
+  </form>
 </div>
 <!-- Optional JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
+
 <footer class="text-center mt-5 text-white">
   <!-- Grid container -->
   <div class=" pt-2">
@@ -267,7 +297,12 @@
     © 2023 Copyright:
     <a class="text-white" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ%22%3E">Geeko</a>
   </div>
-  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+          integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+          integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+          crossorigin="anonymous"></script>
   <!-- Copyright -->
 </footer>
 </body>

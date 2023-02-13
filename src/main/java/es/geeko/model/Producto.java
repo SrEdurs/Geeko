@@ -37,25 +37,25 @@ public class Producto {
     private int puntuacion;
 
     @Column(name="videojuego")
-    private int videojuego;
+    private Integer videojuego;
 
     @Column(name="libro")
-    private int libro;
+    private Integer libro;
 
     @Column(name="serie")
-    private int serie;
+    private Integer serie;
 
     @Column(name="pelicula")
-    private int pelicula;
+    private Integer pelicula;
 
     @Column(name="reportado", length = 1)
     private int reportado;
 
     @Column(name="activo", length = 1, nullable = false)
-    private int activo;
+    private Integer activo;
 
     @Column(name="geeko", length = 1, nullable = false)
-    private int geeko = 0;
+    private Integer geeko = 0;
 
 
     @Column(name="fechaSubida")

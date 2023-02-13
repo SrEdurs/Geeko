@@ -6,6 +6,8 @@ import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
 import es.geeko.repository.ProductoRepository;
+import es.geeko.repository.ReporteRepository;
+import es.geeko.service.ComentarioService;
 import es.geeko.service.ProductoService;
 import es.geeko.service.TematicaService;
 import es.geeko.service.UsuarioService;
@@ -27,13 +29,18 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     private final ProductoRepository productoRepository;
     private final UsuarioService usuarioService;
     private final TematicaService tematicaService;
+    private final ComentarioService comentarioService;
+    private final ReporteRepository reporteRepository;
 
 
-    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService, TematicaService tematicaService) {
+    public AppProductosController(ProductoService service, ProductoRepository productoRepository, UsuarioService usuarioService, TematicaService tematicaService, ComentarioService comentarioService,
+                                  ReporteRepository reporteRepository) {
         this.productoService = service;
         this.productoRepository = productoRepository;
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
+        this.comentarioService = comentarioService;
+        this.reporteRepository = reporteRepository;
     }
 
 
@@ -117,9 +124,23 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             productoDto.setGeeko(1);
         }
 
-        if(productoDto.getLibro() == 0 && productoDto.getSerie()== 0 && productoDto.getPelicula()== 0 && productoDto.getVideojuego()== 0 ){
-
+        if(productoDto.getLibro() == null){
+            productoDto.setLibro(0);
+        }
+        if(productoDto.getVideojuego() == null){
+            productoDto.setVideojuego(0);
+        }
+        if(productoDto.getSerie() == null){
+            productoDto.setSerie(0);
+        }
+        if(productoDto.getPelicula() == null){
+            productoDto.setPelicula(0);
+        }
+        if(productoDto.getLibro() == 0 && productoDto.getVideojuego() == 0 && productoDto.getSerie() == 0 && productoDto.getPelicula() == 0){
             productoDto.setLibro(1);
+        }
+        if(productoDto.getGeeko() == null){
+            productoDto.setGeeko(0);
         }
 
         this.productoService.guardar(productoDto);
@@ -132,7 +153,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         usuarioSesion(interfazConPantalla);
 
-        final List<Comentario> listaComentarios = this.productoService.encuentraPorId(id).get().getComentario();
+        final List<Comentario> listaComentarios = this.comentarioService.getRepo().findComentariosByProductoIdAndActivoIs(id,1);
         interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
 
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
@@ -153,18 +174,15 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
 
         ProductoDto editar = productoDto.get();
-        if(authentication.getAuthorities().size() > 1){
-            editar.setGeeko(1);
-        }
 
         interfazConPantalla.addAttribute("datosProducto", editar);
         System.out.println(editar.getGeeko());
-        return "productos/editproducto";
+        return "productos/crearproducto";
     }
 
     @PostMapping("/productos/edit/{idpro}")
@@ -180,9 +198,30 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         ProductoDto productoDtoGuardar = new ProductoDto();
         productoDtoGuardar.setId(id);
-        if(authentication.getAuthorities().size() > 1){
-            productoDtoGuardar.setGeeko(1);
+
+        if(productoDtoEntrada.getVideojuego() == null){
+            productoDtoEntrada.setVideojuego(0);
         }
+        if(productoDtoEntrada.getLibro() == null){
+            productoDtoEntrada.setLibro(0);
+        }
+        if(productoDtoEntrada.getSerie() == null){
+            productoDtoEntrada.setSerie(0);
+        }
+        if(productoDtoEntrada.getPelicula() == null){
+            productoDtoEntrada.setPelicula(0);
+        }
+        if(productoDtoEntrada.getLibro() == 0 && productoDtoEntrada.getVideojuego() == 0 && productoDtoEntrada.getSerie() == 0 && productoDtoEntrada.getPelicula() == 0){
+            productoDtoEntrada.setLibro(1);
+        }
+        if(productoDtoEntrada.getGeeko() == null){
+            productoDtoEntrada.setGeeko(0);
+        }
+        if(productoDtoEntrada.getActivo() == null){
+            productoDtoEntrada.setActivo(1);
+        }
+
+
         productoDtoGuardar.setTitulo(productoDtoEntrada.getTitulo());
         productoDtoGuardar.setImagen(productoDtoEntrada.getImagen());
         productoDtoGuardar.setDescripcion(productoDtoEntrada.getDescripcion());
@@ -199,6 +238,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         productoDtoGuardar.setComentario(productoDtoEntrada.getComentario());
         productoDtoGuardar.setTematica(productoDtoEntrada.getTematica());
         productoDtoGuardar.setProductosReportados(productoDtoEntrada.getProductosReportados());
+        productoDtoGuardar.setGeeko(productoDtoEntrada.getGeeko());
         this.productoService.guardar(productoDtoGuardar);
 
         return String.format("redirect:/productos/subidos");
@@ -215,7 +255,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        final List<Producto> listaProductos = productoRepository.findProductosByUsuarioId(attr.getId());
+        final List<Producto> listaProductos = productoRepository.findProductosByUsuarioIdAndActivoIs(attr.getId(),1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
         return "productos/productossubidos";
     }
@@ -228,7 +268,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
-        final List<Producto> listaIntereses = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+
+        final List<Producto> listaIntereses = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaIntereses",listaIntereses);
 
     }

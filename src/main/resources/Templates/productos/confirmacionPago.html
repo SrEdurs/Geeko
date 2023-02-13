@@ -13,7 +13,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
   <!-- Estilos personalizados -->
-  <link href="../../static/css/customIsa.css" type="text/css" rel="stylesheet">
+  <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
 
   <!-- Bootstrap icons  -->
   <link rel="icon" th:href="@{/imagenes/geekoico.ico}">
@@ -95,39 +95,18 @@
   <div class="row">
     <article class="col-9">
       <section>
-        <div class="card align-items-center">
+        <div class="card align-items-center" style="background-color: #d9d9d9">
           <div class="cardpago">
             <div class="card-bodypago2">
               <p class="text-center fs-2">¡Gracias por tu compra!</p>
               <p class="text-center fs-5">Recibirá un correo de confirmación en su email.</p>
               <p class="text-center fs-5">El número de seguimiento será proporcionado por la empresa de mensajería en la mayor brevedad posible.</p>
             </div>
-            <button class="btn btn-primary" style="float: right; margin-right: 210px;">Volver</button>
+            <a th:href="@{/pedidos}" class="btn btn-primary" style="float: right; margin-right: 210px;">Ver tus pedidos</a>
           </div>
         </div>
       </section>
     </article>
-    <article class="col col-3">
-      <h4 class="text-white" style="margin-left: 40px;">Podría interesarte</h4>
-      <p></p>
-      <section>
-        <div class="row row-cols-1">
-          <div class="card cardprodint">
-            <img src="../../static/imagenes/series/tlouserie.jpg" class="card-img-toppdint img-fluid">
-            <h6 class="card-title">'The last of us'</h6>
-          </div>
-          <div class="card cardprodint">
-            <img src="../../static/imagenes/series/hill.jpg" class="card-img-toppdint img-fluid">
-            <h6 class="card-title">'La maldición de Hill House'</h6>
-          </div>
-          <div class="card cardprodint">
-            <img src="../../static/imagenes/pelis/alien.jpg" class="card-img-toppdint img-fluid">
-            <h6 class="card-title">Saga 'Alien' BluRay - 39.99€</h6>
-          </div>
-        </div>
-      </section>
-    </article>
-
   </div>
 </div>
 <!-- Optional JavaScript -->

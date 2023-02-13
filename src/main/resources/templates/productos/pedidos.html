@@ -90,151 +90,28 @@
             <div class="row row-cols-1 " style="max-width: 500px;margin-right: 5px;">
                 <h3 style="color: aliceblue;" class="mb-4">Compras</h3>
                 <!--A partir de aqui se repitiria-->
+                <th:block th:each="elemento : ${pedidos}">
                 <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
                     <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
                        style="color: black;text-decoration: none;">
                         <div class="row g-0 ">
                             <div class="col-md-4">
-                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
+                                <img th:src="${elemento.producto?.getImagen}" style="width: 100px; height: 100px;border-radius: 50%;"
                                      class="img-fluid p-2 fotosPedidos" alt="...">
                             </div>
                             <div class="col-md-6 ">
                                 <div class=" p-2">
-                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
-                                        <h2 class="mt-1">25€</h2>
+                                    <h4 class="card-title" style="font-weight: bold;" th:text="${elemento.producto?.getTitulo}"></h4>
+                                        <h2 class="mt-1" th:text="${elemento.producto?.getPrecio}"></h2>
                                 </div>
                             </div>
 
-                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
-                                <form>
-                                    <p class="clasificacion">
-                                        <input id="radio1" type="radio" name="estrellas" value="5"><!--
-                                  --><label for="radio1">★</label><!--
-                                  --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-                                  --><label for="radio2">★</label><!--
-                                  --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-                                  --><label for="radio3">★</label><!--
-                                  --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-                                  --><label for="radio4">★</label><!--
-                                  --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-                                  --><label for="radio5">★</label>
-                                    </p>
-                                </form>
-                            </div>
                         </div>
                     </a>
                 </div>
+                </th:block>
                 <!--Hasta aqui-->
-                <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
-                    <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
-                       style="color: black;text-decoration: none;">
-                        <div class="row g-0 ">
-                            <div class="col-md-4">
-                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
-                                     class="img-fluid p-2 fotosPedidos" alt="...">
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class=" p-2">
-                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
-                                    <h2 class="mt-1">25€</h2>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
-                                <form>
-                                    <p class="clasificacion">
-                                        <input id="radio1" type="radio" name="estrellas" value="5"><!--
-                                  --><label for="radio1">★</label><!--
-                                  --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-                                  --><label for="radio2">★</label><!--
-                                  --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-                                  --><label for="radio3">★</label><!--
-                                  --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-                                  --><label for="radio4">★</label><!--
-                                  --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-                                  --><label for="radio5">★</label>
-                                    </p>
-                                </form>
-                            </div>
-                        </div>
-                    </a>
-                </div>
             </div>
-            <div class="row row-cols-1" style="max-width: 500px;">
-                <h3 style="color: aliceblue;" class="mb-4">Ventas</h3>
-                <!--A partir de aqui se repitiria-->
-                <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
-                    <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
-                       style="color: black;text-decoration: none;">
-                        <div class="row g-0 ">
-                            <div class="col-md-4">
-                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
-                                     class="img-fluid p-2 fotosPedidos" alt="...">
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class=" p-2">
-                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
-                                        <h2 class="mt-1">25€</h2>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
-                                <form>
-                                    <p class="clasificacion">
-                                        <input id="radio6" type="radio" name="estrellas" value="5"><!--
-                                  --><label for="radio6">★</label><!--
-                                  --><input id="radio7" type="radio" name="estrellas" value="4"><!--
-                                  --><label for="radio7">★</label><!--
-                                  --><input id="radio8" type="radio" name="estrellas" value="3"><!--
-                                  --><label for="radio8">★</label><!--
-                                  --><input id="radio9" type="radio" name="estrellas" value="2"><!--
-                                  --><label for="radio9">★</label><!--
-                                  --><input id="radio10" type="radio" name="estrellas" value="1"><!--
-                                  --><label for="radio10">★</label>
-                                    </p>
-                                </form>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!--Hasta aqui-->
-                <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
-                    <a href="https://campus.eoi.es/ultra/courses/_3307_1/cl/outline"
-                       style="color: black;text-decoration: none;">
-                        <div class="row g-0 ">
-                            <div class="col-md-4">
-                                <img th:src="@{imagenes/videoj/silenthill.jpg}" style="width: 100px; height: 100px;border-radius: 50%;"
-                                     class="img-fluid p-2 fotosPedidos" alt="...">
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class=" p-2">
-                                    <h4 class="card-title" style="font-weight: bold;">Juegos de la Ds</h4>
-                                    <h2 class="mt-1">25€</h2>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2 valoracionPedidos my-auto" style="white-space:nowrap">
-                                <form>
-                                    <p class="clasificacion">
-                                        <input id="radio6" type="radio" name="estrellas" value="5"><!--
-                                  --><label for="radio6">★</label><!--
-                                  --><input id="radio7" type="radio" name="estrellas" value="4"><!--
-                                  --><label for="radio7">★</label><!--
-                                  --><input id="radio8" type="radio" name="estrellas" value="3"><!--
-                                  --><label for="radio8">★</label><!--
-                                  --><input id="radio9" type="radio" name="estrellas" value="2"><!--
-                                  --><label for="radio9">★</label><!--
-                                  --><input id="radio10" type="radio" name="estrellas" value="1"><!--
-                                  --><label for="radio10">★</label>
-                                    </p>
-                                </form>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>

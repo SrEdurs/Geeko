@@ -78,7 +78,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()),1 );
@@ -86,6 +86,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
         if (usuarioDto.isPresent()){
             UsuarioDto attr = usuarioDto.get();
+            UsuarioDto perf = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosPerfil",perf);
             interfazConPantalla.addAttribute("datosUsuario",attr);
             return "usuarios/perfil";
         } else{
@@ -100,7 +102,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
         final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
@@ -113,7 +115,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             UsuarioDto perf = usuarioPerfil.get();
             interfazConPantalla.addAttribute("datosUsuario",attr);
             interfazConPantalla.addAttribute("datosPerfil",perf);
-            return "usuarios/perfilusu";
+            return "usuarios/perfil";
         } else{
             return "error";
         }
@@ -236,6 +238,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         }
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
     }
+
+
 
     public void usuarioSesion(ModelMap interfazConPantalla){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

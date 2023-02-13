@@ -63,18 +63,18 @@ public class HomeController {
             final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()), 1);
             interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
-            final List<Producto> listaProductos = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1, 1);
+            final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1, 1);
             interfazConPantalla.addAttribute("listaProductos", listaProductos);
 
-            final List<Producto> listaProductosParaTi = productoRepository.findProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 0, 1);
+            final List<Producto> listaProductosParaTi = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 0, 1);
             interfazConPantalla.addAttribute("listaProductosParaTi", listaProductosParaTi);
             return "usuarios/inicio";
         }
     }
 
 
-    @GetMapping("/accessDenied")
+    @GetMapping("/accessdenied")
     public String getAccessDeniedPage() {
-        return "accessDeniedPage";
+        return "accessdenied";
     }
 }
