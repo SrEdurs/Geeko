@@ -131,20 +131,20 @@
     <div class="row">
         <div class="col-md-4 col-xxl-5">
 
-            <th:block th:each="elemento : ${comentarios}">
+            <th:block th:each="book,elemento : ${comentarios}">
                 <th:block th:each="elemento2 : ${motivos}">
-                    <div th:id="'reporte'+${elemento.id}">
-                        <div th:id="'borrar'+${elemento.id}">
+                    <div >
+                        <div >
                             <div class="row" style="margin: 18px;">
                                 <div class="col-md-4 col-xxl-9">
                                     <div class="row" style="margin-top: 19px;">
                                         <section class="card mb-3">
                                             <div class="row">
-                                                <div class="col-3"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
+                                                <div class="col-3"><img th:src="${book.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></div>
                                                 <div class="col">
                                                     <div class="card-body">
-                                                        <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
-                                                        <p class="card-text" th:text="${elemento.texto}"></p>
+                                                        <h5 class="card-title" th:text="${book.titulo}" >Título feed</h5>
+                                                        <p class="card-text" th:text="${book.texto}" ></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -152,18 +152,18 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-xxl-1">
-                                    <button th:data-id="${elemento.id}"
+                                    <button }
                                             class="btn btn-primary" data-bss-hover-animate="jello" type="submit"
-                                            onclick="cambiareporte(this.getAttribute('data-id'))" th:id="'reporte'+${elemento.id}"
+                                            onclick="cambiareporte(this.getAttribute('data-id'))"
                                             style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;"
                                             >Descartar</button>
                                     <p></p>
-                                    <button class="btn btn-primary text-center" th:data-id="${elemento.id}"
-                                                   data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'borrar'+${elemento.id}"
+                                    <button class="btn btn-primary text-center"
+                                                   data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'borrar'"
                                                    style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;"
                                     >Eliminar</button>
                                 </div>
-                                <div class="row reporte" style="margin: 18px;" th:text=" 'Reporte de: ' + ${elemento2.usuario?.getNick} + ', ' + ${elemento2.motivo}"></div>
+                                <div class="row reporte" style="margin: 18px;" th:text=" 'Reporte de: ' + ${book.usuario} + ', ' + ${elemento.index?.getMotivo}"></div>
                             </div>
                         </div>
                     </div>
