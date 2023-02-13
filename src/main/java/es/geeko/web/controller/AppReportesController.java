@@ -225,16 +225,29 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
 
     @GetMapping("/cambiareporte/{id}")
     public ResponseEntity<String> cambiaReporte(@PathVariable("id") Integer id){
-        // Buscamos el comentario a procesar
 
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
-        if(coment.isPresent()){
-            List<Reporte> reportes = new ArrayList<>();
+        Optional<Usuario> usu = usuarioService.encuentraPorIdEntity(id);
+        Optional<Producto> pro = productoService.encuentraPorIdEntity(id);
 
+        if(coment.isPresent()){
             coment.get().setReportado(0);
             coment.get().setComentariosReportados(null);
             comentarioRepository.save(coment.get());
         }
+
+        if(usu.isPresent()){
+            usu.get().setReportado(0);
+            usu.get().setUsuariosReportados(null);
+            usuarioRepository.save(usu.get());
+        }
+
+        if(pro.isPresent()){
+            pro.get().setReportado(0);
+            pro.get().setProductosReportados(null);
+            productoRepository.save(pro.get());
+        }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
