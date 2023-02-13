@@ -119,6 +119,8 @@ body{
 .cardproduperfil{
    width: 270px;
    height: 360px;
+   justify-content: center;
+   align-items: center;
 }
 
 .card-img-topperfil{
