@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -26,11 +27,8 @@ public class Transaccion {
     @Column(name = "idVendedor", nullable = false)
     private int idVendedor;
 
-    @Column(name= "valoracionTransaccion")
-    private double valoracionTransaccion;
-
     @Column(name = "fecha", nullable = false)
-    private Date Fecha;
+    private Date Fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
     @OneToOne
     @JoinColumn(name = "Productos_id")

@@ -92,6 +92,7 @@
   </div>
 </nav>
 <div class="container-fluid">
+  <form role="form" th:object="${datosUsuario}" method="post">
   <div class="row">
     <article class="col-9">
       <section>
@@ -222,6 +223,10 @@
       </section>
     </article>
   </div>
+  <div class="row" style="height: 100px">
+    <div class="col" style="margin-top: 100px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Exito</button></div>
+  </div>
+  </form>
 </div>
 <!-- Optional JavaScript -->
 

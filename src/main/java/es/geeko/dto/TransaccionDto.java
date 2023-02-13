@@ -18,7 +18,6 @@ public class TransaccionDto {
     private long id;
     private int idCliente;
     private int idVendedor;
-    private double valoracionTransaccion;
     private Producto producto;
     private List<Usuario> usuarios;
 
