@@ -249,22 +249,16 @@
                     </form>
                 </div>
                 <div class="col" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
-                    <div class="row" style="margin-top: 44px;">
-                        <div class="col">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col produpodint">
                             <h2 style="text-align: center;color: rgb(255,255,255);">Podría interesarte</h2>
                         </div>
                     </div>
-                    <div class="row" style="height: 343.797px;padding-top: 0px;margin-top: 2px;padding-bottom: 20px;margin-bottom: 22px; margin-left: 13px;">
-                        <th:block th:each="elemento : ${listaProductos}">
-                            <div class="card cardnovedad">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="card-body cardprodu">
-                                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
-                                            <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="row">
+                        <th:block th:each="elemento : ${listaIntereses}">
+                            <div class="card-body cardproduPodint">
+                                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-top"></a>
+                                <h4 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h4>
                             </div>
                         </th:block>
                     </div>

@@ -160,43 +160,6 @@
                     <th:block th:if="${#lists.isEmpty(listaComentarios)}">
                         <h4 style="color: #FFFFFF; margin-left: 150px;margin-top: 20px">No hay comentarios, escribe el primero!</h4>
                     </th:block>
-                <!--<th:block th:each="elemento : ${listaComentarios}">
-                    <div class="row" style="margin-top: 19px; margin-left: 150px">
-                        <div class="col-7">
-                        <section class="card">
-                            <div class="row">
-                                <div class="col-3">
-                                    <th:block th:if="${elemento.usuario?.getId} != ${datosUsuario.id}"><a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></a></th:block>
-                                    <th:block th:if="${elemento.usuario?.getId} == ${datosUsuario.id}"><img th:src="${elemento.imagen}" style="width: 5rem; border-radius: 15px" class="mt-1" alt=""></th:block>
-                                </div>
-                                <div class="col">
-                                    <div class="card-body">
-                                        <h5 class="card-title" th:text="${elemento.titulo}">Título feed</h5>
-                                        <p class="card-text" th:text="${elemento.texto}"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 3px;height: 54px; margin-left: 150px">
-                        <div class="col" style="text-align: left;margin-top: 22px;">
-                            <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}"><img th:if="${datosUsuario.id} != ${elemento.usuario?.getId}" th:src="@{/iconos/flag.png}" width="35" height="35"></a>
-                        </div>
-                        <div class="col" style="text-align: right;margin-top: 22px;">
-                            <h4 th:id="'likes'+${elemento.id}" style="color: rgb(255,255,255);margin-left: 109px;margin-right: 11px;" th:text="${elemento.likes}"></h4>
-                        </div>
-                        <div class="col" style="padding-left: 6px; margin-right: 180px">
-
-                            <button style="background-color: rgba(255,255,255,0); border: 0px;" th:data-id="${elemento.id}"
-                                    onclick="cambiamegusta(this.getAttribute('data-id'))">
-
-                                <img th:id="'megusta'+${elemento.id}" th:src="@{/iconos/like.png}" width="35" height="35" style="margin-right: 0px;margin-top: 13px;margin-left: -13px;">
-                            </button>
-
-                        </div>
-                    </div>
-                </th:block>-->
                 <th:block th:each="elemento : ${listaComentarios}">
                     <div th:id="'borrar'+${elemento.id}">
                         <div  class="p-4 text-center shadow-lg m-5 rounded-5" style="background: #FFFFFF;width: 484px;height: 200px;transform: translate(-8px);">

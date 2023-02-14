@@ -99,6 +99,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     @GetMapping("/productos/crearproducto")
     public String vistaCrearProducto(ModelMap interfazConPantalla){
 
+
         usuarioSesion(interfazConPantalla);
 
         final ProductoDto productoDto = new ProductoDto();
@@ -107,6 +108,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
         final List<Tematica> tematicas = tematicaService.buscarEntidades();
         interfazConPantalla.addAttribute("listaTematicas",tematicas);
+
 
         return "productos/crearproducto";
 

@@ -37,7 +37,7 @@
     <script>
         function borrar(id) {
             $.ajax(
-                {url: "/borrar/"+id,
+                {url: "/suspender/"+id,
                     success: function(resp) {
                         console.log(resp)
                         document.getElementById("borrar"+id).innerText=resp
@@ -157,7 +157,7 @@
                                                 >Descartar</button>
                                         <p></p>
                                         <button class="btn btn-primary text-center"
-                                                       data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'borrar'+${elemento.id}"
+                                                       data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'suspender'+${elemento.id}"
                                                        style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;" th:data-id="${elemento.id}"
                                         >Eliminar</button>
                                     </div>
@@ -177,7 +177,7 @@
                             <div class="col-md-4 col-xxl-8">
                                 <div class="card-group">
                                     <div class="card" style="height: 183.797px;border-style: none;border-radius: 17px 0px 0px 6px;margin-bottom: 17px;margin-left: 17px;margin-top: 14px;margin-right: 18px;--bs-body-bg: rgba(255,255,255,0);background: #1e1e1e;">
-                                        <img class="card-img-top w-100 d-block" width="284" height="278" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="${usu.avatar}">
+                                        <img class="card-img-top w-100 d-block"  width="284" height="200" style="height: 199px;border-color: rgba(33,37,41,0);border-radius: 50px;" th:src="${usu.avatar}">
                                         <p style="color: #FFFFFF" th:align="center" th:text="${usu.nick}"></p>
                                     </div>
                                     <th:block th:each="elementale : ${usu.usuariosReportados}">
@@ -192,7 +192,7 @@
                                 >Descartar</button>
                                 <p></p>
                                 <button class="btn btn-primary text-center"
-                                        data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'borrar'+${usu.id}"
+                                        data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'suspender'+${usu.id}"
                                         style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;" th:data-id="${usu.id}"
                                 >Eliminar</button>
                             </div>
@@ -225,7 +225,7 @@
                                 >Descartar</button>
                                 <p></p>
                                 <button class="btn btn-primary text-center"
-                                        data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'borrar'+${pro.id}"
+                                        data-bss-hover-animate="jello" type="submit" onclick="borrar(this.getAttribute('data-id'))" th:id="'suspender'+${pro.id}"
                                         style="background: #1e1e1e;border-width: 5px;border-color: #fa5959;border-radius: 38px;" th:data-id="${pro.id}"
                                 >Eliminar</button>
                             </div>
