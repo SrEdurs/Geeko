@@ -9,14 +9,10 @@ import java.util.Optional;
 public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
 
     Optional<Usuario> findUsuarioByEmilio(String emilio);
-
     Usuario getUsuarioByIdIs(int id);
-
     List<Usuario> findUsuariosByIdIs(int id);
 
     //Usuarios reportados
     List<Usuario> findUsuariosByReportadoIsAndActivoIs(int reportado, int activo);
-
-    Usuario deleteUsuariosByIdIs(int id);
 
 }
