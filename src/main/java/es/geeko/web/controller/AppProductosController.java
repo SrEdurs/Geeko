@@ -172,7 +172,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             usuarioSesionConIntereses(interfazConPantalla);
 
             //Lista de comentarios del producto
-            final List<Comentario> listaComentarios = this.comentarioService.getRepo().findComentariosByProductoIdAndActivoIs(id, 1);
+            final List<Comentario> listaComentarios = this.comentarioService.getRepo().findComentariosByProductoIdAndActivoIsOrderByIdDesc(id, 1);
             interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
             //Datos del producto

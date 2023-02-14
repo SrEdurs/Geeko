@@ -66,11 +66,10 @@ public class HomeController {
         }
 
         if(attr.getTematicas().isEmpty()){
-            return String.format("redirect:/cuestionario");
-        } else {
 
-            final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivo(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()), 1);
-            interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
+            return String.format("redirect:/cuestionario");
+
+        } else {
 
             final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1, 1);
             interfazConPantalla.addAttribute("listaProductos", listaProductos);

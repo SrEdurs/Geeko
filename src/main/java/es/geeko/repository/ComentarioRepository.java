@@ -9,7 +9,7 @@ import java.util.List;
 public interface ComentarioRepository  extends JpaRepository<Comentario,Integer> {
 
     //Lista de comentarios de un usuario
-    List<Comentario> findComentarioByUsuarioAndActivo(Usuario usuario, int activo);
+    List<Comentario> findComentarioByUsuarioAndActivoOrderByIdDesc(Usuario usuario, int activo);
 
     //Comentario y lista por ID
     Comentario findComentariosByIdIs(int id);
@@ -19,5 +19,5 @@ public interface ComentarioRepository  extends JpaRepository<Comentario,Integer>
     List<Comentario> findComentariosByReportadoIsAndActivoIs(int reportado, int activo);
 
     //Comentarios de un producto
-    List<Comentario> findComentariosByProductoIdAndActivoIs(int id, int activo);
+    List<Comentario> findComentariosByProductoIdAndActivoIsOrderByIdDesc(int id, int activo);
 }
