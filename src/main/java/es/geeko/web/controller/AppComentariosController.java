@@ -44,11 +44,10 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     @GetMapping("/crearcomentario/{id}")
     public String vistaCrearComentario(@PathVariable("id") Integer id,ModelMap interfazConPantalla){
 
-        //Creamos el DTO y lo mandamos a la pantalla
+        //Creamos el DTO del nuevo comentario y lo mandamos a la pantalla
         final ComentarioDto comentarioDto = new ComentarioDto();
         comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(id));
         interfazConPantalla.addAttribute("datosComentario",comentarioDto);
-
 
         //Usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,15 +60,17 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         //Producto al que va unido el comentario
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
 
-        //Si el usuario de la sesión está presente, mostramos por pantalla (Thymeleaf no entiende el Optional)
-        if(usuarioDto.isPresent()) {
+        //Si el producto está presente, mostramos por pantalla (Thymeleaf no entiende el Optional)
+        if(producto.isPresent()) {
 
             ProductoDto productoDto =  producto.get();
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("listaProductos",listaProductos);
             interfazConPantalla.addAttribute("datosUsuario", attr);
             interfazConPantalla.addAttribute("datosProducto",productoDto);
+
             return "social/crearcomentario";
+
         } else{
             return "error";
         }
@@ -77,7 +78,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     }
 
     @PostMapping("/crearcomentario/{id}")
-    public String guardarComentario(@PathVariable("id") Integer id, ComentarioDto comentarioDto, ModelMap interfazConPantalla) throws Exception {
+    public String guardarComentario(@PathVariable("id") Integer id, ComentarioDto comentarioDto, ModelMap interfazConPantalla) {
 
         //Datos de usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -97,7 +98,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         comentarioRepository.save(comentario);
 
         //Redireccionamos al producto al que pertenece el comentario
-        return String.format("redirect:/productos/{id}", id);
+        return "redirect:/productos/" + id;
 
     }
 

@@ -246,10 +246,32 @@ input[type="radio"]:checked ~ label {
    color: #8d92bb;
 }
 
-input[id="Librobox"]:checked{
-   opacity: 0;
-}
 
 input[id="Librobox"]:checked ~ label{
    color: #8d92bb;
+}
+
+input[id="Peliculabox"]:checked ~ label{
+   color: #8d92bb;
+}
+
+input[id="Seriebox"]:checked ~ label{
+   color: #8d92bb;
+}
+
+input[id="Videojuegobox"]:checked ~ label{
+   color: #8d92bb;
+}
+
+input[id="pogeeko"]:checked ~ label{
+   color: #8d92bb;
+}
+
+input[id="geeko"]:checked ~ label{
+   color: #8d92bb;
+}
+
+input[type="checkbox"]{
+   display: none;
+
 }

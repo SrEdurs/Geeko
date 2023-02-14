@@ -76,8 +76,10 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
             interfazConPantalla.addAttribute("datosReporte",reporteDto);
             interfazConPantalla.addAttribute("datosUsuario", attr);
             interfazConPantalla.addAttribute("datosComentario", comen);
+
             return "reportes/reportarcomentario";
         } else{
+
             return "error";
         }
     }
@@ -105,7 +107,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         comentario.setReportado(1);
         comentarioRepository.save(comentario);
 
-        return String.format("redirect:/perfil");
+        return "redirect:/productos/" + comentario.getProducto().getId();
     }
 
     @GetMapping("/reportarusuario/{id}")
@@ -159,7 +161,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         usuario.setReportado(1);
         usuarioRepository.save(usuario);
 
-        return String.format("redirect:/perfil");
+        return "redirect:/perfil";
     }
 
     @GetMapping("/reportarproducto/{id}")
@@ -213,7 +215,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         producto.setReportado(1);
         productoRepository.save(producto);
 
-        return String.format("redirect:/perfil");
+        return "redirect:/perfil";
     }
 
     @GetMapping("/panelreportes")
