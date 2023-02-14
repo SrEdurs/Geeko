@@ -21,7 +21,6 @@ public class ComentarioDto {
     private int id;
     private String titulo;
     private String texto;
-    private String imagen;
     private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private int likes;
     private int reportado = 0;
