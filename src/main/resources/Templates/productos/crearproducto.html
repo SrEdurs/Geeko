@@ -20,14 +20,14 @@
         <div class="row w-100">
             <div class="col">
                 <a th:href="@{/home}" class="navbar-brand">
-                    <img th:src="@{/imagenes/logo.png}" alt="" />
+                    <img th:src="@{/imagenes/logo.png}" alt=""/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
                         aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
+            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones" style="margin-top: 29px">
                 <form action="" class="d-flex w-100" role="search">
                     <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
                            aria-label="Search">
@@ -39,43 +39,58 @@
             <div class="col">
                 <th:block th:object="${datosUsuario}">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(30,30,30,0);border: 0px">
-                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}" height="40px" width="40px" object-position="center"
-                                                         object-fit="cover" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                style="background-color: rgba(30,30,30,0);border: 0px; padding-top: 20px">
+                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}" height="40px" width="40px"
+                                                         object-position="center"
+                                                         object-fit="cover" id="iconoperfil" alt=""
+                                                         style="margin-top: 8px; border-radius: 15px;"></a>
                             <label class="usuario" th:text="${datosUsuario.nick}"></label>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
                             <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
-                            <div sec:authorize="hasRole('ADMIN')" >
-                                <li><a class="dropdown-item" th:href="@{/panelreportes}" style="color: #FA5959">Reportes</a></li>
+                            <div sec:authorize="hasRole('ADMIN')">
+                                <li><a class="dropdown-item" th:href="@{/panelreportes}"
+                                       style="color: #FA5959">Reportes</a></li>
                             </div>
                             <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
                         </ul>
                     </div>
                 </th:block>
             </div>
-            <div class="w-100"></div>
+            <div class="w-100" style="padding-top: 30px"></div>
             <div class="col-2"></div>
             <div class="col text-white">
                 <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-                <a class="social" th:href="@{/home}"><button class="social">INICIO</button></a>
+                <a class="social" th:href="@{/home}">
+                    <button class="social">INICIO</button>
+                </a>
             </div>
             <div class="col text-white" style="margin-bottom: 40px;">
                 <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
-                <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
+                <a class="libros" th:href="@{/productos/libros}">
+                    <button class="libros">LIBROS</button>
+                </a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
-                <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
+                <a class="series" th:href="@{/productos/series}">
+                    <button class="series">SERIES</button>
+                </a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
-                <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
+                <a class="peliculas" th:href="@{/productos/peliculas}">
+                    <button class="peliculas">PELÍCULAS</button>
+                </a>
             </div>
             <div class="col text-white">
                 <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
-                <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
+                <a class="vj" th:href="@{/productos/videojuegos}">
+                    <button class="vj">VIDEOJUEGOS</button>
+                </a>
             </div>
             <div class="col-2"></div>
         </div>
