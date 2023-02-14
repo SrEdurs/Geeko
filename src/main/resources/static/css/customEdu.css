@@ -6,6 +6,10 @@ body{
     padding-bottom: 10px;
 }
 
+.form-control::placeholder {
+ color: #6c757d;
+ }
+
 .btnCC{
    background-color: #1E1E1E;
    border-color: #8D92BB;
