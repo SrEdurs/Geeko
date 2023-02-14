@@ -168,8 +168,8 @@
                                 <div style="max-height: 118px;text-align: center;">
                                     <div class="row">
                                         <div class="col-xl-12" style="max-height: 116px;">
-                                            <img th:src="${elemento.usuario?.getAvatar}" style="width: 5rem; border-radius: 15px"
-                                                 class="mt-4" alt="">
+                                            <a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img th:src="${elemento.usuario?.getAvatar}" style="width: 5rem; border-radius: 15px"
+                                                 class="mt-4" alt=""></a>
                                         </div>
                                     </div>
                                 </div>

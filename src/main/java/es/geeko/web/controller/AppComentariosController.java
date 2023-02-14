@@ -55,7 +55,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
         //Podría interesarte sección derecha
-        final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
+        final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1,1);
 
         //Producto al que va unido el comentario
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);

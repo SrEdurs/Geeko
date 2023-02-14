@@ -9,22 +9,25 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Producto,Integer> {
 
     //Libro
-    List<Producto> findProductosByLibroAndActivoAndGeekoIsOrderById(int libro, int activo, int geeko);
+    List<Producto> findProductosByLibroAndActivoAndGeekoIsOrderByIdDesc(int libro, int activo, int geeko);
 
     //Pelicula
-    List<Producto> findProductosByPeliculaAndActivoAndGeekoIsOrderById(int pelicula, int activo, int geeko);
+    List<Producto> findProductosByPeliculaAndActivoAndGeekoIsOrderByIdDesc(int pelicula, int activo, int geeko);
 
     //Serie
-    List<Producto> findProductosBySerieAndActivoAndGeekoIsOrderById(int serie, int activo, int geeko);
+    List<Producto> findProductosBySerieAndActivoAndGeekoIsOrderByIdDesc(int serie, int activo, int geeko);
 
     //Videojuego
-    List<Producto> findProductosByVideojuegoAndActivoAndGeekoIsOrderById(int videojuego, int activo, int geeko);
+    List<Producto> findProductosByVideojuegoAndActivoAndGeekoIsOrderByIdDesc(int videojuego, int activo, int geeko);
 
     //Te interesa
-    List<Producto> findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(List<Tematica> tematicas, int geeko, int activo);
+    List<Producto> findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(List<Tematica> tematicas, int geeko, int activo);
+
+    //Te interesa home
+    List<Producto> findTop8ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(List<Tematica> tematicas, int geeko, int activo);
 
     //Productos de usuario iniciado
-    List<Producto> findProductosByUsuarioIdAndActivoIs(int id,int activo);
+    List<Producto> findProductosByUsuarioIdAndActivoIsOrderByIdDesc(int id,int activo);
 
     //Producto y lista por ID
     Producto findProductoByIdIs(int id);

@@ -54,29 +54,37 @@ public class HomeController {
     @GetMapping("/home")
     public String getHomePage(ModelMap interfazConPantalla) {
 
+        //DTO del usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        UsuarioDto attr = usuarioDto.get();
-        interfazConPantalla.addAttribute("datosUsuario",attr);
+        //Si está presente, mostramos
+        if(usuarioDto.isPresent()) {
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario", attr);
 
-        if(attr.getActivo() == 0){
-            return String.format("redirect:/baneado");
-        }
+            if (attr.getActivo() == 0) {
+                return "redirect:/baneado";
+            }
 
-        if(attr.getTematicas().isEmpty()){
+            if (attr.getTematicas().isEmpty()) {
 
-            return String.format("redirect:/cuestionario");
+                return "redirect:/cuestionario";
 
-        } else {
+            } else {
 
-            final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1, 1);
-            interfazConPantalla.addAttribute("listaProductos", listaProductos);
+                final List<Producto> listaProductos = productoRepository.findTop8ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
+                interfazConPantalla.addAttribute("listaProductos", listaProductos);
 
-            final List<Producto> listaProductosParaTi = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 0, 1);
-            interfazConPantalla.addAttribute("listaProductosParaTi", listaProductosParaTi);
-            return "usuarios/inicio";
+                final List<Producto> listaProductosParaTi = productoRepository.findTop8ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 0, 1);
+                interfazConPantalla.addAttribute("listaProductosParaTi", listaProductosParaTi);
+
+                return "usuarios/inicio";
+            }
+
+        } else{
+            return "error";
         }
     }
 
