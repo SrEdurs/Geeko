@@ -1,12 +1,10 @@
 package es.geeko.web.controller;
 
 import es.geeko.dto.ComentarioDto;
-import es.geeko.dto.LoginDto;
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
-import es.geeko.model.Tematica;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ComentarioService;
@@ -19,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -47,24 +44,29 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     @GetMapping("/crearcomentario/{id}")
     public String vistaCrearComentario(@PathVariable("id") Integer id,ModelMap interfazConPantalla){
 
+        //Creamos el DTO y lo mandamos a la pantalla
         final ComentarioDto comentarioDto = new ComentarioDto();
         comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(id));
         interfazConPantalla.addAttribute("datosComentario",comentarioDto);
 
 
+        //Usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
+        //Podría interesarte sección derecha
         final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1,1);
-        interfazConPantalla.addAttribute("listaProductos",listaProductos);
 
+        //Producto al que va unido el comentario
         Optional<ProductoDto> producto = productoService.encuentraPorId(id);
 
+        //Si el usuario de la sesión está presente, mostramos por pantalla (Thymeleaf no entiende el Optional)
         if(usuarioDto.isPresent()) {
 
             ProductoDto productoDto =  producto.get();
             UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("listaProductos",listaProductos);
             interfazConPantalla.addAttribute("datosUsuario", attr);
             interfazConPantalla.addAttribute("datosProducto",productoDto);
             return "social/crearcomentario";
@@ -77,12 +79,14 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     @PostMapping("/crearcomentario/{id}")
     public String guardarComentario(@PathVariable("id") Integer id, ComentarioDto comentarioDto, ModelMap interfazConPantalla) throws Exception {
 
+        //Datos de usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
 
+        //Asignación de los datos del nuevo comentario
         Comentario comentario = new Comentario();
         comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
         comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(id));
@@ -92,10 +96,12 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         comentario.setActivo(1);
         comentarioRepository.save(comentario);
 
+        //Redireccionamos al producto al que pertenece el comentario
         return String.format("redirect:/productos/{id}", id);
 
     }
 
+    //Método para borrar un comentario con Javascript
     @GetMapping("/borrar/{id}")
     public ResponseEntity<String> borrar(@PathVariable("id") Integer id){
         // Buscamos el comentario a procesar

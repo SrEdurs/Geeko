@@ -28,9 +28,10 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests()
                 .requestMatchers("/","","/registerUser","/crearcuenta","/saveUser","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**","/bienvenida").permitAll()
-                .requestMatchers("/panelreportes").hasRole("ADMIN")
-                .requestMatchers("/usr").hasAuthority("User")
-                .requestMatchers("/ano").hasAuthority("Annonymous")
+                .requestMatchers("/panelreportes","/cambiareporte/**","/suspender/**").hasRole("ADMIN")
+                .requestMatchers("/perfil","/perfil/**","/cuestionario","/usuarios/edit","/social").hasRole("USER")
+                .requestMatchers("/productos/**","/crearcomentario/**","/borrar/**").hasRole("USER")
+                .requestMatchers("/productos/libros","/crearcomentario/**","/borrar/**").hasRole("USER")
                 .requestMatchers("/common").hasAnyAuthority("Annonymous,User,Admin")
                 .anyRequest().authenticated()
 

@@ -46,6 +46,11 @@ public class HomeController {
         return "logout";
     }
 
+    @GetMapping("/baneado")
+    public String getBanPage() {
+        return "/usuarios/baneado";
+    }
+
     @GetMapping("/home")
     public String getHomePage(ModelMap interfazConPantalla) {
 
@@ -55,6 +60,10 @@ public class HomeController {
 
         UsuarioDto attr = usuarioDto.get();
         interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        if(attr.getActivo() == 0){
+            return String.format("redirect:/baneado");
+        }
 
         if(attr.getTematicas().isEmpty()){
             return String.format("redirect:/cuestionario");

@@ -17,4 +17,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer>{
     //Usuarios reportados
     List<Usuario> findUsuariosByReportadoIsAndActivoIs(int reportado, int activo);
 
+    Usuario deleteUsuariosByIdIs(int id);
+
 }
