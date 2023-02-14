@@ -1,8 +1,5 @@
 package es.geeko.service;
 
-
-import es.geeko.dto.UsuarioDto;
-import es.geeko.model.Usuario;
 import es.geeko.service.mapper.AbstractServiceMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,26 +17,13 @@ public abstract class AbstractBusinessService <E, ID, DTO,  REPO extends JpaRepo
         this.repo = repo;
         this.serviceMapper = mapper;
     }
-    //Lista de todos los DTOs buscarTodos devolvera lista y paginas
+    //Lista de todos los DTOs buscarTodos devolvera lista
     public List<DTO> buscarTodos(){
         return  this.serviceMapper.toDto(this.repo.findAll());
     }
 
     public List<E> buscarEntidades(){
         return  this.repo.findAll();
-    }
-    public Set<E> buscarEntidadesSet(){
-        Set<E> eSet = new HashSet<E>(this.repo.findAll());
-        return  eSet;
-    }
-
-    public Set<DTO> buscarTodosSet(){
-        Set<DTO> dtos = new HashSet<DTO>(this.serviceMapper.toDto(this.repo.findAll()));
-        return  dtos;
-    }
-
-    public Page<DTO> buscarTodos(Pageable pageable){
-        return  repo.findAll(pageable).map(this.serviceMapper::toDto);
     }
 
     //Buscar por id
@@ -61,35 +45,9 @@ public abstract class AbstractBusinessService <E, ID, DTO,  REPO extends JpaRepo
         return serviceMapper.toDto(entidadGuardada);
     }
 
-
-
-    public void  guardar(List<DTO> dtos) throws Exception {
-        Iterator<DTO> it = dtos.iterator();
-
-        // mientras al iterador queda proximo juego
-        while(it.hasNext()){
-            //Obtenemos la password de a entidad
-            //Datos del usuario
-            E e = serviceMapper.toEntity(it.next());
-            repo.save(e);
-        }
-    }
-    //eliminar un registro
-    public void eliminarPorId(ID id){
-        this.repo.deleteById(id);
-    }
     //Obtener el mapper
     public MAPPER getMapper(){return  serviceMapper;}
     //Obtener el repo
     public REPO getRepo(){return  repo;}
 
-   /* public void guardar(Optional<DTO> dto) throws Exception {
-        final E entidad = this.repo.save(dto)  //serviceMapper.toEntity(dto);
-        //Guardo el la base de datos
-        E entidadGuardada =  repo.save(entidad);
-        //Traducir la entidad a DTO para devolver el DTO
-        return serviceMapper.toDto(entidadGuardada);
-
-        //this.repo.findById(id).map(this.serviceMapper::toDto);
-    }*/
 }
