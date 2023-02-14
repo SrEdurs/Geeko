@@ -65,7 +65,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
             ProductoDto productoDto =  producto.get();
             UsuarioDto attr = usuarioDto.get();
-            interfazConPantalla.addAttribute("listaProductos",listaProductos);
+            interfazConPantalla.addAttribute("listaIntereses",listaProductos);
             interfazConPantalla.addAttribute("datosUsuario", attr);
             interfazConPantalla.addAttribute("datosProducto",productoDto);
 
