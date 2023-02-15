@@ -107,9 +107,9 @@
     <div class="col"><a th:href="@{/productos/crearproducto}"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #d9d9d9;border-radius: 38px;color: #1e1e1e;border-width: 5px;border-color: #d9d9d9;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 100.375px;font-weight: bold;">Añadir</button></a></div>
   </div>
   <div class="row">
-    <div class="col-8">
+    <div class="col-12">
       <section>
-        <div class="row row-cols-2 row-cols-md-4 g-5">
+        <div class="row row-cols-2 row-cols-md-6 g-5">
           <th:block th:each="elemento : ${listaProductos}">
             <div class="col">
               <div class="card cardprodu" style="background-color: #1E1E1E; border: 0px">
@@ -120,15 +120,6 @@
           </th:block>
         </div>
       </section>
-    </div>
-    <div class="col-md-6 col-xxl-4" style="margin-top: 0px;">
-      <div class="card" style="border-radius: 49px;height: 461.984px; margin-left: 20px; background: #d9d9d9;">
-        <div class="card-body">
-          <h4 class="card-title" style="text-align: center;font-weight: bold;">Valoración media</h4>
-          <h6 class="text-muted card-subtitle mb-2">Subtitle</h6>
-          <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-        </div>
-      </div>
     </div>
   </div>
 </div>

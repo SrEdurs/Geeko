@@ -44,9 +44,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     public String vistaLibro(ModelMap interfazConPantalla){
 
         //Listas de libros
-        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderById(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderByIdDesc(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderById(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByLibroAndActivoAndGeekoIsOrderByIdDesc(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         //Método para mostrar los datos del usuario de la sesión
@@ -60,9 +60,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     public String vistaPelis(ModelMap interfazConPantalla){
 
         //Listas de peliculas
-        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderById(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderByIdDesc(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderById(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByPeliculaAndActivoAndGeekoIsOrderByIdDesc(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         usuarioSesion(interfazConPantalla);
@@ -74,9 +74,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     public String vistaSerie(ModelMap interfazConPantalla){
 
         //Listas de series
-        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderById(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderByIdDesc(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderById(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosBySerieAndActivoAndGeekoIsOrderByIdDesc(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         usuarioSesion(interfazConPantalla);
@@ -89,9 +89,9 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     public String vistaVideojuegos(ModelMap interfazConPantalla){
 
         //Listas de videojuegos
-        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderById(1,1,0);
+        final List<Producto> listaProductos = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderByIdDesc(1,1,0);
         interfazConPantalla.addAttribute("listaProductos",listaProductos);
-        final List<Producto> listaNovedades = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderById(1,1,1);
+        final List<Producto> listaNovedades = productoRepository.findProductosByVideojuegoAndActivoAndGeekoIsOrderByIdDesc(1,1,1);
         interfazConPantalla.addAttribute("listaNovedades",listaNovedades);
 
         usuarioSesion(interfazConPantalla);
@@ -298,7 +298,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
             //Mostramos los productos de su propiedad
-            final List<Producto> listaProductos = productoRepository.findProductosByUsuarioIdAndActivoIs(attr.getId(), 1);
+            final List<Producto> listaProductos = productoRepository.findProductosByUsuarioIdAndActivoIsOrderByIdDesc(attr.getId(), 1);
             interfazConPantalla.addAttribute("listaProductos", listaProductos);
 
             return "productos/productossubidos";
@@ -336,7 +336,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
-            final List<Producto> listaIntereses = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIs(usuarioDto.get().getTematicas(), 1, 1);
+            final List<Producto> listaIntereses = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
             interfazConPantalla.addAttribute("listaIntereses", listaIntereses);
         }
 

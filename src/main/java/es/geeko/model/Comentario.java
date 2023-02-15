@@ -26,9 +26,6 @@ public class Comentario {
     @Column(name="texto")
     private String texto;
 
-    @Column(name="imagen", length = 200)
-    private String imagen;
-
     @Column(name="fecha")
     private Date fecha;
 
