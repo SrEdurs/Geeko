@@ -51,6 +51,16 @@ public class HomeController {
         return "/usuarios/baneado";
     }
 
+    @GetMapping("/crearcuenta")
+    public String register() {
+        return "usuarios/crearcuenta";
+    }
+
+    @GetMapping("/bienvenida")
+    public String bienvenida(){
+        return "usuarios/bienvenida";
+    }
+
     @GetMapping("/home")
     public String getHomePage(ModelMap interfazConPantalla) {
 

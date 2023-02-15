@@ -48,22 +48,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         this.comentarioService = comentarioService;
     }
 
-    @GetMapping("/crearcuenta")
-    public String register() {
-        return "usuarios/crearcuenta";
-    }
-
-    @GetMapping("/login")
-    public String login(){
-        return "usuarios/login";
-    }
-
-    @GetMapping("/bienvenida")
-    public String bienvenida(){
-        return "usuarios/bienvenida";
-    }
-
-
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute Usuario user, Model model){
         System.out.println("EYYYYYYYY");
@@ -162,7 +146,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         //Guardamos
         this.usuarioService.guardar(attr);
 
-        return "redirect:/perfil";
+        return "redirect:/home";
 
         } else{
             return "error";
