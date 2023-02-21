@@ -260,6 +260,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
         Optional<Usuario> usu = usuarioService.encuentraPorIdEntity(id);
         Optional<Producto> pro = productoService.encuentraPorIdEntity(id);
 
+        System.out.println("HOLA");
         //Si es un comentario
         if(coment.isPresent()){
             coment.get().setReportado(0);
