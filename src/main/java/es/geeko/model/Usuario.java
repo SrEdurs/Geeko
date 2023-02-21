@@ -138,6 +138,14 @@ public class Usuario {
     )
     private List<Usuario> seguidos;
 
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(
+            name="UsuariosChats",
+            joinColumns = @JoinColumn(name="idUsuario"),
+            inverseJoinColumns = @JoinColumn(name="idChat")
+    )
+    private List<Chat> chats;
+
 }
 
 
