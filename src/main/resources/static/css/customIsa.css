@@ -16,7 +16,7 @@ body{
  color: #6c757d;
  }
 
-.container{
+/*.container{
     width: 400px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -28,7 +28,8 @@ body{
     font-weight: bold;
     font-size: 18px;
     color: #1E1E1E;
-}
+}*/
+
 
 .form-group{
     background-col: #D9D9D9;
@@ -58,10 +59,10 @@ body{
    color: #1E1E1E ;
 }
 
-.col{
+/*.col{
    background-color: #1E1E1E;
    color: #D9D9D9;
-}
+}+/
 
 /*.scroll-container {
    display: block;

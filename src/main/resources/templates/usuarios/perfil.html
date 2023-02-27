@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
 <head>
     <meta charset="utf-8">
@@ -69,89 +71,9 @@
 
     </script>
 </head>
-
 <body style="background: #1e1e1e;">
-<nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
-    <div class="container-fluid text-center">
-        <div class="row w-100">
-            <div class="col">
-                <a th:href="@{/home}" class="navbar-brand">
-                    <img th:src="@{/imagenes/logo.png}" alt=""/>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
-                        aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-            <div class="col-7 align-self-center collapse navbar-collapse" id="opciones" style="margin-top: 29px">
-                <form action="" class="d-flex w-100" role="search">
-                    <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
-                           aria-label="Search">
-                    <a style="margin-top: 8px; margin-left: -48px;" type="submit">
-                        <i class="bi bi-search"></i>
-                    </a>
-                </form>
-            </div>
-            <div class="col">
-                <th:block th:object="${datosUsuario}">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                style="background-color: rgba(30,30,30,0);border: 0px; padding-top: 20px">
-                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}" height="40px" width="40px"
-                                                         object-position="center"
-                                                         object-fit="cover" id="iconoperfil" alt=""
-                                                         style="margin-top: 8px; border-radius: 15px;"></a>
-                            <label class="usuario" th:text="${datosUsuario.nick}"></label>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
-                            <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
-                            <div sec:authorize="hasRole('ADMIN')">
-                                <li><a class="dropdown-item" th:href="@{/panelreportes}"
-                                       style="color: #FA5959">Reportes</a></li>
-                            </div>
-                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
-                        </ul>
-                    </div>
-                </th:block>
-            </div>
-            <div class="w-100" style="padding-top: 30px"></div>
-            <div class="col-2"></div>
-            <div class="col text-white">
-                <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-                <a class="social" th:href="@{/home}">
-                    <button class="social">INICIO</button>
-                </a>
-            </div>
-            <div class="col text-white" style="margin-bottom: 40px;">
-                <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
-                <a class="libros" th:href="@{/productos/libros}">
-                    <button class="libros">LIBROS</button>
-                </a>
-            </div>
-            <div class="col text-white">
-                <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
-                <a class="series" th:href="@{/productos/series}">
-                    <button class="series">SERIES</button>
-                </a>
-            </div>
-            <div class="col text-white">
-                <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
-                <a class="peliculas" th:href="@{/productos/peliculas}">
-                    <button class="peliculas">PELÍCULAS</button>
-                </a>
-            </div>
-            <div class="col text-white">
-                <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
-                <a class="vj" th:href="@{/productos/videojuegos}">
-                    <button class="vj">VIDEOJUEGOS</button>
-                </a>
-            </div>
-            <div class="col-2"></div>
-        </div>
-    </div>
-</nav>
+<th:block layout:fragment="nav"></th:block>
+<th:block layout:fragment="contenido">
 <div class="container">
     <div class="row">
         <div th:if="${datosUsuario.id} != ${datosPerfil.id}" class="col-md-4 col-xl-3">
@@ -350,77 +272,8 @@
         </div>
     </div>
 </div>
-<footer class="text-center mt-5 text-white">
-    <!-- Grid container -->
-    <div class=" pt-2">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-            <!-- Facebook -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-white m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-facebook-f"></i
-            ></a>
-
-            <!-- Twitter -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-white m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-twitter"></i
-            ></a>
-
-            <!-- Google -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-white m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-google"></i
-            ></a>
-
-            <!-- Instagram -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-white m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-instagram"></i
-            ></a>
-
-            <!-- Linkedin -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-white m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-linkedin"></i
-            ></a>
-            <!-- Github -->
-            <a
-                    class="btn btn-link btn-floating btn-lg text-white m-1"
-                    href="#!"
-                    role="button"
-                    data-mdb-ripple-color="dark"
-            ><i class="fab fa-github"></i
-            ></a>
-        </section>
-        <!-- Section: Social media -->
-    </div>
-    <!-- Grid container -->
-
-    <!-- Copyright -->
-    <div class="text-center text-white">
-        © 2023 Copyright:
-        <a class="text-white" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Geeko</a>
-    </div>
-    <!-- Copyright -->
-</footer>
-
-
+</th:block>
+<th:block layout:fragment="pie"></th:block>
 </body>
 
 </html>
