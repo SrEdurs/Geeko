@@ -1,69 +1,12 @@
-<!DOCTYPE html>
 <html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="icon" th:href="@{/imagenes/geekoico.ico}">
-    <title>perfil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <!-- Bootstrap icons  -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
-    <link th:href="@{/css/customEdu.css}" type="text/css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
-            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script>
-        function cambiamegusta(id) {
-            // llamar a la funcion del servidor para aumentar el like
-            $.ajax(
-                {
-                    url: "/cambiamegusta/" + id,
-                    success: function (resp) {
-                        console.log(resp)
-                        document.getElementById("likes" + id).innerText = resp
-                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
-                    }
-                }
-            )
-        }
-
-        function cambiacolor(like) {
-
-            if (like.classList.contains('colorLike')) {
-                like.classList.remove("colorLike");
-            } else {
-                like.classList.add("colorLike");
-            }
-
-        }
-
-    </script>
-    <script>
-        function borrar(id) {
-            // llamar a la funcion del servidor para aumentar el like
-            $.ajax(
-                {
-                    url: "/borrar/" + id,
-                    success: function (resp) {
-                        console.log(resp)
-                        document.getElementById("borrar" + id).innerText = resp
-                        /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
-                    }
-                }
-            )
-
-        }
-
-    </script>
+<head th:replace="layout/layoutconjs :: head">
+    <title id="pageTitle">Perfil</title>
 </head>
+
 <body style="background: #1e1e1e;">
 <th:block layout:fragment="nav"></th:block>
 <th:block layout:fragment="contenido">
@@ -267,12 +210,6 @@
 </div>
 </th:block>
 <th:block layout:fragment="pie"></th:block>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-        integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -16,7 +16,7 @@ body{
  color: #6c757d;
  }
 
-/*.container{
+.container{
     width: 400px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -28,7 +28,7 @@ body{
     font-weight: bold;
     font-size: 18px;
     color: #1E1E1E;
-}*/
+}
 
 
 .form-group{
@@ -59,16 +59,16 @@ body{
    color: #1E1E1E ;
 }
 
-/*.col{
+.col{
    background-color: #1E1E1E;
    color: #D9D9D9;
-}+/
+}
 
-/*.scroll-container {
+.scroll-container {
    display: block;
    overflow-y: scroll;
    scroll-behavior: smooth;
- }*/
+ }
 
 .btn{
    background-color: #8D92BB;
@@ -77,8 +77,8 @@ body{
    font-family: 'Inter',sans-serif;
    font-weight: bold;
    font-size: 15px;
-   color: #D9D9D9;
-   margin-top: 20px;
+   color: white;
+   /*margin-top: 20px;*/
 }
 
 .btnCC{
@@ -289,10 +289,10 @@ input[type="radio"]:checked ~ label {
 input[type = "button"]{ display:none;}
 label:hover,
 label:hover ~ label {
-  color: #fa5959;
+  color: #8d92bb;
 }
 input[type="button"]:checked ~ label {
-  color: #fa5959;
+  color: #8d92bb;
 }
 
 .card-body{
