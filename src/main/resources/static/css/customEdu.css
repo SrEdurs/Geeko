@@ -58,7 +58,7 @@ body{
 }
 
 .btn{
-   background-color: #8D92BB;
+   /*background-color: #8D92BB;*/
    border-radius: 20px;
    font-family: 'Inter',sans-serif;
    font-weight: bold;
