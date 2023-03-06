@@ -1,8 +1,6 @@
 package es.geeko.service;
 
 import es.geeko.service.mapper.AbstractServiceMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.*;

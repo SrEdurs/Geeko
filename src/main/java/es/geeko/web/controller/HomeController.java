@@ -1,11 +1,8 @@
 package es.geeko.web.controller;
 
 import es.geeko.dto.UsuarioDto;
-import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
-import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
-import es.geeko.service.ProductoService;
 import es.geeko.service.UsuarioService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,14 +17,10 @@ import java.util.Optional;
 public class HomeController {
 
     private final UsuarioService usuarioService;
-    private final ProductoService productoService;
-    private final ComentarioRepository comentarioRepository;
     private final ProductoRepository productoRepository;
 
-    public HomeController(UsuarioService usuarioService, ProductoService productoService, ComentarioRepository comentarioRepository, ProductoRepository productoRepository) {
+    public HomeController(UsuarioService usuarioService, ProductoRepository productoRepository) {
         this.usuarioService = usuarioService;
-        this.productoService = productoService;
-        this.comentarioRepository = comentarioRepository;
         this.productoRepository = productoRepository;
     }
 

@@ -5,8 +5,6 @@ import es.geeko.model.Chat;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class ChatMapper extends AbstractServiceMapper<Chat, ChatDto> {
 
