@@ -1,55 +1,56 @@
 <html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
 
 <head th:replace="layout/layout :: head">
     <title id="pageTitle">Inicio</title>
 </head>
 
 <body>
-<th:block layout:fragment="nav"></th:block>
-<th:block layout:fragment="contenido">
-<div class="container-fluid">
-    <div class="row">
-        <article class="col-4">
-            <h4 class="text-white">Productos para ti</h4>
-            <section>
-                <p> </p>
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <th:block th:each="elemento : ${listaProductosParaTi}">
-                        <div class="col">
-                            <div class="card cardprodu">
-                                <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-toppu"></a>
-                                <h6 th:align="center" th:text="${elemento.titulo}"></h6>
+    <th:block layout:fragment="nav"></th:block>
+    <th:block layout:fragment="contenido">
+    <div class="container-fluid">
+        <div class="row">
+            <article class="col-4">
+                <h4 class="text-white">Productos para ti</h4>
+                <section>
+                    <p> </p>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <th:block th:each="elemento : ${listaProductosParaTi}">
+                            <div class="col">
+                                <div class="card cardprodu">
+                                    <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-toppu"></a>
+                                    <h6 th:align="center" th:text="${elemento.titulo}"></h6>
+                                </div>
                             </div>
-                        </div>
-                    </th:block>
-                </div>
-            </section>
-        </article>
-        <article class="col-8">
-            <h4 class="text-white">Podría interesarte</h4>
-            <section>
-                <div class="row row-cols-1 row-cols-2 row-cols-3 g-4">
-                    <th:block th:each="elemento : ${listaProductos}">
-                        <div class="card cardnovedad">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="card-body">
-                                        <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-topn"></a>
-                                        <h6 th:align="center" th:text="${elemento.titulo}"></h6>
+                        </th:block>
+                    </div>
+                </section>
+            </article>
+            <article class="col-8">
+                <h4 class="text-white">Podría interesarte</h4>
+                <section>
+                    <div class="row row-cols-1 row-cols-2 row-cols-3 g-4">
+                        <th:block th:each="elemento : ${listaProductos}">
+                            <div class="card cardnovedad">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-topn"></a>
+                                            <h6 th:align="center" th:text="${elemento.titulo}"></h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </th:block>
-                </div>
-            </section>
-        </article>
+                        </th:block>
+                    </div>
+                </section>
+            </article>
+        </div>
     </div>
-</div>
-</th:block>
-<th:block layout:fragment="pie"></th:block>
+    </th:block>
+    <th:block layout:fragment="pie"></th:block>
 </body>
 
 </html>

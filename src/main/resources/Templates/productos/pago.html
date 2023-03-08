@@ -1,309 +1,153 @@
-<!DOCTYPE html>
 <html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"/>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
 
-  <!-- Estilos personalizados -->
-  <link th:href="@{/css/customIsa.css}" type="text/css" rel="stylesheet">
-
-  <!-- Bootstrap icons  -->
-  <link rel="icon" th:href="@{/imagenes/geekoico.ico}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-  <!-- Google fonts icons     -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-  <title>Pago</title>
+<head th:replace="layout/layout :: head">
+    <title id="pageTitle">Pago</title>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg bg-geeko py-0" id="navegacion">
-  <div class="container-fluid text-center">
-    <div class="row w-100">
-      <div class="col">
-        <a th:href="@{/home}" class="navbar-brand">
-          <img th:src="@{/imagenes/logo.png}" alt="" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#opciones"
-                aria-controls="opciones" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-      <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
-        <form action="" class="d-flex w-100" role="search">
-          <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
-                 aria-label="Search">
-          <a style="margin-top: 8px; margin-left: -48px;" type="submit">
-            <i class="bi bi-search"></i>
-          </a>
-        </form>
-      </div>
-      <div class="col">
-        <th:block th:object="${datosUsuario}">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgba(30,30,30,0);border: 0px">
-              <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}" height="40px" width="40px" object-position="center"
-                                           object-fit="cover" id="iconoperfil" alt="" style="margin-top: 8px; border-radius: 15px;"></a>
-              <label class="usuario" th:text="${datosUsuario.nick}"></label>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" th:href="@{/perfil}">Ver perfil</a></li>
-              <li><a class="dropdown-item" th:href="@{/productos/crearproducto}">Añadir producto</a></li>
-              <div sec:authorize="hasRole('ADMIN')" >
-                <li><a class="dropdown-item" th:href="@{/panelreportes}" style="color: #FA5959">Reportes</a></li>
-              </div>
-              <li><a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a></li>
-            </ul>
-          </div>
-        </th:block>
-      </div>
-      <div class="w-100"></div>
-      <div class="col-2"></div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/dialogo.png}" class="icono" width="35px">
-        <a class="social" th:href="@{/home}"><button class="social">INICIO</button></a>
-      </div>
-      <div class="col text-white" style="margin-bottom: 40px;">
-        <img th:src="@{/iconos/libro.png}" class="icono" width="35px">
-        <a class="libros" th:href="@{/productos/libros}"><button class="libros">LIBROS</button></a>
-      </div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/tv.png}" class="icono" width="35px">
-        <a class="series" th:href="@{/productos/series}"><button class="series">SERIES</button></a>
-      </div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/claqueta.png}" class="icono" width="33px">
-        <a class="peliculas" th:href="@{/productos/peliculas}"><button class="peliculas">PELÍCULAS</button></a>
-      </div>
-      <div class="col text-white">
-        <img th:src="@{/iconos/consola.png}" class="icono" width="35px">
-        <a class="vj" th:href="@{/productos/videojuegos}"><button class="vj">VIDEOJUEGOS</button></a>
-      </div>
-      <div class="col-2"></div>
-    </div>
-  </div>
-</nav>
-<div class="container-fluid">
-  <form role="form" th:object="${datosUsuario}" method="post">
-    <div class="row">
-      <article class="col-9">
-        <section>
-          <div class="card align-items-center" style="height: 500px">
-            <div class="cardpago" style="height: 500px;width: 200px; margin-right: 70px">
-              <div class="card-bodypago" style="height: 500px; width: 600px">
-                <div id="smart-button-container" style="margin-top: 25px">
-                  <div style="text-align: center;margin-top: 25px"><label style="margin-top: 100px" for="description"> </label><input readonly th:field="${datosProducto.titulo}" type="text" name="descriptionInput" id="description" maxlength="127" value=""></div>
-                  <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
-                  <div style="text-align: center"><label for="amount"> </label><input readonly th:field="${datosProducto.precio}" name="amountInput" type="number" id="amount" value="" ><span> EUR</span></div>
-                  <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
-                  <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
-                  <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
-                  <div style="text-align: center; margin-top: 0.625rem; width: 100px; margin-left: 200px" id="paypal-button-container"></div>
-                </div>
-                <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
-                <script>
-                function initPayPalButton() {
-                  var description = document.querySelector('#smart-button-container #description');
-                  var amount = document.querySelector('#smart-button-container #amount');
-                  var descriptionError = document.querySelector('#smart-button-container #descriptionError');
-                  var priceError = document.querySelector('#smart-button-container #priceLabelError');
-                  var invoiceid = document.querySelector('#smart-button-container #invoiceid');
-                  var invoiceidError = document.querySelector('#smart-button-container #invoiceidError');
-                  var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv');
+  <th:block layout:fragment="nav"></th:block>
+  <th:block layout:fragment="contenido">
+    <div class="container-fluid">
+    <form role="form" th:object="${datosUsuario}" method="post">
+      <div class="row">
+        <article class="col-9">
+          <section>
+            <div class="card align-items-center" style="height: 500px">
+              <div class="cardpago" style="height: 500px;width: 200px; margin-right: 70px">
+                <div class="card-bodypago" style="height: 500px; width: 600px">
+                  <div id="smart-button-container" style="margin-top: 25px">
+                    <div style="text-align: center;margin-top: 25px"><label style="margin-top: 100px" for="description"> </label><input readonly th:field="${datosProducto.titulo}" type="text" name="descriptionInput" id="description" maxlength="127" value=""></div>
+                    <p id="descriptionError" style="visibility: hidden; color:red; text-align: center;">Please enter a description</p>
+                    <div style="text-align: center"><label for="amount"> </label><input readonly th:field="${datosProducto.precio}" name="amountInput" type="number" id="amount" value="" ><span> EUR</span></div>
+                    <p id="priceLabelError" style="visibility: hidden; color:red; text-align: center;">Please enter a price</p>
+                    <div id="invoiceidDiv" style="text-align: center; display: none;"><label for="invoiceid"> </label><input name="invoiceid" maxlength="127" type="text" id="invoiceid" value="" ></div>
+                    <p id="invoiceidError" style="visibility: hidden; color:red; text-align: center;">Please enter an Invoice ID</p>
+                    <div style="text-align: center; margin-top: 0.625rem; width: 100px; margin-left: 200px" id="paypal-button-container"></div>
+                  </div>
+                  <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
+                  <script>
+                  function initPayPalButton() {
+                    var description = document.querySelector('#smart-button-container #description');
+                    var amount = document.querySelector('#smart-button-container #amount');
+                    var descriptionError = document.querySelector('#smart-button-container #descriptionError');
+                    var priceError = document.querySelector('#smart-button-container #priceLabelError');
+                    var invoiceid = document.querySelector('#smart-button-container #invoiceid');
+                    var invoiceidError = document.querySelector('#smart-button-container #invoiceidError');
+                    var invoiceidDiv = document.querySelector('#smart-button-container #invoiceidDiv');
 
-                  var elArr = [description, amount];
+                    var elArr = [description, amount];
 
-                  if (invoiceidDiv.firstChild.innerHTML.length > 1) {
-                    invoiceidDiv.style.display = "block";
-                  }
-
-                  var purchase_units = [];
-                  purchase_units[0] = {};
-                  purchase_units[0].amount = {};
-
-                  function validate(event) {
-                    return event.value.length > 0;
-                  }
-
-                  paypal.Buttons({
-                    style: {
-                      color: 'blue',
-                      shape: 'pill',
-                      label: 'paypal',
-                      layout: 'vertical',
-
-                    },
-
-                    onInit: function (data, actions) {
-                      actions.disable();
-
-                      if(invoiceidDiv.style.display === "block") {
-                        elArr.push(invoiceid);
-                      }
-
-                      elArr.forEach(function (item) {
-                        item.addEventListener('keyup', function (event) {
-                          var result = elArr.every(validate);
-                          if (result) {
-                            actions.enable();
-                          } else {
-                            actions.disable();
-                          }
-                        });
-                      });
-                    },
-
-                    onClick: function () {
-                      if (description.value.length < 1) {
-                        descriptionError.style.visibility = "visible";
-                      } else {
-                        descriptionError.style.visibility = "hidden";
-                      }
-
-                      if (amount.value.length < 1) {
-                        priceError.style.visibility = "visible";
-                      } else {
-                        priceError.style.visibility = "hidden";
-                      }
-
-                      if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") {
-                        invoiceidError.style.visibility = "visible";
-                      } else {
-                        invoiceidError.style.visibility = "hidden";
-                      }
-
-                      purchase_units[0].description = description.value;
-                      purchase_units[0].amount.value = amount.value;
-
-                      if(invoiceid.value !== '') {
-                        purchase_units[0].invoice_id = invoiceid.value;
-                      }
-                    },
-
-                    createOrder: function (data, actions) {
-                      return actions.order.create({
-                        purchase_units: purchase_units,
-                      });
-                    },
-
-                    onApprove: function (data, actions) {
-                      return actions.order.capture().then(function (orderData) {
-
-                        // Full available details
-                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
-                        // Show a success message within this page, e.g.
-                        const element = document.getElementById('paypal-button-container');
-                        element.innerHTML = '';
-                        element.innerHTML = '<h3>Thank you for your payment!</h3>';
-
-                        // Or go to another URL:  actions.redirect('thank_you.html');
-
-                      });
-                    },
-
-                    onError: function (err) {
-                      console.log(err);
+                    if (invoiceidDiv.firstChild.innerHTML.length > 1) {
+                      invoiceidDiv.style.display = "block";
                     }
-                  }).render('#paypal-button-container');
-                }
-                initPayPalButton();
-              </script>
+
+                    var purchase_units = [];
+                    purchase_units[0] = {};
+                    purchase_units[0].amount = {};
+
+                    function validate(event) {
+                      return event.value.length > 0;
+                    }
+
+                    paypal.Buttons({
+                      style: {
+                        color: 'blue',
+                        shape: 'pill',
+                        label: 'paypal',
+                        layout: 'vertical',
+
+                      },
+
+                      onInit: function (data, actions) {
+                        actions.disable();
+
+                        if(invoiceidDiv.style.display === "block") {
+                          elArr.push(invoiceid);
+                        }
+
+                        elArr.forEach(function (item) {
+                          item.addEventListener('keyup', function (event) {
+                            var result = elArr.every(validate);
+                            if (result) {
+                              actions.enable();
+                            } else {
+                              actions.disable();
+                            }
+                          });
+                        });
+                      },
+
+                      onClick: function () {
+                        if (description.value.length < 1) {
+                          descriptionError.style.visibility = "visible";
+                        } else {
+                          descriptionError.style.visibility = "hidden";
+                        }
+
+                        if (amount.value.length < 1) {
+                          priceError.style.visibility = "visible";
+                        } else {
+                          priceError.style.visibility = "hidden";
+                        }
+
+                        if (invoiceid.value.length < 1 && invoiceidDiv.style.display === "block") {
+                          invoiceidError.style.visibility = "visible";
+                        } else {
+                          invoiceidError.style.visibility = "hidden";
+                        }
+
+                        purchase_units[0].description = description.value;
+                        purchase_units[0].amount.value = amount.value;
+
+                        if(invoiceid.value !== '') {
+                          purchase_units[0].invoice_id = invoiceid.value;
+                        }
+                      },
+
+                      createOrder: function (data, actions) {
+                        return actions.order.create({
+                          purchase_units: purchase_units,
+                        });
+                      },
+
+                      onApprove: function (data, actions) {
+                        return actions.order.capture().then(function (orderData) {
+
+                          // Full available details
+                          console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                          // Show a success message within this page, e.g.
+                          const element = document.getElementById('paypal-button-container');
+                          element.innerHTML = '';
+                          element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                          // Or go to another URL:  actions.redirect('thank_you.html');
+
+                        });
+                      },
+
+                      onError: function (err) {
+                        console.log(err);
+                      }
+                    }).render('#paypal-button-container');
+                  }
+                  initPayPalButton();
+                </script>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </article>
+          </section>
+        </article>
+      </div>
+      <div class="row" style="height: 100px">
+        <div class="col" style="margin-top: 100px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Exito</button></div>
+      </div>
+    </form>
     </div>
-    <div class="row" style="height: 100px">
-      <div class="col" style="margin-top: 100px;text-align: center;"><button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;">Exito</button></div>
-    </div>
-  </form>
-</div>
-<!-- Optional JavaScript -->
-
-<footer class="text-center mt-5 text-white">
-  <!-- Grid container -->
-  <div class=" pt-2">
-    <!-- Section: Social media -->
-    <section class="mb-4">
-      <!-- Facebook -->
-      <a class="btn btn-link btn-floating btn-lg text-white m-1"
-         href="#!"
-         role="button"
-         data-mdb-ripple-color="dark">
-        <i class="fab fa-facebook-f">
-        </i>
-      </a>
-
-      <!-- Twitter -->
-      <a class="btn btn-link btn-floating btn-lg text-white m-1"
-         href="#!"
-         role="button"
-         data-mdb-ripple-color="dark">
-        <i class="fab fa-twitter">
-        </i>
-      </a>
-
-      <!-- Google -->
-      <a class="btn btn-link btn-floating btn-lg text-white m-1"
-         href="#!"
-         role="button"
-         data-mdb-ripple-color="dark">
-        <i class="fab fa-google">
-        </i>
-      </a>
-
-      <!-- Instagram -->
-      <a class="btn btn-link btn-floating btn-lg text-white m-1"
-         href="#!"
-         role="button"
-         data-mdb-ripple-color="dark">
-        <i class="fab fa-instagram">
-        </i>
-      </a>
-
-      <!-- Linkedin -->
-      <a class="btn btn-link btn-floating btn-lg text-white m-1"
-         href="#!"
-         role="button"
-         data-mdb-ripple-color="dark">
-        <i class="fab fa-linkedin">
-        </i>
-      </a>
-      <!-- Github -->
-      <a class="btn btn-link btn-floating btn-lg text-white m-1"
-         href="#!"
-         role="button"
-         data-mdb-ripple-color="dark">
-        <i class="fab fa-github">
-        </i>
-      </a>
-    </section>
-    <!-- Section: Social media -->
-  </div>
-  <!-- Grid container -->
-
-  <!-- Copyright -->
-  <div class="text-center text-white">
-    © 2023 Copyright:
-    <a class="text-white" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ%22%3E">Geeko</a>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-          integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-          crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-          integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-          crossorigin="anonymous"></script>
-  <!-- Copyright -->
-</footer>
+  </th:block>
+  <th:block layout:fragment="pie"></th:block>
 </body>
 </html>

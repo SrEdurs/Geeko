@@ -1,14 +1,15 @@
 <html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layoutconjs}">
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
 
 <head th:replace="layout/layoutconjs :: head">
     <title id="pageTitle">Pedidos</title>
 </head>
 
 <body class="bg-geeko">
-<th:block layout:fragment="nav"></th:block>
-<th:block layout:fragment="contenido">
+    <th:block layout:fragment="nav"></th:block>
+    <th:block layout:fragment="contenido">
 <section class="py-1">
     <div class="container py-5">
         <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 1000px;">
@@ -37,8 +38,8 @@
         </div>
     </div>
 </section>
-</th:block>
-<th:block layout:fragment="pie"></th:block>
+    </th:block>
+    <th:block layout:fragment="pie"></th:block>
 </body>
 
 </html>

@@ -297,9 +297,36 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
+            Integer num = attr.getId();
+            interfazConPantalla.addAttribute("idUsuario", num);
+
             //Mostramos los productos de su propiedad
             final List<Producto> listaProductos = productoRepository.findProductosByUsuarioIdAndActivoIsOrderByIdDesc(attr.getId(), 1);
             interfazConPantalla.addAttribute("listaProductos", listaProductos);
+
+            return "productos/productossubidos";
+
+        } else{
+            return "error";
+        }
+    }
+
+    @GetMapping("/perfil/{id}/productos")
+    public String vistaSubidosUsuario(@PathVariable("id") Integer id, ModelMap interfazConPantalla){
+
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(id);
+
+        //Si está presente, mostramos
+        if(usuarioDto.isPresent()) {
+
+            usuarioSesion(interfazConPantalla);
+
+            //Mostramos los productos de su propiedad
+            final List<Producto> listaProductos = productoRepository.findProductosByUsuarioIdAndActivoIsOrderByIdDesc(id, 1);
+            interfazConPantalla.addAttribute("listaProductos", listaProductos);
+
+            Integer num = usuarioDto.get().getId();
+            interfazConPantalla.addAttribute("idUsuario", num);
 
             return "productos/productossubidos";
 
