@@ -1,8 +1,8 @@
-function cambiamegusta(id) {
+function seguir(id) {
     // llamar a la funcion del servidor para aumentar el like
     $.ajax(
         {
-            url: "/cambiamegusta/" + id,
+            url: "/seguir/" + id,
             success: function (resp) {
                 console.log(resp)
                 document.getElementById("likes" + id).innerText = resp
@@ -10,14 +10,4 @@ function cambiamegusta(id) {
             }
         }
     )
-}
-
-function cambiacolor(like) {
-
-    if (like.classList.contains('colorLike')) {
-        like.classList.remove("colorLike");
-    } else {
-        like.classList.add("colorLike");
-    }
-
 }

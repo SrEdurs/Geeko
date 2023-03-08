@@ -7,6 +7,7 @@ import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
+import es.geeko.repository.UsuarioRepository;
 import es.geeko.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     private final UsuarioService usuarioService;
     private final TematicaService tematicaService;
     private final ComentarioService comentarioService;
+    private final UsuarioRepository usuarioRepository;
 
     @Autowired
     private final ProductoRepository productoRepository;
@@ -37,12 +39,14 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService,
                                  ProductoRepository productoRepository,
                                  ComentarioRepository comentarioRepository,
-                                 ComentarioService comentarioService) {
+                                 ComentarioService comentarioService,
+                                 UsuarioRepository usuarioRepository) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
         this.productoRepository = productoRepository;
         this.comentarioRepository = comentarioRepository;
         this.comentarioService = comentarioService;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @PostMapping("/saveUser")
@@ -239,5 +243,29 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             comentarioRepository.save(coment.get());
         }
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
+    }
+
+    @GetMapping("/seguir/{id}")
+    public ResponseEntity<String> seguir(@PathVariable("id") Integer id){
+        System.out.println("EY");
+        //Obtenemos el DTO del usuario actual por ID
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        
+        Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
+
+        if(usuario.isPresent()){
+
+            Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
+            usuario.get().getSeguidos().add(attr);
+
+            usuarioRepository.save(usuario.get());
+
+            System.out.println("EY");
+            attr.getSeguimientos().add(usuario.get());
+            usuarioRepository.save(attr);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

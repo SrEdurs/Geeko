@@ -1,7 +1,7 @@
 <html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}">
+      layout:decorate="~{layout/layoutconjs}">
 
 <head th:replace="layout/layoutconjs :: head">
     <title id="pageTitle">Perfil</title>
@@ -21,7 +21,7 @@
                                                                                             style=" border-radius: 15px;"
                                                                                             th:src="${datosPerfil.avatar}">
                                 <h3 class="text-white text-center pt-2" th:text="${datosPerfil.nick}"></h3>
-                                <p class="fw-light text-white m-0" th:text="${datosPerfil.biografia}"></p>
+                                <p th:id="'seguir'+${datosPerfil.id}" class="fw-light text-white m-0" th:text="${datosPerfil.biografia}"></p>
                             </div>
                         </th:block>
                     </div>
@@ -32,6 +32,14 @@
                             type="submit"
                             style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Editar
                         perfil</a></div>
+                </div>
+                <div th:if="${datosUsuario.id} != ${datosPerfil.id}" class="row">
+                    <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button
+                            class="btn btn-primary text-center" data-bss-hover-animate="jello"
+                            type="submit" onclick="seguir(this.getAttribute('data-id'))"
+                            th:id="'seguir'+${datosPerfil.id}" th:data-id="${datosPerfil.id}"
+                            style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Seguir
+                        perfil</button></div>
                 </div>
                 <div th:if="${datosUsuario.id} == ${datosPerfil.id}" sec:authorize="hasRole('ADMIN')" class="row">
                     <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a
