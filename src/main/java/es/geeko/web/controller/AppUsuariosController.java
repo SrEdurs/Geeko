@@ -245,27 +245,5 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
     }
 
-    @GetMapping("/seguir/{id}")
-    public ResponseEntity<String> seguir(@PathVariable("id") Integer id){
-        System.out.println("EY");
-        //Obtenemos el DTO del usuario actual por ID
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        
-        Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
-
-        if(usuario.isPresent()){
-
-            Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
-            usuario.get().getSeguidos().add(attr);
-
-            usuarioRepository.save(usuario.get());
-
-            System.out.println("EY");
-            attr.getSeguimientos().add(usuario.get());
-            usuarioRepository.save(attr);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+   
 }

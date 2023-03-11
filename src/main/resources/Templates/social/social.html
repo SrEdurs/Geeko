@@ -16,41 +16,27 @@
             <h2 style="color: rgb(255,255,255);text-align: center;">Usuarios a los que sigues</h2>
         </div>
         <div class="col">
-            <h2 style="color: rgb(255,255,255);text-align: center;">Tus chats&nbsp; &nbsp;<button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;font-size: 19px;height: 49.5px;">Nuevo chat</button></h2>
+            <h2 style="color: rgb(255,255,255);text-align: center;">Tus chats&nbsp; &nbsp;
+                <button class="btn btn-primary text-center" data-bss-hover-animate="jello" type="submit" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;border-width: 5px;border-color: #8d92bb;width: 128.3594px;font-weight: bold;font-size: 19px;height: 49.5px;">Nuevo</button>
+            </h2>
         </div>
     </div>
 </div>
 <div class="container" style="margin-top: 17px;">
     <div class="row">
         <div class="col-md-6">
-            <div class="row">
-                <div class="col">
-                    <div class="card" style="height: 164.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" th:src="@{/imagenes/peepogoku.png}" width="170" height="225"></div>
-                    <h3 class="text-center" style="color: rgb(255,255,255);">Usuario 1</h3>
+            <section>
+                <div class="row row-cols-2 row-cols-md-3 g-5">
+                  <th:block th:each="elemento : ${datosUsuario.seguimientos}">
+                    <div class="col">
+                      <div class="card cardprodu" style="background-color: #1E1E1E; border: 0px">
+                        <a th:href="'/perfil/' + ${elemento.id}"><img th:src="${elemento.avatar}" width="90%" class="card-img-toptp"></a>
+                        <h6 th:align="center" th:text="${elemento.nick}" style="color: #FFFFFF"></h6>
+                      </div>
+                    </div>
+                  </th:block>
                 </div>
-                <div class="col">
-                    <div class="card" style="height: 164.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" th:src="@{/imagenes/peepogoku.png}" width="170" height="225"></div>
-                    <h3 class="text-center" style="color: rgb(255,255,255);">Usuario 2</h3>
-                </div>
-                <div class="col">
-                    <div class="card" style="height: 164.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" th:src="@{/imagenes/peepogoku.png}" width="170" height="225"></div>
-                    <h3 class="text-center" style="color: rgb(255,255,255);">Usuario 3</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card" style="height: 164.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" th:src="@{/imagenes/peepogoku.png}" width="170" height="225"></div>
-                    <h3 class="text-center" style="color: rgb(255,255,255);">Usuario 1</h3>
-                </div>
-                <div class="col">
-                    <div class="card" style="height: 164.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" th:src="@{/imagenes/peepogoku.png}" width="170" height="225"></div>
-                    <h3 class="text-center" style="color: rgb(255,255,255);">Usuario 2</h3>
-                </div>
-                <div class="col">
-                    <div class="card" style="height: 164.797px;border-style: none;border-radius: 0px;background: #1e1e1e;margin-right: 17px;margin-left: 9px;margin-top: 11px;margin-bottom: 16px;"><img class="card-img-top w-100 d-block" style="height: 225px;border-radius: 50px;" th:src="@{/imagenes/peepogoku.png}" width="170" height="225"></div>
-                    <h3 class="text-center" style="color: rgb(255,255,255);">Usuario 3</h3>
-                </div>
-            </div>
+              </section>
         </div>
         <div class="col-md-4 col-xxl-5" style="margin-left: 35px;">
             <div class="row" style="margin: 18px;text-align: center;height: 68px;">

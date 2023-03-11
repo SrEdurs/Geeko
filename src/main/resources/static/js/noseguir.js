@@ -1,8 +1,8 @@
-function seguir(id) {
+function noseguir(id) {
     // llamar a la funcion del servidor para aumentar el like
     $.ajax(
         {
-            url: "/seguir/" + id,
+            url: "/noseguir/" + id,
             success: function (resp) {
                 console.log(resp)
                 document.getElementById("likes" + id).innerText = resp
@@ -10,6 +10,5 @@ function seguir(id) {
             }
         }
     )
-
     window.location.reload();
 }
