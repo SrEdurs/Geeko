@@ -2,12 +2,13 @@ package es.geeko.web.controller;
 
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
+import es.geeko.model.Like;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
-import es.geeko.repository.UsuarioRepository;
+import es.geeko.repository.LikeRepository;
 import es.geeko.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
@@ -30,7 +32,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     private final UsuarioService usuarioService;
     private final TematicaService tematicaService;
     private final ComentarioService comentarioService;
-    private final UsuarioRepository usuarioRepository;
+    private final LikeRepository likeRepository;
 
     @Autowired
     private final ProductoRepository productoRepository;
@@ -40,13 +42,13 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
                                  ProductoRepository productoRepository,
                                  ComentarioRepository comentarioRepository,
                                  ComentarioService comentarioService,
-                                 UsuarioRepository usuarioRepository) {
+                                 LikeRepository likeRepository) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
         this.productoRepository = productoRepository;
         this.comentarioRepository = comentarioRepository;
         this.comentarioService = comentarioService;
-        this.usuarioRepository = usuarioRepository;
+        this.likeRepository = likeRepository;
     }
 
     @PostMapping("/saveUser")
@@ -237,9 +239,28 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         // Buscamos el comentario a procesar
         Integer likes = 0;
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
-        if(coment.isPresent()){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        if(coment.isPresent() && usuarioDto.isPresent()){
             likes = coment.get().getLikes();
             coment.get().setLikes(++likes);
+            
+
+            Like like = new Like();
+            UsuarioDto attr = usuarioDto.get();
+            like.setUsuarioLike(this.usuarioService.getMapper().toEntity(attr));
+
+            Comentario comen = coment.get();
+            like.setComentarioLike(comen);
+
+            likeRepository.save(like);
+
+            List<Like> lista = new ArrayList();
+            lista.add(like);
+            
+            coment.get().setLikesComen(lista);
             comentarioRepository.save(coment.get());
         }
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);

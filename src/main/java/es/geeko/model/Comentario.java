@@ -38,6 +38,9 @@ public class Comentario {
     @Column(name="activo", length = 1, nullable = false)
     private int activo;
 
+    @OneToMany(mappedBy = "comentarioLike")
+    private List<Like> likesComen;
+
     @ManyToOne
     @JoinColumn(name = "idPropietario")
     private Usuario usuario;

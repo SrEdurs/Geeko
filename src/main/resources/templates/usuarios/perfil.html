@@ -42,7 +42,7 @@
                             </button></div>
                     </div>
             
-                    <div th:if="${datosUsuario.id} != ${datosPerfil.id} AND ${datosPerfil.seguimientos.contains(datosUsuario)}" class="row">
+                    <div th:if="${datosUsuario.id} != ${datosPerfil.id} AND ${datosUsuario.seguimientos.contains(datosPerfil)}" class="row">
                         <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button
                                 class="btn btn-primary text-center" data-bss-hover-animate="jello"
                                 type="submit" onclick="noseguir(this.getAttribute('data-id'))"
@@ -137,7 +137,7 @@
                                                     <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                                             th:data-id="${elemento.id}"
                                                             onclick="borrar(this.getAttribute('data-id'))">
-                                                        <i th:id="'megusta'+${elemento.id}" class="bi bi-trash"></i>
+                                                        <i class="bi bi-trash"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -153,9 +153,17 @@
                                                 <div class="col">
                                                     <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                                             th:data-id="${elemento.id}"
-                                                            onclick="cambiamegusta(this.getAttribute('data-id')),cambiacolor(this)">
+                                                            onclick="cambiamegusta(this.getAttribute('data-id'))">
                                                         <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
                                                         th:id="'megusta'+${elemento.id}"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col" th:if="${#lists.contains(datosUsuario.likes, '' + elemento.id)}">
+                                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                                            th:data-id="${elemento.id}"
+                                                            onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                                        <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
+                                                           th:id="'megusta'+${elemento.id}"></i>
                                                     </button>
                                                 </div>
                                             </div>
