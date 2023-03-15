@@ -20,7 +20,7 @@ body::-webkit-scrollbar {
    animation: 0.2s ease-out 0s 1 slideInRight;
  }
 
- .card-img-toppu{
+ .card-img-toppu, .cardprodu{
    animation: 0.2s ease-out 0s 1 slideInLeft;
  }
 h6 {

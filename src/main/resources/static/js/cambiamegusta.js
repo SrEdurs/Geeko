@@ -8,7 +8,9 @@ function cambiamegusta(id) {
                 document.getElementById("likes" + id).innerText = resp
                 document.getElementById("megusta" + id).classList.replace("bi-hand-thumbs-up","bi-hand-thumbs-up-fill")
                 document.getElementById("megusta" + id).setAttribute("style","margin-bottom: 10px; color: #29cb30;")
-                /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
+                var boton = document.getElementById("megustas" + id);
+                boton.removeAttribute('onclick');
+                boton.setAttribute("onclick","nomegusta(this.getAttribute('data-id'))")
             }
         }
     )

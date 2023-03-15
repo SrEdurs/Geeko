@@ -33,7 +33,7 @@
                             style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Editar
                         perfil</a></div>
                 </div>
-                    <div th:if="${datosUsuario.id} != ${datosPerfil.id} AND ${!datosPerfil.seguimientos.contains(datosUsuario)}" class="row">
+                    <div th:if="${datosUsuario.id} != ${datosPerfil.id} AND ${!#lists.contains(ids,datosPerfil.getId())}" class="row">
                         <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button
                                 class="btn btn-primary text-center" data-bss-hover-animate="jello"
                                 type="submit" onclick="seguir(this.getAttribute('data-id'))"
@@ -41,8 +41,7 @@
                                 style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Seguir
                             </button></div>
                     </div>
-            
-                    <div th:if="${datosUsuario.id} != ${datosPerfil.id} AND ${datosUsuario.seguimientos.contains(datosPerfil)}" class="row">
+                    <div th:if="${datosUsuario.id} != ${datosPerfil.id} AND ${#lists.contains(ids,datosPerfil.getId())}" class="row">
                         <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button
                                 class="btn btn-primary text-center" data-bss-hover-animate="jello"
                                 type="submit" onclick="noseguir(this.getAttribute('data-id'))"
@@ -50,6 +49,14 @@
                                 style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">No seguir
                             </button></div>
                     </div>
+                    <div th:if="${datosUsuario.id} != ${datosPerfil.id}" class="row">
+                        <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button
+                                class="btn btn-primary text-center" data-bss-hover-animate="jello"
+                                type="submit" onclick="seguir(this.getAttribute('data-id'))"
+                                th:id="'seguir'+${datosPerfil.id}" th:data-id="${datosPerfil.id}"
+                                style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">Chat
+                            </button></div>
+                    </div>           
                 <div th:if="${datosUsuario.id} == ${datosPerfil.id}" sec:authorize="hasRole('ADMIN')" class="row">
                     <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><a
                             th:href="@{/panelreportes}" class="btn btn-primary text-center" data-bss-hover-animate="jello"
@@ -150,22 +157,24 @@
                                                     style="color: #1E1E1E; margin-bottom: -10px"
                                                     th:text="${elemento.likes}"></p>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col" th:if="${!#lists.contains(likes,elemento.id)}">
                                                     <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                                            th:data-id="${elemento.id}"
+                                                            th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
                                                             onclick="cambiamegusta(this.getAttribute('data-id'))">
                                                         <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
                                                         th:id="'megusta'+${elemento.id}"></i>
                                                     </button>
                                                 </div>
-                                                <div class="col" th:if="${#lists.contains(datosUsuario.likes, '' + elemento.id)}">
+                                                                                                <div class="col" th:if="${#lists.contains(likes,elemento.id)}">
                                                     <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                                             th:data-id="${elemento.id}"
-                                                            onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                                            onclick="nomegusta(this.getAttribute('data-id'))">
                                                         <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
                                                            th:id="'megusta'+${elemento.id}"></i>
                                                     </button>
                                                 </div>
+
+
                                             </div>
 
                                         </div>

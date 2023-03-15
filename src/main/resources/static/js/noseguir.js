@@ -5,10 +5,9 @@ function noseguir(id) {
             url: "/noseguir/" + id,
             success: function (resp) {
                 console.log(resp)
-                document.getElementById("likes" + id).innerText = resp
-                /*$("#megusta"+id).setAttribute("width", "50") // cambiar el icono de color según corresponda*/
+                document.getElementById("noseguir" + id).innerText = resp
+                window.location.reload();
             }
         }
     )
-    window.location.reload();
 }

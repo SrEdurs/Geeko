@@ -84,6 +84,23 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             //Datos del usuario
             UsuarioDto attr = usuarioDto.get();
             UsuarioDto perf = usuarioDto.get();
+            //List<Like> likes = likeRepository.findByUsuarioLikeIs(this.usuarioService.getMapper().toEntity(attr));
+
+
+            List<Integer> likes = new ArrayList();
+            List<Integer> ids = new ArrayList();
+
+            for (Usuario elemento : attr.getSeguimientos()) {
+                ids.add(elemento.getId());
+              }
+
+              for (Like elemento : attr.getLikes()) {
+                System.out.println(elemento.getComentarioLike().getId());
+                likes.add(elemento.getComentarioLike().getId());
+              }
+
+            interfazConPantalla.addAttribute("ids", ids);
+            interfazConPantalla.addAttribute("likes", likes);
             interfazConPantalla.addAttribute("datosPerfil", perf);
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
@@ -99,18 +116,41 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     public String perfil(@PathVariable("id") Integer id, ModelMap interfazConPantalla){
 
         //Datos del usuario de la sesión y sus intereses
-        usuarioSesionConIntereses(interfazConPantalla);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
         //DTO del usuario a mostrar
         Optional<UsuarioDto> usuarioPerfil = this.usuarioService.encuentraPorId(id);
 
         if (usuarioPerfil.isPresent()){
             UsuarioDto perf = usuarioPerfil.get();
+            UsuarioDto attr = usuarioDto.get();
 
             //Lista de comentarios del usuario
             final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivoOrderByIdDesc(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
             interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
             interfazConPantalla.addAttribute("datosPerfil",perf);
+            interfazConPantalla.addAttribute("datosUsuario", attr);
+
+            final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
+            interfazConPantalla.addAttribute("listaIntereses", listaProductos);
+
+            List<Integer> ids = new ArrayList();
+            List<Integer> likes = new ArrayList();
+
+            for (Usuario elemento : attr.getSeguimientos()) {
+                System.out.println(elemento.getId());
+                ids.add(elemento.getId());
+              }
+
+              for (Like elemento : attr.getLikes()) {
+                System.out.println(elemento.getComentarioLike().getId());
+                likes.add(elemento.getComentarioLike().getId());
+              }
+
+              interfazConPantalla.addAttribute("likes", likes);
+              interfazConPantalla.addAttribute("ids", ids);
 
             return "usuarios/perfil";
 
@@ -249,6 +289,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             
 
             Like like = new Like();
+
             UsuarioDto attr = usuarioDto.get();
             like.setUsuarioLike(this.usuarioService.getMapper().toEntity(attr));
 
@@ -262,6 +303,44 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             
             coment.get().setLikesComen(lista);
             comentarioRepository.save(coment.get());
+        }
+        return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
+    }
+
+    @GetMapping("/nomegusta/{id}")
+    public ResponseEntity<String> noMeGusta(@PathVariable("id") Integer id){
+        // Buscamos el comentario a procesar
+        Integer likes = 0;
+        Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        if(coment.isPresent() && usuarioDto.isPresent()){
+
+            //likes = coment.get().getLikes();
+            //coment.get().setLikes(--likes);         
+
+            UsuarioDto attr = usuarioDto.get();
+            List<Like> likeses = coment.get().getLikesComen();
+
+            for (Like elemento : likeses) {
+                System.out.println(elemento.getUsuarioLike().getId());
+
+                if(elemento.getUsuarioLike().getId() == attr.getId()){
+                    
+                    System.out.println("Coincide!");
+                    likes = coment.get().getLikes();
+                    coment.get().setLikes(--likes);
+                    likeRepository.delete(elemento);
+
+                }
+              }
+
+     
+            //likeRepository.delete(like);
+            
+            //comentarioRepository.save(coment.get());
         }
         return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
     }

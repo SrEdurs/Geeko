@@ -50,6 +50,7 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
 
             attr.getSeguimientos().add(usuario.get());
             //usuarioRepository.save(attr);
+            System.out.println("EOOOOOOOOOOOOOOOOOOOOOOOO");
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -79,6 +80,7 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
 
             usuarioRepository.save(usuario.get());
             usuarioRepository.save(attr);
+            System.out.println("EYYYYYYYYYYYYYYYYYYYYYYY");
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

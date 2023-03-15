@@ -9,6 +9,45 @@ body{
 body::-webkit-scrollbar {
    display: none;
 }
+.card-img-topproduPodint, .card-img-topperfil {
+   animation: 0.2s ease-out 0s 1 slideInRight;
+ }
+
+.card-img-toppu, .cardprodu{
+   animation: 0.2s ease-out 0s 1 slideInLeft;
+ }
+h6, .d-block {
+   animation: fadeInAnimation ease 1s;
+   animation-iteration-count: 1;
+   animation-fill-mode: forwards;
+ }
+ @keyframes fadeInAnimation {
+   0% {
+       opacity: 0;
+   }
+   100% {
+       opacity: 1;
+   }
+ }
+
+ @keyframes slideInLeft {
+   0% {
+     transform: translateX(-100%);
+   }
+   100% {
+     transform: translateX(0);
+   }
+ }
+
+ @keyframes slideInRight{
+   0% {
+     transform: translateX(100%);
+   }
+   100% {
+     transform: translateX(0);
+   }
+ }
+
 
 .form-control::placeholder {
  color: #6c757d;

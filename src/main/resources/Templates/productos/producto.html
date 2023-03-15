@@ -111,18 +111,18 @@ layout:decorate="~{layout/layout}">
                                                        style="color: #1E1E1E; margin-bottom: -10px"
                                                        th:text="${elemento.likes}"></p>
                                                 </div>
-                                                <div class="col">
+                                                <div class="col" th:if="${!#lists.contains(likes,elemento.id)}">
                                                     <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                                            th:data-id="${elemento.id}"
+                                                            th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
                                                             onclick="cambiamegusta(this.getAttribute('data-id'))">
                                                         <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
-                                                           th:id="'megusta'+${elemento.id}"></i>
+                                                        th:id="'megusta'+${elemento.id}"></i>
                                                     </button>
                                                 </div>
-                                                <div class="col" th:if="${elemento.likesComen}">
+                                                                                                <div class="col" th:if="${#lists.contains(likes,elemento.id)}">
                                                     <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                                             th:data-id="${elemento.id}"
-                                                            onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                                            onclick="nomegusta(this.getAttribute('data-id'))">
                                                         <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
                                                            th:id="'megusta'+${elemento.id}"></i>
                                                     </button>
