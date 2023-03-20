@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductoDto {
 
-    private int id;
+    private long id;
     private String titulo;
     private String imagen;
     private String descripcion;

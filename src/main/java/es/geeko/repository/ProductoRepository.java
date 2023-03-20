@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ProductoRepository extends JpaRepository<Producto,Integer> {
+public interface ProductoRepository extends JpaRepository<Producto,Long> {
 
     //Libro
     List<Producto> findProductosByLibroAndActivoAndGeekoIsOrderByIdDesc(int libro, int activo, int geeko);
@@ -27,11 +27,11 @@ public interface ProductoRepository extends JpaRepository<Producto,Integer> {
     List<Producto> findTop8ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(List<Tematica> tematicas, int geeko, int activo);
 
     //Productos de usuario iniciado
-    List<Producto> findProductosByUsuarioIdAndActivoIsOrderByIdDesc(int id,int activo);
+    List<Producto> findProductosByUsuarioIdAndActivoIsOrderByIdDesc(long id,int activo);
 
     //Producto y lista por ID
-    Producto findProductoByIdIs(int id);
-    List<Producto> findProductosByIdIs(int id);
+    Producto findProductoByIdIs(long id);
+    List<Producto> findProductosByIdIs(long id);
 
     //Productos reportados
     List<Producto> findProductosByReportadoIsAndActivoIs(int reportado, int activo);

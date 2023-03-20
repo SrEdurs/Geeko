@@ -34,7 +34,7 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
     }
 
     @GetMapping("/seguir/{id}")
-    public ResponseEntity<String> seguir(@PathVariable("id") Integer id){
+    public ResponseEntity<String> seguir(@PathVariable("id") Long id){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -57,7 +57,7 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
     }
 
     @GetMapping("/noseguir/{id}")
-    public ResponseEntity<String> noseguir(@PathVariable("id") Integer id){
+    public ResponseEntity<String> noseguir(@PathVariable("id") Long id){
         System.out.println("EYYYYYYYYYYYYYYYYYYYYYYY");
         //Obtenemos el DTO del usuario actual por ID
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

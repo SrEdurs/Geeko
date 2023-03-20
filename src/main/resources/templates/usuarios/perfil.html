@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layoutconjs}">
 
-<head th:replace="layout/layoutconjs :: head">
+<head th:replace="layout/layout :: head">
     <title id="pageTitle">Perfil</title>
 </head>
 
@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col" style="margin-top: 11px;">
                         <th:block th:object="${datosPerfil}">
-                            <div id="cardEntrada-2" class="mx-auto p-4 text-center shadow-lg m-5 rounded-5"
+                            <div id="cardEntrada-2" class="mx-auto p-3 text-center shadow-lg m-5 rounded-5"
                                 style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50"
                                                                                             style=" border-radius: 15px;"
                                                                                             th:src="${datosPerfil.avatar}">

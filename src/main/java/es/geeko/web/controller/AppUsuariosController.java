@@ -87,8 +87,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             //List<Like> likes = likeRepository.findByUsuarioLikeIs(this.usuarioService.getMapper().toEntity(attr));
 
 
-            List<Integer> likes = new ArrayList();
-            List<Integer> ids = new ArrayList();
+            List<Long> likes = new ArrayList();
+            List<Long> ids = new ArrayList();
 
             for (Usuario elemento : attr.getSeguimientos()) {
                 ids.add(elemento.getId());
@@ -113,7 +113,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
     @GetMapping("/perfil/{id}")
-    public String perfil(@PathVariable("id") Integer id, ModelMap interfazConPantalla){
+    public String perfil(@PathVariable("id") Long id, ModelMap interfazConPantalla){
 
         //Datos del usuario de la sesión y sus intereses
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -136,8 +136,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
             interfazConPantalla.addAttribute("listaIntereses", listaProductos);
 
-            List<Integer> ids = new ArrayList();
-            List<Integer> likes = new ArrayList();
+            List<Long> ids = new ArrayList();
+            List<Long> likes = new ArrayList();
 
             for (Usuario elemento : attr.getSeguimientos()) {
                 System.out.println(elemento.getId());
@@ -275,7 +275,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
 
     @GetMapping("/cambiamegusta/{id}")
-    public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Integer id){
+    public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Long id){
         // Buscamos el comentario a procesar
         Integer likes = 0;
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
@@ -308,7 +308,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     }
 
     @GetMapping("/nomegusta/{id}")
-    public ResponseEntity<String> noMeGusta(@PathVariable("id") Integer id){
+    public ResponseEntity<String> noMeGusta(@PathVariable("id") Long id){
         // Buscamos el comentario a procesar
         Integer likes = 0;
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);

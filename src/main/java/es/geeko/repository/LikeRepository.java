@@ -8,7 +8,7 @@ import es.geeko.model.Like;
 import es.geeko.model.Usuario;
 
 
-public interface LikeRepository extends JpaRepository<Like,Integer>{
+public interface LikeRepository extends JpaRepository<Like,Long>{
 
     List<Like> findByUsuarioLikeIs(Usuario usuarioLike);
     Like findById(long id);

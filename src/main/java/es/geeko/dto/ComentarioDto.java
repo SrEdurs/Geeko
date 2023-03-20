@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ComentarioDto {
 
-    private int id;
+    private long id;
     private String titulo;
     private String texto;
     private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());

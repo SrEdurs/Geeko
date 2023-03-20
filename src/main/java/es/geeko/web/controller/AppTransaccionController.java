@@ -42,7 +42,7 @@ public class AppTransaccionController extends AbstractController<UsuarioDto> {
     }
 
     @GetMapping("/pago/{id}")
-    public String vistaPago(@PathVariable("id") Integer id , ModelMap interfazConPantalla) {
+    public String vistaPago(@PathVariable("id") Long id , ModelMap interfazConPantalla) {
 
         //DTO del producto a comprar
         Optional<ProductoDto> producto = this.productoService.encuentraPorId(id);
@@ -63,7 +63,7 @@ public class AppTransaccionController extends AbstractController<UsuarioDto> {
     }
 
     @PostMapping("/pago/{id}")
-    public String pago(@PathVariable("id") Integer id) throws Exception {
+    public String pago(@PathVariable("id") Long id) throws Exception {
 
         //DTO del usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

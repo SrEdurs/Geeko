@@ -1,7 +1,11 @@
 package es.geeko.web.controller;
 
 import es.geeko.dto.UsuarioDto;
+import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
+import es.geeko.model.Usuario;
+import es.geeko.model.Like;
+import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.UsuarioService;
 import org.springframework.security.core.Authentication;
@@ -10,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +23,12 @@ public class HomeController {
 
     private final UsuarioService usuarioService;
     private final ProductoRepository productoRepository;
+    private final ComentarioRepository comentarioRepository;
 
-    public HomeController(UsuarioService usuarioService, ProductoRepository productoRepository) {
+    public HomeController(UsuarioService usuarioService, ProductoRepository productoRepository, ComentarioRepository comentarioRepository) {
         this.usuarioService = usuarioService;
         this.productoRepository = productoRepository;
+        this.comentarioRepository = comentarioRepository;
     }
 
     @GetMapping("/")
@@ -76,6 +83,24 @@ public class HomeController {
                 return "redirect:/cuestionario";
 
             } else {
+
+                List<Long> likes = new ArrayList();
+                List<Long> ids = new ArrayList();
+    
+                for (Usuario elemento : attr.getSeguimientos()) {
+                    ids.add(elemento.getId());
+                  }
+    
+                  for (Like elemento : attr.getLikes()) {
+                    System.out.println(elemento.getComentarioLike().getId());
+                    likes.add(elemento.getComentarioLike().getId());
+                  }
+    
+                interfazConPantalla.addAttribute("ids", ids);
+                interfazConPantalla.addAttribute("likes", likes);
+
+                final List<Comentario> listaComentarios = comentarioRepository.findTop8ComentariosByActivoIsAndUsuarioInOrderByIdDesc(1,attr.getSeguimientos());
+            interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
                 final List<Producto> listaProductos = productoRepository.findTop8ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
                 interfazConPantalla.addAttribute("listaProductos", listaProductos);

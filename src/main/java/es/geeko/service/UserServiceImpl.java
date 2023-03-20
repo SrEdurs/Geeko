@@ -29,7 +29,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
         String encodedPasswod = passwordEncoder.encode(passwd);
         user.setClave(encodedPasswod);
         user = userRepo.save(user);
-        return user.getId();
+        return (int) user.getId();
     }
 
     @Override

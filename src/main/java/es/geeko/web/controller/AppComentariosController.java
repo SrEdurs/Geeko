@@ -42,7 +42,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     }
 
     @GetMapping("/crearcomentario/{id}")
-    public String vistaCrearComentario(@PathVariable("id") Integer id,ModelMap interfazConPantalla){
+    public String vistaCrearComentario(@PathVariable("id") Long id,ModelMap interfazConPantalla){
 
         //Creamos el DTO del nuevo comentario y lo mandamos a la pantalla
         final ComentarioDto comentarioDto = new ComentarioDto();
@@ -78,7 +78,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     }
 
     @PostMapping("/crearcomentario/{id}")
-    public String guardarComentario(@PathVariable("id") Integer id, ComentarioDto comentarioDto, ModelMap interfazConPantalla) {
+    public String guardarComentario(@PathVariable("id") Long id, ComentarioDto comentarioDto, ModelMap interfazConPantalla) {
 
         //Datos de usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -103,7 +103,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
     //Método para borrar un comentario con Javascript
     @GetMapping("/borrar/{id}")
-    public ResponseEntity<String> borrar(@PathVariable("id") Integer id){
+    public ResponseEntity<String> borrar(@PathVariable("id") Long id){
         // Buscamos el comentario a procesar
         Integer activo = 0;
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);

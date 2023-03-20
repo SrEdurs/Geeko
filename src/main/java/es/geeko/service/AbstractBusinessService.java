@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.*;
 
-public abstract class AbstractBusinessService <E, ID, DTO,  REPO extends JpaRepository<E,ID> ,
+public abstract class AbstractBusinessService <E, ID, DTO,  REPO extends JpaRepository<E,Long> ,
         MAPPER extends AbstractServiceMapper<E,DTO>> {
     private final REPO repo;
     private final MAPPER serviceMapper;
@@ -25,11 +25,11 @@ public abstract class AbstractBusinessService <E, ID, DTO,  REPO extends JpaRepo
     }
 
     //Buscar por id
-    public Optional<DTO> encuentraPorId(ID id){
+    public Optional<DTO> encuentraPorId(long l){
 
-        return this.repo.findById(id).map(this.serviceMapper::toDto);
+        return this.repo.findById(l).map(this.serviceMapper::toDto);
     }
-    public Optional<E> encuentraPorIdEntity(ID id){
+    public Optional<E> encuentraPorIdEntity(long id){
 
         return this.repo.findById(id);
     }

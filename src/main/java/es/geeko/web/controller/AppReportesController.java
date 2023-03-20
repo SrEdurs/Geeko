@@ -55,7 +55,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
 
 
     @GetMapping("/reportarcomentario/{id}")
-    public String vistaReportarcomentario(@PathVariable("id") Integer id, ModelMap interfazConPantalla) {
+    public String vistaReportarcomentario(@PathVariable("id") Long id, ModelMap interfazConPantalla) {
 
         //Creamos el DTO del nuevo reporte
         final ReporteDto reporteDto = new ReporteDto();
@@ -85,7 +85,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
     }
 
     @PostMapping("/reportarcomentario/{id}")
-    public String reportarComentario(@PathVariable("id") Integer id, ReporteDto reporteDto) {
+    public String reportarComentario(@PathVariable("id") Long id, ReporteDto reporteDto) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -111,7 +111,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
     }
 
     @GetMapping("/reportarusuario/{id}")
-    public String vistaReportarUsuario(@PathVariable("id") Integer id, ModelMap interfazConPantalla) {
+    public String vistaReportarUsuario(@PathVariable("id") Long id, ModelMap interfazConPantalla) {
 
         //Creamos el DTO del nuevo reporte
         final ReporteDto reporteDto = new ReporteDto();
@@ -139,7 +139,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
     }
 
     @PostMapping("/reportarusuario/{id}")
-    public String reportarUsuario(@PathVariable("id") Integer id, ReporteDto reporteDto) {
+    public String reportarUsuario(@PathVariable("id") Long id, ReporteDto reporteDto) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -165,7 +165,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
     }
 
     @GetMapping("/reportarproducto/{id}")
-    public String vistaReportarProducto(@PathVariable("id") Integer id, ModelMap interfazConPantalla) {
+    public String vistaReportarProducto(@PathVariable("id") Long id, ModelMap interfazConPantalla) {
 
         //Creamos el DTO del nuevo reporte
         final ReporteDto reporteDto = new ReporteDto();
@@ -193,7 +193,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
     }
 
     @PostMapping("/reportarproducto/{id}")
-    public String reportarProducto(@PathVariable("id") Integer id, ReporteDto reporteDto) throws Exception {
+    public String reportarProducto(@PathVariable("id") Long id, ReporteDto reporteDto) throws Exception {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -253,7 +253,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
 
     //Método para descartar un reporte
     @GetMapping("/cambiareporte/{id}")
-    public ResponseEntity<String> cambiaReporte(@PathVariable("id") Integer id){
+    public ResponseEntity<String> cambiaReporte(@PathVariable("id") Long id){
 
         //Opcional de los 3 tipos de reportes
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
@@ -286,7 +286,7 @@ public class AppReportesController extends AbstractController<ComentarioDto> {
 
     //Método para suspender entidades con Javascript
     @GetMapping("/suspender/{id}")
-    public ResponseEntity<String> borrar(@PathVariable("id") Integer id){
+    public ResponseEntity<String> borrar(@PathVariable("id") Long id){
 
         //Opcional de los 3 tipos de datos
         Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);

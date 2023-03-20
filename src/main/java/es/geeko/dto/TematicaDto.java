@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class TematicaDto {
 
-    private Long id;
+    private long id;
     private String nombre;
     private List<Usuario> usuarios;
     private List<Producto> productos;

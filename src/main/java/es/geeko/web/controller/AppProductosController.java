@@ -163,7 +163,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @GetMapping("/productos/{idpro}")
-    public String vistaProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla){
+    public String vistaProducto(@PathVariable("idpro") Long id, ModelMap interfazConPantalla){
 
         //Buscamos el producto por ID
         Optional<ProductoDto> productoDto = productoService.encuentraPorId(id);
@@ -183,7 +183,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
-            List<Integer> likes = new ArrayList();
+            List<Long> likes = new ArrayList();
 
             for (Like elemento : attr.getLikes()) {
                 System.out.println(elemento.getComentarioLike().getId());
@@ -208,7 +208,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @GetMapping("/productos/edit/{idpro}")
-    public String vistaEditProducto(@PathVariable("idpro") Integer id, ModelMap interfazConPantalla){
+    public String vistaEditProducto(@PathVariable("idpro") Long id, ModelMap interfazConPantalla){
 
         usuarioSesionConIntereses(interfazConPantalla);
 
@@ -234,7 +234,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @PostMapping("/productos/edit/{idpro}")
-    public String editProducto(@PathVariable("idpro") Integer id, ProductoDto productoDtoEntrada) throws Exception {
+    public String editProducto(@PathVariable("idpro") Long id, ProductoDto productoDtoEntrada) throws Exception {
 
         //Necesitamos el DTO del usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -318,7 +318,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
-            Integer num = attr.getId();
+            Long num = attr.getId();
             interfazConPantalla.addAttribute("idUsuario", num);
 
             //Mostramos los productos de su propiedad
@@ -333,7 +333,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     }
 
     @GetMapping("/perfil/{id}/productos")
-    public String vistaSubidosUsuario(@PathVariable("id") Integer id, ModelMap interfazConPantalla){
+    public String vistaSubidosUsuario(@PathVariable("id") Long id, ModelMap interfazConPantalla){
 
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(id);
 
@@ -346,7 +346,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             final List<Producto> listaProductos = productoRepository.findProductosByUsuarioIdAndActivoIsOrderByIdDesc(id, 1);
             interfazConPantalla.addAttribute("listaProductos", listaProductos);
 
-            Integer num = usuarioDto.get().getId();
+            Long num = usuarioDto.get().getId();
             interfazConPantalla.addAttribute("idUsuario", num);
 
             return "productos/productossubidos";

@@ -22,10 +22,10 @@ public class Transaccion {
     private long id;
 
     @Column(name="idCliente", nullable = false)
-    private int idCliente;
+    private long idCliente;
 
     @Column(name = "idVendedor", nullable = false)
-    private int idVendedor;
+    private long idVendedor;
 
     @Column(name = "fecha", nullable = false)
     private Date Fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());

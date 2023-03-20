@@ -13,6 +13,14 @@ body::-webkit-scrollbar {
    animation: 0.2s ease-out 0s 1 slideInRight;
  }
 
+ .card-img-topn {
+   animation: 0.2s ease-out 0s 1 slideInRight;
+ }
+
+  .p-4 {
+   animation: 0.2s ease-out 0s 1 slideInBot;
+ }
+
 .card-img-toppu, .cardprodu{
    animation: 0.2s ease-out 0s 1 slideInLeft;
  }
@@ -48,6 +56,15 @@ h6, .d-block {
    }
  }
 
+  @keyframes slideInBot {
+   0% {
+     transform: translateY(100%);
+   }
+   100% {
+     transform: translateY(0);
+   }
+ }
+
 
 .form-control::placeholder {
  color: #6c757d;
@@ -61,6 +78,65 @@ h6, .d-block {
    font-family: 'Inter',sans-serif;
    margin-top: 10px;
    margin-right: 10px;
+}
+
+.card{
+   background-color: #1e1e1e00;
+   border: 0;
+   color: #D9D9D9;
+}
+
+.cardprodint{
+   width: 300px;
+   height: 350px;
+}
+
+.card-img-toppdint{
+   width: 270px;
+   height: 270px;
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+}
+
+.cardprodu{
+   width: 210px;
+   height: 240px;
+}
+
+.card-img-toppu{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 200px;
+   height: 200px;
+}
+
+.cardnovedad{
+   width: 310px;
+   height: 470px;
+}
+
+.card-img-topn{
+   border-radius: 20px;
+   object-position: center;
+   object-fit: cover;
+   width: 270px;
+   height: 390px;
+}
+
+.card-body{
+   background-color: #1E1E1E;
+   border-radius: 30px;
+}
+
+.btn-floating{
+   background-color: #1E1E1E;
+}
+
+.card-title{
+   margin-top: 5px;
+   text-align: center;
 }
 
 .form-check{
@@ -120,8 +196,8 @@ h6, .d-block {
 }
 
 .cardnovedad{
-   width: 300px;
-   height: 390px;
+   width: 310px;
+   height: 470px;
    background-color: #1E1E1E;
    border: 0;
 }
@@ -132,8 +208,8 @@ h6, .d-block {
 }
 
 .cardprodu{
-   width: 180px;
-   height: 210px;
+   width: 210px;
+   height: 240px;
 }
 
 .card-img-toptp{
@@ -198,6 +274,27 @@ h6, .d-block {
    object-fit: cover;
    width: 270px;
    height: 320px;
+}
+
+.cardpago{
+   width: 500px;
+   height: 350px;
+   justify-content: center;
+}
+
+.card-bodypago{
+   margin-top: 45px;
+   background-color: #D9D9D9;
+   border: 0;
+   border-radius: 20px;
+   color: #1E1E1E;
+   font-family: 'Inter',sans-serif;
+   font-weight: bold;
+   font-size: 15px;
+   text-align: center;
+   width: 500px;
+   height: 350px;
+   justify-content: center;
 }
 
 .produpodint{
