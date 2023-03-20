@@ -9,6 +9,7 @@ import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.UsuarioService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String getPage() {
-        return "index";
+         return "index"; 
     }
 
     @GetMapping("/usuarios/login")

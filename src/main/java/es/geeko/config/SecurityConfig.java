@@ -27,7 +27,7 @@ public class SecurityConfig {
 
 
         http.authorizeHttpRequests()
-                .requestMatchers("/","","/registerUser","/crearcuenta","/saveUser","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**","/bienvenida").permitAll()
+                .requestMatchers("/","","/registerUser","/crearcuenta","/saveUser","/css/**", "/js/**","/logo/**","/imagenes/**","/iconos/**","/bienvenida","/index").permitAll()
                 .requestMatchers("/panelreportes","/cambiareporte/**","/suspender/**").hasRole("ADMIN")
                 .requestMatchers("/perfil","/perfil/**","/cuestionario","/usuarios/edit","/social").hasRole("USER")
                 .requestMatchers("/productos/**","/crearcomentario/**","/borrar/**").hasRole("USER")
