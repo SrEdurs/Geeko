@@ -183,7 +183,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
-            List<Long> likes = new ArrayList();
+            List<Long> likes = new ArrayList<Long>();
 
             for (Like elemento : attr.getLikes()) {
                 System.out.println(elemento.getComentarioLike().getId());

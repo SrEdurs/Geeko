@@ -87,8 +87,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             //List<Like> likes = likeRepository.findByUsuarioLikeIs(this.usuarioService.getMapper().toEntity(attr));
 
 
-            List<Long> likes = new ArrayList();
-            List<Long> ids = new ArrayList();
+            List<Long> likes = new ArrayList<Long>();
+            List<Long> ids = new ArrayList<Long>();
 
             for (Usuario elemento : attr.getSeguimientos()) {
                 ids.add(elemento.getId());
@@ -136,8 +136,8 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
             interfazConPantalla.addAttribute("listaIntereses", listaProductos);
 
-            List<Long> ids = new ArrayList();
-            List<Long> likes = new ArrayList();
+            List<Long> ids = new ArrayList<Long>();
+            List<Long> likes = new ArrayList<Long>();
 
             for (Usuario elemento : attr.getSeguimientos()) {
                 System.out.println(elemento.getId());
@@ -298,7 +298,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
             likeRepository.save(like);
 
-            List<Like> lista = new ArrayList();
+            List<Like> lista = new ArrayList<Like>();
             lista.add(like);
             
             coment.get().setLikesComen(lista);
