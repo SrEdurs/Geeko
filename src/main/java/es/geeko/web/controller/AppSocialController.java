@@ -9,8 +9,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
+
+import es.geeko.model.Chat;
 import es.geeko.model.Usuario;
+import es.geeko.repository.ChatRepository;
 import es.geeko.repository.UsuarioRepository;
 
 @Controller
@@ -18,18 +23,24 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
 
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
+    private final ChatRepository chatRepository;
+    private final ChatService chatService;
 
 
 
-    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository) {
+    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository, ChatRepository chatRepository, ChatService chatService) {
         this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
+        this.chatRepository = chatRepository;
+        this.chatService = chatService;
     }
 
     @GetMapping("/social")
     public String social(ModelMap interfazConPantalla){
 
-        usuarioSesion(interfazConPantalla);
+        usuarioSesionSocial(interfazConPantalla);
+
+
         return "/social/social";
     }
 
@@ -85,7 +96,61 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public void usuarioSesion(ModelMap interfazConPantalla){
+    @GetMapping("/chat/{id}")
+    public ResponseEntity<String> chat(@PathVariable("id") Long id){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        
+        Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
+
+        if(usuario.isPresent()){
+
+            Chat chat = new Chat();
+            chat.setIdDestinatario(id);
+            chat.setIdRemitente(usuarioDto.get().getId());
+            chat.setImagen(usuario.get().getAvatar());
+            chat.setTitulo(usuario.get().getNick());
+            chat.setActivo(1);
+            chatRepository.save(chat);
+
+            Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
+            attr.getChats().add(chat);
+            usuarioRepository.save(attr);
+
+            Usuario mensajeado = usuario.get();
+            chat.setTitulo(attr.getNick());
+            mensajeado.getChats().add(chat);
+            usuarioRepository.save(mensajeado);
+
+            
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/borrarchat/{id}")
+    public ResponseEntity<String> borrarchat(@PathVariable("id") Long id){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        
+        Optional<Chat> chat = chatService.encuentraPorIdEntity(id);
+
+        if(chat.isPresent()){
+
+            Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
+            attr.getChats().remove(chat.get());
+            usuarioRepository.save(attr);
+            chatRepository.delete(chat.get());
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public void usuarioSesionSocial(ModelMap interfazConPantalla){
 
         //Obtenemos el DTO del usuario actual por ID
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -96,6 +161,10 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         if(usuarioDto.isPresent()) {
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario", attr);
+
+            List<Chat> chats = attr.getChats();
+            interfazConPantalla.addAttribute("chats", chats);
+            
         }
     }
 }

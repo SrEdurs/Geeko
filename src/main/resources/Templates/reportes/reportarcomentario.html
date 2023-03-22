@@ -19,18 +19,47 @@
                     </div>
                     <div class="row">
                         <div class="col"></div>
-                        <div class="col-xxl-8" style="height: 180px;">
-                            <section class="card mb-3">
-                                <div class="row">
-                                    <div class="col-3"><img th:src="${datosComentario.usuario?.getAvatar}" style="width: 7rem;" class="mt-1" alt=""></div>
-                                    <div class="col">
-                                        <div class="card-body">
-                                            <h5 class="card-title" th:text="${datosComentario.titulo}"></h5>
-                                            <p class="card-text" th:text="${datosComentario.texto}"></p>
+                        <div class="col-xxl-12" style="height: 180px;">
+                            <div class="p-4 text-center rounded-5">
+                                <div class="row"
+                                     style="background-color: #FFFFFF;border-radius: 30px;margin-top: -9px;min-width: 300px; max-width: 500px">
+                                    <div style="max-height: 118px;text-align: center;">
+                                        <div class="row">
+                                            <div class="col-xl-12" style="max-height: 116px;">
+                                                <a th:href="@{/perfil/{id}(id = ${datosComentario.usuario?.getId})}"><img th:src="${datosComentario.usuario?.getAvatar}" style="width: 5rem; border-radius: 15px"
+                                                     class="mt-4" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h3 style="text-align: left;" th:text="${datosComentario.titulo}"></h3>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="row" style="text-align: left;">
+                                                <p th:text="${datosComentario.texto}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col"
+                                                         style="height: 49px;margin-left: -7px;margin-right: 13px;">
+                                                        <a th:href="@{/productos/{id}(id = ${datosComentario.producto?.getId})}"><i
+                                                           class="bi bi-eye-fill" style="color: black"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
                         </div>
                         <div class="col"></div>
                     </div>
@@ -41,7 +70,7 @@
                 </div>
                 <div class="col-md-6">
                     <form role="form" th:object="${datosReporte}" method="post">
-                    <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="background: #d9d9d9;width: 477px;height: 233px;">
+                    <div id="cardEntrada-2" class="p-4 text-center shadow-lg m-5 rounded-5" style="background: #FFFFFF;width: 477px;height: 233px;">
                         <h4 style="color: #1e1e1e;">Motivo</h4>
                         <textarea th:field="${datosReporte.motivo}" style="width: 404px;height: 134px;border-radius: 10px;transform: translate(0px);background: #1e1e1e;color: rgb(255,255,255);" placeholder="Escribe brevemente el motivo de tu reporte" required=""></textarea>
                     </div>

@@ -16,8 +16,8 @@ import java.util.List;
 public class ChatDto {
 
     private long id;
-    private int idDestinatario;
-    private int idRemitente;
+    private long idDestinatario;
+    private long idRemitente;
     private String titulo;
     private String imagen;
     private String descripcion;

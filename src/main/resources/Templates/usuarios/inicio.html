@@ -14,32 +14,14 @@
         <div class="row">
 
             <article class="col-4">
-                <h4 class="text-white">Productos para ti</h4>
-                <section>
-                    <p> </p>
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
-                        <th:block th:each="elemento : ${listaProductosParaTi}">
-                            <div class="col">
-                                <div class="card cardprodu">
-                                    <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-toppu"></a>
-                                    <h6 th:align="center" th:text="${elemento.titulo}"></h6>
-                                </div>
-                            </div>
-                        </th:block>
-                    </div>
-                </section>
-            </article>
-
-            <article class="col-4">
                 <h4 class="text-white">Feed</h4>
                 <section>
-                    <p> </p>
                     <th:block th:if="${#lists.isEmpty(listaComentarios)}">
                         <h4 style="color: #FFFFFF; margin-left: 150px;margin-top: 20px">No hay nada, sigue a alguien!</h4>
                     </th:block>
                     <th:block th:each="elemento : ${listaComentarios}">
                     <div th:id="'borrar'+${elemento.id}">
-                        <div class="p-4 text-center rounded-5">
+                        <div class="p-4 comenfeed text-center rounded-5">
                             <div class="row"
                                  style="background-color: #FFFFFF;border-radius: 30px;margin-top: -9px;min-width: 300px; max-width: 500px">
                                 <div style="max-height: 118px;text-align: center;">
@@ -114,7 +96,24 @@
                     </div>
                 </th:block>
                 </section>
-            </article>            
+            </article> 
+
+            <article class="col-4">
+                <h4 class="text-white">Productos para ti</h4>
+                <section>
+                    <p> </p>
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <th:block th:each="elemento : ${listaProductosParaTi}">
+                            <div class="col">
+                                <div class="card cardprodu">
+                                    <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-toppu"></a>
+                                    <h6 th:align="center" th:text="${elemento.titulo}"></h6>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </section>
+            </article>           
             
             <article class="col-4">
                 <h4 class="text-white">Podría interesarte</h4>

@@ -242,6 +242,19 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         return "redirect:/perfil";
     }
 
+    @GetMapping("/cambiarcontraseña")
+    public String vistaPass(ModelMap interfazConPantalla){
+
+        //Datos del usuario de la sesión
+        usuarioSesion(interfazConPantalla);
+
+        //Lista de temáticas entre las que elegir
+        final List<Tematica> tematicas = tematicaService.buscarEntidades();
+        interfazConPantalla.addAttribute("listaTematicas",tematicas);
+
+        return "usuarios/cambiarcontraseña";
+    }
+
     public void usuarioSesion(ModelMap interfazConPantalla){
 
         //Obtenemos el DTO del usuario actual por ID

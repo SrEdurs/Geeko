@@ -21,10 +21,10 @@ public class Chat {
 
     @Column(name="idDestinatario", nullable = false)
 
-    private int idDestinatario;
+    private long idDestinatario;
 
     @Column(name="idRemitente", nullable = false)
-    private int idRemitente;
+    private long idRemitente;
 
     @Column(name="titulo", length = 50)
     private String titulo;
@@ -36,7 +36,7 @@ public class Chat {
     private String descripcion;
 
     @Column(name="activo", length = 1)
-    private int activo;
+    private int activo = 1;
 
     @OneToMany(mappedBy = "chat")
     private List<Mensaje> mensajes;
