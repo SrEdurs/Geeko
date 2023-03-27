@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<head th:replace="layout/layout :: head">
+    <title id="pageTitle">Chat</title>
 </head>
 <body>
+    <th:block layout:fragment="nav"></th:block>
+    <th:block layout:fragment="contenido">
+        <h3 class="text-white text-center pt-2" th:text="'Usuario emisor: ' + ${datosUsuario.id}"></h3>
 
+        <div id="cardEntrada-2" class="mx-auto p-3 text-center shadow-lg m-5 rounded-5"
+        style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50"
+                                                                    style=" border-radius: 15px;"
+                                                                    th:src="${datosUsuario.avatar}">
+        <h3 class="text-white text-center pt-2" th:text="${datosUsuario.nick}"></h3>
+        </div>
+
+
+        <h3 class="text-white text-center pt-2" th:text="'Usuario receptor: ' + ${datosUsuario2.id}"></h3>
+
+        <div id="cardEntrada-2" class="mx-auto p-3 text-center shadow-lg m-5 rounded-5"
+        style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50"
+                                                                    style=" border-radius: 15px;"
+                                                                    th:src="${datosUsuario2.avatar}">
+        <h3 class="text-white text-center pt-2" th:text="${datosUsuario2.nick}"></h3>
+        </div>
+
+    </th:block>
+    <th:block layout:fragment="pie"></th:block>
 </body>
+
 </html>

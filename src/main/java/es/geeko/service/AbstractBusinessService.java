@@ -47,5 +47,4 @@ public abstract class AbstractBusinessService <E, ID, DTO,  REPO extends JpaRepo
     public MAPPER getMapper(){return  serviceMapper;}
     //Obtener el repo
     public REPO getRepo(){return  repo;}
-
 }

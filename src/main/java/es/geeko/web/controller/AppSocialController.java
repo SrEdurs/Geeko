@@ -104,8 +104,11 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
         
         Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
+        Optional<Chat> chatop = chatRepository.findChatByIdDestinatarioAndIdRemitente(id,usuarioDto.get().getId());
 
         if(usuario.isPresent()){
+
+            if(!chatop.isPresent()){
 
             Chat chat = new Chat();
             chat.setIdDestinatario(id);
@@ -123,8 +126,15 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
             chat.setTitulo(attr.getNick());
             mensajeado.getChats().add(chat);
             usuarioRepository.save(mensajeado);
+            }
 
-            
+            else{
+                System.out.println("---------------------------- Este chat ya existe ----------------------------");
+                System.out.println("---------------------------- Este chat ya existe ----------------------------");
+                System.out.println("---------------------------- Este chat ya existe ----------------------------");
+
+                
+            }  
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -139,15 +149,42 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         
         Optional<Chat> chat = chatService.encuentraPorIdEntity(id);
 
-        if(chat.isPresent()){
+        if(chat.isPresent() && usuarioDto.isPresent()){
 
             Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
             attr.getChats().remove(chat.get());
             usuarioRepository.save(attr);
+
+            Usuario usu = usuarioRepository.getUsuarioByIdIs(chat.get().getIdDestinatario());
+            usu.getChats().remove(chat.get());
+            usuarioRepository.save(usu);
+
             chatRepository.delete(chat.get());
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("/chat/id/{id}")
+        public String vistaChat(@PathVariable("id") Long id, ModelMap interfazConPantalla){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        
+        Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
+
+        if(usuario.isPresent() && usuarioDto.isPresent()){
+
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("datosUsuario", attr);
+
+            Usuario usu = usuario.get();
+            interfazConPantalla.addAttribute("datosUsuario2", usu);
+        }
+
+        return "/social/chat";
     }
 
     public void usuarioSesionSocial(ModelMap interfazConPantalla){
