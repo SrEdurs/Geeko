@@ -114,7 +114,6 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
             chat.setIdDestinatario(id);
             chat.setIdRemitente(usuarioDto.get().getId());
             chat.setImagen(usuario.get().getAvatar());
-            chat.setTitulo(usuario.get().getNick());
             chat.setActivo(1);
             chatRepository.save(chat);
 
@@ -123,7 +122,7 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
             usuarioRepository.save(attr);
 
             Usuario mensajeado = usuario.get();
-            chat.setTitulo(attr.getNick());
+            chat.setTitulo(mensajeado.getNick());
             mensajeado.getChats().add(chat);
             usuarioRepository.save(mensajeado);
             }

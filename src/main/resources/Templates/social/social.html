@@ -43,7 +43,7 @@ layout:decorate="~{layout/layout}">
                         <div class="col-md-4 col-xxl-9" style="height: 70px;" th:id="'borrarchat'+${elemento.id}">
                             <a th:href="@{'/chat/id/' + ${elemento.idDestinatario}}" class="btn btn-primary text-center" data-bss-hover-animate="jello" type="button" style="background: #8d92bb;border-radius: 38px;color: #1e1e1e;padding-left: 10px;text-align: center;
                             border-width: 5px;border-color: #8d92bb;width: 260px;font-weight: bold;font-size: 19px;height: 53.5px;">
-                                <img width="31" height="31" th:src="${elemento.imagen}" style="border-radius: 30px;margin-right: 28px; margin-left: -28px;" th:text="${elemento.usuarios?.get(0).getNick()}">
+                                <img width="31" height="31" th:src="${elemento.imagen}" style="border-radius: 30px;margin-right: 28px; margin-left: -28px;" th:text="${elemento.titulo}">
                             </a>
                         </div>
                     
