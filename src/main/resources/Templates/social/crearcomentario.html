@@ -15,8 +15,8 @@ layout:decorate="~{layout/layout}">
                 <div class="col" style="margin-right: 5px; max-width: 1100px;">
                     <h4 style="color: #8D92BB;margin-bottom: 10px;" th:text="${datosProducto.titulo}"></h4>
                         <div class="shrink-0 flex items-center mb-2" style="white-space:nowrap !important">
-                            <a th:href="@{/perfil/{id}(id = ${datosProducto.usuario?.getId})}"><img th:src="${datosUsuario.avatar}" width="48px" class="h-8 w-8 rounded-full object-cover" style="border-radius: 15px"></a>
-                            <span  style="color: #D9D9D9;font-size: large;" th:text="${datosProducto.usuario?.getNick}"></span>
+                            <a th:href="@{/perfil}"><img th:src="${datosUsuario.avatar}" width="48px" class="h-8 w-8 rounded-full object-cover" style="border-radius: 15px"></a>
+                            <span  style="color: #D9D9D9;font-size: large;" th:text="${datosUsuario.nick}"></span>
                             <span class=" valoracionPedidos " style="white-space:nowrap !important"></span>
                         </div>
                         <div class="row" style="margin-right: 5px;">

@@ -53,14 +53,26 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute Usuario user, Model model){
-        System.out.println("EYYYYYYYY");
-        Integer id = userService.saveUser(user);
-        String message = "User '"+id+"' saved successfully !";
-        model.addAttribute("msg", message);
 
-        return String.format("redirect:/bienvenida");
+        //check if user exists, if not, save it
+        if(userService.checkUserExists(user.getEmilio())){
+            model.addAttribute("msg", "El usuario ya existe!");
+            return "usuarios/crearcuenta";
+        } else{
+            Integer id = userService.saveUser(user);
+            String message = "User '"+id+"' saved successfully !";
+            model.addAttribute("msg", message);
+            return String.format("redirect:/bienvenida");
+        }      
 
     }
+
+    //Getmapping bienvenida
+    @GetMapping("/bienvenida")
+    public String bienvenida(){
+        return "usuarios/bienvenida";
+    }
+
 
     @GetMapping("/perfil")
     public String perfil(ModelMap interfazConPantalla){

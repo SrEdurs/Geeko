@@ -52,4 +52,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
         }
 
     }
+
+    //Implement checkUserExists
+    @Override
+    public boolean checkUserExists(String email) {
+        Optional<Usuario> opt = userRepo.findUsuarioByEmilio(email);
+        return opt.isPresent();
+    }
 }

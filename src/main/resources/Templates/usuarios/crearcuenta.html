@@ -39,20 +39,21 @@
             <div class="col2">
                 <div class="form-group">
                     <label for="InputEmail">Email</label>
-                    <input type="email" id="InputEmail" class="form-control" maxlength="100" name="emilio"/>
+                    <input required type="email" id="InputEmail" class="form-control" maxlength="100" name="emilio" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"/>
                 </div>
                 <p></p>
                 <div class="form-group">
                     <label for="InputUser">Usuario</label>
-                    <input type="text" id="InputUser" class="form-control" maxlength="30" name="nick"/>
+                    <input required type="text" id="InputUser" class="form-control" maxlength="30" name="nick" pattern="^(?!\s*$).{6,}$"/>
                 </div>
                 <p></p>
                 <div class="form-group">
                     <label for="InputPassword">Contraseña</label>
-                    <input type="password" id="InputPassword" class="form-control" maxlength="255" name="clave"/>
+                    <input required type="password" id="InputPassword" class="form-control" maxlength="255" name="clave" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=_])(?=\S+$).{8,}$"/>
                    <!-- Role(s): <input type="checkbox" name="roles" value="ROLE_ADMIN"/>Admin -->
                     <input type="hidden" name="roles" value="ROLE_USER"/>
                     <input type="checkbox" name="roles" value="ROLE_ADMIN"/>Admin
+                    <div th:text="${msg}"></div>
 
                     <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
                 </div>
@@ -62,7 +63,7 @@
         </div>
     </div>
 </form>
-<div th:text="${msg}"></div>
+
 <footer class="text-center mt-5 text-white">
     <!-- Grid container -->
     <div class=" pt-2">
