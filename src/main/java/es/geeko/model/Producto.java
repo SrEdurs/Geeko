@@ -27,7 +27,7 @@ public class Producto {
     @Column(name="imagen", length = 200)
     private String imagen = "/imagenes/noimage.jpg";
 
-    @Column(name="descripcion", nullable = false)
+    @Column(name="descripcion", nullable = false, length = 255)
     private String descripcion;
 
     @Column(name="precio")

@@ -17,6 +17,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import es.geeko.model.Like;
 
 import java.util.ArrayList;
@@ -355,6 +357,21 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             return "error";
         }
     }
+
+
+    //Getpammping /productos/buscar
+    @GetMapping("/productos/buscar")
+    public String buscarProductosGet(@RequestParam("busqueda") String busqueda, ModelMap interfazConPantalla){
+
+        usuarioSesion(interfazConPantalla);
+
+        //Mostramos los productos
+        final List<Producto> listaProductos = productoRepository.findProductosByTituloContainingIgnoreCaseAndActivoIsOrderByIdDesc(busqueda, 1);
+        interfazConPantalla.addAttribute("listaProductos", listaProductos);
+
+        return "productos/productosbuscados";
+    }
+
 
     public void usuarioSesion(ModelMap interfazConPantalla){
 

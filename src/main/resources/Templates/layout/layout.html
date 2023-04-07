@@ -49,15 +49,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
+            
             <div class="col-7 align-self-center collapse navbar-collapse" id="opciones">
-                <form action="" class="d-flex w-100" role="search">
+                <form class="d-flex w-100" th:action="@{/productos/buscar}" method="get">
                     <input class="form-control me-2 rounded-pill" type="search" placeholder="Buscar"
-                           aria-label="Search">
+                           aria-label="Search" name="busqueda">
                     <a style="margin-top: 8px; margin-left: -48px;" type="submit">
                         <i class="bi bi-search"></i>
                     </a>
                 </form>
             </div>
+
             <div class="col">
                 <th:block th:object="${datosUsuario}">
                     <div class="dropdown">

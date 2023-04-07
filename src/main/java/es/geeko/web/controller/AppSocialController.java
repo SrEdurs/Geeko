@@ -186,7 +186,6 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         return "/social/chat";
     }
 
-
     public void usuarioSesionSocial(ModelMap interfazConPantalla){
 
         //Obtenemos el DTO del usuario actual por ID

@@ -1,0 +1,40 @@
+<html lang="es_ES" xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head th:replace="layout/layout :: head">
+    <title id="pageTitle">Películas</title>
+</head>
+
+<body>
+    <th:block layout:fragment="nav"></th:block>
+    <th:block layout:fragment="contenido">
+    <div class="container-fluid">
+        <div class="row">
+            <article class="col">
+                <h4 class="text-white">Resultado de la búsqueda</h4>
+                <section>
+                    <div class="row row-cols-1 row-cols-2 row-cols-3 g-4">
+                        <th:block th:each="elemento : ${listaProductos}">
+                            <div class="card cardnovedad">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card-body">
+                                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-topn"></a>
+                                            <h6 th:align="center" th:text="${elemento.titulo}"></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </div>
+    </th:block>
+    <th:block layout:fragment="pie"></th:block>
+</body>
+
+</html>

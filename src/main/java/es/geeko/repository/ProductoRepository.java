@@ -36,4 +36,7 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     //Productos reportados
     List<Producto> findProductosByReportadoIsAndActivoIs(int reportado, int activo);
 
+    //findProductosByTituloContainingIgnoreCaseAndActivoIsOrderByIdDesc
+    List<Producto> findProductosByTituloContainingIgnoreCaseAndActivoIsOrderByIdDesc(String titulo, int activo);
+
 }
