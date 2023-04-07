@@ -59,4 +59,10 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
         Optional<Usuario> opt = userRepo.findUsuarioByEmilio(email);
         return opt.isPresent();
     }
+
+    @Override
+    public void changePassword(String email, String password) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'changePassword'");
+    }
 }

@@ -39,4 +39,7 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     //findProductosByTituloContainingIgnoreCaseAndActivoIsOrderByIdDesc
     List<Producto> findProductosByTituloContainingIgnoreCaseAndActivoIsOrderByIdDesc(String titulo, int activo);
 
+
+
+
 }

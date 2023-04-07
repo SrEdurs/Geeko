@@ -44,5 +44,7 @@ public class UsuarioDto {
     private List<String> roles;
     private List<Like> likes;
     private List<Chat> chats;
+    private List<Mensaje> mensajes;
+    private List<Reporte> reportes;
 
 }

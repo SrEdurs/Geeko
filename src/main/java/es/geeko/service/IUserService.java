@@ -10,4 +10,7 @@ public interface IUserService {
 
     //Check if user exists
     public boolean checkUserExists(String email);
+
+    //cambiar contraseña
+    public void changePassword(String email, String password);
 }

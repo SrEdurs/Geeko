@@ -67,6 +67,74 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     }
 
+    @GetMapping("/cambiarclave")
+
+    public String vistaPass(ModelMap interfazConPantalla){
+
+        //Datos del usuario de la sesión
+        usuarioSesion(interfazConPantalla);
+
+        //Lista de temáticas entre las que elegir
+        final List<Tematica> tematicas = tematicaService.buscarEntidades();
+        interfazConPantalla.addAttribute("listaTematicas",tematicas);
+
+        return "usuarios/cambiarcontraseña";
+    }
+
+    //Cambiar la contraseña, una vez cambiada, devuelve a la pantalla de editar perfil
+    @PostMapping("/cambiarclave")
+    public String cambiarclave(@ModelAttribute Usuario user, Model model){
+
+        //Necesitamos el DTO del usuario de la sesión
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        System.out.println("000000000000000000000000000000000000000000000000000000000000000");
+        //Si está presente, mostramos los datos
+        if(usuarioDto.isPresent()) {
+
+            System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+            //Comprobamos que la contraseña actual es correcta
+            if(userService.checkUserExists(user.getEmilio())){
+
+                System.out.println("11111111111111111111111111111111111111111111111111111111111111111111");
+
+                //Comprobamos que la nueva contraseña es igual a la repetida
+                if(user.getClave().equals(user.getClave())){
+
+                    System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222222");
+
+                    //Cambiamos la contraseña
+                    userService.changePassword(user.getEmilio(), user.getClave());
+
+                    //Mostramos mensaje de éxito
+                    model.addAttribute("msg", "Contraseña cambiada correctamente");
+                    return String.format("redirect:/cambiarclave");
+
+                }else{
+                    //Mostramos mensaje de error
+                    model.addAttribute("msg", "Las contraseñas no coinciden");
+                    return String.format("redirect:/cambiarclave");
+                }
+
+            }else{
+                //Mostramos mensaje de error
+                System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                model.addAttribute("msg", "La contraseña actual no es correcta");
+                return String.format("redirect:/cambiarclave");
+            }
+
+        }else{
+            //Mostramos mensaje de error
+            model.addAttribute("msg", "No se ha podido cambiar la contraseña");
+            return String.format("redirect:/cambiarclave");
+        }
+
+    }
+
+
+
     //Getmapping bienvenida
     @GetMapping("/bienvenida")
     public String bienvenida(){
@@ -211,7 +279,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     @GetMapping("usuarios/edit")
     public String vistaDatosUsuario(ModelMap interfazConPantalla){
 
-        usuarioSesion(interfazConPantalla);
+        usuarioSesionConIntereses(interfazConPantalla);
 
         return "usuarios/edit";
 
@@ -247,25 +315,25 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         usuarioDtoGuardar.setRoles(usuarioDtoControl.get().getRoles());
         usuarioDtoGuardar.setTematicas(usuarioDtoControl.get().getTematicas());
         usuarioDtoGuardar.setTransacciones(usuarioDtoControl.get().getTransacciones());
+        usuarioDtoGuardar.setSeguimientos(usuarioDtoControl.get().getSeguimientos());
+        usuarioDtoGuardar.setSeguidos(usuarioDtoControl.get().getSeguidos());
+        usuarioDtoGuardar.setLikes(usuarioDtoControl.get().getLikes());
+        usuarioDtoGuardar.setComentarios(usuarioDtoControl.get().getComentarios());
+        usuarioDtoGuardar.setProductos(usuarioDtoControl.get().getProductos());
+        usuarioDtoGuardar.setChats(usuarioDtoControl.get().getChats());
+        usuarioDtoGuardar.setMensajes(usuarioDtoControl.get().getMensajes());
+        usuarioDtoGuardar.setReportado(usuarioDtoControl.get().getReportado());
+        usuarioDtoGuardar.setReportes(usuarioDtoControl.get().getReportes());
+        
+
 
         //Guardamos
         this.usuarioService.guardar(usuarioDtoGuardar);
 
-        return "redirect:/perfil";
+        return "redirect:/usuarios/edit";
     }
 
-    @GetMapping("/cambiarcontraseña")
-    public String vistaPass(ModelMap interfazConPantalla){
-
-        //Datos del usuario de la sesión
-        usuarioSesion(interfazConPantalla);
-
-        //Lista de temáticas entre las que elegir
-        final List<Tematica> tematicas = tematicaService.buscarEntidades();
-        interfazConPantalla.addAttribute("listaTematicas",tematicas);
-
-        return "usuarios/cambiarcontraseña";
-    }
+  
 
     public void usuarioSesion(ModelMap interfazConPantalla){
 
