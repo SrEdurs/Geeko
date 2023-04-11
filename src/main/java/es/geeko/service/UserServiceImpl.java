@@ -62,7 +62,6 @@ public class UserServiceImpl implements IUserService, UserDetailsService{
 
     @Override
     public void changePassword(String email, String password) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'changePassword'");
     }
 }

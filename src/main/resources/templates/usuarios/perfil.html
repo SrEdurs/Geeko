@@ -101,91 +101,68 @@
                     </div>
                 </div>
                 <th:block th:each="elemento : ${listaComentarios}">
-                    <div th:id="'borrar'+${elemento.id}">
-                        <div class="p-4 text-center shadow-lg m-5 rounded-5">
-                            <div class="row"
-                                style="background-color: #FFFFFF;border-radius: 30px;margin-top: -9px;min-width: 300px">
-                                <div style="max-height: 118px;text-align: center;">
-                                    <div class="row">
-                                        <div class="col-xl-12" style="max-height: 116px;">
-                                            <img th:src="${elemento.usuario?.getAvatar}" style="width: 5rem; border-radius: 15px"
-                                                class="mt-4" alt="">
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF">
+                            <div class="container">
                                 <div class="row">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h3 style="text-align: left;" th:text="${elemento.titulo}"></h3>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="row" style="text-align: left;">
-                                            <p th:text="${elemento.texto}"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row">
-                                                <div class="col"
-                                                    style="height: 49px;margin-left: -7px;margin-right: 13px;">
-                                                    <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}"><i
-                                                            class="bi bi-eye-fill" style="color: black"></i></a>
-                                                </div>
-                                                <div th:if="${datosUsuario.id} != ${elemento.usuario?.getId}"
-                                                    class="col "
-                                                    style="height: 48px;">
-                                                    <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}"><i
-                                                            class="bi bi-flag" style="color: black"></i></a>
-                                                </div>
-                                                <div th:if="${datosUsuario.id} == ${elemento.usuario?.getId}"
-                                                    class="col "
-                                                    style="height: 48px;">
-                                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                                            th:data-id="${elemento.id}"
-                                                            onclick="borrar(this.getAttribute('data-id'))">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </div>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
+                                                <img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}">
                                             </div>
-
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="row">
-                                                <div class="col" style="text-align: right;">
-                                                    <p th:id="'likes'+${elemento.id}"
-                                                    style="color: #1E1E1E; margin-bottom: -10px"
-                                                    th:text="${elemento.likes}"></p>
-                                                </div>
-                                                <div class="col" th:if="${!#lists.contains(likes,elemento.id)}">
-                                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                                            th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
-                                                            onclick="cambiamegusta(this.getAttribute('data-id'))">
-                                                        <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
-                                                        th:id="'megusta'+${elemento.id}"></i>
-                                                    </button>
-                                                </div>
-                                                                                                <div class="col" th:if="${#lists.contains(likes,elemento.id)}">
-                                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                                            th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
-                                                            onclick="nomegusta(this.getAttribute('data-id'))">
-                                                        <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
-                                                           th:id="'megusta'+${elemento.id}"></i>
-                                                    </button>
-                                                </div>
-
-
+                                            <div class="col">
+                                                <h3 class="pt-2" th:text="${elemento.titulo}">Title</h3>
+                                                <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
                                             </div>
-
                                         </div>
-
                                     </div>
                                 </div>
+                            </div>
+                            <div class="container">
+                                <div class="row" style="height: 15px;">
+                                    <div class="col-md-1">
+                                        <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}">
+                                            <i class="bi bi-eye-fill" style="color: black"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-9" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
+                                        <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
+                                            <i class="bi bi-flag" style="color: black"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-9" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
+                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                        th:data-id="${elemento.id}"
+                                        onclick="borrar(this.getAttribute('data-id'))">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
 
+                                    <div class="col-xxl-1">
+                                        <p th:id="'likes'+${elemento.id}"
+                                                style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
+                                                th:text="${elemento.likes}">
+                                        </p>
+                                    </div>
+                                    <div class="col-md-1" th:if="${!#lists.contains(likes,elemento.id)}">
+                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                        th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
+                                        onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                        <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
+                                        th:id="'megusta'+${elemento.id}"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-1" th:if="${#lists.contains(likes,elemento.id)}">
+                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                                th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
+                                                onclick="nomegusta(this.getAttribute('data-id'))">
+                                            <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
+                                            th:id="'megusta'+${elemento.id}"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </th:block>
+                    </th:block>
 
             </div>
             <div class="col-xl-3" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
