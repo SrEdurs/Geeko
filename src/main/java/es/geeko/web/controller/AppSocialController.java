@@ -1,5 +1,6 @@
 package es.geeko.web.controller;
 
+import es.geeko.dto.MensajeDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.service.*;
 import org.springframework.http.HttpStatus;
@@ -10,12 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import es.geeko.model.Chat;
+import es.geeko.model.Mensaje;
 import es.geeko.model.Usuario;
 import es.geeko.repository.ChatRepository;
+import es.geeko.repository.MensajeRepository;
 import es.geeko.repository.UsuarioRepository;
 
 @Controller
@@ -25,14 +29,16 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
     private final UsuarioRepository usuarioRepository;
     private final ChatRepository chatRepository;
     private final ChatService chatService;
+    private final MensajeRepository mensajeRepository;
 
 
 
-    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository, ChatRepository chatRepository, ChatService chatService) {
+    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository, ChatRepository chatRepository, ChatService chatService, MensajeRepository mensajeRepository) {
         this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
         this.chatRepository = chatRepository;
         this.chatService = chatService;
+        this.mensajeRepository = mensajeRepository;
     }
 
     @GetMapping("/social")
@@ -104,40 +110,41 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
         
         Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
-        Optional<Chat> chatop = chatRepository.findChatByIdDestinatarioAndIdRemitente(id,usuarioDto.get().getId());
 
-        if(usuario.isPresent()){
+        Optional<Chat> chatop1 = chatRepository.findChatByIdDestinatarioAndIdRemitente(id,usuarioDto.get().getId());
+        Optional<Chat> chatop2 = chatRepository.findChatByIdDestinatarioAndIdRemitente(usuarioDto.get().getId(), id);
 
-            if(!chatop.isPresent()){
+        Optional<Chat> chatop = chatop1.isPresent() ? chatop1 : chatop2;
 
-            Chat chat = new Chat();
-            chat.setIdDestinatario(id);
-            chat.setIdRemitente(usuarioDto.get().getId());
-            chat.setImagen(usuario.get().getAvatar());
-            chat.setActivo(1);
-            chatRepository.save(chat);
+        if(chatop.isPresent()) {
 
-            Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
-            attr.getChats().add(chat);
-            usuarioRepository.save(attr);
-
-            Usuario mensajeado = usuario.get();
-            chat.setTitulo(mensajeado.getNick());
-            mensajeado.getChats().add(chat);
-            usuarioRepository.save(mensajeado);
-            }
-
-            else{
-                System.out.println("---------------------------- Este chat ya existe ----------------------------");
-                System.out.println("---------------------------- Este chat ya existe ----------------------------");
-                System.out.println("---------------------------- Este chat ya existe ----------------------------");
-
-                
-            }  
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+
+        List<Usuario> usuariosChat = new java.util.ArrayList<>();
+        usuariosChat.add(usuario.get());
+        usuariosChat.add(usuarioService.getMapper().toEntity(usuarioDto.get()));
+
+        List<Mensaje> mensajes = new java.util.ArrayList<>();
+        Chat chat = new Chat();
+        chat.setIdDestinatario(id);
+        chat.setIdRemitente(usuarioDto.get().getId());
+        chat.setImagen(usuario.get().getAvatar());
+        chat.setActivo(1);
+        chat.setTitulo(usuario.get().getNick());
+        chat.setUsuarios(usuariosChat);
+        chat.setMensajes(mensajes);
+        chatRepository.save(chat);
+
+        Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
+        attr.getChats().add(chat);
+        usuarioRepository.save(attr);
+        usuario.get().getChats().add(chat);
+        usuarioRepository.save(usuario.get());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
     @GetMapping("/borrarchat/{id}")
     public ResponseEntity<String> borrarchat(@PathVariable("id") Long id){
@@ -170,9 +177,14 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-        
-        Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
+        Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(chatService.encuentraPorIdEntity(id).get().getIdDestinatario());
+        Optional<Chat> chat = chatService.encuentraPorIdEntity(id);
+
+        final MensajeDto mensajeDto = new MensajeDto();
+        mensajeDto.setChat(chat.get());
+        interfazConPantalla.addAttribute("mensaje", mensajeDto);
 
         if(usuario.isPresent() && usuarioDto.isPresent()){
 
@@ -181,9 +193,38 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
 
             Usuario usu = usuario.get();
             interfazConPantalla.addAttribute("datosUsuario2", usu);
+
+            Chat chat2 = chat.get();
+            interfazConPantalla.addAttribute("chat", chat2);
+            
+            
         }
 
         return "/social/chat";
+    }
+
+    //postmapping para enviar mensajes
+    @PostMapping("/chat/id/{id}")
+    public String crearmensaje(@PathVariable("id") Long id, ModelMap interfazConPantalla, MensajeDto mensajeDto){
+
+        System.out.println("EYOOO");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        System.out.println("EYOOO");
+
+        //Asignación de los datos al mensaje
+        Mensaje mensaje = new Mensaje();
+        mensaje.setChat(chatService.encuentraPorIdEntity(id).get());
+        mensaje.setTexto(mensajeDto.getTexto());
+        mensaje.setUsuario(usuarioService.getMapper().toEntity(usuarioDto.get()));
+        mensajeRepository.save(mensaje);
+
+
+        return "redirect:/chat/id/" + id;
     }
 
     public void usuarioSesionSocial(ModelMap interfazConPantalla){

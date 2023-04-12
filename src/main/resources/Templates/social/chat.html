@@ -9,25 +9,73 @@
 <body>
     <th:block layout:fragment="nav"></th:block>
     <th:block layout:fragment="contenido">
-        <h3 class="text-white text-center pt-2" th:text="'Usuario emisor: ' + ${datosUsuario.id}"></h3>
+        <div id="chat">
+        
+    <div style="max-height: 400px; overflow-y: scroll;" id="chat-messages">
+        <th:block th:each="elemento : ${chat.mensajes}">
+            <div class="p-2 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 400px; min-width: 300px; align-items: center;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-center" style="height: 100px;">
+                                    <a>
+                                        <img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}">
+                                    </a>
+                                </div>
+                                <div class="col d-xxl-flex justify-content-xxl-left align-items-xxl-center">
+                                    <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    
+    <script>
+        // Obtener el contenedor de mensajes
+        var chatMessages = document.getElementById('chat-messages');
+    
+        // Establecer el scroll en la posición máxima
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    </script>
+    
+    
 
-        <div id="cardEntrada-2" class="mx-auto p-3 text-center shadow-lg m-5 rounded-5"
-        style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50"
-                                                                    style=" border-radius: 15px;"
-                                                                    th:src="${datosUsuario.avatar}">
-        <h3 class="text-white text-center pt-2" th:text="${datosUsuario.nick}"></h3>
-        </div>
+    <th:block th:if="${chat.mensajes.isEmpty}">
+            <p style="color: aliceblue;">NADA</p>
+    </th:block>
 
-
-        <h3 class="text-white text-center pt-2" th:text="'Usuario receptor: ' + ${datosUsuario2.id}"></h3>
-
-        <div id="cardEntrada-2" class="mx-auto p-3 text-center shadow-lg m-5 rounded-5"
-        style="width: 211px;background: rgba(141,146,187,0.35);"><img class="pt-2 w-50"
-                                                                    style=" border-radius: 15px;"
-                                                                    th:src="${datosUsuario2.avatar}">
-        <h3 class="text-white text-center pt-2" th:text="${datosUsuario2.nick}"></h3>
-        </div>
-
+        <form role="form" th:object="${mensaje}" method="post">
+            <div class="mx-auto row">
+                <div class="col-8">
+                    <div class="col">
+                        <p> </p>
+                        <div class="form-group">
+                            <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger; margin-left: 50px;">Mensaje</label>
+                            <textarea  id="InputTexto" class="form-control" style="border-radius: 23px;min-height: 110px; width: 600px; margin-left: 50px;"  maxlength="300" th:field="${mensaje.texto}" required></textarea>
+                        </div>
+                        <p> </p>
+                        <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;padding: 2px;width: 92px;height: 41px; font-weight: bold;margin-left: 560px" class="btn ">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script>
+            var form = document.querySelector('form');
+            var textarea = form.querySelector('textarea');
+            
+            textarea.addEventListener('keydown', function(event) {
+                if (event.keyCode === 13 && !event.shiftKey) {
+                    event.preventDefault();
+                    form.submit();
+                }
+            });
+        </script>
+    </div>
+         
     </th:block>
     <th:block layout:fragment="pie"></th:block>
 </body>
