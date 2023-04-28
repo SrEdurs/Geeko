@@ -11,7 +11,7 @@ Geeko cuenta con un sistema de registro y login seguros gracias a Spring Securit
 ![Alt text](src/main/resources/static/readmephotos/1.png)
 
 ## ¿Cómo se ha hecho?
-Geeko ha sido desarrollado con Java, utilizando Spring Boot y Spring Security para la parte del servidor, y Thymeleaf para la parte del cliente. También se ha utilizado una base de datos MySQL para almacenar los datos de los usuarios, los productos y los mensajes. Para el diseño de la app se ha utilizado Bootstrap, y para el logo se ha utilizado Adobe Illustrator.
+Geeko ha sido desarrollado con Java, utilizando Spring Boot y Spring Security para la parte del servidor, y Thymeleaf para la parte del cliente. También se ha utilizado una base de datos MySQL para almacenar los datos de los usuarios, los productos y los mensajes. Para el diseño de la app se ha utilizado Bootstrap, y para el logo se ha utilizado Adobe Illustrator. Además, se ha utilizado Figma para el diseño de las diferentes pantallas de la app. Por último, se ha utilizado Git y GitHub para la gestión del proyecto.
 ![Alt text](src/main/resources/static/readmephotos/perfil.png)
 
 ## ¿Cómo se instala?
