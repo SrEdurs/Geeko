@@ -1,5 +1,5 @@
 # Geeko
-
+![Alt text](src/main/resources/static/logo/geekohueco.png)
 
 
 ## Getting started
