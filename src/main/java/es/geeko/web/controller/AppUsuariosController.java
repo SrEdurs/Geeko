@@ -30,7 +30,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     private IUserService userService;
     private final UsuarioService usuarioService;
     private final TematicaService tematicaService;
-    private final ComentarioService comentarioService;
     private final LikeRepository likeRepository;
 
     @Autowired
@@ -40,13 +39,11 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService,
                                  ProductoRepository productoRepository,
                                  ComentarioRepository comentarioRepository,
-                                 ComentarioService comentarioService,
                                  LikeRepository likeRepository) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
         this.productoRepository = productoRepository;
         this.comentarioRepository = comentarioRepository;
-        this.comentarioService = comentarioService;
         this.likeRepository = likeRepository;
     }
 
@@ -89,20 +86,14 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        System.out.println("000000000000000000000000000000000000000000000000000000000000000");
         //Si está presente, mostramos los datos
         if(usuarioDto.isPresent()) {
 
-            System.out.println("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
             //Comprobamos que la contraseña actual es correcta
             if(userService.checkUserExists(user.getEmilio())){
 
-                System.out.println("11111111111111111111111111111111111111111111111111111111111111111111");
-
                 //Comprobamos que la nueva contraseña es igual a la repetida
                 if(user.getClave().equals(user.getClave())){
-
-                    System.out.println("2222222222222222222222222222222222222222222222222222222222222222222222222");
 
                     //Cambiamos la contraseña
                     userService.changePassword(user.getEmilio(), user.getClave());
@@ -119,7 +110,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
             }else{
                 //Mostramos mensaje de error
-                System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 model.addAttribute("msg", "La contraseña actual no es correcta");
                 return String.format("redirect:/cambiarclave");
             }
@@ -368,6 +358,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     @GetMapping("/cambiamegusta/{id}")
     public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Long id) {
+        
         Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -399,42 +390,33 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
 
     @GetMapping("/nomegusta/{id}")
-    public ResponseEntity<String> noMeGusta(@PathVariable("id") Long id){
-        // Buscamos el comentario a procesar
-        Integer likes = 0;
-        Optional<Comentario> coment = comentarioRepository.findComentarioByIdIs(id);
+    public ResponseEntity<String> noMeGusta(@PathVariable("id") Long id) {
+        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        if(coment.isPresent() && usuarioDto.isPresent()){
+        if (comentarioOptional.isPresent() && usuarioDtoOptional.isPresent()) {
+            Comentario comentario = comentarioOptional.get();
+            UsuarioDto usuarioDto = usuarioDtoOptional.get();
 
-            //likes = coment.get().getLikes();
-            //coment.get().setLikes(--likes);         
+            List<Like> likeses = comentario.getLikesComen();
+            Optional<Like> likeOptional = likeses.stream()
+                    .filter(like -> like.getUsuarioLike().getId() == (usuarioDto.getId()))
+                    .findFirst();
 
-            UsuarioDto attr = usuarioDto.get();
-            List<Like> likeses = coment.get().getLikesComen();
+            if (likeOptional.isPresent()) {
+                Like like = likeOptional.get();
+                comentario.setLikes(comentario.getLikes() - 1);
+                likeRepository.delete(like);
+            }
 
-            for (Like elemento : likeses) {
-                System.out.println(elemento.getUsuarioLike().getId());
-
-                if(elemento.getUsuarioLike().getId() == attr.getId()){
-                    
-                    System.out.println("Coincide!");
-                    likes = coment.get().getLikes();
-                    coment.get().setLikes(--likes);
-                    likeRepository.delete(elemento);
-
-                }
-              }
-
-     
-            //likeRepository.delete(like);
-            
-            //comentarioRepository.save(coment.get());
+            return new ResponseEntity<>(String.valueOf(comentario.getLikes()), HttpStatus.OK);
         }
-        return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
-    }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}
+
 
    
 }

@@ -94,6 +94,12 @@ public class Usuario {
     @OneToMany(mappedBy = "usuarioLike")
     private List<Like> likes;
 
+    @OneToMany(mappedBy = "usuarioPuntua")
+    private List<Puntuacion> puntuaciones;
+
+    @OneToMany(mappedBy = "usuarioPuntuado")
+    private List<Puntuacion> puntuacionesRecibidas;
+
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Preferencias",

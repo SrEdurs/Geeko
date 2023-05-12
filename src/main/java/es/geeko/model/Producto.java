@@ -33,9 +33,6 @@ public class Producto {
     @Column(name="precio")
     private double precio = 0;
 
-    @Column(name="puntuacion")
-    private int puntuacion;
-
     @Column(name="videojuego")
     private Integer videojuego;
 
@@ -57,12 +54,14 @@ public class Producto {
     @Column(name="geeko", length = 1, nullable = false)
     private Integer geeko = 0;
 
-
     @Column(name="fechaSubida")
     private Date fechaSubida;
 
     @OneToMany(mappedBy = "producto")
     private List<Comentario> comentario;
+
+    @OneToMany(mappedBy = "productoPuntuado")
+    private List<Puntuacion> puntuacionProducto;
 
     @ManyToOne
     @JoinColumn(name = "idUsuarioPropietario")
@@ -79,5 +78,6 @@ public class Producto {
             inverseJoinColumns = @JoinColumn(name="idReporte")
     )
     private List<Reporte> productosReportados;
+
 
 }
