@@ -1,5 +1,4 @@
 package es.geeko.web.controller;
-
 import es.geeko.dto.MensajeDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.service.*;
@@ -73,33 +72,27 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
     }
 
     @GetMapping("/noseguir/{id}")
-    public ResponseEntity<String> noseguir(@PathVariable("id") Long id){
-        System.out.println("EYYYYYYYYYYYYYYYYYYYYYYY");
-        //Obtenemos el DTO del usuario actual por ID
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
+    Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
         
-        Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
+    Optional<Usuario> usuario = usuarioService.encuentraPorIdEntity(id);
 
-        if(usuario.isPresent()){
+    if (usuario.isPresent()) {
+        Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
 
-            Usuario attr = this.usuarioService.getMapper().toEntity(usuarioDto.get());
+        usuario.get().getSeguidos().remove(attr);
+        usuarioRepository.save(usuario.get());
 
-            usuario.get().getSeguidos().remove(attr);
+        attr.getSeguimientos().remove(usuario.get());
+        usuarioRepository.save(attr);
 
-            usuarioRepository.save(usuario.get());
-
-            System.out.println("EYOO");
-
-            attr.getSeguimientos().remove(usuario.get());
-
-            usuarioRepository.save(usuario.get());
-            usuarioRepository.save(attr);
-            System.out.println("EYYYYYYYYYYYYYYYYYYYYYYY");
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    return new ResponseEntity<>(HttpStatus.OK);
+}
+
 
     @GetMapping("/chat/{id}")
     public ResponseEntity<String> chat(@PathVariable("id") Long id){
@@ -219,7 +212,7 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         Mensaje mensaje = new Mensaje();
         mensaje.setChat(chatService.encuentraPorIdEntity(id).get());
         mensaje.setTexto(mensajeDto.getTexto());
-        mensaje.setUsuario(usuarioService.getMapper().toEntity(usuarioDto.get()));
+        mensaje.setUsuarioRemitente(usuarioService.getMapper().toEntity(usuarioDto.get()));
         mensajeRepository.save(mensaje);
 
 

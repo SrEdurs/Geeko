@@ -94,7 +94,6 @@ public class Usuario {
     @OneToMany(mappedBy = "usuarioLike")
     private List<Like> likes;
 
-
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(
             name="Preferencias",
@@ -140,6 +139,8 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name="idSeguidor")
     )
     private List<Usuario> seguidos;
+
+    //------------------------------------------------------------------------------------------------------------------------------
 
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(

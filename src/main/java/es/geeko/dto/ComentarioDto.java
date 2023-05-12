@@ -28,5 +28,7 @@ public class ComentarioDto {
     private Usuario usuario;
     private Producto producto;
     private List<Reporte> comentariosReportados;
+    private List<ComentarioDto> respuestas;
+    private ComentarioDto comentarioPadre;
 
 }

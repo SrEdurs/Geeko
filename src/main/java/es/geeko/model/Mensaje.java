@@ -31,8 +31,8 @@ public class Mensaje {
     private String imagen;
 
     @ManyToOne
-    @JoinColumn(name = "idRemitente")
-    private Usuario usuario;
+    @JoinColumn(name = "idRemitente", referencedColumnName = "id", columnDefinition = "BIGINT")
+    private Usuario usuarioRemitente;
 
     @ManyToOne
     @JoinColumn(name = "idChat")

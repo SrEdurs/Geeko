@@ -57,4 +57,12 @@ public class Comentario {
     )
     private List<Reporte> comentariosReportados;
 
+    //Relación many to one recursiva para las respuestas de un comentario
+    @ManyToOne
+    @JoinColumn(name = "idComentarioPadre")
+    private Comentario comentarioPadre;
+
+    @OneToMany(mappedBy = "comentarioPadre")
+    private List<Comentario> comentariosHijos;
+
 }

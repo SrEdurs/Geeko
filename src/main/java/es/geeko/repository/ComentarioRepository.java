@@ -5,6 +5,7 @@ import es.geeko.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ComentarioRepository  extends JpaRepository<Comentario,Long> {
 
@@ -14,6 +15,7 @@ public interface ComentarioRepository  extends JpaRepository<Comentario,Long> {
     //Comentario y lista por ID
     Comentario findComentariosByIdIs(long id);
     List<Comentario> findComentarioById(long id);
+    Optional <Comentario> findComentarioByIdIs(long id);
 
     //Comentarios reportados
     List<Comentario> findComentariosByReportadoIsAndActivoIs(int reportado, int activo);

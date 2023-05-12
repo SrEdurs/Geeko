@@ -1,5 +1,4 @@
 package es.geeko.web.controller;
-
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Like;
@@ -368,43 +367,42 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
 
     @GetMapping("/cambiamegusta/{id}")
-    public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Long id){
-        // Buscamos el comentario a procesar
-        Integer likes = 0;
-        Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
+    public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Long id) {
+        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        if(coment.isPresent() && usuarioDto.isPresent()){
-            likes = coment.get().getLikes();
-            coment.get().setLikes(++likes);
-            
+        if (comentarioOptional.isPresent() && usuarioDtoOptional.isPresent()) {
 
+            Comentario comentario = comentarioOptional.get();
+            Integer likes = comentario.getLikes();
+            likes++;
+            comentario.setLikes(likes);
+
+            UsuarioDto usuarioDto = usuarioDtoOptional.get();
             Like like = new Like();
-
-            UsuarioDto attr = usuarioDto.get();
-            like.setUsuarioLike(this.usuarioService.getMapper().toEntity(attr));
-
-            Comentario comen = coment.get();
-            like.setComentarioLike(comen);
-
+            like.setUsuarioLike(usuarioService.getMapper().toEntity(usuarioDto));
+            like.setComentarioLike(comentario);
             likeRepository.save(like);
 
-            List<Like> lista = new ArrayList<Like>();
-            lista.add(like);
-            
-            coment.get().setLikesComen(lista);
-            comentarioRepository.save(coment.get());
+            List<Like> listaLikes = new ArrayList<>();
+            listaLikes.add(like);
+            comentario.setLikesComen(listaLikes);
+            comentarioRepository.save(comentario);
+
+            return new ResponseEntity<>(likes.toString() ,HttpStatus.OK);
         }
-        return new ResponseEntity<>(likes.toString(),HttpStatus.OK);
-    }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}
+
 
     @GetMapping("/nomegusta/{id}")
     public ResponseEntity<String> noMeGusta(@PathVariable("id") Long id){
         // Buscamos el comentario a procesar
         Integer likes = 0;
-        Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
+        Optional<Comentario> coment = comentarioRepository.findComentarioByIdIs(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
