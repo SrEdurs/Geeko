@@ -199,12 +199,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             final List<Comentario> listaComentarios = this.comentarioService.getRepo().findComentariosByProductoIdAndActivoIsOrderByIdDesc(id, 1);
             interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
-            //Datos del producto
-            Producto productoMostrar = producto.get();
-            interfazConPantalla.addAttribute("datosProducto", productoMostrar);
 
             List<Puntuacion> puntuacion = producto.get().getPuntuacionProducto();
-
             //Puntuación media del producto
             double media = 0;
             for (Puntuacion elemento : puntuacion) {
@@ -215,9 +211,17 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             //si no hay puntuaciones, la media es 0
             if (Double.isNaN(media)) {
                 media = 0;
-            }
-            System.out.println(media);
+            };
             interfazConPantalla.addAttribute("media", media);
+
+            //Datos del producto
+            Producto productoMostrar = producto.get();;
+            interfazConPantalla.addAttribute("datosProducto", productoMostrar);
+
+
+            
+
+
 
             return "productos/producto";
 

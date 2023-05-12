@@ -292,6 +292,9 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
     @GetMapping("/puntuar/{id}")
     public ResponseEntity<String> puntuar(@PathVariable("id") Long id) {
     
+
+        System.out.println("EYOOO");
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
