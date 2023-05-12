@@ -7,11 +7,8 @@ import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
-import es.geeko.repository.LikeRepository;
 import es.geeko.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,7 +27,6 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
     private IUserService userService;
     private final UsuarioService usuarioService;
     private final TematicaService tematicaService;
-    private final LikeRepository likeRepository;
 
     @Autowired
     private final ProductoRepository productoRepository;
@@ -38,13 +34,11 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
 
     public AppUsuariosController(UsuarioService usuarioService, TematicaService tematicaService,
                                  ProductoRepository productoRepository,
-                                 ComentarioRepository comentarioRepository,
-                                 LikeRepository likeRepository) {
+                                 ComentarioRepository comentarioRepository) {
         this.usuarioService = usuarioService;
         this.tematicaService = tematicaService;
         this.productoRepository = productoRepository;
         this.comentarioRepository = comentarioRepository;
-        this.likeRepository = likeRepository;
     }
 
     @PostMapping("/saveUser")
@@ -353,70 +347,5 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             final List<Producto> listaIntereses = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
             interfazConPantalla.addAttribute("listaIntereses", listaIntereses);
         }
-    }
-
-
-    @GetMapping("/cambiamegusta/{id}")
-    public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Long id) {
-        
-        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-
-        if (comentarioOptional.isPresent() && usuarioDtoOptional.isPresent()) {
-
-            Comentario comentario = comentarioOptional.get();
-            Integer likes = comentario.getLikes();
-            likes++;
-            comentario.setLikes(likes);
-
-            UsuarioDto usuarioDto = usuarioDtoOptional.get();
-            Like like = new Like();
-            like.setUsuarioLike(usuarioService.getMapper().toEntity(usuarioDto));
-            like.setComentarioLike(comentario);
-            likeRepository.save(like);
-
-            List<Like> listaLikes = new ArrayList<>();
-            listaLikes.add(like);
-            comentario.setLikesComen(listaLikes);
-            comentarioRepository.save(comentario);
-
-            return new ResponseEntity<>(likes.toString() ,HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-}
-
-
-    @GetMapping("/nomegusta/{id}")
-    public ResponseEntity<String> noMeGusta(@PathVariable("id") Long id) {
-        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
-
-        if (comentarioOptional.isPresent() && usuarioDtoOptional.isPresent()) {
-            Comentario comentario = comentarioOptional.get();
-            UsuarioDto usuarioDto = usuarioDtoOptional.get();
-
-            List<Like> likeses = comentario.getLikesComen();
-            Optional<Like> likeOptional = likeses.stream()
-                    .filter(like -> like.getUsuarioLike().getId() == (usuarioDto.getId()))
-                    .findFirst();
-
-            if (likeOptional.isPresent()) {
-                Like like = likeOptional.get();
-                comentario.setLikes(comentario.getLikes() - 1);
-                likeRepository.delete(like);
-            }
-
-            return new ResponseEntity<>(String.valueOf(comentario.getLikes()), HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-}
-
-
-   
+    }   
 }

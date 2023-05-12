@@ -27,6 +27,45 @@ layout:decorate="~{layout/layout}">
                                          class="d-block w-100 rounded img-fluid shadow "
                                          alt="..." style="height: auto">
                         </div>
+
+                        <div class="clasificacion">
+                            <th:block th:if="${media} < 20 ">
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${media} > 20 and ${media} < 50 ">
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${media} >= 50 and ${media} < 70 ">
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${media} >= 70 and ${media} < 90 ">
+                                <label>✰</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${media} >= 90 ">
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                        </div>
+                    
                     </div>
                     <div class="col d-md-flex mb-5">
                         <div>
@@ -46,6 +85,11 @@ layout:decorate="~{layout/layout}">
                             <a th:if="${datosProducto.usuario?.getId} == ${datosUsuario.id}" th:href="@{/productos/edit/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Editar <i class="fas fa-edit"></i></a>
                             <a th:if="${datosProducto.usuario?.getId} != ${datosUsuario.id}" th:href="@{/reportarproducto/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Reportar</a>
                             <a th:if="${datosProducto.usuario?.getId != datosUsuario.id} AND ${datosProducto.geeko == 0}" th:href="@{/pago/{id}(id = ${datosProducto.id})}" class="btn px-4" style="border-radius: 23px;background-color: #8D92BB"type="button">Comprar <i class="fas fa-edit"></i></a>
+                            
+
+                           
+
+
                         </div>
                     </div>
                 </div>
@@ -129,6 +173,43 @@ layout:decorate="~{layout/layout}">
                         <div class="card-body cardproduPodint" style="margin-bottom: 30px; margin-left: 55px">
                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-topproduPodint"></a>
                             <h6 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h6>
+                            <div class="clasificacion">
+                                <th:block th:if="${elemento.puntuacionMedia} < 20 ">
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} > 20 and ${elemento.puntuacionMedia} < 50 ">
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} >= 50 and ${elemento.puntuacionMedia} < 70 ">
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} >= 70 and ${elemento.puntuacionMedia} < 90 ">
+                                    <label>✰</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} >= 90 ">
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                            </div>
                         </div>
                     </th:block>
                 </div>

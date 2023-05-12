@@ -1,10 +1,12 @@
 package es.geeko.repository;
 
+import es.geeko.dto.ProductoDto;
 import es.geeko.model.Producto;
 import es.geeko.model.Tematica;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductoRepository extends JpaRepository<Producto,Long> {
 
@@ -32,6 +34,7 @@ public interface ProductoRepository extends JpaRepository<Producto,Long> {
     //Producto y lista por ID
     Producto findProductoByIdIs(long id);
     List<Producto> findProductosByIdIs(long id);
+    Optional<ProductoDto> findProductoById(long id);
 
     //Productos reportados
     List<Producto> findProductosByReportadoIsAndActivoIs(int reportado, int activo);

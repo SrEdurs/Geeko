@@ -4,6 +4,7 @@ import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
+import es.geeko.model.Puntuacion;
 import es.geeko.model.Tematica;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ComentarioService;
@@ -168,7 +169,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
     public String vistaProducto(@PathVariable("idpro") Long id, ModelMap interfazConPantalla){
 
         //Buscamos el producto por ID
-        Optional<ProductoDto> productoDto = productoService.encuentraPorId(id);
+        Optional<Producto> producto = this.productoService.encuentraPorIdEntity(id);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -176,7 +177,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
 
         //Si está presente, mostramos en la pantalla
-        if(productoDto.isPresent()) {
+        if(producto.isPresent()) {
 
             //Lista de los productos dentro de sus gustos
             final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
@@ -199,8 +200,24 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
             //Datos del producto
-            ProductoDto productoDtoMostrar= productoDto.get();
-            interfazConPantalla.addAttribute("datosProducto", productoDtoMostrar);
+            Producto productoMostrar = producto.get();
+            interfazConPantalla.addAttribute("datosProducto", productoMostrar);
+
+            List<Puntuacion> puntuacion = producto.get().getPuntuacionProducto();
+
+            //Puntuación media del producto
+            double media = 0;
+            for (Puntuacion elemento : puntuacion) {
+                media += elemento.getPuntuacion();
+            }
+            media = media / puntuacion.size();
+
+            //si no hay puntuaciones, la media es 0
+            if (Double.isNaN(media)) {
+                media = 0;
+            }
+            System.out.println(media);
+            interfazConPantalla.addAttribute("media", media);
 
             return "productos/producto";
 

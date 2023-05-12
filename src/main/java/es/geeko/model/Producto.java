@@ -45,6 +45,9 @@ public class Producto {
     @Column(name="pelicula")
     private Integer pelicula;
 
+    @Column(name="puntuacionMedia")
+    private double puntuacionMedia = 0;
+
     @Column(name="reportado", length = 1)
     private int reportado;
 

@@ -1,6 +1,7 @@
 package es.geeko.dto;
 
 import es.geeko.model.Comentario;
+import es.geeko.model.Puntuacion;
 import es.geeko.model.Reporte;
 import es.geeko.model.Tematica;
 import es.geeko.model.Usuario;
@@ -36,5 +37,6 @@ public class ProductoDto {
     private Usuario usuario;
     private Tematica tematica;
     private List<Reporte> productosReportados;
+    private List<Puntuacion> puntuaciones;
 
 }

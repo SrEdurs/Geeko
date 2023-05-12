@@ -10,13 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import es.geeko.model.Chat;
+import es.geeko.model.Comentario;
+import es.geeko.model.Like;
 import es.geeko.model.Mensaje;
 import es.geeko.model.Usuario;
 import es.geeko.repository.ChatRepository;
+import es.geeko.repository.ComentarioRepository;
+import es.geeko.repository.LikeRepository;
 import es.geeko.repository.MensajeRepository;
 import es.geeko.repository.UsuarioRepository;
 
@@ -28,15 +33,19 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
     private final ChatRepository chatRepository;
     private final ChatService chatService;
     private final MensajeRepository mensajeRepository;
+    private final ComentarioRepository comentarioRepository;
+    private final LikeRepository likeRepository;
 
 
 
-    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository, ChatRepository chatRepository, ChatService chatService, MensajeRepository mensajeRepository) {
+    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository, ChatRepository chatRepository, ChatService chatService, MensajeRepository mensajeRepository, ComentarioRepository comentarioRepository, LikeRepository likeRepository) {
         this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
         this.chatRepository = chatRepository;
         this.chatService = chatService;
         this.mensajeRepository = mensajeRepository;
+        this.comentarioRepository = comentarioRepository;
+        this.likeRepository = likeRepository;
     }
 
     @GetMapping("/social")
@@ -218,6 +227,74 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
 
         return "redirect:/chat/id/" + id;
     }
+
+    @GetMapping("/cambiamegusta/{id}")
+    public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Long id) {
+        
+        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        if (comentarioOptional.isPresent() && usuarioDtoOptional.isPresent()) {
+
+            Comentario comentario = comentarioOptional.get();
+            Integer likes = comentario.getLikes();
+            likes++;
+            comentario.setLikes(likes);
+
+            UsuarioDto usuarioDto = usuarioDtoOptional.get();
+            Like like = new Like();
+            like.setUsuarioLike(usuarioService.getMapper().toEntity(usuarioDto));
+            like.setComentarioLike(comentario);
+            likeRepository.save(like);
+
+            List<Like> listaLikes = new ArrayList<>();
+            listaLikes.add(like);
+            comentario.setLikesComen(listaLikes);
+            comentarioRepository.save(comentario);
+
+            return new ResponseEntity<>(likes.toString() ,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}
+
+
+    @GetMapping("/nomegusta/{id}")
+    public ResponseEntity<String> noMeGusta(@PathVariable("id") Long id) {
+        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        if (comentarioOptional.isPresent() && usuarioDtoOptional.isPresent()) {
+            Comentario comentario = comentarioOptional.get();
+            UsuarioDto usuarioDto = usuarioDtoOptional.get();
+
+            List<Like> likeses = comentario.getLikesComen();
+            Optional<Like> likeOptional = likeses.stream()
+                    .filter(like -> like.getUsuarioLike().getId() == (usuarioDto.getId()))
+                    .findFirst();
+
+            if (likeOptional.isPresent()) {
+                Like like = likeOptional.get();
+                comentario.setLikes(comentario.getLikes() - 1);
+                likeRepository.delete(like);
+            }
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}
+
+    @GetMapping("/puntuar/{id}")
+    public ResponseEntity<String> puntuar(@PathVariable("id") Long id) {
+    
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     public void usuarioSesionSocial(ModelMap interfazConPantalla){
 
