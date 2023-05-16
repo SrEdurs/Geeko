@@ -19,7 +19,7 @@ public class Puntuacion {
     private long id;
 
     @Column(name="puntuacion")
-    private int puntuacion;
+    private double puntuacion;
 
     @ManyToOne
     @JoinColumn(name = "idUsuarioPuntua")

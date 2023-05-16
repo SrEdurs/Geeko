@@ -218,8 +218,10 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             Producto productoMostrar = producto.get();;
             interfazConPantalla.addAttribute("datosProducto", productoMostrar);
 
-
-            
+            //Datos de la puntuación
+            Puntuacion puntuacionNueva = new Puntuacion();
+            interfazConPantalla.addAttribute("puntuacion", puntuacionNueva);
+           
 
 
 
@@ -229,6 +231,25 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             return "error";
         }
     }
+
+    //Post mapping para guardar la puntuación
+    /*@PostMapping("/productos/{idpro}")
+    public String guardarPuntuacion(@PathVariable("idpro") Long id, Puntuacion puntuacion) throws Exception {
+
+        //Asignamos al usuario de la sesión como propietario del producto
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        puntuacion.setUsuarioPuntua(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+
+        //Asignamos el producto
+        puntuacion.setProductoPuntuado(this.productoService.getRepo().findProductoByIdIs(id));
+
+        //Guardamos y redireccionamos
+        this.puntuacionService.getRepo().save(puntuacion);
+
+        return "redirect:/productos/{idpro}";
+    }*/
+
 
     @GetMapping("/productos/edit/{idpro}")
     public String vistaEditProducto(@PathVariable("idpro") Long id, ModelMap interfazConPantalla){

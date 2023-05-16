@@ -18,6 +18,8 @@ import es.geeko.model.Chat;
 import es.geeko.model.Comentario;
 import es.geeko.model.Like;
 import es.geeko.model.Mensaje;
+import es.geeko.model.Producto;
+import es.geeko.model.Puntuacion;
 import es.geeko.model.Usuario;
 import es.geeko.repository.ChatRepository;
 import es.geeko.repository.ComentarioRepository;
@@ -35,10 +37,12 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
     private final MensajeRepository mensajeRepository;
     private final ComentarioRepository comentarioRepository;
     private final LikeRepository likeRepository;
+    private final ProductoService productoService;
+    private final PuntuacionService puntuacionService;
 
 
 
-    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository, ChatRepository chatRepository, ChatService chatService, MensajeRepository mensajeRepository, ComentarioRepository comentarioRepository, LikeRepository likeRepository) {
+    public AppSocialController(UsuarioService usuarioService, UsuarioRepository usuarioRepository, ChatRepository chatRepository, ChatService chatService, MensajeRepository mensajeRepository, ComentarioRepository comentarioRepository, LikeRepository likeRepository, ProductoService productoService, PuntuacionService puntuacionService) {
         this.usuarioService = usuarioService;
         this.usuarioRepository = usuarioRepository;
         this.chatRepository = chatRepository;
@@ -46,6 +50,8 @@ public class AppSocialController extends AbstractController<UsuarioDto> {
         this.mensajeRepository = mensajeRepository;
         this.comentarioRepository = comentarioRepository;
         this.likeRepository = likeRepository;
+        this.productoService = productoService;
+        this.puntuacionService = puntuacionService;
     }
 
     @GetMapping("/social")
@@ -289,15 +295,35 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 }
 
+    // @GetMapping("/puntuar/{id}") para guardar la puntuación de un producto
+
     @GetMapping("/puntuar/{id}")
     public ResponseEntity<String> puntuar(@PathVariable("id") Long id) {
-    
+        Optional<Producto> productoOptional = productoService.getRepo().findById(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        System.out.println("EYOOO");
+        if (productoOptional.isPresent() && usuarioDtoOptional.isPresent()) {
+            Producto producto = productoOptional.get();
+            UsuarioDto usuarioDto = usuarioDtoOptional.get();
 
-        return new ResponseEntity<>(HttpStatus.OK);
+            List<Puntuacion> puntuaciones = producto.getPuntuacionProducto();
+            Optional<Puntuacion> puntuacionOptional = puntuaciones.stream()
+                    .filter(puntuacion -> puntuacion.getUsuarioPuntua().getId() == (usuarioDto.getId()))
+                    .findFirst();
+
+            if (puntuacionOptional.isPresent()) {
+                Puntuacion puntuacion = puntuacionOptional.get();
+                producto.setPuntuacionMedia(producto.getPuntuacionMedia() - puntuacion.getPuntuacion());
+                puntuacionService.getRepo().delete(puntuacion);
+            }
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
 
     public void usuarioSesionSocial(ModelMap interfazConPantalla){
 
