@@ -199,21 +199,6 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             final List<Comentario> listaComentarios = this.comentarioService.getRepo().findComentariosByProductoIdAndActivoIsOrderByIdDesc(id, 1);
             interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
-
-            List<Puntuacion> puntuacion = producto.get().getPuntuacionProducto();
-            //Puntuación media del producto
-            double media = 0;
-            for (Puntuacion elemento : puntuacion) {
-                media += elemento.getPuntuacion();
-            }
-            media = media / puntuacion.size();
-
-            //si no hay puntuaciones, la media es 0
-            if (Double.isNaN(media)) {
-                media = 0;
-            };
-            interfazConPantalla.addAttribute("media", media);
-
             //Datos del producto
             Producto productoMostrar = producto.get();;
             interfazConPantalla.addAttribute("datosProducto", productoMostrar);
@@ -231,24 +216,6 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             return "error";
         }
     }
-
-    //Post mapping para guardar la puntuación
-    /*@PostMapping("/productos/{idpro}")
-    public String guardarPuntuacion(@PathVariable("idpro") Long id, Puntuacion puntuacion) throws Exception {
-
-        //Asignamos al usuario de la sesión como propietario del producto
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        puntuacion.setUsuarioPuntua(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
-
-        //Asignamos el producto
-        puntuacion.setProductoPuntuado(this.productoService.getRepo().findProductoByIdIs(id));
-
-        //Guardamos y redireccionamos
-        this.puntuacionService.getRepo().save(puntuacion);
-
-        return "redirect:/productos/{idpro}";
-    }*/
 
 
     @GetMapping("/productos/edit/{idpro}")

@@ -297,32 +297,78 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
 
     // @GetMapping("/puntuar/{id}") para guardar la puntuación de un producto
 
-    @GetMapping("/puntuar/{id}")
-    public ResponseEntity<String> puntuar(@PathVariable("id") Long id) {
+    @GetMapping("/puntuar/{id}/{valor}")
+    public ResponseEntity<String> puntuar(@PathVariable("id") Long id, @PathVariable("valor") String valor) {
+        //Localizamos el producto a valorar
         Optional<Producto> productoOptional = productoService.getRepo().findById(id);
+
+        //Localizamos el usuario que valora
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
 
-        if (productoOptional.isPresent() && usuarioDtoOptional.isPresent()) {
-            Producto producto = productoOptional.get();
-            UsuarioDto usuarioDto = usuarioDtoOptional.get();
+        //Si ambos existen, procedemos a valorar
+        if(productoOptional.isPresent() && usuarioDtoOptional.isPresent()){
 
-            List<Puntuacion> puntuaciones = producto.getPuntuacionProducto();
+            //Comprobamos que el usuario no haya valorado ya el producto
+            List<Puntuacion> puntuaciones = productoOptional.get().getPuntuacionProducto();
             Optional<Puntuacion> puntuacionOptional = puntuaciones.stream()
-                    .filter(puntuacion -> puntuacion.getUsuarioPuntua().getId() == (usuarioDto.getId()))
+                    .filter(puntuacion -> puntuacion.getUsuarioPuntua().getId() == (usuarioDtoOptional.get().getId()))
                     .findFirst();
 
-            if (puntuacionOptional.isPresent()) {
+            //Si el usuario no ha valorado el producto, procedemos a valorar
+            if(!puntuacionOptional.isPresent()){
+            //Creamos el elemento Puntuacion
+            Puntuacion puntuacion = new Puntuacion();
+            puntuacion.setProductoPuntuado(productoOptional.get());
+            puntuacion.setUsuarioPuntua(usuarioService.getMapper().toEntity(usuarioDtoOptional.get()));
+
+            puntuacion.setPuntuacion(Double.parseDouble(valor));
+            puntuacionService.getRepo().save(puntuacion);
+
+            //Actualizamos la puntuación media del producto
+            Producto producto = productoOptional.get();
+            puntuaciones.add(puntuacion);
+            producto.setPuntuacionProducto(puntuaciones);
+
+            //Calculamos la media
+            Double media = 0.0;
+            for(Puntuacion puntuacion1 : puntuaciones){
+                media += puntuacion1.getPuntuacion();
+            }
+            media = media / puntuaciones.size();
+            producto.setPuntuacionMedia(media);
+            productoService.getRepo().save(producto);
+
+            Usuario usuario = usuarioService.getMapper().toEntity(usuarioDtoOptional.get());
+            if(usuario.getPuntuaciones() == null) usuario.setPuntuaciones(new ArrayList<>());
+            usuario.getPuntuaciones().add(puntuacion);
+            usuarioService.getRepo().save(usuario);
+            System.out.println("Se ha guardado una nueva puntuación");
+
+            } else{
+                //Reescribimos la puntuación existente
                 Puntuacion puntuacion = puntuacionOptional.get();
-                producto.setPuntuacionMedia(producto.getPuntuacionMedia() - puntuacion.getPuntuacion());
-                puntuacionService.getRepo().delete(puntuacion);
+                puntuacion.setPuntuacion(Double.parseDouble(valor));
+                puntuacionService.getRepo().save(puntuacion);
+
+                Producto producto = productoOptional.get();
+
+                Double media = 0.0;
+                for(Puntuacion puntuacion1 : puntuaciones){
+                    media += puntuacion1.getPuntuacion();
+                }
+                media = media / puntuaciones.size();
+                producto.setPuntuacionMedia(media);
+                productoService.getRepo().save(producto);
+
+                System.out.println("Puntuación cambiada");
             }
 
             return new ResponseEntity<>(HttpStatus.OK);
+        } else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     public void usuarioSesionSocial(ModelMap interfazConPantalla){

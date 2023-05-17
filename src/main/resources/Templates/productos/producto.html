@@ -29,35 +29,35 @@ layout:decorate="~{layout/layout}">
                         </div>
 
                         <div th:if="${datosProducto.geeko} == 1" class="clasificacion">
-                            <th:block th:if="${media} < 20 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} < 1 ">
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${media} > 20 and ${media} < 50 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} > 1 and ${datosProducto.puntuacionMedia} < 2 ">
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>★</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${media} >= 50 and ${media} < 70 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} >= 2 and ${datosProducto.puntuacionMedia} < 3 ">
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${media} >= 70 and ${media} < 90 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} >= 3 and ${datosProducto.puntuacionMedia} < 5 ">
                                 <label>✰</label>
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${media} >= 90 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} >= 5 ">
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
@@ -170,35 +170,35 @@ layout:decorate="~{layout/layout}">
                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-topproduPodint"></a>
                             <h6 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h6>
                             <div class="clasificacion">
-                                <th:block th:if="${elemento.puntuacionMedia} < 20 ">
+                                <th:block th:if="${elemento.puntuacionMedia} < 1 ">
                                     <label>✰</label>
                                     <label>✰</label>
                                     <label>✰</label>
                                     <label>✰</label>
                                     <label>★</label>
                                 </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} > 20 and ${elemento.puntuacionMedia} < 50 ">
+                                <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} < 2 ">
                                     <label>✰</label>
                                     <label>✰</label>
                                     <label>✰</label>
                                     <label>★</label>
                                     <label>★</label>
                                 </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} >= 50 and ${elemento.puntuacionMedia} < 70 ">
+                                <th:block th:if="${elemento.puntuacionMedia} >= 2 and ${elemento.puntuacionMedia} < 3 ">
                                     <label>✰</label>
                                     <label>✰</label>
                                     <label>★</label>
                                     <label>★</label>
                                     <label>★</label>
                                 </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} >= 70 and ${elemento.puntuacionMedia} < 90 ">
+                                <th:block th:if="${elemento.puntuacionMedia} >= 3 and ${elemento.puntuacionMedia} < 5 ">
                                     <label>✰</label>
                                     <label>★</label>
                                     <label>★</label>
                                     <label>★</label>
                                     <label>★</label>
                                 </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} >= 90 ">
+                                <th:block th:if="${elemento.puntuacionMedia} >= 5 ">
                                     <label>★</label>
                                     <label>★</label>
                                     <label>★</label>
@@ -225,21 +225,22 @@ layout:decorate="~{layout/layout}">
         </div>
   
         
-          <div class="modal-body">
-            <label for="customRange3" class="form-label">Establece tu valoración:&nbsp;</label><span id="sliderValue"></span>
-            <input th:data-id="${datosProducto.id}" type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+        <div class="modal-body">
+            <label for="customRange3" class="form-label">Establece tu valoración:&nbsp;</label>
             <span id="sliderValue"></span>
+            <input th:id="'customRange3'" type="range" class="form-range" min="0" max="5" step="0.5">
           </div>
-  
+          
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Valorar</button>
+            <button type="submit" onclick="puntuar(this.getAttribute('data-id'), document.getElementById('customRange3').value)" th:data-id="${datosProducto.id}" class="btn btn-primary">Valorar</button>
           </div>
+          
         
   
       </div>
     </div>
-  </div>
+</div>
   
   <script>
     // Obtener el elemento del slider

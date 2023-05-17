@@ -42,12 +42,14 @@
                             </button></div>
                     </div>
                     <div th:if="${datosUsuario.id} != ${datosPerfil.id} AND ${#lists.contains(ids,datosPerfil.getId())}" class="row">
-                        <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button
+                        <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;">
+                            <button
                                 class="btn btn-primary text-center" data-bss-hover-animate="jello"
                                 type="submit" onclick="noseguir(this.getAttribute('data-id'))"
                                 th:id="'noseguir'+${datosPerfil.id}" th:data-id="${datosPerfil.id}"
                                 style="background: #1e1e1e;border-radius: 38px;color: #ffffff;padding-left: 10px;text-align: center;margin-right: 5px;padding-right: 6px;width: 131px;border-width: 4px;border-color: #d9d9d9;">No seguir
-                            </button></div>
+                            </button>
+                        </div>
                     </div>
                     <div th:if="${datosUsuario.id} != ${datosPerfil.id}" class="row">
                         <div class="col" style="margin-top: 10px;margin-bottom: 15px;text-align: center;"><button
@@ -174,9 +176,45 @@
                 <div class="row">
                     <th:block th:each="elemento : ${listaIntereses}">
                         <div class="card-body cardproduperfil" style="margin-bottom: 30px; margin-left: 55px">
-                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%"
-                                                                            class="card-img-topperfil"></a>
+                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-topperfil"></a>
                             <h6 style="color: #FFFFFF; margin-left: 20px" th:align="center" th:text="${elemento.titulo}"></h6>
+                            <div class="clasificacion">
+                                <th:block th:if="${elemento.puntuacionMedia} < 1 ">
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} < 2 ">
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} >= 2 and ${elemento.puntuacionMedia} < 3 ">
+                                    <label>✰</label>
+                                    <label>✰</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} >= 3 and ${elemento.puntuacionMedia} < 5 ">
+                                    <label>✰</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                                <th:block th:if="${elemento.puntuacionMedia} >= 5 ">
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                    <label>★</label>
+                                </th:block>
+                            </div>
                         </div>
                     </th:block>
                 </div>
