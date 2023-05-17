@@ -4,7 +4,6 @@ import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
-import es.geeko.model.Puntuacion;
 import es.geeko.model.Tematica;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ComentarioService;
@@ -201,12 +200,7 @@ public class AppProductosController extends AbstractController<ProductoDto> {
 
             //Datos del producto
             Producto productoMostrar = producto.get();;
-            interfazConPantalla.addAttribute("datosProducto", productoMostrar);
-
-            //Datos de la puntuación
-            Puntuacion puntuacionNueva = new Puntuacion();
-            interfazConPantalla.addAttribute("puntuacion", puntuacionNueva);
-           
+            interfazConPantalla.addAttribute("datosProducto", productoMostrar);         
 
 
 
@@ -302,6 +296,8 @@ public class AppProductosController extends AbstractController<ProductoDto> {
             productoDtoGuardar.setTematica(productoDtoEntrada.getTematica());
             productoDtoGuardar.setProductosReportados(productoDtoEntrada.getProductosReportados());
             productoDtoGuardar.setGeeko(productoDtoEntrada.getGeeko());
+            productoDtoGuardar.setPuntuacion(productoDtoEntrada.getPuntuacion());
+            productoDtoGuardar.setPuntuaciones(productoDtoEntrada.getPuntuaciones());
 
             //Guardamos
             this.productoService.guardar(productoDtoGuardar);

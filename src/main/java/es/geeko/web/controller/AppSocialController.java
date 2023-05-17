@@ -359,6 +359,10 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
                     media += puntuacion1.getPuntuacion();
                 }
                 media = media / puntuaciones.size();
+
+                //Redondear la media a 2 decimales
+                media = Math.round(media * 100.0) / 100.0;
+
                 producto.setPuntuacionMedia(media);
                 productoService.getRepo().save(producto);
 

@@ -29,35 +29,48 @@ layout:decorate="~{layout/layout}">
                         </div>
 
                         <div th:if="${datosProducto.geeko} == 1" class="clasificacion">
-                            <th:block th:if="${datosProducto.puntuacionMedia} < 1 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} == 0 ">
+                                <label th:text="'(' + ${datosProducto.puntuacionMedia} + ')'"></label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                            </th:block>
+                            <th:block th:if="${datosProducto.puntuacionMedia} > 0 and ${datosProducto.puntuacionMedia} <= 1">
+                                <label th:text="'(' + ${datosProducto.puntuacionMedia} + ')'"></label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${datosProducto.puntuacionMedia} > 1 and ${datosProducto.puntuacionMedia} < 2 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} > 1 and ${datosProducto.puntuacionMedia} <= 2 ">
+                                <label th:text="'(' + ${datosProducto.puntuacionMedia} + ')'"></label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>★</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${datosProducto.puntuacionMedia} >= 2 and ${datosProducto.puntuacionMedia} < 3 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} > 2 and ${datosProducto.puntuacionMedia} <= 3 ">
+                                <label th:text="'(' + ${datosProducto.puntuacionMedia} + ')'"></label>
                                 <label>✰</label>
                                 <label>✰</label>
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${datosProducto.puntuacionMedia} >= 3 and ${datosProducto.puntuacionMedia} < 5 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} > 3 and ${datosProducto.puntuacionMedia} <= 4 ">
+                                <label th:text="'(' + ${datosProducto.puntuacionMedia} + ')'"></label>
                                 <label>✰</label>
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
                             </th:block>
-                            <th:block th:if="${datosProducto.puntuacionMedia} >= 5 ">
+                            <th:block th:if="${datosProducto.puntuacionMedia} > 4 and ${datosProducto.puntuacionMedia} <= 5 ">
+                                <label th:text="'(' + ${datosProducto.puntuacionMedia} + ')'"></label>
                                 <label>★</label>
                                 <label>★</label>
                                 <label>★</label>
@@ -92,7 +105,7 @@ layout:decorate="~{layout/layout}">
             <th:block th:if="${datosProducto.geeko} == 1">
             <h3 style="color: #FFFFFF; margin-left: 200px">Comentarios <a th:href="@{/crearcomentario/{id}(id = ${datosProducto.id})}"><i class="bi bi-plus-circle"></i></a></h3>
                     <th:block th:if="${#lists.isEmpty(listaComentarios)}">
-                        <h4 style="color: #FFFFFF; margin-left: 150px;margin-top: 20px">No hay comentarios, escribe el primero!</h4>
+                        <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay comentarios, escribe el primero!</h4>
                     </th:block>
                     <th:block th:each="elemento : ${listaComentarios}">
                         <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px">
@@ -169,43 +182,58 @@ layout:decorate="~{layout/layout}">
                         <div class="card-body cardproduPodint" style="margin-bottom: 30px; margin-left: 55px">
                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-topproduPodint"></a>
                             <h6 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h6>
+                            
                             <div class="clasificacion">
-                                <th:block th:if="${elemento.puntuacionMedia} < 1 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} < 2 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} >= 2 and ${elemento.puntuacionMedia} < 3 ">
-                                    <label>✰</label>
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} >= 3 and ${elemento.puntuacionMedia} < 5 ">
-                                    <label>✰</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                                <th:block th:if="${elemento.puntuacionMedia} >= 5 ">
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                    <label>★</label>
-                                </th:block>
-                            </div>
+                            <th:block th:if="${elemento.puntuacionMedia} == 0 ">
+                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                            </th:block>
+                            <th:block th:if="${elemento.puntuacionMedia} > 0 and ${elemento.puntuacionMedia} <= 1">
+                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} <= 2 ">
+                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${elemento.puntuacionMedia} > 2 and ${elemento.puntuacionMedia} <= 3 ">
+                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                <label>✰</label>
+                                <label>✰</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${elemento.puntuacionMedia} > 3 and ${elemento.puntuacionMedia} <=4 ">
+                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                <label>✰</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                            <th:block th:if="${elemento.puntuacionMedia} > 4  and ${elemento.puntuacionMedia} <= 5 ">
+                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                                <label>★</label>
+                            </th:block>
+                        </div>
+                            
                         </div>
                     </th:block>
                 </div>

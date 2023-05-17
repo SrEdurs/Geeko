@@ -41,35 +41,48 @@
                                             <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" class="card-img-topn"></a>
                                             <h6 th:align="center" th:text="${elemento.titulo}"></h6>
                                             <div class="clasificacion">
-                                                <th:block th:if="${elemento.puntuacionMedia} < 1 ">
+                                                <th:block th:if="${elemento.puntuacionMedia} == 0 ">
+                                                    <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                    <label>✰</label>
+                                                </th:block>
+                                                <th:block th:if="${elemento.puntuacionMedia} > 0 and ${elemento.puntuacionMedia} <= 1">
+                                                    <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>★</label>
                                                 </th:block>
-                                                <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} < 2 ">
+                                                <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} <= 2 ">
+                                                    <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                 </th:block>
-                                                <th:block th:if="${elemento.puntuacionMedia} >= 2 and ${elemento.puntuacionMedia} < 3 ">
+                                                <th:block th:if="${elemento.puntuacionMedia} > 2 and ${elemento.puntuacionMedia} <= 3 ">
+                                                    <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
                                                     <label>✰</label>
                                                     <label>✰</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                 </th:block>
-                                                <th:block th:if="${elemento.puntuacionMedia} >= 3 and ${elemento.puntuacionMedia} < 5 ">
+                                                <th:block th:if="${elemento.puntuacionMedia} > 3 and ${elemento.puntuacionMedia} <=4 ">
+                                                    <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
                                                     <label>✰</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                 </th:block>
-                                                <th:block th:if="${elemento.puntuacionMedia} >= 5 ">
+                                                <th:block th:if="${elemento.puntuacionMedia} > 4  and ${elemento.puntuacionMedia} <= 5 ">
+                                                    <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
                                                     <label>★</label>
                                                     <label>★</label>
                                                     <label>★</label>
