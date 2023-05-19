@@ -375,6 +375,24 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
         }
     }
 
+    @GetMapping("/respuestas/{id}")
+    public String respuestasComentario(@PathVariable("id") Long id, ModelMap interfazConPantalla) {
+        
+        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
+
+        if (comentarioOptional.isPresent()) {
+            Comentario comentario = comentarioOptional.get();
+            List<Comentario> respuestas = comentario.getComentariosHijos();
+            interfazConPantalla.addAttribute("respuestas", respuestas);
+            interfazConPantalla.addAttribute("comentario", comentario);
+            return "/social/respuestasComentario";
+        }
+
+
+
+        return "/social/respuestasComentario";
+    }
+
     public void usuarioSesionSocial(ModelMap interfazConPantalla){
 
         //Obtenemos el DTO del usuario actual por ID
