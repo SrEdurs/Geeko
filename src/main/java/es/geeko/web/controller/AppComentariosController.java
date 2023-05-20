@@ -3,6 +3,7 @@ import es.geeko.dto.ComentarioDto;
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
+import es.geeko.model.Like;
 import es.geeko.model.Producto;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,6 +100,44 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         //Redireccionamos al producto al que pertenece el comentario
         return "redirect:/productos/" + id;
 
+    }
+
+    @GetMapping("/respuestas/{id}")
+    public String respuestasComentario(@PathVariable("id") Long id, ModelMap interfazConPantalla) {
+
+        //Usuario de la sesión
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
+        Optional<ProductoDto> productoDto = productoService.encuentraPorId(comentarioOptional.get().getProducto().getId());
+
+        if (comentarioOptional.isPresent() && usuarioDto.isPresent()) {
+            UsuarioDto attr = usuarioDto.get();
+            Comentario comentario = comentarioOptional.get();
+            List<Comentario> respuestas = comentario.getComentariosHijos();
+            List<Long> likes = new ArrayList<Long>();
+
+            for (Like elemento : attr.getLikes()) {
+                System.out.println(elemento.getComentarioLike().getId());
+                likes.add(elemento.getComentarioLike().getId());
+              }
+
+            //Podría interesarte sección derecha
+            final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1,1);
+
+            interfazConPantalla.addAttribute("listaIntereses",listaProductos);
+            interfazConPantalla.addAttribute("likes", likes);
+            interfazConPantalla.addAttribute("datosProducto", productoDto.get());
+            interfazConPantalla.addAttribute("respuestas", respuestas);
+            interfazConPantalla.addAttribute("comentario", comentario);
+            interfazConPantalla.addAttribute("datosUsuario", attr);
+            return "/social/respuestasComentario";
+        }
+
+
+
+        return "/social/respuestasComentario";
     }
 
     //Método para borrar un comentario con Javascript

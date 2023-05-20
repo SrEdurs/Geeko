@@ -13,94 +13,143 @@ layout:decorate="~{layout/layout}">
 <div class="container" th:object="${datosProducto}">
     <div class="row">
         <div class="col" style="margin-right: 5px; max-width: 1100px;">
-            <h4 style="color: #8D92BB;margin-bottom: 10px;" th:text="${datosProducto.titulo}"></h4>
-
-                <div class="shrink-0 flex items-center mb-2" style="white-space:nowrap !important">
-                    <a th:href="@{/perfil/{id}(id = ${datosProducto.usuario?.getId})}"><img  th:src="${datosProducto.usuario?.getAvatar}" width="48px" class="h-8 w-8 rounded-full object-cover" alt="" style="border-radius: 15px"></a>
-                    <span  style="color: #D9D9D9;font-size: large;" th:text="${datosProducto.usuario?.getNick}"></span>
-                    <span class=" valoracionPedidos " style="white-space:nowrap !important"></span>
-                </div>
-                
-                    <th:block th:each="elemento : ${listaComentarios}">
-                        <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
-                                                <img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}">
-                                            </div>
-                                            <div class="col">
-                                                <h3 class="pt-2" th:text="${elemento.titulo}">Title</h3>
-                                                <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
-                                            </div>
+            <h4 style="color: #8D92BB;margin-bottom: 10px; text-align: center; margin-right: 250px;" th:text="${datosProducto.titulo}"></h4>
+                <th:block th:object="${comentario}">
+                    <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
+                                            <img style="width: 5rem; border-radius: 15px" th:src="${comentario.usuario?.getAvatar}">
+                                        </div>
+                                        <div class="col">
+                                            <h3 class="pt-2" th:text="${comentario.titulo}">Title</h3>
+                                            <p class="pt-1" th:text="${comentario.texto}">Subtitle</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="container">
-                                <div class="row" style="height: 15px;">
-                                    <div class="col-md-1">
-                                        <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}">
-                                            <i class="bi bi-eye-fill" style="color: black"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-1" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
-                                        <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
-                                            <i class="bi bi-flag" style="color: black"></i>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-1" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
-                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                        th:data-id="${elemento.id}"
+                        </div>
+                        <div class="container">
+                            <div class="row" style="height: 15px;">
+                                <div class="col-md-1">
+                                    <a th:href="@{/productos/{id}(id = ${comentario.producto?.getId})}">
+                                        <i class="bi bi-eye-fill" style="color: black"></i>
+                                    </a>
+                                </div>
+                                <div class="col-md-1" th:if="${datosUsuario.id} != ${comentario.usuario?.getId}">
+                                    <a th:href="@{/reportarcomentario/{id}(id = ${comentario.id})}">
+                                        <i class="bi bi-flag" style="color: black"></i>
+                                    </a>
+                                </div>
+                                <div class="col-md-9" th:if="${datosUsuario.id} == ${comentario.usuario?.getId}">
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                        th:data-id="${comentario.id}"
                                         onclick="borrar(this.getAttribute('data-id'))">
                                             <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-
-
-                                    <!--    Respuestas de un comentario   -->
-                                    <div class="col-md-1">
-                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                            <i class="bi bi-reply"></i>
-                                        </button>
-                                    </div>
-
-                                    <div class="col-md-7">
-                                        <p>3</p>
-                                    </div>
-
-
-
-
-
-                                    <div class="col-xxl-1">
-                                        <p th:id="'likes'+${elemento.id}"
-                                                style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
-                                                th:text="${elemento.likes}">
-                                        </p>
-                                    </div>
-                                    <div class="col-md-1" th:if="${!#lists.contains(likes,elemento.id)}">
-                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                        th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
+                                    </button>
+                                </div>
+                                <div class="col-xxl-1">
+                                    <p th:id="'likes'+${comentario.id}"
+                                        style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
+                                        th:text="${comentario.likes}">
+                                    </p>
+                                </div>
+                                <div class="col-md-1" th:if="${!#lists.contains(likes,comentario.id)}">
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                        th:data-id="${comentario.id}" th:id="'megustas'+${comentario.id}"
                                         onclick="cambiamegusta(this.getAttribute('data-id'))">
-                                        <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
-                                        th:id="'megusta'+${elemento.id}"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-1" th:if="${#lists.contains(likes,elemento.id)}">
-                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                                th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
+                                    <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
+                                    th:id="'megusta'+${comentario.id}"></i>
+                                    </button>
+                                </div> 
+                                <div class="col-md-1" th:if="${#lists.contains(likes,comentario.id)}">
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                                th:data-id="${comentario.id}" th:id="'megustas'+${comentario.id}"
                                                 onclick="nomegusta(this.getAttribute('data-id'))">
-                                            <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
-                                            th:id="'megusta'+${elemento.id}"></i>
-                                        </button>
+                                        <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
+                                        th:id="'megusta'+${comentario.id}"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+
+                <h3 style="color: #FFFFFF; margin-left: 200px">Respuestas <a th:href="@{/crearcomentario/{id}(id = ${datosProducto.id})}"><i class="bi bi-plus-circle"></i></a></h3>
+                    <th:block th:if="${#lists.isEmpty(comentario.comentariosHijos)}">
+                        <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay respuestas, escribe la primera!</h4>
+                    </th:block>
+
+
+
+                <th:block th:if="${comentario.comentariosHijos != null}" th:each="elemento : ${comentario.comentariosHijos}">
+                    <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
+                                            <img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}">
+                                        </div>
+                                        <div class="col">
+                                            <h3 class="pt-2" th:text="${elemento.titulo}">Title</h3>
+                                            <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </th:block>
-            </th:block>
+                        <div class="container">
+                            <div class="row" style="height: 15px;">
+                                <div class="col-md-1">
+                                    <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}">
+                                        <i class="bi bi-eye-fill" style="color: black"></i>
+                                    </a>
+                                </div>
+                                <div class="col-md-1" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
+                                    <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
+                                        <i class="bi bi-flag" style="color: black"></i>
+                                    </a>
+                                </div>
+                                <div class="col-md-9" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                        th:data-id="${elemento.id}"
+                                        onclick="borrar(this.getAttribute('data-id'))">
+                                            <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="col-xxl-1">
+                                    <p th:id="'likes'+${elemento.id}"
+                                        style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
+                                        th:text="${elemento.likes}">
+                                    </p>
+                                </div>
+                                <div class="col-md-1" th:if="${!#lists.contains(likes,elemento.id)}">
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                        th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
+                                        onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                    <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
+                                    th:id="'megusta'+${elemento.id}"></i>
+                                    </button>
+                                </div> 
+                                <div class="col-md-1" th:if="${#lists.contains(likes,elemento.id)}">
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                                th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
+                                                onclick="nomegusta(this.getAttribute('data-id'))">
+                                        <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
+                                        th:id="'megusta'+${elemento.id}"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+
+
+
             </div>
             <div class="col-4" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
                 <div class="row" style="margin-top: 10px;">
@@ -172,62 +221,6 @@ layout:decorate="~{layout/layout}">
         </div>
     </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-  
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel" th:text="${datosProducto.titulo}">Título</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-  
-        
-        <div class="modal-body">
-            <label for="customRange3" class="form-label">Establece tu valoración:&nbsp;</label>
-            <span id="sliderValue"></span>
-            <input th:id="'customRange3'" type="range" class="form-range" min="0" max="5" step="0.5">
-          </div>
-          
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" onclick="puntuar(this.getAttribute('data-id'), document.getElementById('customRange3').value)" th:data-id="${datosProducto.id}" class="btn btn-primary">Valorar</button>
-          </div>
-          
-        
-  
-      </div>
-    </div>
-</div>
-  
-  <script>
-    // Obtener el elemento del slider
-    var slider = document.getElementById("customRange3");
-    // Obtener el elemento donde se mostrará el valor
-    var sliderValue = document.getElementById("sliderValue");
-  
-    // Establecer el valor por defecto en 2.5
-    slider.value = 2.5;
-    sliderValue.innerText = slider.value;
-  
-    // Función para actualizar el valor cuando se arrastra el slider
-    slider.oninput = function() {
-      sliderValue.innerText = slider.value;
-    };
-  
-    // Función para permitir el desplazamiento del slider con la rueda del ratón
-    slider.addEventListener("wheel", function(event) {
-      event.preventDefault(); // Evitar el desplazamiento de la página
-      var delta = Math.sign(event.deltaY); // Obtener el desplazamiento de la rueda del ratón
-      var step = parseFloat(slider.step); // Obtener el paso del slider
-      var newValue = parseFloat(slider.value) + delta * step; // Calcular el nuevo valor del slider
-      if (newValue >= parseFloat(slider.min) && newValue <= parseFloat(slider.max)) {
-        slider.value = newValue; // Establecer el nuevo valor del slider
-        sliderValue.innerText = slider.value; // Actualizar el valor mostrado
-      }
-    });
-  </script>
-  <!-- -->
 
     </th:block>
     <th:block layout:fragment="pie"></th:block>
