@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ComentarioRepository  extends JpaRepository<Comentario,Long> {
 
     //Lista de comentarios de un usuario
-    List<Comentario> findComentarioByUsuarioAndActivoOrderByIdDesc(Usuario usuario, int activo);
+    List<Comentario> findComentarioByUsuarioAndActivoAndComentarioPadreIsNullOrderByIdDesc(Usuario usuario, int activo);
 
     //Comentario y lista por ID
     Comentario findComentariosByIdIs(long id);
