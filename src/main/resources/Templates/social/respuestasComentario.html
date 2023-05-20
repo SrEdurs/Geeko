@@ -38,7 +38,7 @@ layout:decorate="~{layout/layout}">
                                         <i class="bi bi-eye-fill" style="color: black"></i>
                                     </a>
                                 </div>
-                                <div class="col-md-1" th:if="${datosUsuario.id} != ${comentario.usuario?.getId}">
+                                <div class="col-md-9" th:if="${datosUsuario.id} != ${comentario.usuario?.getId}">
                                     <a th:href="@{/reportarcomentario/{id}(id = ${comentario.id})}">
                                         <i class="bi bi-flag" style="color: black"></i>
                                     </a>
@@ -78,7 +78,7 @@ layout:decorate="~{layout/layout}">
                 </th:block>
 
 
-                <h3 style="color: #FFFFFF; margin-left: 200px">Respuestas <a th:href="@{/crearcomentario/{id}(id = ${datosProducto.id})}"><i class="bi bi-plus-circle"></i></a></h3>
+                <h3 style="color: #FFFFFF; margin-left: 200px">Respuestas <a th:href="@{/crearrespuesta/{idpro}/{idcom}(idpro=${datosProducto.id},idcom=${comentario.id})}"><i class="bi bi-plus-circle"></i></a></h3>
                     <th:block th:if="${#lists.isEmpty(comentario.comentariosHijos)}">
                         <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay respuestas, escribe la primera!</h4>
                     </th:block>

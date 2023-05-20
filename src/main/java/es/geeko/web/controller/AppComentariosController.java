@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -102,6 +103,72 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
     }
 
+    @GetMapping("/crearrespuesta/{idpro}/{idcom}")
+    public String vistaCrearRespuesta(@PathVariable("idpro") Long idpro, @PathVariable("idcom") Long idcom,ModelMap interfazConPantalla){
+
+        //Creamos el DTO del nuevo comentario y lo mandamos a la pantalla
+        final ComentarioDto comentarioDto = new ComentarioDto();
+        comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(idpro));
+        comentarioDto.setComentarioPadre(this.comentarioService.getMapper().toDto(this.comentarioService.getRepo().findComentariosByIdIs(idcom)));
+        interfazConPantalla.addAttribute("datosComentario",comentarioDto);
+
+        //Usuario de la sesión
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+
+        //Podría interesarte sección derecha
+        final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1,1);
+
+        //Producto al que va unido el comentario
+        Optional<ProductoDto> producto = productoService.encuentraPorId(idpro);
+
+        //Si el producto está presente, mostramos por pantalla (Thymeleaf no entiende el Optional)
+        if(producto.isPresent()) {
+
+            ProductoDto productoDto =  producto.get();
+            UsuarioDto attr = usuarioDto.get();
+            interfazConPantalla.addAttribute("listaIntereses",listaProductos);
+            interfazConPantalla.addAttribute("datosUsuario", attr);
+            interfazConPantalla.addAttribute("datosProducto",productoDto);
+
+            return "social/crearcomentario";
+
+        } else{
+            return "error";
+        }
+
+    }
+
+    @PostMapping("/crearrespuesta/{idpro}/{idcom}")
+    public String guardarRespuesta(@PathVariable("idpro") Long idpro, @PathVariable("idcom") Long idcom, ComentarioDto comentarioDto, ModelMap interfazConPantalla) {
+
+        //Datos de usuario de la sesión
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        //Asignación de los datos del nuevo comentario
+        Comentario comentario = new Comentario();
+        comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(idpro));
+        comentario.setTitulo(comentarioDto.getTitulo());
+        comentario.setTexto(comentarioDto.getTexto());
+        comentario.setActivo(1);
+        comentario.setComentarioPadre(this.comentarioService.getRepo().findComentariosByIdIs(idcom));
+        comentarioRepository.save(comentario);
+
+        Comentario comentarioPadre = this.comentarioService.getRepo().findComentariosByIdIs(idcom);
+        comentarioPadre.getComentariosHijos().add(comentario);
+        this.comentarioService.getRepo().save(comentarioPadre);
+
+        //Redireccionamos al producto al que pertenece el comentario
+        return "redirect:/respuestas/" + idcom;
+
+    }
+
     @GetMapping("/respuestas/{id}")
     public String respuestasComentario(@PathVariable("id") Long id, ModelMap interfazConPantalla) {
 
@@ -116,6 +183,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
             UsuarioDto attr = usuarioDto.get();
             Comentario comentario = comentarioOptional.get();
             List<Comentario> respuestas = comentario.getComentariosHijos();
+            Collections.reverse(respuestas);
             List<Long> likes = new ArrayList<Long>();
 
             for (Like elemento : attr.getLikes()) {
