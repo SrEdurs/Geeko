@@ -26,7 +26,7 @@
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
-                                                <img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}">
+                                                <a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}"></a>
                                             </div>
                                             <div class="col">
                                                 <h3 class="pt-2" th:text="${elemento.titulo}">Title</h3>
