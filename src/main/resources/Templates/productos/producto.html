@@ -77,6 +77,9 @@ layout:decorate="~{layout/layout}">
                                 <label>★</label>
                                 <label>★</label>
                             </th:block>
+                            
+                            <p th:if="${datosProducto.puntuacionProducto?.size()} == 0" th:text="'No ha sido valorado'"></p>
+                            <p th:if="${datosProducto.puntuacionProducto?.size()} >= 1" th:text="' Valoraciones: ' + ${datosProducto.puntuacionProducto?.size()}"></p>
                         </div>
                     </div>
                     <div class="col d-md-flex mb-5">
