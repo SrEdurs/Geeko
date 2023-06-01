@@ -116,6 +116,19 @@
                                                 <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
                                             </div>
                                         </div>
+                                        <div class="row" th:if="${elemento.comentarioPadre}" style="background-color: rgb(209, 209, 209); border-radius: 15px;">
+                                            <a th:href="@{/respuestas/{id}(id = ${elemento.comentarioPadre?.getId})}" style="text-decoration: none; color: inherit;">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <img style="width:3rem; border-radius: 15px; margin-top: 5px;" th:src="${elemento.comentarioPadre?.getUsuario.avatar}">
+                                                    </div>
+                                                    <div class="col">
+                                                        <h6 th:text="${elemento.comentarioPadre?.getTitulo}"></h6>
+                                                        <p class="pt-1" th:text="${elemento.comentarioPadre?.getTexto}">Subtitle</p>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -141,6 +154,7 @@
 
 
                                     <!--    Respuestas de un comentario   -->
+                                <th:block th:if="!${elemento.comentarioPadre}">
                                     <div class="col-md-1">
                                         <a th:href="@{/respuestas/{id}(id = ${elemento.id})}" style="background-color: rgba(255,255,255,0); border: 0px;">
                                             <i class="bi bi-reply" style="color: black;"></i>
@@ -150,6 +164,13 @@
                                     <div class="col-md-7">
                                         <p th:if="${elemento.comentariosHijos?.size()} > 0" th:text="${elemento.comentariosHijos?.size()}"></p>
                                     </div>
+                                </th:block>
+
+                                <th:block th:if="${elemento.comentarioPadre}">
+                                    <div class="col-md-8">
+                                        
+                                    </div>
+                                </th:block>
 
 
                                     <div class="col-xxl-1">

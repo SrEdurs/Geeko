@@ -141,7 +141,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             interfazConPantalla.addAttribute("listaIntereses", listaProductos);
 
             //Lista de sus comentarios
-            final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivoAndComentarioPadreIsNullOrderByIdDesc(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()), 1);
+            final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivoOrderByIdDesc(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()), 1);
             interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
             //Datos del usuario
@@ -191,7 +191,7 @@ public class AppUsuariosController extends AbstractController<UsuarioDto> {
             UsuarioDto attr = usuarioDto.get();
 
             //Lista de comentarios del usuario
-            final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivoAndComentarioPadreIsNullOrderByIdDesc(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
+            final List<Comentario> listaComentarios = comentarioRepository.findComentarioByUsuarioAndActivoOrderByIdDesc(this.usuarioService.getRepo().getUsuarioByIdIs(id),1 );
             interfazConPantalla.addAttribute("listaComentarios",listaComentarios);
             interfazConPantalla.addAttribute("datosPerfil",perf);
             interfazConPantalla.addAttribute("datosUsuario", attr);
