@@ -109,7 +109,7 @@ layout:decorate="~{layout/layout}">
                                         <i class="bi bi-eye-fill" style="color: black"></i>
                                     </a>
                                 </div>
-                                <div class="col-md-1" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
+                                <div class="col-md-9" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
                                     <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
                                         <i class="bi bi-flag" style="color: black"></i>
                                     </a>
