@@ -183,7 +183,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         if (comentarioOptional.isPresent() && usuarioDto.isPresent()) {
             UsuarioDto attr = usuarioDto.get();
             Comentario comentario = comentarioOptional.get();
-            List<Comentario> respuestas = comentario.getComentariosHijos();
+            List<Comentario> respuestas = comentarioRepository.findComentariosByComentarioPadreAndActivo(comentario, 1);
             Collections.reverse(respuestas);
             List<Long> likes = new ArrayList<Long>();
 
@@ -228,6 +228,10 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
                 hijo.setActivo(0);
                 comentarioRepository.save(hijo);
             }
+        }
+
+        if(coment.get().getComentarioPadre() != null){
+
         }
 
 

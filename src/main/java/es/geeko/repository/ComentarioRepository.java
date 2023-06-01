@@ -25,4 +25,6 @@ public interface ComentarioRepository  extends JpaRepository<Comentario,Long> {
 
     //Comentarios de tus seguidos
     List<Comentario> findTop8ComentariosByActivoIsAndUsuarioInOrderByIdDesc (int activo, List<Usuario> usuarios);
+
+    List<Comentario> findComentariosByComentarioPadreAndActivo(Comentario comentario, int activo);
 }

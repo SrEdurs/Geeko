@@ -44,10 +44,8 @@ layout:decorate="~{layout/layout}">
                                     </a>
                                 </div>
                                 <div class="col-md-9" th:if="${datosUsuario.id} == ${comentario.usuario?.getId}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                        th:data-id="${comentario.id}"
-                                        onclick="borrar(this.getAttribute('data-id'))">
-                                            <i class="bi bi-trash"></i>
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${comentario.id}">
+                                        <i class="bi bi-trash"></i> 
                                     </button>
                                 </div>
                                 <div class="col-xxl-1">
@@ -85,7 +83,7 @@ layout:decorate="~{layout/layout}">
 
 
 
-                <th:block th:if="${comentario.comentariosHijos != null}" th:each="elemento : ${comentario.comentariosHijos}">
+                <th:block th:if="${comentario.comentariosHijos != null}" th:each="elemento : ${respuestas}">
                     <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;">
                         <div class="container">
                             <div class="row">
@@ -115,10 +113,8 @@ layout:decorate="~{layout/layout}">
                                     </a>
                                 </div>
                                 <div class="col-md-9" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                        th:data-id="${elemento.id}"
-                                        onclick="borrar(this.getAttribute('data-id'))">
-                                            <i class="bi bi-trash"></i>
+                                    <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${elemento.id}">
+                                        <i class="bi bi-trash"></i> 
                                     </button>
                                 </div>
                                 <div class="col-xxl-1">
@@ -220,6 +216,31 @@ layout:decorate="~{layout/layout}">
             </div>
         </div>
     </div>
+
+    <!-- Modal borrar comentario -->
+<div class="modal fade" id="modalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+  
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        
+        <div class="modal-body">
+            <h2>Confirmar borrado</h2>
+            <p>¿Estás seguro de que deseas borrar el comentario?</p>
+            
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button onclick="borrar()" class="btn btn-danger">Confirmar</button>
+          </div>
+
+      </div>
+    </div>
+</div>
 
 
     </th:block>

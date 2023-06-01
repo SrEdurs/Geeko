@@ -237,7 +237,7 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
     @GetMapping("/cambiamegusta/{id}")
     public ResponseEntity<String> cambiaMeGusta(@PathVariable("id") Long id) {
         
-        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
+        Optional<Comentario> comentarioOptional = comentarioRepository.findById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
@@ -269,7 +269,7 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
 
     @GetMapping("/nomegusta/{id}")
     public ResponseEntity<String> noMeGusta(@PathVariable("id") Long id) {
-        Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
+        Optional<Comentario> comentarioOptional = comentarioRepository.findById(id);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDtoOptional = usuarioService.encuentraPorId(usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
