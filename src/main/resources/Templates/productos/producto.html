@@ -140,10 +140,13 @@ layout:decorate="~{layout/layout}">
                                         </a>
                                     </div>
                                     <div class="col-md-1" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
-                                        <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                        <!-- <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                         th:data-id="${elemento.id}"
                                         onclick="borrar(this.getAttribute('data-id'))">
-                                            <i class="bi bi-trash"></i>
+                                            <i class="bi bi-trash"></i> 
+                                        </button> -->
+                                        <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${elemento.id}">
+                                            <i class="bi bi-trash"></i> 
                                         </button>
                                     </div>
 
@@ -258,7 +261,7 @@ layout:decorate="~{layout/layout}">
         </div>
     </div>
 
-<!-- Modal -->
+<!-- Modal valorar -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -268,7 +271,6 @@ layout:decorate="~{layout/layout}">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
   
-        
         <div class="modal-body">
             <label for="customRange3" class="form-label">Establece tu valoración:&nbsp;</label>
             <span id="sliderValue"></span>
@@ -279,9 +281,32 @@ layout:decorate="~{layout/layout}">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             <button type="submit" onclick="puntuar(this.getAttribute('data-id'), document.getElementById('customRange3').value)" th:data-id="${datosProducto.id}" class="btn btn-primary">Valorar</button>
           </div>
-          
-        
+
+      </div>
+    </div>
+</div>
+
+<!-- Modal borrar comentario -->
+<div class="modal fade" id="modalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
   
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        
+        <div class="modal-body">
+            <h2>Confirmar borrado</h2>
+            <p>¿Estás seguro de que deseas borrar el comentario?</p>
+            
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button onclick="borrar()" class="btn btn-danger">Confirmar</button>
+          </div>
+
       </div>
     </div>
 </div>

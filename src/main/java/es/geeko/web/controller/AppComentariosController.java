@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -209,15 +210,31 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     }
 
     //Método para borrar un comentario con Javascript
-    @GetMapping("/borrar/{id}")
-    public ResponseEntity<String> borrar(@PathVariable("id") Long id){
-        // Buscamos el comentario a procesar
-        Integer activo = 0;
-        Optional<Comentario> coment = comentarioService.encuentraPorIdEntity(id);
-        if(coment.isPresent()){
+    @DeleteMapping("/borrar/{id}")
+    public ResponseEntity<String> borrar(@PathVariable("id") Long id) {
+
+        System.out.println(id);
+
+
+        Optional<Comentario> coment = comentarioService.getRepo().findComentarioByIdIs(id);
+        if (coment.isPresent()) {
             coment.get().setActivo(0);
+
+            if(coment.get().getComentariosHijos() != null){
+            List<Comentario> coments = coment.get().getComentariosHijos();
+
+            for( Comentario hijo:coments){
+                System.out.println(hijo.getTexto());
+                hijo.setActivo(0);
+                comentarioRepository.save(hijo);
+            }
+        }
+
+
             comentarioRepository.save(coment.get());
         }
-        return new ResponseEntity<>(activo.toString(), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    
 }
