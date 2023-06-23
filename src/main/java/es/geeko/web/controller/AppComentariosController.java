@@ -94,7 +94,6 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         Comentario comentario = new Comentario();
         comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
         comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(id));
-        comentario.setTitulo(comentarioDto.getTitulo());
         comentario.setTexto(comentarioDto.getTexto());
         comentario.setActivo(1);
         comentarioRepository.save(comentario);
@@ -155,7 +154,6 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         Comentario comentario = new Comentario();
         comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
         comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(idpro));
-        comentario.setTitulo(comentarioDto.getTitulo());
         comentario.setTexto(comentarioDto.getTexto());
         comentario.setActivo(1);
         comentario.setComentarioPadre(this.comentarioService.getRepo().findComentariosByIdIs(idcom));

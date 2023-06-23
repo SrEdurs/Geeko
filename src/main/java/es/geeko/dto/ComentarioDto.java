@@ -19,7 +19,6 @@ import java.util.List;
 public class ComentarioDto {
 
     private long id;
-    private String titulo;
     private String texto;
     private Date fecha = new java.sql.Date(Calendar.getInstance().getTime().getTime());
     private int likes;
