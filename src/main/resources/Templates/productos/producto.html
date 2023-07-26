@@ -106,7 +106,7 @@ layout:decorate="~{layout/layout}">
                     </div>
                 </div>
             <th:block th:if="${datosProducto.geeko} == 1">
-            <h3 style="color: #FFFFFF; margin-left: 200px">Comentarios <i class="bi bi-plus-circle" type="button" data-bs-toggle="modal" data-bs-target="#modalEscribir"></i></h3>
+            <h3 style="color: #FFFFFF; margin-left: 200px">Comentarios <i class="bi bi-plus-circle" style="color: #8D92BB" type="button" data-bs-toggle="modal" data-bs-target="#modalEscribir"></i></h3>
                     <th:block th:if="${#lists.isEmpty(listaComentarios)}">
                         <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay comentarios, escribe el primero!</h4>
                     </th:block>
@@ -157,11 +157,6 @@ layout:decorate="~{layout/layout}">
                                         </a>
                                     </div>
                                     <div class="col-md-1" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
-                                        <!-- <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                        th:data-id="${elemento.id}"
-                                        onclick="borrar(this.getAttribute('data-id'))">
-                                            <i class="bi bi-trash"></i> 
-                                        </button> -->
                                         <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${elemento.id}">
                                             <i class="bi bi-trash"></i> 
                                         </button>
@@ -343,47 +338,48 @@ layout:decorate="~{layout/layout}">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
   
-        
-        <div class="modal-body">
-        
-            <div class="row" style="margin-right: 5px;">
-                <div class="col-1">
-                    <a th:href="@{/productos/{id}(id = ${datosProducto.id})}"><img th:src="${datosProducto.imagen}" width="100px" class="h-8 w-8 rounded-full object-cover" style="border-radius: 15px; margin-top: 45px"></a>
-                </div>
-                <div class="col mb-5">
-                    <form role="form" th:object="${datosComentario}" method="post">
-                        <div class="mx-auto row">
-                            <div class="col-8">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <input style="margin-left: 200px" type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
+        <form role="form" th:object="${datosComentario}" method="post">
+            <div class="modal-body">
+            
+                <div class="row" style="margin-right: 5px;">
+                    <div class="col mb-5">
+                        
+                            <div class="mx-auto row">
+                                <div class="col-8">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <input style="margin-left: 200px" type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
+                                        </div>
+                                        <p> </p>
+                                        <div class="form-group">
+                                            <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger; margin-left: 50px;">Contenido</label>
+                                            <textarea  id="InputTexto" class="form-control" placeholder="Escribe tu comentario aquí..." style="border-radius: 23px;min-height: 110px; width: 400px; margin-left: 25px; background-color: #FFFFFF;"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
+                                        </div>
+                                        <p> </p>
+                                        
                                     </div>
-                                    <p> </p>
-                                    <div class="form-group">
-                                        <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger; margin-left: 50px;">Contenido</label>
-                                        <textarea  id="InputTexto" class="form-control" style="border-radius: 23px;min-height: 110px; width: 600px; margin-left: 50px;"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
-                                    </div>
-                                    <p> </p>
-                                    <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;padding: 2px;width: 92px;height: 41px; font-weight: bold;margin-left: 560px" class="btn ">Publicar</button>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                    
+                        
+                        
+                    </div>
                 </div>
+                
             </div>
-            
-        </div>
           
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button onclick="borrar()" class="btn btn-danger">Confirmar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="color: #FFFFFF;">Cancelar</button>
+            <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;font-weight: bold;color: #FFFFFF;" class="btn ">Publicar</button>
           </div>
+
+        </form>
 
       </div>
     </div>
 </div>
   
+
+
   <script>
     // Obtener el elemento del slider
     var slider = document.getElementById("customRange3");
