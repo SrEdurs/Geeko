@@ -289,7 +289,9 @@ public ResponseEntity<String> noseguir(@PathVariable("id") Long id) {
                 likeRepository.delete(like);
             }
 
-            return new ResponseEntity<>(HttpStatus.OK);
+            Integer likes = comentario.getLikes();
+
+            return new ResponseEntity<>(likes.toString(), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
