@@ -1,5 +1,6 @@
 package es.geeko.web.controller;
 
+import es.geeko.dto.ComentarioDto;
 import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
@@ -178,6 +179,11 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         //Si está presente, mostramos en la pantalla
         if(producto.isPresent()) {
 
+            //Creamos el DTO del nuevo comentario y lo mandamos a la pantalla
+            final ComentarioDto comentarioDto = new ComentarioDto();
+            comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(id));
+            interfazConPantalla.addAttribute("datosComentario",comentarioDto);
+
             //Lista de los productos dentro de sus gustos
             final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
             interfazConPantalla.addAttribute("listaIntereses", listaProductos);
@@ -209,6 +215,31 @@ public class AppProductosController extends AbstractController<ProductoDto> {
         } else{
             return "error";
         }
+    }
+
+    @PostMapping("/productos/{idpro}")
+    public String guardarComentario(@PathVariable("idpro") Long id, ComentarioDto comentarioDto, ModelMap interfazConPantalla){
+
+
+        //Datos de usuario de la sesión
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        //Asignación de los datos del nuevo comentario
+        Comentario comentario = new Comentario();
+        comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(id));
+        comentario.setTexto(comentarioDto.getTexto());
+        comentario.setActivo(1);
+        comentarioService.getRepo().save(comentario);
+
+        //Redireccionamos al producto al que pertenece el comentario
+        return "redirect:/productos/" + id;
+
+
     }
 
 
