@@ -10,238 +10,295 @@ layout:decorate="~{layout/layout}">
 <body style="background-color: #1E1E1E">
     <th:block layout:fragment="nav"></th:block>
     <th:block layout:fragment="contenido">
-<div class="container" th:object="${datosProducto}">
-    <div class="row">
-        <div class="col" style="margin-right: 5px; max-width: 1100px;">
-            <h4 style="color: #8D92BB;margin-bottom: 10px; text-align: center; margin-right: 250px;" th:text="${datosProducto.titulo}"></h4>
-                <th:block th:object="${comentario}">
-                    <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
+        <div class="container" th:object="${datosProducto}">
+            <div class="row">
+                <div class="col" style="margin-right: 5px; max-width: 1100px;">
+                    <div class="row">
+                        <div class="col">
+                            <a th:href="@{/productos/{id}(id = ${datosProducto.id})}"><img th:src="${datosProducto.imagen}" width="100px" class="h-8 w-8 rounded-full object-cover" style="border-radius: 15px; margin-top: 45px"></a>
+
+                        </div>
+                        <div class="col-md-10">
+                            <h4 style="color: #8D92BB; text-align: center; margin-right: 250px;margin-top: 100px;" th:text="${datosProducto.titulo}"></h4>
+
+                        </div>
+                    </div>
+                        <th:block th:object="${comentario}">
+                            <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;">
+                                <div class="container">
                                     <div class="row">
-                                        <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
-                                            <a th:href="@{/perfil/{id}(id = ${comentario.usuario?.getId})}"><img style="width: 5rem; border-radius: 15px" th:src="${comentario.usuario?.getAvatar}"></a>
-                                        </div>
-                                        <div class="col">
-                                            <h4 class="pt-2" th:text="${comentario.usuario?.getNick}">Title</h4>
-                                            <p class="pt-1" th:text="${comentario.texto}">Subtitle</p>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
+                                                    <a th:href="@{/perfil/{id}(id = ${comentario.usuario?.getId})}"><img style="width: 5rem; border-radius: 15px" th:src="${comentario.usuario?.getAvatar}"></a>
+                                                </div>
+                                                <div class="col">
+                                                    <h4 class="pt-2" th:text="${comentario.usuario?.getNick}">Title</h4>
+                                                    <p class="pt-1" th:text="${comentario.texto}">Subtitle</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row" style="height: 15px;">
-                                <div class="col-md-1">
-                                    <a th:href="@{/productos/{id}(id = ${comentario.producto?.getId})}">
-                                        <i class="bi bi-eye-fill" style="color: black"></i>
-                                    </a>
-                                </div>
-                                <div class="col-md-9" th:if="${datosUsuario.id} != ${comentario.usuario?.getId}">
-                                    <a th:href="@{/reportarcomentario/{id}(id = ${comentario.id})}">
-                                        <i class="bi bi-flag" style="color: black"></i>
-                                    </a>
-                                </div>
-                                <div class="col-md-9" th:if="${datosUsuario.id} == ${comentario.usuario?.getId}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${comentario.id}">
-                                        <i class="bi bi-trash"></i> 
-                                    </button>
-                                </div>
-                                <div class="col-xxl-1">
-                                    <p th:id="'likes'+${comentario.id}"
-                                        style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
-                                        th:text="${comentario.likes}">
-                                    </p>
-                                </div>
-                                <div class="col-md-1" th:if="${!#lists.contains(likes,comentario.id)}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                        th:data-id="${comentario.id}" th:id="'megustas'+${comentario.id}"
-                                        onclick="cambiamegusta(this.getAttribute('data-id'))">
-                                    <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
-                                    th:id="'megusta'+${comentario.id}"></i>
-                                    </button>
-                                </div> 
-                                <div class="col-md-1" th:if="${#lists.contains(likes,comentario.id)}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                <div class="container">
+                                    <div class="row" style="height: 15px;">
+                                        <div class="col-md-1">
+                                            <a th:href="@{/productos/{id}(id = ${comentario.producto?.getId})}">
+                                                <i class="bi bi-eye-fill" style="color: black"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9" th:if="${datosUsuario.id} != ${comentario.usuario?.getId}">
+                                            <a th:href="@{/reportarcomentario/{id}(id = ${comentario.id})}">
+                                                <i class="bi bi-flag" style="color: black"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9" th:if="${datosUsuario.id} == ${comentario.usuario?.getId}">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${comentario.id}">
+                                                <i class="bi bi-trash"></i> 
+                                            </button>
+                                        </div>
+                                        <div class="col-xxl-1">
+                                            <p th:id="'likes'+${comentario.id}"
+                                                style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
+                                                th:text="${comentario.likes}">
+                                            </p>
+                                        </div>
+                                        <div class="col-md-1" th:if="${!#lists.contains(likes,comentario.id)}">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                                 th:data-id="${comentario.id}" th:id="'megustas'+${comentario.id}"
-                                                onclick="nomegusta(this.getAttribute('data-id'))">
-                                        <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
-                                        th:id="'megusta'+${comentario.id}"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </th:block>
-
-
-                <h3 style="color: #FFFFFF; margin-left: 200px">Respuestas <a th:href="@{/crearrespuesta/{idpro}/{idcom}(idpro=${datosProducto.id},idcom=${comentario.id})}"><i class="bi bi-plus-circle"></i></a></h3>
-                    <th:block th:if="${#lists.isEmpty(comentario.comentariosHijos)}">
-                        <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay respuestas, escribe la primera!</h4>
-                    </th:block>
-
-
-
-                <th:block th:if="${comentario.comentariosHijos != null}" th:each="elemento : ${respuestas}">
-                    <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
-                                            <a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}"></a>
-                                        </div>
-                                        <div class="col">
-                                            <h4 class="pt-2" th:text="${elemento.usuario?.getNick}">Title</h4>
-                                            <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
+                                                onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                            <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
+                                            th:id="'megusta'+${comentario.id}"></i>
+                                            </button>
+                                        </div> 
+                                        <div class="col-md-1" th:if="${#lists.contains(likes,comentario.id)}">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                                        th:data-id="${comentario.id}" th:id="'megustas'+${comentario.id}"
+                                                        onclick="nomegusta(this.getAttribute('data-id'))">
+                                                <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
+                                                th:id="'megusta'+${comentario.id}"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="container">
-                            <div class="row" style="height: 15px;">
-                                <div class="col-md-1">
-                                    <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}">
-                                        <i class="bi bi-eye-fill" style="color: black"></i>
-                                    </a>
+                        </th:block>
+
+
+                        <h3 style="color: #FFFFFF; margin-left: 200px">Respuestas <i class="bi bi-plus-circle" type="button" data-bs-toggle="modal" data-bs-target="#modalEscribir" style="color: #8D92BB"></i></a></h3>
+                            <th:block th:if="${#lists.isEmpty(comentario.comentariosHijos)}">
+                                <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay respuestas, escribe la primera!</h4>
+                            </th:block>
+
+
+
+                        <th:block th:if="${comentario.comentariosHijos != null}" th:each="elemento : ${respuestas}">
+                            <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
+                                                    <a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}"></a>
+                                                </div>
+                                                <div class="col">
+                                                    <h4 class="pt-2" th:text="${elemento.usuario?.getNick}">Title</h4>
+                                                    <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-9" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
-                                    <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
-                                        <i class="bi bi-flag" style="color: black"></i>
-                                    </a>
-                                </div>
-                                <div class="col-md-9" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${elemento.id}">
-                                        <i class="bi bi-trash"></i> 
-                                    </button>
-                                </div>
-                                <div class="col-xxl-1">
-                                    <p th:id="'likes'+${elemento.id}"
-                                        style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
-                                        th:text="${elemento.likes}">
-                                    </p>
-                                </div>
-                                <div class="col-md-1" th:if="${!#lists.contains(likes,elemento.id)}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                        th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
-                                        onclick="cambiamegusta(this.getAttribute('data-id'))">
-                                    <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
-                                    th:id="'megusta'+${elemento.id}"></i>
-                                    </button>
-                                </div> 
-                                <div class="col-md-1" th:if="${#lists.contains(likes,elemento.id)}">
-                                    <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                <div class="container">
+                                    <div class="row" style="height: 15px;">
+                                        <div class="col-md-1">
+                                            <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}">
+                                                <i class="bi bi-eye-fill" style="color: black"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
+                                            <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
+                                                <i class="bi bi-flag" style="color: black"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;" data-bs-toggle="modal" data-bs-target="#modalBorrar" onclick="setSelectedElementId(this.getAttribute('data-id'))" th:data-id="${elemento.id}">
+                                                <i class="bi bi-trash"></i> 
+                                            </button>
+                                        </div>
+                                        <div class="col-xxl-1">
+                                            <p th:id="'likes'+${elemento.id}"
+                                                style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
+                                                th:text="${elemento.likes}">
+                                            </p>
+                                        </div>
+                                        <div class="col-md-1" th:if="${!#lists.contains(likes,elemento.id)}">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                                 th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
-                                                onclick="nomegusta(this.getAttribute('data-id'))">
-                                        <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
-                                        th:id="'megusta'+${elemento.id}"></i>
-                                    </button>
+                                                onclick="cambiamegusta(this.getAttribute('data-id'))">
+                                            <i style="margin-bottom: 10px" class="bi bi-hand-thumbs-up"
+                                            th:id="'megusta'+${elemento.id}"></i>
+                                            </button>
+                                        </div> 
+                                        <div class="col-md-1" th:if="${#lists.contains(likes,elemento.id)}">
+                                            <button style="background-color: rgba(255,255,255,0); border: 0px;"
+                                                        th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
+                                                        onclick="nomegusta(this.getAttribute('data-id'))">
+                                                <i style="margin-bottom: 10px; color: #29cb30" class="bi-hand-thumbs-up-fill"
+                                                th:id="'megusta'+${elemento.id}"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </th:block>
+
+
+
+                    </div>
+                    <div class="col-4" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col produpodint">
+                                <h3 style="color: rgb(255,255,255);">Podría interesarte</h3>
+                            </div>
+                        <div class="row">
+                            <th:block th:each="elemento : ${listaIntereses}">
+                                <div class="card-body cardproduPodint" style="margin-bottom: 30px; margin-left: 55px">
+                                    <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-topproduPodint"></a>
+                                    <h6 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h6>
+                                    
+                                    <div class="clasificacion">
+                                    <th:block th:if="${elemento.puntuacionMedia} == 0 ">
+                                        <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                    </th:block>
+                                    <th:block th:if="${elemento.puntuacionMedia} > 0 and ${elemento.puntuacionMedia} <= 1">
+                                        <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>★</label>
+                                    </th:block>
+                                    <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} <= 2 ">
+                                        <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                    </th:block>
+                                    <th:block th:if="${elemento.puntuacionMedia} > 2 and ${elemento.puntuacionMedia} <= 3 ">
+                                        <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                        <label>✰</label>
+                                        <label>✰</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                    </th:block>
+                                    <th:block th:if="${elemento.puntuacionMedia} > 3 and ${elemento.puntuacionMedia} <=4 ">
+                                        <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                        <label>✰</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                    </th:block>
+                                    <th:block th:if="${elemento.puntuacionMedia} > 4  and ${elemento.puntuacionMedia} <= 5 ">
+                                        <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                        <label>★</label>
+                                    </th:block>
+                                </div>
+                                    
+                                </div>
+                            </th:block>
                         </div>
                     </div>
-                </th:block>
-
-
-
-            </div>
-            <div class="col-4" style="padding-left: 62px;padding-right: 58px;padding-bottom: 0px;">
-                <div class="row" style="margin-top: 10px;">
-                    <div class="col produpodint">
-                        <h3 style="color: rgb(255,255,255);">Podría interesarte</h3>
                     </div>
-                <div class="row">
-                    <th:block th:each="elemento : ${listaIntereses}">
-                        <div class="card-body cardproduPodint" style="margin-bottom: 30px; margin-left: 55px">
-                            <a th:href="'/productos/' + ${elemento.id}"><img th:src="${elemento.imagen}" width="10%" class="card-img-topproduPodint"></a>
-                            <h6 style="color: #FFFFFF" th:align="center" th:text="${elemento.titulo}"></h6>
-                            
-                            <div class="clasificacion">
-                            <th:block th:if="${elemento.puntuacionMedia} == 0 ">
-                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>✰</label>
-                            </th:block>
-                            <th:block th:if="${elemento.puntuacionMedia} > 0 and ${elemento.puntuacionMedia} <= 1">
-                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>★</label>
-                            </th:block>
-                            <th:block th:if="${elemento.puntuacionMedia} > 1 and ${elemento.puntuacionMedia} <= 2 ">
-                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>★</label>
-                                <label>★</label>
-                            </th:block>
-                            <th:block th:if="${elemento.puntuacionMedia} > 2 and ${elemento.puntuacionMedia} <= 3 ">
-                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
-                                <label>✰</label>
-                                <label>✰</label>
-                                <label>★</label>
-                                <label>★</label>
-                                <label>★</label>
-                            </th:block>
-                            <th:block th:if="${elemento.puntuacionMedia} > 3 and ${elemento.puntuacionMedia} <=4 ">
-                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
-                                <label>✰</label>
-                                <label>★</label>
-                                <label>★</label>
-                                <label>★</label>
-                                <label>★</label>
-                            </th:block>
-                            <th:block th:if="${elemento.puntuacionMedia} > 4  and ${elemento.puntuacionMedia} <= 5 ">
-                                <label th:text="'(' + ${elemento.puntuacionMedia} + ')'"></label>
-                                <label>★</label>
-                                <label>★</label>
-                                <label>★</label>
-                                <label>★</label>
-                                <label>★</label>
-                            </th:block>
-                        </div>
-                            
-                        </div>
-                    </th:block>
                 </div>
-            </div>
-            </div>
         </div>
-    </div>
 
-    <!-- Modal borrar comentario -->
-<div class="modal fade" id="modalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-  
-        <div class="modal-header">
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-  
+        <!-- Modal borrar comentario -->
+        <div class="modal fade" id="modalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
         
-        <div class="modal-body">
-            <h2>Confirmar borrado</h2>
-            <p>¿Estás seguro de que deseas borrar el comentario?</p>
-            
-          </div>
-          
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button onclick="borrar()" class="btn btn-danger">Confirmar</button>
-          </div>
+                <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+        
+                
+                <div class="modal-body">
+                    <h2>Confirmar borrado</h2>
+                    <p>¿Estás seguro de que deseas borrar el comentario?</p>
+                    
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button onclick="borrar()" class="btn btn-danger">Confirmar</button>
+                </div>
 
-      </div>
-    </div>
-</div>
+            </div>
+            </div>
+        </div>
 
+        <!-- Modal escribir comentario -->
+        <div class="modal fade" id="modalEscribir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+        
+                <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+        
+                <form role="form" th:object="${datosComentario}" method="post">
+                    <div class="modal-body">
+                    
+                        <div class="row" style="margin-right: 5px;">
+                            <div class="col mb-5">
+                                
+                                    <div class="mx-auto row">
+                                        <div class="col-8">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <input style="margin-left: 200px" type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
+                                                </div>
+                                                <p> </p>
+                                                <div class="form-group">
+                                                    <label for="InputTexto" style="color: rgb(255,255,255);font-size: larger; margin-left: 50px;">Contenido</label>
+                                                    <textarea  id="InputTexto" class="form-control" placeholder="Escribe tu comentario aquí..." style="border-radius: 23px;min-height: 110px; width: 400px; margin-left: 25px; background-color: #FFFFFF;"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
+                                                </div>
+                                                <p> </p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="color: #FFFFFF;">Cancelar</button>
+                    <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;font-weight: bold;color: #FFFFFF;" class="btn ">Publicar</button>
+                </div>
+
+                </form>
+
+            </div>
+            </div>
+        </div>
 
     </th:block>
     <th:block layout:fragment="pie"></th:block>

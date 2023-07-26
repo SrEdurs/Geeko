@@ -193,6 +193,12 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
             //Podría interesarte sección derecha
             final List<Producto> listaProductos = productoRepository.findTop5ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1,1);
 
+            //Creamos el DTO del nuevo comentario y lo mandamos a la pantalla
+            final ComentarioDto comentarioDto = new ComentarioDto();
+            comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(comentario.getProducto().getId()));
+            comentarioDto.setComentarioPadre(this.comentarioService.getMapper().toDto(this.comentarioService.getRepo().findComentariosByIdIs(comentario.getId())));
+            interfazConPantalla.addAttribute("datosComentario",comentarioDto);
+
             interfazConPantalla.addAttribute("listaIntereses",listaProductos);
             interfazConPantalla.addAttribute("likes", likes);
             interfazConPantalla.addAttribute("datosProducto", productoDto.get());
@@ -206,6 +212,38 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
         return "/social/respuestasComentario";
     }
+
+
+
+    @PostMapping("/respuestas/{id}")
+    public String guardarRespuestas(@PathVariable("id") Long id, ComentarioDto comentarioDto, ModelMap interfazConPantalla) {
+
+        //Datos de usuario de la sesión
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        //Asignación de los datos del nuevo comentario
+        Comentario comentario = new Comentario();
+        comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(comentarioService.encuentraPorIdEntity(id).get().getProducto().getId()));
+        comentario.setTexto(comentarioDto.getTexto());
+        comentario.setActivo(1);
+        comentario.setComentarioPadre(this.comentarioService.getRepo().findComentariosByIdIs(id));
+        comentarioRepository.save(comentario);
+
+        Comentario comentarioPadre = this.comentarioService.getRepo().findComentariosByIdIs(id);
+        comentarioPadre.getComentariosHijos().add(comentario);
+        this.comentarioService.getRepo().save(comentarioPadre);
+
+        //Redireccionamos al producto al que pertenece el comentario
+        return "redirect:/respuestas/" + id;
+
+    }
+
+
 
     //Método para borrar un comentario con Javascript
     @DeleteMapping("/borrar/{id}")
