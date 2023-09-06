@@ -90,6 +90,33 @@ layout:decorate="~{layout/layout}">
                                 <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay respuestas, escribe la primera!</h4>
                             </th:block>
 
+                            <form role="form" th:object="${datosComentario}" method="post">    
+                                <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #e2e2e2; max-width: 500px">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col">                                     
+                                                        <input type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
+                                                        <textarea  id="InputTexto" class="form-control" placeholder="Escribe tu respuesta aquí..." style="border-radius: 23px;min-height: 110px; width: 380px; margin-left: 25px; background-color: #FFFFFF;"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
+                                                    </div>
+                                                </div>                                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row" style="height: 15px; margin-top: 5px;">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-6"></div>
+                                            <div class="col-md-1">
+                                                <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;font-weight: bold;color: #FFFFFF;" class="btn ">Publicar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
 
 
                         <th:block th:if="${comentario.comentariosHijos != null}" th:each="elemento : ${respuestas}">
