@@ -9,7 +9,6 @@ import es.geeko.model.Like;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
 import es.geeko.service.ComentarioService;
-import es.geeko.service.ProductoService;
 import es.geeko.service.UsuarioService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,14 +27,12 @@ public class HomeController {
     private final UsuarioService usuarioService;
     private final ProductoRepository productoRepository;
     private final ComentarioRepository comentarioRepository;
-    private final ProductoService productoService;
     private final ComentarioService comentarioService;
 
-    public HomeController(UsuarioService usuarioService, ProductoRepository productoRepository, ComentarioRepository comentarioRepository, ProductoService productoService, ComentarioService comentarioService) {
+    public HomeController(UsuarioService usuarioService, ProductoRepository productoRepository, ComentarioRepository comentarioRepository, ComentarioService comentarioService) {
         this.usuarioService = usuarioService;
         this.productoRepository = productoRepository;
         this.comentarioRepository = comentarioRepository;
-        this.productoService = productoService;
         this.comentarioService = comentarioService;
     }
 
