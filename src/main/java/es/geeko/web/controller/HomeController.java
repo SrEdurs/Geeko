@@ -106,7 +106,7 @@ public class HomeController {
                 interfazConPantalla.addAttribute("ids", ids);
                 interfazConPantalla.addAttribute("likes", likes);
 
-                final List<Comentario> listaComentarios = comentarioRepository.findTop8ComentariosByActivoIsAndUsuarioInOrderByIdDesc(1,attr.getSeguimientos());
+                final List<Comentario> listaComentarios = comentarioRepository.findTop8ComentariosByActivoIsAndUsuarioInOrderByIdDesc(1, attr.getSeguimientos());
             interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
                 final List<Producto> listaProductos = productoRepository.findTop8ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);

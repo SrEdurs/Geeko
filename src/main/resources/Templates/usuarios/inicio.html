@@ -21,26 +21,23 @@
                     </th:block>
 
                     <form role="form" th:object="${datosComentario}" method="post">    
-                        <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #e2e2e2; max-width: 500px">
+                        <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px; min-width: 400px;">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col">                                     
                                                 <input type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
-                                                <textarea  id="InputTexto" class="form-control" placeholder="Escribe aquí..." style="border-radius: 23px;min-height: 110px; width: 380px; margin-left: 25px; background-color: #FFFFFF;"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
+                                                <textarea  id="InputTexto" class="form-control" placeholder="Escribe aquí..." style="border-radius: 23px;border-color: #FFFFFF;height: fit-content; background-color: #FFFFFF; margin-bottom: 8px;"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
                                             </div>
                                         </div>                                  
                                     </div>
                                 </div>
                             </div>
                             <div class="container">
-                                <div class="row" style="height: 15px; margin-top: 5px;">
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-1"></div>
-                                    <div class="col-md-6"></div>
-                                    <div class="col-md-1">
+                                <div class="row" style="height: 15px; margin-top: 5px; margin-bottom: 5px">
+                                    <div class="col-9"></div>
+                                    <div class="col">
                                         <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;font-weight: bold;color: #FFFFFF;" class="btn ">Publicar</button>
                                     </div>
                                 </div>
@@ -49,12 +46,12 @@
                     </form>
 
                     <th:block th:each="elemento : ${listaComentarios}">
-                        <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px">
+                        <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px;min-width: 400px">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
-                                            <div class="col-xxl-4 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
+                                            <div class="col-xxl-2 d-xxl-flex justify-content-xxl-center align-items-xxl-start" style="height: 130px;">
                                                 <a th:href="@{/perfil/{id}(id = ${elemento.usuario?.getId})}"><img style="width: 5rem; border-radius: 15px" th:src="${elemento.usuario?.getAvatar}"></a>
                                             </div>
                                             <div class="col">
@@ -97,12 +94,12 @@
                             </div>
                             <div class="container">
                                 <div class="row" style="height: 15px;">
-                                    <div class="col-md-1" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
+                                    <div class="col-1" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
                                         <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
                                             <i class="bi bi-flag" style="color: black"></i>
                                         </a>
                                     </div>
-                                    <div class="col-md-1" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
+                                    <div class="col-1" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
                                         <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                         th:data-id="${elemento.id}"
                                         onclick="borrar(this.getAttribute('data-id'))">
@@ -112,31 +109,31 @@
 
                                     <!--    Respuestas de un comentario   -->
                                 <th:block th:if="!${elemento.comentarioPadre}">
-                                    <div class="col-md-1">
+                                    <div class="col-1">
                                         <a th:href="@{/respuestas/{id}(id = ${elemento.id})}" style="background-color: rgba(255,255,255,0); border: 0px;">
                                             <i class="bi bi-reply" style="color: black;"></i>
                                         </a>
                                     </div>
 
-                                    <div class="col-md-7">
+                                    <div class="col-md-8">
                                         <p th:if="${elemento.comentariosHijos?.size()} > 0" th:text="${elemento.comentariosHijos?.size()}"></p>
                                     </div>
                                 </th:block>
 
                                 <th:block th:if="${elemento.comentarioPadre}">
-                                    <div class="col-md-8">
+                                    <div class="col-9">
                                         
                                     </div>
                                 </th:block>
 
 
-                                    <div class="col-xxl-1">
+                                    <div class="col-1">
                                         <p th:id="'likes'+${elemento.id}"
                                                 style="color: #1E1E1E; margin-top: 3px; margin-left: 15px;"
                                                 th:text="${elemento.likes}">
                                         </p>
                                     </div>
-                                    <div class="col-md-1" th:if="${!#lists.contains(likes,elemento.id)}">
+                                    <div class="col-1" th:if="${!#lists.contains(likes,elemento.id)}">
                                         <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                         th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
                                         onclick="cambiamegusta(this.getAttribute('data-id'))">
@@ -144,7 +141,7 @@
                                         th:id="'megusta'+${elemento.id}"></i>
                                         </button>
                                     </div>
-                                    <div class="col-md-1" th:if="${#lists.contains(likes,elemento.id)}">
+                                    <div class="col-1" th:if="${#lists.contains(likes,elemento.id)}">
                                         <button style="background-color: rgba(255,255,255,0); border: 0px;"
                                                 th:data-id="${elemento.id}" th:id="'megustas'+${elemento.id}"
                                                 onclick="nomegusta(this.getAttribute('data-id'))">
