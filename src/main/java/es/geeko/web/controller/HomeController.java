@@ -1,5 +1,6 @@
 package es.geeko.web.controller;
 
+import es.geeko.dto.ComentarioDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Producto;
@@ -7,12 +8,15 @@ import es.geeko.model.Usuario;
 import es.geeko.model.Like;
 import es.geeko.repository.ComentarioRepository;
 import es.geeko.repository.ProductoRepository;
+import es.geeko.service.ComentarioService;
+import es.geeko.service.ProductoService;
 import es.geeko.service.UsuarioService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +28,15 @@ public class HomeController {
     private final UsuarioService usuarioService;
     private final ProductoRepository productoRepository;
     private final ComentarioRepository comentarioRepository;
+    private final ProductoService productoService;
+    private final ComentarioService comentarioService;
 
-    public HomeController(UsuarioService usuarioService, ProductoRepository productoRepository, ComentarioRepository comentarioRepository) {
+    public HomeController(UsuarioService usuarioService, ProductoRepository productoRepository, ComentarioRepository comentarioRepository, ProductoService productoService, ComentarioService comentarioService) {
         this.usuarioService = usuarioService;
         this.productoRepository = productoRepository;
         this.comentarioRepository = comentarioRepository;
+        this.productoService = productoService;
+        this.comentarioService = comentarioService;
     }
 
     @GetMapping("/")
@@ -67,6 +75,12 @@ public class HomeController {
 
         //Si está presente, mostramos
         if(usuarioDto.isPresent()) {
+
+            //Creamos el DTO del nuevo comentario y lo mandamos a la pantalla
+            final ComentarioDto comentarioDto = new ComentarioDto();
+            comentarioDto.setProducto(null);
+            interfazConPantalla.addAttribute("datosComentario",comentarioDto);
+
             UsuarioDto attr = usuarioDto.get();
             interfazConPantalla.addAttribute("datosUsuario", attr);
 
@@ -110,6 +124,27 @@ public class HomeController {
         } else{
             return "error";
         }
+    }
+
+    @PostMapping("/home")
+    public String guardarComentario(ComentarioDto comentarioDto, ModelMap interfazConPantalla){
+
+        //Datos del usuario de la sesión
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
+        UsuarioDto attr = usuarioDto.get();
+        interfazConPantalla.addAttribute("datosUsuario",attr);
+
+        //Asignación del nuevo comentario
+        Comentario comentario = new Comentario();
+        comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
+        comentario.setProducto(null);
+        comentario.setTexto(comentarioDto.getTexto());
+        comentario.setActivo(1);
+        comentarioService.getRepo().save(comentario);
+
+        return "redirect:/home";
     }
 
 

@@ -19,6 +19,37 @@
                     <th:block th:if="${#lists.isEmpty(listaComentarios)}">
                       <h4 style="color: #FFFFFF; margin-left: 150px; margin-top: 20px">No hay nada, sigue a alguien!</h4>
                     </th:block>
+
+
+                    <form role="form" th:object="${datosComentario}" method="post">    
+                        <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #e2e2e2; max-width: 500px">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col">                                     
+                                                <input type="hidden"  class="form-control"  maxlength="1" th:field="${datosComentario.activo}"/>
+                                                <textarea  id="InputTexto" class="form-control" placeholder="Escribe tu comentario aquí..." style="border-radius: 23px;min-height: 110px; width: 380px; margin-left: 25px; background-color: #FFFFFF;"  maxlength="300" th:field="${datosComentario.texto}" required></textarea>
+                                            </div>
+                                        </div>                                  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row" style="height: 15px; margin-top: 5px;">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-1">
+                                        <button  type="submit" style="background-color:#8D92BB;border-radius: 23px;font-weight: bold;color: #FFFFFF;" class="btn ">Publicar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
                     <th:block th:each="elemento : ${listaComentarios}">
                         <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px">
                             <div class="container">
@@ -33,7 +64,24 @@
                                                 <p class="pt-1" th:text="${elemento.texto}">Subtitle</p>
                                             </div>
                                         </div>
-                                        <div class="row" th:if="${elemento.comentarioPadre}" style="background-color: rgb(209, 209, 209); border-radius: 15px;">
+
+
+                                        <div class="row" th:if="${elemento.producto}" style="background-color: rgb(209, 209, 209); border-radius: 15px;">
+                                            <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}" style="text-decoration: none; color: inherit;">
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <img style="width:3rem; border-radius: 15px; margin-top: 5px;" th:src="${elemento.producto?.imagen}">
+                                                    </div>
+                                                    <div class="col" style="align-self: center;">
+                                                        <h6 th:text="${elemento.producto?.titulo}"></h6>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+
+
+
+                                        <div class="row" th:if="${elemento.comentarioPadre}" style="background-color: rgb(238, 238, 238); border-radius: 15px; margin-top: 5px;">
                                             <a th:href="@{/respuestas/{id}(id = ${elemento.comentarioPadre?.getId})}" style="text-decoration: none; color: inherit;">
                                                 <div class="row">
                                                     <div class="col-2">
@@ -52,11 +100,6 @@
                             </div>
                             <div class="container">
                                 <div class="row" style="height: 15px;">
-                                    <div class="col-md-1">
-                                        <a th:href="@{/productos/{id}(id = ${elemento.producto?.getId})}">
-                                            <i class="bi bi-eye-fill" style="color: black"></i>
-                                        </a>
-                                    </div>
                                     <div class="col-md-1" th:if="${datosUsuario.id} != ${elemento.usuario?.getId}">
                                         <a th:href="@{/reportarcomentario/{id}(id = ${elemento.id})}">
                                             <i class="bi bi-flag" style="color: black"></i>
@@ -69,7 +112,6 @@
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
-
 
                                     <!--    Respuestas de un comentario   -->
                                 <th:block th:if="!${elemento.comentarioPadre}">
