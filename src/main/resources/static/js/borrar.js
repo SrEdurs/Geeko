@@ -2,6 +2,7 @@ var selectedElementId;
 
     function setSelectedElementId(elementId) {
         selectedElementId = elementId;
+        console.log("Holaa el id de lo seleccionado es: " + selectedElementId)
     }
 
     function borrar() {

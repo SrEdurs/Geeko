@@ -142,8 +142,8 @@ layout:decorate="~{layout/layout}">
                                         </div>
                                         <div class="col-1" th:if="${datosUsuario.id} == ${elemento.usuario?.getId}">
                                             <button style="background-color: rgba(255,255,255,0); border: 0px;"
-                                            th:data-id="${elemento.id}"
-                                            onclick="borrar(this.getAttribute('data-id'))">
+                                            th:data-id="${elemento.id}" data-bs-toggle="modal" data-bs-target="#modalBorrar"
+                                            onclick="setSelectedElementId(this.getAttribute('data-id'))">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </div>
