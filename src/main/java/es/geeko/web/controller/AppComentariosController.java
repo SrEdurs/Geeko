@@ -127,19 +127,20 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         if (coment.isPresent()) {
             coment.get().setActivo(0);
 
+            coment.get().setComentarioPadre(null);
+
             if(coment.get().getComentariosHijos() != null){
-            List<Comentario> coments = coment.get().getComentariosHijos();
+                List<Comentario> coments = coment.get().getComentariosHijos();
 
-            for( Comentario hijo:coments){
-                System.out.println(hijo.getTexto());
-                hijo.setActivo(0);
-                comentarioRepository.save(hijo);
+                for( Comentario hijo:coments){
+                    System.out.println(hijo.getTexto());
+                    comentarioRepository.delete(hijo);
+                }
             }
-        }
 
-        if(coment.get().getComentarioPadre() != null){
+            if(coment.get().getComentarioPadre() != null){
 
-        }
+            }
             comentarioRepository.save(coment.get());
         }
         return new ResponseEntity<>(HttpStatus.OK);
