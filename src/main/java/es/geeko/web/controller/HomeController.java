@@ -63,7 +63,7 @@ public class HomeController {
 
 
     @GetMapping("/home")
-    public String getHomePage(ModelMap interfazConPantalla) {
+    public String getHomePage(ModelMap interfazConPantalla) throws Exception {
 
         //DTO del usuario de la sesión
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -93,13 +93,18 @@ public class HomeController {
 
                 List<Long> likes = new ArrayList<Long>();
                 List<Long> ids = new ArrayList<Long>();
+
+                Usuario attr2 = this.usuarioService.getMapper().toEntity(usuarioDto.get());
+                attr.getSeguimientos().add(attr2);
+                System.out.println(attr.getNick() + " es el usuario de la sesión");
     
                 for (Usuario elemento : attr.getSeguimientos()) {
-                    ids.add(elemento.getId());
+                    ids.add(elemento.getId());                                                     
+                    System.out.println("Sigue al usuario con Nick: " + elemento.getNick());
                   }
     
                   for (Like elemento : attr.getLikes()) {
-                    System.out.println(elemento.getComentarioLike().getId());
+                    System.out.println("El like tiene el ID: " + elemento.getComentarioLike().getId());
                     likes.add(elemento.getComentarioLike().getId());
                   }
     
