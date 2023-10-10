@@ -127,6 +127,7 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
     public ResponseEntity<String> borrar(@PathVariable("id") Long id) {
 
         System.out.println(id);
+        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
 
         Optional<Comentario> coment = comentarioService.getRepo().findComentarioByIdIs(id);
