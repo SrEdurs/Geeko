@@ -10,16 +10,16 @@ layout:decorate="~{layout/layout}">
 <body style="background-color: #1E1E1E">
     <th:block layout:fragment="nav"></th:block>
     <th:block layout:fragment="contenido">
-        <div class="container" th:object="${datosProducto}">
+        <div class="container">
             <div class="row">
                 <div class="col" style="margin-right: 5px; max-width: 1100px;">
                     <div class="row">
                         <div class="col">
-                            <a th:href="@{/productos/{id}(id = ${datosProducto.id})}"><img th:src="${datosProducto.imagen}" width="100px" class="h-8 w-8 rounded-full object-cover" style="border-radius: 15px; margin-top: 45px"></a>
+                            <a th:href="@{/productos/{id}(id = ${comentario.producto?.getId})}"><img th:src="${comentario.producto?.getImagen}" width="100px" class="h-8 w-8 rounded-full object-cover" style="border-radius: 15px; margin-top: 45px"></a>
 
                         </div>
                         <div class="col-md-10">
-                            <h4 style="color: #8D92BB; text-align: center; margin-right: 250px;margin-top: 100px;" th:text="${datosProducto.titulo}"></h4>
+                            <h4 style="color: #8D92BB; text-align: center; margin-right: 250px;margin-top: 100px;" th:text="${comentario.producto?.getTitulo}"></h4>
 
                         </div>
                     </div>

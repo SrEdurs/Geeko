@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,12 +108,18 @@ public class HomeController {
                     System.out.println("El like tiene el ID: " + elemento.getComentarioLike().getId());
                     likes.add(elemento.getComentarioLike().getId());
                   }
+
+
+            for (Like elemento : attr.getLikes()) {
+                System.out.println(elemento.getComentarioLike().getId());
+                likes.add(elemento.getComentarioLike().getId());
+              }
     
                 interfazConPantalla.addAttribute("ids", ids);
                 interfazConPantalla.addAttribute("likes", likes);
 
                 final List<Comentario> listaComentarios = comentarioRepository.findTop8ComentariosByActivoIsAndUsuarioInOrderByIdDesc(1, attr.getSeguimientos());
-            interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
+                interfazConPantalla.addAttribute("listaComentarios", listaComentarios);
 
                 final List<Producto> listaProductos = productoRepository.findTop8ProductosByTematicaIsInAndGeekoIsAndActivoIsOrderByIdDesc(usuarioDto.get().getTematicas(), 1, 1);
                 interfazConPantalla.addAttribute("listaProductos", listaProductos);

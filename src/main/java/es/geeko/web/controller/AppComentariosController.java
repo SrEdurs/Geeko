@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class AppComentariosController extends AbstractController<ComentarioDto> {
@@ -53,7 +56,6 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         String username = authentication.getName();
         Optional<UsuarioDto> usuarioDto = this.usuarioService.encuentraPorId(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId());
         Optional<Comentario> comentarioOptional = comentarioRepository.findComentarioByIdIs(id);
-        Optional<ProductoDto> productoDto = productoService.encuentraPorId(comentarioOptional.get().getProducto().getId());
 
         if (comentarioOptional.isPresent() && usuarioDto.isPresent()) {
             UsuarioDto attr = usuarioDto.get();
@@ -72,13 +74,10 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
             //Creamos el DTO del nuevo comentario y lo mandamos a la pantalla
             final ComentarioDto comentarioDto = new ComentarioDto();
-            comentarioDto.setProducto(this.productoService.getRepo().getReferenceById(comentario.getProducto().getId()));
-            comentarioDto.setComentarioPadre(this.comentarioService.getMapper().toDto(this.comentarioService.getRepo().findComentariosByIdIs(comentario.getId())));
-            interfazConPantalla.addAttribute("datosComentario",comentarioDto);
 
+            interfazConPantalla.addAttribute("datosComentario",comentarioDto);
             interfazConPantalla.addAttribute("listaIntereses",listaProductos);
             interfazConPantalla.addAttribute("likes", likes);
-            interfazConPantalla.addAttribute("datosProducto", productoDto.get());
             interfazConPantalla.addAttribute("respuestas", respuestas);
             interfazConPantalla.addAttribute("comentario", comentario);
             interfazConPantalla.addAttribute("datosUsuario", attr);
@@ -105,7 +104,11 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         //Asignación de los datos del nuevo comentario
         Comentario comentario = new Comentario();
         comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
-        comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(comentarioService.encuentraPorIdEntity(id).get().getProducto().getId()));
+        //comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(comentarioService.encuentraPorIdEntity(id).get().getProducto().getId()));
+
+        if (comentarioDto.getProducto() != null){
+            comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(comentarioService.encuentraPorIdEntity(id).get().getProducto().getId()));
+        }
         comentario.setTexto(comentarioDto.getTexto());
         comentario.setActivo(1);
         comentario.setComentarioPadre(this.comentarioService.getRepo().findComentariosByIdIs(id));
@@ -153,6 +156,5 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
     
 }
