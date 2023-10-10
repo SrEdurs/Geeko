@@ -96,15 +96,12 @@ public class HomeController {
 
                 Usuario attr2 = this.usuarioService.getMapper().toEntity(usuarioDto.get());
                 attr.getSeguimientos().add(attr2);
-                System.out.println(attr.getNick() + " es el usuario de la sesión");
     
                 for (Usuario elemento : attr.getSeguimientos()) {
-                    ids.add(elemento.getId());                                                     
-                    System.out.println("Sigue al usuario con Nick: " + elemento.getNick());
+                    ids.add(elemento.getId());                                               
                   }
     
                   for (Like elemento : attr.getLikes()) {
-                    System.out.println("El like tiene el ID: " + elemento.getComentarioLike().getId());
                     likes.add(elemento.getComentarioLike().getId());
                   }
 

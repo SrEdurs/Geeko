@@ -1,6 +1,5 @@
 package es.geeko.web.controller;
 import es.geeko.dto.ComentarioDto;
-import es.geeko.dto.ProductoDto;
 import es.geeko.dto.UsuarioDto;
 import es.geeko.model.Comentario;
 import es.geeko.model.Like;
@@ -25,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -104,7 +101,6 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         //Asignación de los datos del nuevo comentario
         Comentario comentario = new Comentario();
         comentario.setUsuario(this.usuarioService.getRepo().getUsuarioByIdIs(this.usuarioService.getRepo().findUsuarioByEmilio(username).get().getId()));
-        //comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(comentarioService.encuentraPorIdEntity(id).get().getProducto().getId()));
 
         if (comentarioDto.getProducto() != null){
             comentario.setProducto(this.productoService.getRepo().findProductoByIdIs(comentarioService.encuentraPorIdEntity(id).get().getProducto().getId()));
@@ -123,15 +119,9 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
 
     }
 
-
-
     //Método para borrar un comentario con Javascript
     @DeleteMapping("/borrar/{id}")
     public ResponseEntity<String> borrar(@PathVariable("id") Long id) {
-
-        System.out.println(id);
-        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
 
         Optional<Comentario> coment = comentarioService.getRepo().findComentarioByIdIs(id);
         if (coment.isPresent()) {
@@ -150,8 +140,6 @@ public class AppComentariosController extends AbstractController<ComentarioDto> 
         if(coment.get().getComentarioPadre() != null){
 
         }
-
-
             comentarioRepository.save(coment.get());
         }
         return new ResponseEntity<>(HttpStatus.OK);
