@@ -90,7 +90,7 @@ layout:decorate="~{layout/layout}">
                                 <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">No hay respuestas, escribe la primera!</h4>
                             </th:block>
 
-                            <form role="form" th:object="${datosComentario}" method="post">    
+                            <form role="form" th:object="${datosComentario}" method="post" id="miFormulario">    
                                 <div class="p-4 shadow-lg m-5 rounded-5" style="background-color: #FFFFFF; max-width: 500px; min-width: 400px;">
                                     <div class="container">
                                         <div class="row">
@@ -292,6 +292,14 @@ layout:decorate="~{layout/layout}">
             </div>
             </div>
         </div>
+        <script>
+            document.getElementById('InputTexto').addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' && !event.shiftKey) { // Verifica que se presionó Enter sin Shift
+                    event.preventDefault(); // Evita el salto de línea en el textarea
+                    document.getElementById('miFormulario').submit(); // Envía el formulario
+                }
+            });
+        </script>
     </th:block>
     <th:block layout:fragment="pie"></th:block>
 </body>
