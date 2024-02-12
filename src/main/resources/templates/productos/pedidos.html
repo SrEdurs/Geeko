@@ -16,6 +16,10 @@
             <div class="row row-cols-1 " style="max-width: 500px;margin-right: 5px;">
                 <h3 style="color: aliceblue;" class="mb-4">Compras</h3>
 
+                <th:block th:if="${#lists.isEmpty(pedidos)}">
+                    <h4 style="color: #FFFFFF; margin-left: 90px;margin-top: 20px">Todavía no tienes ninguna transacción registrada</h4>
+                </th:block>
+
                 <th:block th:each="elemento : ${pedidos}">
                 <div class="col mb-12 b mb-4 card-body" style="background-color:#D9D9D9">
                         <div class="row g-0 ">
